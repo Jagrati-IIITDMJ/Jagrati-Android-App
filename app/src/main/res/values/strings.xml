@@ -1,3 +1,27 @@
 <resources>
-    <string name="app_name">Jagrati App</string>
+    <string name="app_name">Jagrati</string>
+    <string name="splash_attr">An Initiative by IIITDM Jabalpur</string>
+    <string name="jagrati_logo">Jagrati logo</string>
+    <string name="iiitdmj_logo">IIITDMJ Logo</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="family">Family</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter password</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="title_activity_signup_page">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="signup_email">Enter Email</string>
+    <string name="signup_enter_password">Enter Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="enter_phone_no">Enter Phone No.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="get_otp">Get OTP</string>
+    <string name="n_nclasses">\n\nClasses</string>
+    <string name="n_npast_attendance">\n\npast Attendance</string>
+    <string name="n_nattendance">\n\nAttendance</string>
+    <string name="we_lift_by_lifting_others">We lift by Lifting others</string>
 </resources>
