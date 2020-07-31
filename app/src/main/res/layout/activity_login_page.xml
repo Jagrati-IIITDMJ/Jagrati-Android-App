@@ -7,6 +7,8 @@
     tools:context=".login_page"
     android:background="@color/white">
 
+    
+    
     <ImageView
         android:id="@+id/login_background"
         android:layout_width="524dp"
