@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+//hi this an artificial comment!
+
 public class login_page extends AppCompatActivity {
     private ImageView img;
     private TextView forget_pass;
