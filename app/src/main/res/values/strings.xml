@@ -16,8 +16,7 @@
     <string name="signup_email">Enter Email</string>
     <string name="signup_enter_password">Enter Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="enter_otp">Enter OTP</string>
-    <string name="enter_phone_no">Enter Phone No.</string>
+    <string name="enter_otp">Enter code from mail</string>
     <string name="sign_up">Sign Up</string>
     <string name="get_otp">Get OTP</string>
     <string name="n_nclasses">\n\nClasses</string>

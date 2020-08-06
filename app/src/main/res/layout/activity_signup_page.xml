@@ -111,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/rectangle_input"
-        android:hint="@string/enter_phone_no"
+        android:hint="@string/enter_username"
         android:importantForAutofill="no"
         android:inputType="phone"
         android:padding="10dp"
