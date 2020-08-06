@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "553771882267",
+    "firebase_url": "https://jagrati-app.firebaseio.com",
+    "project_id": "jagrati-app",
+    "storage_bucket": "jagrati-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553771882267:android:8e8e6a5ed6a2e9b65325be",
+        "android_client_info": {
+          "package_name": "com.example.jagratiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553771882267-5cuna4b6jiimrs9s9bddn7sop0goq8dn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jagratiapp",
+            "certificate_hash": "f3e4156ab354d8adc0ead4a94519bc6b0fd15e4d"
+          }
+        },
+        {
+          "client_id": "553771882267-r9los5draonb06geldpbsanfjjr2fn8c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg6CT_AwYkqAdh6WdKEVDCDBo-P14OqTA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553771882267-r9los5draonb06geldpbsanfjjr2fn8c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
