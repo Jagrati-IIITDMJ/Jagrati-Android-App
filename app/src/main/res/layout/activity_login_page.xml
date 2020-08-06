@@ -95,7 +95,7 @@
         android:autofillHints="" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/login_but"
         android:layout_width="157dp"
         android:layout_height="38dp"
         android:layout_marginStart="30dp"

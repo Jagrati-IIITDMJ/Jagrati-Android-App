@@ -106,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/signup_pass" />
 
     <EditText
-        android:id="@+id/sign_up_phone"
+        android:id="@+id/sign_up_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -134,7 +134,7 @@
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_username" />
 
     <Button
         android:id="@+id/sign_up_button"
