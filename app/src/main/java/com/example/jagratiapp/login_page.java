@@ -22,12 +22,7 @@ public class login_page extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
         img = findViewById(R.id.login_background);
         img.setImageAlpha(50);
-        View decorView = getWindow().getDecorView();
 
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
-                View.SYSTEM_UI_FLAG_FULLSCREEN|
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(uiOptions);
         forget_pass = findViewById(R.id.forget_pass);
         forget_pass.setOnClickListener(new View.OnClickListener() {
             @Override
