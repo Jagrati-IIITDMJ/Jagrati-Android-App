@@ -8,13 +8,13 @@
 
     <ProgressBar
         android:id="@+id/signup_progress"
-        android:visibility="gone"
+        android:visibility="invisible"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="82dp"
         android:layout_height="94dp"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="166dp"
-        tools:layout_editor_absoluteY="125dp" />
+        tools:layout_editor_absoluteX="164dp"
+        tools:layout_editor_absoluteY="304dp" />
 
     <ImageView
         android:id="@+id/signup_background"

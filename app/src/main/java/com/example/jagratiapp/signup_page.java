@@ -80,6 +80,7 @@ public class signup_page extends AppCompatActivity {
 
         //starting from here
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
         email = findViewById(R.id.sign_up_email);
         password = findViewById(R.id.signup_pass);
