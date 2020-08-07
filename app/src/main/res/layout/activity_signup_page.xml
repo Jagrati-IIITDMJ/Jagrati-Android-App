@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".signup_page">
 
+    <ProgressBar
+        android:id="@+id/signup_progress"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="82dp"
+        android:layout_height="94dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="166dp"
+        tools:layout_editor_absoluteY="125dp" />
+
     <ImageView
         android:id="@+id/signup_background"
         android:layout_width="524dp"

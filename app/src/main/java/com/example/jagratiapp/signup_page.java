@@ -86,7 +86,7 @@ public class signup_page extends AppCompatActivity {
         cpassword = findViewById(R.id.signup_pass_again);
         username = findViewById(R.id.sign_up_username);
         signup = findViewById(R.id.sign_up_button);
-
+        progressBar = findViewById(R.id.signup_progress);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,7 +161,7 @@ public class signup_page extends AppCompatActivity {
                 && !TextUtils.isEmpty(password_f)
                 && !TextUtils.isEmpty(username_f)){
 
-            progressBar.setVisibility(View.VISIBLE );
+            progressBar.setVisibility(View.VISIBLE);
 
             firebaseAuth.createUserWithEmailAndPassword(email_f,password_f).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
