@@ -186,8 +186,8 @@ public class signup_page extends AppCompatActivity {
 
                         //create a user map so we can create a user in the user collection
                         Map<String ,String> userObj = new HashMap<>();
-                        userObj.put("UserId", currentUserId);
-                        userObj.put("Username",username);
+                        userObj.put("userId", currentUserId);
+                        userObj.put("username",username);
 
                         // save to firestore
                         collectionReference.add(userObj).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -223,8 +223,8 @@ public class signup_page extends AppCompatActivity {
 
                     }else{
                         //something is wrong
-                        progressBar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(signup_page.this,"Not added", Toast.LENGTH_LONG).show();
+//                        progressBar.setVisibility(View.INVISIBLE);
+//                                Toast.makeText(signup_page.this,"Not added", Toast.LENGTH_LONG).show();
 
                     }
 
@@ -237,7 +237,7 @@ public class signup_page extends AppCompatActivity {
                         }
                     });
         }else {
-            Toast.makeText(signup_page.this,"Not sufficient info", Toast.LENGTH_LONG).show();
+            //Toast.makeText(signup_page.this,"Not sufficient info", Toast.LENGTH_LONG).show();
 
         }
     }
