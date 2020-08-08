@@ -65,6 +65,8 @@ public class signup_page extends AppCompatActivity {
         setContentView(R.layout.activity_signup_page);
         img = findViewById(R.id.signup_background);
         img.setImageAlpha(50);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 //        countertext = findViewById(R.id.countertext);
 //        getotp = findViewById(R.id.sign_get_otp);
 
@@ -80,7 +82,7 @@ public class signup_page extends AppCompatActivity {
 
         //starting from here
 
-        firebaseAuth = FirebaseAuth.getInstance();
+
 
         email = findViewById(R.id.sign_up_email);
         password = findViewById(R.id.signup_pass);
@@ -88,6 +90,26 @@ public class signup_page extends AppCompatActivity {
         username = findViewById(R.id.sign_up_username);
         signup = findViewById(R.id.sign_up_button);
         progressBar = findViewById(R.id.signup_progress);
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = firebaseAuth.getCurrentUser();
+
+                if(currentUser != null){
+                    //user is alread log in
+                }
+                else
+                {
+                    // no user yet
+                }
+            }
+        };
+
+
+
+
+
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,81 +161,71 @@ public class signup_page extends AppCompatActivity {
 //
 //            }
 //        });
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                currentUser = firebaseAuth.getCurrentUser();
 
-                if(currentUser != null){
-                    //user is alread log in
-                }
-                else
-                {
-                    // no user yet
-                }
-            }
-        };
 
 
     }
 
-    private void createAccount(String email_f, String password_f, final String username_f) {
-        if(!TextUtils.isEmpty(email_f)
-                && !TextUtils.isEmpty(password_f)
-                && !TextUtils.isEmpty(username_f)){
+    private void createAccount(String email, String password, final String username) {
+        if(!TextUtils.isEmpty(email)
+                && !TextUtils.isEmpty(password)
+                && !TextUtils.isEmpty(username)){
+
 
             progressBar.setVisibility(View.VISIBLE);
 
-            firebaseAuth.createUserWithEmailAndPassword(email_f,password_f).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            firebaseAuth.createUserWithEmailAndPassword(email,password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        //we take user to add journal activity
+
                         currentUser = firebaseAuth.getCurrentUser();
                         assert currentUser != null;
                         final String currentUserId = currentUser.getUid();
 
                         //create a user map so we can create a user in the user collection
-                        Map<String ,String > userObj = new HashMap<>();
+                        Map<String ,String> userObj = new HashMap<>();
                         userObj.put("UserId", currentUserId);
-                        userObj.put("username",username_f);
+                        userObj.put("Username",username);
 
                         // save to firestore
                         collectionReference.add(userObj).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                documentReference.get()
-                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                if(Objects.requireNonNull(task.getResult()).exists()){
-                                                    progressBar.setVisibility(View.INVISIBLE);
-                                                    String name = task.getResult()
-                                                            .getString("username");
-
-                                                    Intent intent = new Intent(signup_page.this,MainActivity.class);
-                                                    intent.putExtra("Username",name);
-                                                    intent.putExtra("userId",currentUserId);
-                                                    startActivity(intent);
-                                                }else{
-                                                    progressBar.setVisibility(View.INVISIBLE);
-                                                }
-
-                                            }
-                                        });
-                            }
-                        })
-                                .addOnFailureListener(new OnFailureListener() {
+                                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onFailure(@NonNull Exception e) {
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if(Objects.requireNonNull(task.getResult()).exists()){
+                                            progressBar.setVisibility(View.INVISIBLE);
+
+                                            Intent intent = new Intent(signup_page.this,login_page.class);
+                                            startActivity(intent);
+
+                                        }else
+                                        {
+
+                                        }
 
                                     }
                                 });
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(signup_page.this,"Failed", Toast.LENGTH_LONG).show();
+                            }
+                        });
 
 
 
                     }else{
                         //something is wrong
+                        progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(signup_page.this,"Not added", Toast.LENGTH_LONG).show();
+
                     }
 
                 }
@@ -225,14 +237,15 @@ public class signup_page extends AppCompatActivity {
                         }
                     });
         }else {
+            Toast.makeText(signup_page.this,"Not sufficient info", Toast.LENGTH_LONG).show();
 
         }
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//            currentUser = firebaseAuth.getCurrentUser();
-//        firebaseAuth.addAuthStateListener(authStateListener);
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+            currentUser = firebaseAuth.getCurrentUser();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
 }

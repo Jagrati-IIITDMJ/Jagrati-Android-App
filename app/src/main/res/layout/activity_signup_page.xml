@@ -123,7 +123,7 @@
         android:background="@drawable/rectangle_input"
         android:hint="@string/enter_username"
         android:importantForAutofill="no"
-        android:inputType="phone"
+
         android:padding="10dp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
