@@ -8,52 +8,47 @@
 
     <ProgressBar
         android:id="@+id/signup_progress"
-        android:visibility="invisible"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="82dp"
-        android:layout_height="94dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="164dp"
-        tools:layout_editor_absoluteY="304dp" />
-
-    <ImageView
-        android:id="@+id/signup_background"
-        android:layout_width="524dp"
-        android:layout_height="607dp"
-        android:contentDescription="@string/jagrati_logo"
-        android:src="@drawable/jagrati_logo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.396"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.308" />
-
-    <ImageView
-        android:id="@+id/sign_up_logo"
-        android:layout_width="210dp"
-        android:layout_height="146dp"
-        android:layout_marginTop="28dp"
-        android:contentDescription="@string/jagrati_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/jagrati_logo" />
-
-    <TextView
-        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/welcome_to"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/sign_up_logo"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/background_activity" />
+
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_to"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.187"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.039" />
+
+        <ImageView
+            android:id="@+id/sign_up_logo"
+            android:layout_width="210dp"
+            android:layout_height="146dp"
+            android:contentDescription="@string/jagrati_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.046"
+            app:srcCompat="@drawable/jagrati_logo" />
 
     <TextView
         android:id="@+id/family"
@@ -64,14 +59,15 @@
         android:text="@string/family"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.797"
+        app:layout_constraintHorizontal_bias="0.767"
         app:layout_constraintStart_toStartOf="@+id/sign_up_logo"
-        app:layout_constraintTop_toTopOf="@+id/sign_up_logo" />
-
+        app:layout_constraintTop_toTopOf="@+id/sign_up_logo"
+        app:layout_constraintVertical_bias="0.005" />
 
     <EditText
-        android:id="@+id/sign_up_email"
+        android:id="@+id/signup_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -81,121 +77,76 @@
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_logo"
+        app:layout_constraintVertical_bias="0.062" />
 
     <EditText
         android:id="@+id/signup_pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:autofillHints="no"
         android:background="@drawable/rectangle_input"
         android:hint="@string/signup_enter_password"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_email" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_email"
+        app:layout_constraintVertical_bias="0.073">
+
+    </EditText>
 
     <EditText
         android:id="@+id/signup_pass_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="@drawable/rectangle_input"
         android:hint="@string/confirm_password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_pass"
+        app:layout_constraintVertical_bias="0.08" />
 
     <EditText
-        android:id="@+id/sign_up_username"
+        android:id="@+id/signup_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="@drawable/rectangle_input"
         android:hint="@string/enter_username"
         android:importantForAutofill="no"
 
         android:padding="10dp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_pass_again" />
-
-    <EditText
-        android:id="@+id/signup_otp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/rectangle_input"
-        android:hint="@string/enter_otp"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        android:maxLength="6"
-        android:padding="10dp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_username" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_pass_again"
+        app:layout_constraintVertical_bias="0.083" />
 
     <Button
-        android:id="@+id/sign_up_button"
+        android:id="@+id/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/sign_up"
+        android:layout_marginBottom="100dp"
 
+        android:background="@drawable/sign_up"
         android:text="@string/sign_up"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.452"
-        app:layout_constraintStart_toEndOf="@+id/sign_get_otp"
-        app:layout_constraintTop_toBottomOf="@+id/signup_otp" />
-
-    <Button
-        android:id="@+id/sign_get_otp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/sign_up"
-
-        android:text="@string/get_otp"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_otp" />
-
-    <TextView
-        android:id="@+id/error_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/sign_up_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_logo" />
-
-    <TextView
-        android:id="@+id/countertext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/sign_get_otp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_otp" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/signup_name"
+        app:layout_constraintVertical_bias="0.904" />
 </androidx.constraintlayout.widget.ConstraintLayout>

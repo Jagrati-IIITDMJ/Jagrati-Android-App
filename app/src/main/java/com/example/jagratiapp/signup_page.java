@@ -23,6 +23,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ThrowOnExtraProperties;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,19 +34,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class signup_page extends AppCompatActivity {
     //ToDO: Commented wale abhi use nahi kar rahe
-    private ImageView img;
-    private EditText email;
-    private EditText password;
-    private EditText cpassword;
-    private ProgressBar progressBar;
-    private Button signup;
-    private EditText username;
-//    private EditText Eotp;
-//    private EditText phoneno;
-//    private Button getotp;
-
-//    private TextView errortext;
-//    private TextView countertext;
+    private ImageView background_img_signup;
+    private EditText email_edit_signup;
+    private EditText password_edit_signup;
+    private EditText cpassword_edit_signup;
+    private EditText name_edit_signup;
+    private ProgressBar progressBar_signup;
+    private Button signup_button_signup;
+    private EditText username_button_signup;
 
 
 
@@ -63,12 +59,10 @@ public class signup_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
-        img = findViewById(R.id.signup_background);
-        img.setImageAlpha(50);
+        background_img_signup = findViewById(R.id.background);
+        background_img_signup.setImageAlpha(50);
 
         firebaseAuth = FirebaseAuth.getInstance();
-//        countertext = findViewById(R.id.countertext);
-//        getotp = findViewById(R.id.sign_get_otp);
 
         View decorView = getWindow().getDecorView();
 
@@ -77,19 +71,15 @@ public class signup_page extends AppCompatActivity {
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility(uiOptions);
-//        Eotp = findViewById(R.id.signup_otp);
-//        Eotp.setVisibility(View.INVISIBLE);
 
         //starting from here
 
-
-
-        email = findViewById(R.id.sign_up_email);
-        password = findViewById(R.id.signup_pass);
-        cpassword = findViewById(R.id.signup_pass_again);
-        username = findViewById(R.id.sign_up_username);
-        signup = findViewById(R.id.sign_up_button);
-        progressBar = findViewById(R.id.signup_progress);
+        email_edit_signup = findViewById(R.id.signup_email);
+        password_edit_signup = findViewById(R.id.signup_pass);
+        cpassword_edit_signup = findViewById(R.id.signup_pass_again);
+        name_edit_signup = findViewById(R.id.signup_name);
+        signup_button_signup = findViewById(R.id.signup_button);
+        progressBar_signup = findViewById(R.id.signup_progress);
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -106,141 +96,76 @@ public class signup_page extends AppCompatActivity {
             }
         };
 
-
-
-
-
-
-        signup.setOnClickListener(new View.OnClickListener() {
+        signup_button_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!TextUtils.isEmpty(email.getText().toString())
-                        && !TextUtils.isEmpty(password.getText().toString())
-                        && !TextUtils.isEmpty(username.getText().toString())){
+                if(!TextUtils.isEmpty(email_edit_signup.getText().toString())
+                        && !TextUtils.isEmpty(password_edit_signup.getText().toString())
+                        && !TextUtils.isEmpty(name_edit_signup.getText().toString())
+                        && !TextUtils.isEmpty(cpassword_edit_signup.getText().toString())){
+                    String email = email_edit_signup.getText().toString().trim();
+                    String password = password_edit_signup.getText().toString().trim();
+                    String name = name_edit_signup.getText().toString().trim();
+                    String cpassword = cpassword_edit_signup.getText().toString().trim();
 
-                    String email_f = email.getText().toString().trim();
-                    String password_f = password.getText().toString().trim();
-                    String username_f = username.getText().toString().trim();
-                    createAccount(email_f,password_f,username_f);
+                    createAccount(email,password,name);
 
 
                 }else{
-                    Toast.makeText(signup_page.this,"Empty not allowed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(signup_page.this,"Empty fields are not allowed", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-//        getotp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                new CountDownTimer(30000, 1000) {
-//
-//                    public void onTick(long millisUntilFinished) {
-//                        countertext.setText("Create OTP again in " + millisUntilFinished / 1000 + " seconds");
-//                        getotp.setEnabled(false);
-//                        Eotp.setVisibility(View.VISIBLE);
-//                    }
-//
-//
-//                    public void onFinish() {
-//                        countertext.setText("Get OTP again");
-//                        getotp.setEnabled(true);
-//                    }
-////                }.start();
-//
-//            }
-//        });
-
-
-
     }
 
-    private void createAccount(String email, String password, final String username) {
-        if(!TextUtils.isEmpty(email)
-                && !TextUtils.isEmpty(password)
-                && !TextUtils.isEmpty(username)){
+    private void createAccount(final String email, String password, final String name) {
+        progressBar_signup.setVisibility(View.VISIBLE);
 
-
-            progressBar.setVisibility(View.VISIBLE);
-
-            firebaseAuth.createUserWithEmailAndPassword(email,password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        progressBar_signup.setVisibility(View.INVISIBLE);
                         currentUser = firebaseAuth.getCurrentUser();
-                        assert currentUser != null;
-                        final String currentUserId = currentUser.getUid();
+                        String currentUser_id = currentUser.getUid();
+                        addUserInDatabase(currentUser_id,email,name);
 
-                        //create a user map so we can create a user in the user collection
-                        Map<String ,String> userObj = new HashMap<>();
-                        userObj.put("userId", currentUserId);
-                        userObj.put("username",username);
+                        Intent intent = new Intent(signup_page.this,HomePage.class);
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressBar_signup.setVisibility(View.INVISIBLE);
+                        Toast.makeText(signup_page.this,e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
-                        // save to firestore
-                        collectionReference.add(userObj).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if(Objects.requireNonNull(task.getResult()).exists()){
-                                            progressBar.setVisibility(View.INVISIBLE);
+    public void addUserInDatabase(String userId,String email,String name) {
+        Map<String,String> userObj = new HashMap<>();
 
-                                            Intent intent = new Intent(signup_page.this,login_page.class);
-                                            startActivity(intent);
+        userObj.put("userId",userId);
+        userObj.put("email",email);
+        userObj.put("username",name);
 
-                                        }else
-                                        {
-
-                                        }
-
-                                    }
-                                });
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressBar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(signup_page.this,"Failed", Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-
-
-                    }else{
-                        //something is wrong
-//                        progressBar.setVisibility(View.INVISIBLE);
-//                                Toast.makeText(signup_page.this,"Not added", Toast.LENGTH_LONG).show();
+        collectionReference.document("user1").set(userObj)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
 
                     }
-
-                }
-            })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                        }
-                    });
-        }else {
-            //Toast.makeText(signup_page.this,"Not sufficient info", Toast.LENGTH_LONG).show();
-
-        }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(signup_page.this,e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
+
 
     @Override
     protected void onStart() {
