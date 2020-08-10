@@ -156,8 +156,22 @@ public class signup_page extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
 
                         progressBar_signup.setVisibility(View.INVISIBLE);
-                        Intent intent = new Intent(signup_page.this,HomePage.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(signup_page.this,HomePage.class);
+//                        startActivity(intent);
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        assert user != null;
+                        user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                Toast.makeText(signup_page.this,"Verification send to email",Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(signup_page.this,"Nahi bheja verification",Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                     }
                 })
