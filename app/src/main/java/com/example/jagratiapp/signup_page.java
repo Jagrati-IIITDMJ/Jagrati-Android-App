@@ -151,10 +151,10 @@ public class signup_page extends AppCompatActivity {
         userObj.put("email",email);
         userObj.put("username",name);
 
-        collectionReference.document("user1").set(userObj)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        collectionReference.add(userObj)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
+                    public void onSuccess(DocumentReference documentReference) {
 
                     }
                 })
