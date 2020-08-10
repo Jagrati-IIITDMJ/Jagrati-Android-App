@@ -34,7 +34,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class signup_page extends AppCompatActivity {
     //ToDO: Commented wale abhi use nahi kar rahe
-    private ImageView background_img_signup;
     private EditText email_edit_signup;
     private EditText password_edit_signup;
     private EditText cpassword_edit_signup;
@@ -59,8 +58,6 @@ public class signup_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
-        background_img_signup = findViewById(R.id.background);
-        background_img_signup.setImageAlpha(50);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
