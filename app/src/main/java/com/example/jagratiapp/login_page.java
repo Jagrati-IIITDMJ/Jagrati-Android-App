@@ -60,11 +60,12 @@ public class login_page extends AppCompatActivity{
                     emailEditText.requestFocus();
                 }
                 else if(TextUtils.isEmpty(passwordEditText.getText().toString())){
-                        passwordEditText.setError("Please enter Password");
+                        passwordEditText.setError("Password papa dalenge");
                         passwordEditText.requestFocus();
                     }
                     else {
                     checkLogin();
+
                 }
             }
         });
@@ -87,7 +88,19 @@ public class login_page extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        startActivity(new Intent(login_page.this,HomePage.class));
+                        FirebaseUser cuser = FirebaseAuth.getInstance().getCurrentUser();
+                        if(cuser != null) {
+                            if (cuser.isEmailVerified()) {
+                                startActivity(new Intent(login_page.this, HomePage.class));
+                                Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                            } else {
+                                FirebaseAuth.getInstance().signOut();
+                                Toast.makeText(login_page.this, "Babes you need to verify", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(login_page.this, "NULL hai boi", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -109,6 +122,22 @@ public class login_page extends AppCompatActivity{
 
     }
 
+//    private void checkIfEmailVerified()
+//    {
+//        FirebaseUser cuser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        assert cuser != null;
+//        if (cuser.isEmailVerified())
+//        {
+//
+//        }
+//        else
+//        {
+//            FirebaseAuth.getInstance().signOut();
+//            Toast.makeText(login_page.this, "Vefify kar naa be#$c@0d", Toast.LENGTH_SHORT).show();
+//
+//        }
+//    }
     @Override
     protected void onStart() {
         super.onStart();

@@ -85,11 +85,9 @@ public class signup_page extends AppCompatActivity {
 
                 if(currentUser != null){
                     //user is alread log in
+                    startActivity(new Intent(signup_page.this,HomePage.class));
                 }
-                else
-                {
-                    // no user yet
-                }
+
             }
         };
 
@@ -154,6 +152,8 @@ public class signup_page extends AppCompatActivity {
 
                         progressBar_signup.setVisibility(View.INVISIBLE);
 
+
+                        //
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         assert user != null;
                         user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -161,6 +161,10 @@ public class signup_page extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
 
                                 Toast.makeText(signup_page.this,"Verification send to email",Toast.LENGTH_SHORT).show();
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(signup_page.this,login_page.class));
+                                finish();
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -169,8 +173,9 @@ public class signup_page extends AppCompatActivity {
                             }
                         });
 
-                        Intent intent = new Intent(signup_page.this,HomePage.class);
-                        startActivity(intent);
+
+
+                        //
 
                     }
                 })
@@ -181,6 +186,9 @@ public class signup_page extends AppCompatActivity {
                     }
                 });
     }
+
+
+
 
 
     @Override
