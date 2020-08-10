@@ -7,4 +7,13 @@
     tools:context=".HomePage">
 
     <include layout="@layout/background_activity"/>
+
+    <Button
+        android:id="@+id/signoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SignOut"
+        tools:layout_editor_absoluteX="214dp"
+        tools:layout_editor_absoluteY="75dp"
+        tools:ignore="MissingConstraints"></Button>
 </androidx.constraintlayout.widget.ConstraintLayout>
