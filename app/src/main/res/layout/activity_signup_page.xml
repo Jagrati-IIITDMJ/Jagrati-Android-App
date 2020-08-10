@@ -24,6 +24,7 @@
         layout="@layout/background_activity" />
 
         <TextView
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,6 +39,7 @@
             app:layout_constraintVertical_bias="0.039" />
 
         <ImageView
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:id="@+id/sign_up_logo"
             android:layout_width="210dp"
             android:layout_height="146dp"
@@ -51,6 +53,7 @@
             app:srcCompat="@drawable/jagrati_logo" />
 
     <TextView
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/family"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,6 +70,7 @@
         app:layout_constraintVertical_bias="0.005" />
 
     <EditText
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/signup_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,6 +88,7 @@
         app:layout_constraintVertical_bias="0.062" />
 
     <EditText
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/signup_pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,6 +107,7 @@
     </EditText>
 
     <EditText
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/signup_pass_again"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,6 +124,7 @@
         app:layout_constraintVertical_bias="0.08" />
 
     <EditText
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/signup_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -134,6 +141,7 @@
         app:layout_constraintVertical_bias="0.083" />
 
     <Button
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

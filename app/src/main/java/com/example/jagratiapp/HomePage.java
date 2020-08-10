@@ -35,7 +35,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void signOut(){
-        firebaseAuth.getInstance().signOut();
+        firebaseAuth.signOut();
     }
 
     private void findViews() {

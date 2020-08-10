@@ -153,8 +153,7 @@ public class signup_page extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
 
                         progressBar_signup.setVisibility(View.INVISIBLE);
-//                        Intent intent = new Intent(signup_page.this,HomePage.class);
-//                        startActivity(intent);
+
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         assert user != null;
                         user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -169,6 +168,9 @@ public class signup_page extends AppCompatActivity {
                                 Toast.makeText(signup_page.this,"Nahi bheja verification",Toast.LENGTH_SHORT).show();
                             }
                         });
+
+                        Intent intent = new Intent(signup_page.this,HomePage.class);
+                        startActivity(intent);
 
                     }
                 })
