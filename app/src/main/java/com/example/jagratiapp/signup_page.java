@@ -126,13 +126,12 @@ public class signup_page extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        progressBar_signup.setVisibility(View.INVISIBLE);
+
                         currentUser = firebaseAuth.getCurrentUser();
                         String currentUser_id = currentUser.getUid();
                         addUserInDatabase(currentUser_id,email,name);
 
-                        Intent intent = new Intent(signup_page.this,HomePage.class);
-                        startActivity(intent);
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -156,12 +155,16 @@ public class signup_page extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
 
+                        progressBar_signup.setVisibility(View.INVISIBLE);
+                        Intent intent = new Intent(signup_page.this,HomePage.class);
+                        startActivity(intent);
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(signup_page.this,e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(signup_page.this,"FUCK OFF, NOT SAVED TO DATABASE ",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
