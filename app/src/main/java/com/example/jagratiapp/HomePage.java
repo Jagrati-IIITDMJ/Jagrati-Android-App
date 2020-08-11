@@ -28,14 +28,15 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signOut();
-                Intent intent = new Intent(HomePage.this,login_page.class);
-                startActivity(intent);
+
             }
         });
     }
 
     private void signOut(){
         firebaseAuth.signOut();
+        startActivity(new Intent(HomePage.this,login_page.class));
+        finish();
     }
 
     private void findViews() {

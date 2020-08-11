@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,7 +46,7 @@ public class login_page extends AppCompatActivity{
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (currentUser != null){
+                if (currentUser != null && currentUser.isEmailVerified()){
                     startActivity(new Intent(login_page.this,HomePage.class));
                 }
             }
@@ -92,9 +93,10 @@ public class login_page extends AppCompatActivity{
                         if(cuser != null) {
                             if (cuser.isEmailVerified()) {
                                 startActivity(new Intent(login_page.this, HomePage.class));
+
                                 Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                             } else {
-                                FirebaseAuth.getInstance().signOut();
+                                
                                 Toast.makeText(login_page.this, "Babes you need to verify", Toast.LENGTH_SHORT).show();
                             }
                         }else{
@@ -122,22 +124,7 @@ public class login_page extends AppCompatActivity{
 
     }
 
-//    private void checkIfEmailVerified()
-//    {
-//        FirebaseUser cuser = FirebaseAuth.getInstance().getCurrentUser();
 //
-//        assert cuser != null;
-//        if (cuser.isEmailVerified())
-//        {
-//
-//        }
-//        else
-//        {
-//            FirebaseAuth.getInstance().signOut();
-//            Toast.makeText(login_page.this, "Vefify kar naa be#$c@0d", Toast.LENGTH_SHORT).show();
-//
-//        }
-//    }
     @Override
     protected void onStart() {
         super.onStart();

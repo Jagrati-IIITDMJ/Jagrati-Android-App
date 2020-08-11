@@ -83,9 +83,10 @@ public class signup_page extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 currentUser = firebaseAuth.getCurrentUser();
 
-                if(currentUser != null){
+                if(currentUser != null && currentUser.isEmailVerified()){
                     //user is alread log in
                     startActivity(new Intent(signup_page.this,HomePage.class));
+                    finish();
                 }
 
             }
