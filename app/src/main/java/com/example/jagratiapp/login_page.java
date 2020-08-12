@@ -43,7 +43,7 @@ public class login_page extends AppCompatActivity{
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
-        authStateListener = new FirebaseAuth.AuthStateListener() {
+        authStateListener =  new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (currentUser != null && currentUser.isEmailVerified()){
@@ -57,7 +57,7 @@ public class login_page extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 if(TextUtils.isEmpty(emailEditText.getText().toString())){
-                    emailEditText.setError("kuch likh to madarchod");
+                    emailEditText.setError("kuch likh toh");
                     emailEditText.requestFocus();
                 }
                 else if(TextUtils.isEmpty(passwordEditText.getText().toString())){

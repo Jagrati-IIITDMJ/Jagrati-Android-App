@@ -37,6 +37,7 @@ public class HomePage extends AppCompatActivity {
         firebaseAuth.signOut();
         startActivity(new Intent(HomePage.this,login_page.class));
         finish();
+
     }
 
     private void findViews() {
