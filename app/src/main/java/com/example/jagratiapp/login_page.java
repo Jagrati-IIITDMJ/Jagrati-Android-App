@@ -3,6 +3,7 @@ package com.example.jagratiapp;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,13 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 //hi this an artificial comment!
 
 public class login_page extends AppCompatActivity{
-    private ImageView img;
     private TextView forgetPasswordLogin;
     private Button signUpButtonLogin;
     private Button loginButtonLogin;
@@ -30,22 +32,42 @@ public class login_page extends AppCompatActivity{
     private EditText passwordEditText;
 
     private FirebaseAuth firebaseAuth;
-
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseUser currentUser;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
-        img = findViewById(R.id.background);
-        img.setImageAlpha(50);
         findViews();
 
         firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (currentUser != null && currentUser.isEmailVerified()){
+                    startActivity(new Intent(login_page.this,HomePage.class));
+                }
+            }
+        };
+
 
         loginButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkLogin();
+                if(TextUtils.isEmpty(emailEditText.getText().toString())){
+                    emailEditText.setError("kuch likh to madarchod");
+                    emailEditText.requestFocus();
+                }
+                else if(TextUtils.isEmpty(passwordEditText.getText().toString())){
+                        passwordEditText.setError("Password papa dalenge");
+                        passwordEditText.requestFocus();
+                    }
+                    else {
+                    checkLogin();
+
+                }
             }
         });
 
@@ -67,7 +89,20 @@ public class login_page extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        startActivity(new Intent(login_page.this,HomePage.class));
+                        FirebaseUser cuser = FirebaseAuth.getInstance().getCurrentUser();
+                        if(cuser != null) {
+                            if (cuser.isEmailVerified()) {
+                                startActivity(new Intent(login_page.this, HomePage.class));
+
+                                Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                            } else {
+                                
+                                Toast.makeText(login_page.this, "Babes you need to verify", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(login_page.this, "NULL hai boi", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -87,5 +122,12 @@ public class login_page extends AppCompatActivity{
         emailEditText = findViewById(R.id.login_email);
         passwordEditText = findViewById(R.id.login_password);
 
+    }
+
+//
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
     }
 }

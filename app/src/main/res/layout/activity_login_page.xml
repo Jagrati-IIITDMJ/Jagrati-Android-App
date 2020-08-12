@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+
+
     tools:context=".login_page"
     android:background="@color/white">
 
@@ -14,6 +17,7 @@
 
 
     <TextView
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,6 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/imageView"
         android:layout_width="210dp"
         android:layout_height="146dp"
@@ -41,6 +46,7 @@
         app:srcCompat="@drawable/jagrati_logo" />
 
     <TextView
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/family"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,6 +61,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <EditText
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/login_email"
         android:layout_width="312dp"
         android:layout_height="50dp"
@@ -73,6 +80,7 @@
         app:layout_constraintVertical_bias="0.411" />
 
     <EditText
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/login_password"
         android:layout_width="312dp"
         android:layout_height="50dp"
@@ -90,6 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/login_email" />
 
     <Button
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/login_button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,6 +115,7 @@
         app:layout_constraintVertical_bias="0.371" />
 
     <Button
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/signUp_button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -120,6 +130,7 @@
         app:layout_constraintVertical_bias="0.371" />
 
     <TextView
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:id="@+id/forget_password_button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

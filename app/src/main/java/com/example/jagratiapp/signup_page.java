@@ -34,7 +34,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class signup_page extends AppCompatActivity {
     //ToDO: Commented wale abhi use nahi kar rahe
-    private ImageView background_img_signup;
     private EditText email_edit_signup;
     private EditText password_edit_signup;
     private EditText cpassword_edit_signup;
@@ -59,8 +58,6 @@ public class signup_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
-        background_img_signup = findViewById(R.id.background);
-        background_img_signup.setImageAlpha(50);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -86,13 +83,12 @@ public class signup_page extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 currentUser = firebaseAuth.getCurrentUser();
 
-                if(currentUser != null){
+                if(currentUser != null && currentUser.isEmailVerified()){
                     //user is alread log in
+                    startActivity(new Intent(signup_page.this,HomePage.class));
+                    finish();
                 }
-                else
-                {
-                    // no user yet
-                }
+
             }
         };
 
@@ -156,8 +152,31 @@ public class signup_page extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
 
                         progressBar_signup.setVisibility(View.INVISIBLE);
-                        Intent intent = new Intent(signup_page.this,HomePage.class);
-                        startActivity(intent);
+
+
+                        //
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        assert user != null;
+                        user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                Toast.makeText(signup_page.this,"Verification send to email",Toast.LENGTH_SHORT).show();
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(signup_page.this,login_page.class));
+                                finish();
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(signup_page.this,"Nahi bheja verification",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+                        //
 
                     }
                 })
@@ -168,6 +187,9 @@ public class signup_page extends AppCompatActivity {
                     }
                 });
     }
+
+
+
 
 
     @Override
