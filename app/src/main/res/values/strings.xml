@@ -23,4 +23,5 @@
     <string name="n_npast_attendance">\n\npast Attendance</string>
     <string name="n_nattendance">\n\nAttendance</string>
     <string name="we_lift_by_lifting_others">We lift by Lifting others</string>
+    <string name="n">\n</string>
 </resources>
