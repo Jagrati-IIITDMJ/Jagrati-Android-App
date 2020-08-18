@@ -48,6 +48,7 @@ public class login_page extends AppCompatActivity{
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (currentUser != null && currentUser.isEmailVerified()){
                     startActivity(new Intent(login_page.this,HomePage.class));
+                    finish();
                 }
             }
         };
@@ -75,6 +76,7 @@ public class login_page extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(login_page.this,signup_page.class));
+                finish();
             }
         });
 
@@ -93,6 +95,7 @@ public class login_page extends AppCompatActivity{
                         if(cuser != null) {
                             if (cuser.isEmailVerified()) {
                                 startActivity(new Intent(login_page.this, HomePage.class));
+                                finish();
 
                                 Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                             } else {
