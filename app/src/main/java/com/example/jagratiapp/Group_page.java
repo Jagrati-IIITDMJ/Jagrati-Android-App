@@ -34,6 +34,7 @@ public class Group_page extends AppCompatActivity {
     private Button saveButton;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //TODO: Path add karna hai.
     private CollectionReference collectionReference = db.collection("");
 
 
@@ -44,8 +45,8 @@ public class Group_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_page);
 
-        fab = findViewById(R.id.fab);
-        recyclerView = findViewById(R.id.recyclerview);
+        fab = findViewById(R.id.fab_group_page);
+        recyclerView = findViewById(R.id.recyclerview_group_page);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

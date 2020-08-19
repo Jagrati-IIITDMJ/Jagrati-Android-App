@@ -3,7 +3,7 @@ package com.example.jagratiapp.model;
 public class Classes {
     private String className;
 
-    private Classes(){}
+    public Classes(){}
 
     public String getClassName() {
         return className;

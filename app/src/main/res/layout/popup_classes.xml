@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_id_group"
+    android:id="@+id/layout_id_classes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,38 +11,40 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="193dp"
+            android:layout_width="514dp"
+            android:layout_height="224dp"
             android:padding="30dp">
-
-            <Button
-                android:id="@+id/saveGroup_pop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/group_name_pop"
-                android:layout_marginEnd="5dp"
-                android:text="@string/saveGroup"
-                android:textSize="14sp"
-                android:textStyle="bold" />
 
 
             <EditText
-                android:id="@+id/group_name_pop"
+                android:id="@+id/class_name_pop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title_group_pop"
+                android:layout_below="@+id/title_class_pop"
                 android:autofillHints="none"
                 android:hint="@string/hint"
                 android:inputType="textAutoCorrect" />
 
             <TextView
-                android:id="@+id/title_group_pop"
+                android:id="@+id/title_class_pop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="@string/enter_group_name"
+                android:text="@string/enter_class_name"
                 android:textSize="20sp"
                 android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/saveClass_pop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/class_name_pop"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="-90dp"
+                android:text="@string/saveClass"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>

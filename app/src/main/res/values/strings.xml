@@ -31,4 +31,6 @@
     <string name="enter_group_name">Enter Group name</string>
     <string name="hint">Enter here</string>
     <string name="saveGroup">Save Group</string>
+    <string name="enter_class_name">Enter Class name</string>
+    <string name="saveClass">Save Class</string>
 </resources>
