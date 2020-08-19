@@ -27,4 +27,8 @@
     <string name="classes">Classes</string>
     <string name="n">pending</string>
     <string name="past_attendance">Students</string>
+    <string name="Group">Group One</string>
+    <string name="enter_group_name">Enter Group name</string>
+    <string name="hint">Enter here</string>
+    <string name="saveGroup">Save Group</string>
 </resources>
