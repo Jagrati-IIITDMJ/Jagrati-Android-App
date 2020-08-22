@@ -33,7 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class signup_page extends AppCompatActivity {
-    //ToDO: Commented wale abhi use nahi kar rahe
+
     private EditText email_edit_signup;
     private EditText password_edit_signup;
     private EditText cpassword_edit_signup;

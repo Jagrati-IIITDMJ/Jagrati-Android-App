@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.jagratiapp.model.Classes;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomePage extends AppCompatActivity {
 
     private Button signout_button;
-
+    private Button attendence;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -23,7 +24,6 @@ public class HomePage extends AppCompatActivity {
         findViews();
 
         firebaseAuth = FirebaseAuth.getInstance();
-
         signout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,16 +31,24 @@ public class HomePage extends AppCompatActivity {
 
             }
         });
+
+        attendence.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomePage.this, Classes_page.class));
+            }
+        });
     }
 
     private void signOut(){
         firebaseAuth.signOut();
         startActivity(new Intent(HomePage.this,login_page.class));
-        finish();
+        finish();finish();
 
     }
 
     private void findViews() {
         signout_button = findViewById(R.id.signoutButton);
+        attendence = findViewById(R.id.attendance);
     }
 }

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.jagratiapp.model.Classes;
+import com.example.jagratiapp.ui.ClassRecyclerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,18 +23,29 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Classes_page extends AppCompatActivity {
-    private RecyclerView recyclerView;
+
     private FloatingActionButton fab;
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
     private EditText classname;
     private Button saveButton;
 
+    private List<Classes> classesList;
+    private RecyclerView recyclerView;
+    private ClassRecyclerAdapter classRecyclerAdapter;
+
+
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     //TODO: Path add karna hai.
-    private CollectionReference collectionReference = db.collection("");
+    private CollectionReference collectionReference = db.collection("Classes");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +53,10 @@ public class Classes_page extends AppCompatActivity {
         setContentView(R.layout.activity_classes_page);
 
         fab = findViewById(R.id.fab_class_page);
-        recyclerView = findViewById(R.id.recyclerview_classes_page);
 
+
+        classesList = new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerview_classes_page);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -103,5 +117,34 @@ public class Classes_page extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if(!queryDocumentSnapshots.isEmpty()) {
+                    for(QueryDocumentSnapshot classs : queryDocumentSnapshots) {
+                        Classes classes = classs.toObject(Classes.class);
+                        classesList.add(classes);
+                    }
+                    classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this,classesList);
+                    recyclerView.setAdapter(classRecyclerAdapter);
+                    classRecyclerAdapter.notifyDataSetChanged();
+
+                }else{
+                    Toast.makeText(Classes_page.this, "It's noting there",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }
