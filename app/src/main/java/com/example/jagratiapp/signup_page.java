@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +53,8 @@ public class signup_page extends AppCompatActivity {
     private  FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private CollectionReference collectionReference = db.collection("User");
+
+
 
 
     @Override
@@ -124,7 +127,7 @@ public class signup_page extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
 
                         currentUser = firebaseAuth.getCurrentUser();
-                        String currentUser_id = currentUser.getUid();
+                        String currentUser_id = currentUser.getUid().toString();
                         addUserInDatabase(currentUser_id,email,name);
 
 
@@ -145,17 +148,13 @@ public class signup_page extends AppCompatActivity {
         userObj.put("userId",userId);
         userObj.put("email",email);
         userObj.put("username",name);
-
-        collectionReference.add(userObj)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        collectionReference.document(user.getUid().toString()).set(userObj)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-
+                    public void onSuccess(Void aVoid) {
                         progressBar_signup.setVisibility(View.INVISIBLE);
 
-
-                        //
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
                         assert user != null;
                         user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -173,19 +172,13 @@ public class signup_page extends AppCompatActivity {
                                 Toast.makeText(signup_page.this,"Nahi bheja verification",Toast.LENGTH_SHORT).show();
                             }
                         });
-
-
-
-                        //
-
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(signup_page.this,"FUCK OFF, NOT SAVED TO DATABASE ",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(signup_page.this,"FUCK OFF, NOT SAVED TO DATABASE ",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

@@ -132,5 +132,15 @@
         app:layout_constraintVertical_bias="0.023"
         tools:ignore="MissingConstraints" />
 
+    <ImageView
+        android:id="@+id/profile"
+        android:layout_width="38dp"
+        android:layout_height="52dp"
+        android:src="@drawable/mail_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

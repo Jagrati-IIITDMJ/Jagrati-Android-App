@@ -1,10 +1,13 @@
 package com.example.jagratiapp.ui;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Classes;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdapter.ViewHolder> {
     private Context context;
     private List<Classes> classesList;
+    private Button item;
 
     public ClassRecyclerAdapter(Context context, List<Classes> classesList) {
         this.context = context;
@@ -47,13 +51,19 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView classname_List;
 
-        public ViewHolder(@NonNull View itemView,Context ctx) {
+        public ViewHolder(@NonNull final View itemView, Context ctx) {
             super(itemView);
             context = ctx;
 
             classname_List = itemView.findViewById(R.id.classname_list);
-
-
+            item = itemView.findViewById(R.id.class_further);
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context,"" + getAdapterPosition(),Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
+
 }

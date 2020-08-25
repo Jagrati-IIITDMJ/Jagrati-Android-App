@@ -29,6 +29,8 @@
         <activity
             android:name=".signup_page"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity android:name=".VolunteerProfile"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -13,8 +13,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class HomePage extends AppCompatActivity {
 
+    private ImageView profile_button;
     private Button signout_button;
-    private Button attendence;
+    private Button classes;
+
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -32,12 +34,22 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        attendence.setOnClickListener(new View.OnClickListener() {
+        classes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomePage.this, Classes_page.class));
+                finish();
             }
         });
+
+        profile_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomePage.this,VolunteerProfile.class));
+                finish();
+            }
+        });
+
     }
 
     private void signOut(){
@@ -47,8 +59,10 @@ public class HomePage extends AppCompatActivity {
 
     }
 
+
     private void findViews() {
         signout_button = findViewById(R.id.signoutButton);
-        attendence = findViewById(R.id.attendance);
+        classes = findViewById(R.id.classes);
+        profile_button = findViewById(R.id.profile);
     }
 }
