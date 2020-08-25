@@ -34,13 +34,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/attendance"
+                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -51,6 +51,7 @@
 
             <Button
                 android:id="@+id/classes"
+                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -67,7 +68,7 @@
 
             <Button
                 android:id="@+id/past_attendance"
-
+                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -78,6 +79,7 @@
 
             <Button
                 android:id="@+id/empty"
+                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -117,16 +119,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:background="@color/cardview_light_background"
-        android:id="@+id/signoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SignOut"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="311dp"
-        tools:layout_editor_absoluteY="16dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
