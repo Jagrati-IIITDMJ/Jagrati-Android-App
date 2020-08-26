@@ -40,6 +40,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
 
         Classes classes = classesList.get(position);
         holder.classname_List.setText(classes.getClassName());
+        holder.classUid = classes.getuId();
 
     }
 
@@ -50,17 +51,19 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView classname_List;
+        String classUid;
 
         public ViewHolder(@NonNull final View itemView, Context ctx) {
             super(itemView);
             context = ctx;
 
             classname_List = itemView.findViewById(R.id.classname_list);
-            item = itemView.findViewById(R.id.class_further);
-            item.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context,"" + getAdapterPosition(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,classUid,Toast.LENGTH_SHORT).show();
+
+
                 }
             });
         }

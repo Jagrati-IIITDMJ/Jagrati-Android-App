@@ -40,6 +40,7 @@ public class Classes_page extends AppCompatActivity {
     private List<Classes> classesList;
     private RecyclerView recyclerView;
     private ClassRecyclerAdapter classRecyclerAdapter;
+    private ClassAdapter adapter;
 
 
 
@@ -53,6 +54,18 @@ public class Classes_page extends AppCompatActivity {
         setContentView(R.layout.activity_classes_page);
 
         fab = findViewById(R.id.fab_class_page);
+
+//        Query query = collectionReference;
+//        FirestoreRecyclerOptions<Classes> options = new FirestoreRecyclerOptions.Builder<Classes>()
+//                .setQuery(query,Classes.class)
+//                .build();
+
+//        adapter = new ClassAdapter(options);
+//        recyclerView = findViewById(R.id.recyclerview_classes_page);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(adapter);
+
 
 
         classesList = new ArrayList<>();
@@ -123,20 +136,22 @@ public class Classes_page extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+//       adapter.startListening();
         collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(!queryDocumentSnapshots.isEmpty()) {
-                    for(QueryDocumentSnapshot classs : queryDocumentSnapshots) {
-                        Classes classes = classs.toObject(Classes.class);
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (QueryDocumentSnapshot classDocumentSnapshot : queryDocumentSnapshots) {
+                        Classes classes = classDocumentSnapshot.toObject(Classes.class);
+                        classes.setuId(classDocumentSnapshot.getId().toString());
                         classesList.add(classes);
                     }
-                    classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this,classesList);
+                    classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this, classesList);
                     recyclerView.setAdapter(classRecyclerAdapter);
                     classRecyclerAdapter.notifyDataSetChanged();
 
-                }else{
-                    Toast.makeText(Classes_page.this, "It's noting there",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Classes_page.this, "It's noting there", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -147,4 +162,10 @@ public class Classes_page extends AppCompatActivity {
             }
         });
     }
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        adapter.stopListening();
+//    }
 }
