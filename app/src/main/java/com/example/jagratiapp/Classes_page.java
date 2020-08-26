@@ -40,7 +40,6 @@ public class Classes_page extends AppCompatActivity {
     private List<Classes> classesList;
     private RecyclerView recyclerView;
     private ClassRecyclerAdapter classRecyclerAdapter;
-    private ClassAdapter adapter;
 
 
 
@@ -55,16 +54,7 @@ public class Classes_page extends AppCompatActivity {
 
         fab = findViewById(R.id.fab_class_page);
 
-//        Query query = collectionReference;
-//        FirestoreRecyclerOptions<Classes> options = new FirestoreRecyclerOptions.Builder<Classes>()
-//                .setQuery(query,Classes.class)
-//                .build();
 
-//        adapter = new ClassAdapter(options);
-//        recyclerView = findViewById(R.id.recyclerview_classes_page);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(adapter);
 
 
 
@@ -163,9 +153,5 @@ public class Classes_page extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        adapter.stopListening();
-//    }
+
 }
