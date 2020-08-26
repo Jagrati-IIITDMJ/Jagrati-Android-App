@@ -41,12 +41,12 @@
                 </androidx.cardview.widget.CardView>
 
                 <ImageView
-                    android:id="@+id/imageView9"
+                    android:id="@+id/attendance_checker"
                     android:layout_width="32dp"
                     android:layout_height="31dp"
                     android:layout_gravity="bottom|end"
                     android:elevation="8dp"
-                    android:visibility=""
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/ic_tick" />
 
 
