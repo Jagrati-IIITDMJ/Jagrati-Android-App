@@ -72,15 +72,7 @@ public class VolunteerProfile extends AppCompatActivity {
         currentUser = firebaseAuth.getCurrentUser();
         String id = currentUser.getUid();
 
-//        collectionReference.whereEqualTo("userId" , id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
-//                    Log.d("documentID", "onSuccess: " + snapshot.getId());
-//
-//                }
-//            }
-//        });
+
         documentReference.get().
                 addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -88,20 +80,7 @@ public class VolunteerProfile extends AppCompatActivity {
                         nameTextView.setText(documentSnapshot.getString("username"));
                         emailTextView.setText(documentSnapshot.getString("email"));
 
-//                        Volunteer volunteer = querySnapshot.toObject(Volunteer.class);
-//                        name.setText(volunteer.getName());
-//                        email.setText(volunteer.getMailId());
-//                        branch.setText(volunteer.getBranch());
-//                        batch.setText(volunteer.getBatch());
-//                        contactNo.setText(volunteer.getContactNo());
-//
-//                        branchTextView.setText(querySnapshot.getString("branch"));
-//                        batchTextView.setText(querySnapshot.getString("batch"));
-//                        contactNoTextView.setText(querySnapshot.getString("contact_no"));
-//
-//                        edit_name.setOnClickListener(VolunteerProfile.this);
-//                        edit_basic_info.setOnClickListener(VolunteerProfile.this);
-//                        edit_contact_no.setOnClickListener(VolunteerProfile.this);
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

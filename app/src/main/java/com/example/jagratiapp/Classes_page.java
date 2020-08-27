@@ -126,7 +126,6 @@ public class Classes_page extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-//       adapter.startListening();
         collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -138,7 +137,10 @@ public class Classes_page extends AppCompatActivity {
                     }
                     classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this, classesList);
                     recyclerView.setAdapter(classRecyclerAdapter);
+                   //d if(recyclerView == null)
                     classRecyclerAdapter.notifyDataSetChanged();
+
+
 
                 } else {
                     Toast.makeText(Classes_page.this, "It's noting there", Toast.LENGTH_SHORT).show();
@@ -152,6 +154,5 @@ public class Classes_page extends AppCompatActivity {
             }
         });
     }
-
 
 }

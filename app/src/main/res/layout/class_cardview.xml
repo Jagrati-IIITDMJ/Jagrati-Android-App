@@ -18,7 +18,11 @@
             android:textStyle="bold"
             android:text="THERE MUST BE SOMETHING" />
 
-
+        <Button
+            android:background="#2DB8846F"
+            android:id="@+id/class_further"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </androidx.cardview.widget.CardView>
 

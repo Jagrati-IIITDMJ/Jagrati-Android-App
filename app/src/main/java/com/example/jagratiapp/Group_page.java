@@ -3,6 +3,7 @@ package com.example.jagratiapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.Group;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.jagratiapp.model.Classes;
 import com.example.jagratiapp.model.Groups;
+import com.example.jagratiapp.ui.ClassRecyclerAdapter;
+import com.example.jagratiapp.ui.GroupRecyclerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,7 +27,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Group_page extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -32,10 +41,14 @@ public class Group_page extends AppCompatActivity {
     private AlertDialog dialog;
     private EditText groupname;
     private Button saveButton;
+    private List<Groups> groupList;
+    private GroupRecyclerAdapter groupRecyclerAdapter;
+    private CollectionReference collectionReference;
+
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //TODO: Path add karna hai.
-    private CollectionReference collectionReference = db.collection("");
+
+
 
 
 
@@ -46,8 +59,15 @@ public class Group_page extends AppCompatActivity {
         setContentView(R.layout.activity_group_page);
 
         fab = findViewById(R.id.fab_group_page);
-        recyclerView = findViewById(R.id.recyclerview_group_page);
+        String documentID = getIntent().getStringExtra("DocId");
 
+        assert documentID != null;
+        collectionReference = db.collection("Classes").document(documentID).collection("Groups");
+
+
+        groupList = new ArrayList<>();
+
+        recyclerView = findViewById(R.id.recyclerview_group_page);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -111,5 +131,37 @@ public class Group_page extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots) {
+                        Groups group = groupDocumentSnapshot.toObject(Groups.class);
+                        //isko hatana mat
+                       // group.setUid(groupDocumentSnapshot.getId().toString());
+                        groupList.add(group);
+                    }
+                    groupRecyclerAdapter = new GroupRecyclerAdapter(Group_page.this, groupList);
+                    recyclerView.setAdapter(groupRecyclerAdapter);
+                    groupRecyclerAdapter.notifyDataSetChanged();
+
+
+
+                } else {
+                    Toast.makeText(Group_page.this, "It's nothing there", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }
