@@ -1,6 +1,7 @@
 package com.example.jagratiapp.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jagratiapp.Group_page;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Classes;
 
@@ -49,23 +51,40 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
         return classesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         public TextView classname_List;
         String classUid;
+
+        public Button classFurther;
+        public Button edit;
+        public Button delete;
 
         public ViewHolder(@NonNull final View itemView, Context ctx) {
             super(itemView);
             context = ctx;
 
             classname_List = itemView.findViewById(R.id.classname_list);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(context,classUid,Toast.LENGTH_SHORT).show();
+            classFurther = itemView.findViewById(R.id.class_further);
+            classFurther.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId())
+            {
+                case R.id.class_further:
+                    goToGroup(classUid,context);
+            }
+        }
+
+        private void goToGroup(String classUid, Context context) {
+            if(classUid != null) {
+                context.startActivity(new Intent(context, Group_page.class).putExtra("DocId", classUid));
+            }else {
+                Toast.makeText(context,"Null hai boi",Toast.LENGTH_LONG).show();
+            }
 
 
-                }
-            });
         }
     }
 

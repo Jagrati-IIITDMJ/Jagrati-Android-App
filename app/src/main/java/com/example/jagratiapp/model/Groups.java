@@ -2,8 +2,17 @@ package com.example.jagratiapp.model;
 
 public class Groups {
     private String groupName;
+    private String Uid;
 
-public Groups(){}
+    public String getUid() {
+        return Uid;
+    }
+
+    public void setUid(String uid) {
+        Uid = uid;
+    }
+
+    public Groups(){}
 
     public String getGroupName() {
         return groupName;
