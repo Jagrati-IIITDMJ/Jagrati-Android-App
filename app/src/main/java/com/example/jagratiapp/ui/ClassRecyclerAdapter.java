@@ -41,18 +41,17 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     public void onBindViewHolder(@NonNull ClassRecyclerAdapter.ViewHolder holder, int position) {
 
         Classes classes = classesList.get(position);
-        holder.classname_List.setText(classes.getClassName());
+        holder.classNameList.setText(classes.getClassName());
         holder.classUid = classes.getuId();
 
     }
 
-    @Override
     public int getItemCount() {
         return classesList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
-        private TextView classname_List;
+        private TextView classNameList;
         private String classUid;
 
         private Button classFurther;
@@ -63,7 +62,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
             super(itemView);
             context = ctx;
 
-            classname_List = itemView.findViewById(R.id.classname_list);
+            classNameList = itemView.findViewById(R.id.classname_list);
             classFurther = itemView.findViewById(R.id.class_further);
             classFurther.setOnClickListener(this);
         }
