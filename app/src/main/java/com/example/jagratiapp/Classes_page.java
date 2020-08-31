@@ -3,6 +3,7 @@ package com.example.jagratiapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +16,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.jagratiapp.model.Classes;
+import com.example.jagratiapp.model.Groups;
+import com.example.jagratiapp.model.Students;
+import com.example.jagratiapp.ui.ClassDiffUtil;
 import com.example.jagratiapp.ui.ClassRecyclerAdapter;
+import com.example.jagratiapp.ui.GroupDiffUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -65,6 +70,37 @@ public class Classes_page extends AppCompatActivity {
                 createPopup();
             }
         });
+
+
+        //yaha hi add kiya hai onstart wala
+        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (QueryDocumentSnapshot classDocumentSnapshot : queryDocumentSnapshots) {
+                        Classes classes = classDocumentSnapshot.toObject(Classes.class);
+                        classes.setuId(classDocumentSnapshot.getId().toString());
+                        classesList.add(classes);
+                    }
+                    classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this, classesList);
+                    recyclerView.setAdapter(classRecyclerAdapter);
+                    //d if(recyclerView == null)
+                    //classRecyclerAdapter.notifyDataSetChanged();
+
+
+
+                } else {
+                    Toast.makeText(Classes_page.this, "It's noting there", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+        //yaha se khatam hai onStart wala
     }
 
     private void createPopup() {
@@ -92,7 +128,7 @@ public class Classes_page extends AppCompatActivity {
     }
 
     private void saveclass(View view) {
-        Classes classes = new Classes();
+        final Classes classes = new Classes();
         classes.setClassName(classname.getText().toString().trim());
         collectionReference.add(classes).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -101,9 +137,13 @@ public class Classes_page extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        List<Classes> newClassList = classesList;
+                        newClassList.add(classes);
+
+                        ClassDiffUtil diffUtil = new ClassDiffUtil(classesList,newClassList);
+                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
+                        diffResult.dispatchUpdatesTo(classRecyclerAdapter);
                         dialog.dismiss();
-                        startActivity(new Intent(Classes_page.this , Classes_page.class));
-                        finish();
 
                     }
                 },800);
@@ -122,33 +162,7 @@ public class Classes_page extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    for (QueryDocumentSnapshot classDocumentSnapshot : queryDocumentSnapshots) {
-                        Classes classes = classDocumentSnapshot.toObject(Classes.class);
-                        classes.setuId(classDocumentSnapshot.getId().toString());
-                        classesList.add(classes);
-                    }
-                    classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this, classesList);
-                    recyclerView.setAdapter(classRecyclerAdapter);
-                   //d if(recyclerView == null)
-                    classRecyclerAdapter.notifyDataSetChanged();
 
-
-
-                } else {
-                    Toast.makeText(Classes_page.this, "It's noting there", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
     }
 
 }

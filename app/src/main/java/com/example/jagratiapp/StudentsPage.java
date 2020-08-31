@@ -69,69 +69,46 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                 .collection("Groups").document(groupUid);
 
         names();
-//        getStudentList();
         addStudent.setOnClickListener(this);
 
-//        StudentRecyclerAdapter studentAdapter = new StudentRecyclerAdapter(this,studentsList);
-//        studentRecyclerView.setAdapter(studentAdapter);
-//        studentAdapter.notifyDataSetChanged();
+
+        //yaha add kiya hai onStart wala
+        //kyunki ab update yaha par nahi ho rha hai
+        documentReference.collection("Students").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()){
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                Students student = documentSnapshot.toObject(Students.class);
+                                //TODO:add student ID
+                                studentsList.add(student);
+                            }
+                            studentAdapter = new StudentRecyclerAdapter(StudentsPage.this,studentsList);
+                            studentRecyclerView.setAdapter(studentAdapter);
+                            //studentAdapter.notifyDataSetChanged();
+                        }
+                        else {
+                            Toast.makeText(StudentsPage.this,"Kuch ni hain",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+                //yaha tak onstart wala hai
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        documentReference.collection("Students").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()){
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                Students student = documentSnapshot.toObject(Students.class);
-                                studentsList.add(student);
-                            }
-                            studentAdapter = new StudentRecyclerAdapter(StudentsPage.this,studentsList);
-                            studentRecyclerView.setAdapter(studentAdapter);
-                            studentAdapter.notifyDataSetChanged();
-                        }
-                        else {
-                            Toast.makeText(StudentsPage.this,"Kuch ni hain",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-
     }
 
-    private void getStudentList() {
-        documentReference.collection("Students").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()){
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                Students student = documentSnapshot.toObject(Students.class);
-                                studentsList.add(student);
-                            }
-
-                        }
-                        else {
-                            Toast.makeText(StudentsPage.this,"Kuch ni hain",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-    }
 
     @Override
     public void onClick(View view) {
@@ -186,15 +163,16 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    dialog.dismiss();
+
                                     List<Students> newStudentList = studentsList;
                                     newStudentList.add(student);
 
                                     StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList,newStudentList);
                                     DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
                                     diffResult.dispatchUpdatesTo(studentAdapter);
+                                    dialog.dismiss();
                                 }
-                            },1000);
+                            },600);
                         }
                     }
                 });
@@ -209,6 +187,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot != null){
                                 className = documentSnapshot.getString("className");
+
                             }
                         }
                     }

@@ -44,6 +44,8 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
         holder.classNameList.setText(classes.getClassName());
         holder.classUid = classes.getuId();
 
+
+
     }
 
     public int getItemCount() {

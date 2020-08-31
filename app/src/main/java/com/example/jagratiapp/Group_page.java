@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +19,11 @@ import android.widget.Toast;
 
 import com.example.jagratiapp.model.Classes;
 import com.example.jagratiapp.model.Groups;
+import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.ui.ClassRecyclerAdapter;
+import com.example.jagratiapp.ui.GroupDiffUtil;
 import com.example.jagratiapp.ui.GroupRecyclerAdapter;
+import com.example.jagratiapp.ui.StudentDiffUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -73,6 +77,37 @@ public class Group_page extends AppCompatActivity {
                 createPopup();
             }
         });
+
+        //Yaha add kiya hai onStart wala
+        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots) {
+                        Groups group = groupDocumentSnapshot.toObject(Groups.class);
+                        //isko hatana mat
+                        group.setUid(groupDocumentSnapshot.getId().toString());
+                        groupList.add(group);
+                    }
+                    groupRecyclerAdapter = new GroupRecyclerAdapter(Group_page.this, groupList,classUid);
+                    recyclerView.setAdapter(groupRecyclerAdapter);
+                    //groupRecyclerAdapter.notifyDataSetChanged();
+
+
+
+                } else {
+                    Toast.makeText(Group_page.this, "It's nothing there", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+        //Yaha tak kiya hai
+
     }
 
     private void createPopup() {
@@ -110,12 +145,16 @@ public class Group_page extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        List<Groups> newGroupList = groupList;
+                        newGroupList.add(group);
+
+                        GroupDiffUtil diffUtil = new GroupDiffUtil(groupList,newGroupList);
+                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
+                        diffResult.dispatchUpdatesTo(groupRecyclerAdapter);
                         dialog.dismiss();
-                        startActivity(new Intent(Group_page.this , Group_page.class));
-                        finish();
 
                     }
-                },800);
+                },600);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -132,32 +171,6 @@ public class Group_page extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots) {
-                        Groups group = groupDocumentSnapshot.toObject(Groups.class);
-                        //isko hatana mat
-                        group.setUid(groupDocumentSnapshot.getId().toString());
-                        groupList.add(group);
-                    }
-                    groupRecyclerAdapter = new GroupRecyclerAdapter(Group_page.this, groupList,classUid);
-                    recyclerView.setAdapter(groupRecyclerAdapter);
-                    groupRecyclerAdapter.notifyDataSetChanged();
 
-
-
-                } else {
-                    Toast.makeText(Group_page.this, "It's nothing there", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
     }
 }

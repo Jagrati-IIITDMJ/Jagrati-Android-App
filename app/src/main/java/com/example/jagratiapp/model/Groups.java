@@ -14,6 +14,10 @@ public class Groups {
 
     public Groups(){}
 
+    public Groups(String groupName) {
+        this.groupName = groupName;
+    }
+
     public String getGroupName() {
         return groupName;
     }

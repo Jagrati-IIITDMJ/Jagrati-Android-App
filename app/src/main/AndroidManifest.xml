@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".StudentsPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".Group_page"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
