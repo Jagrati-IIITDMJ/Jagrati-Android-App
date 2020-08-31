@@ -42,16 +42,12 @@ public class Group_page extends AppCompatActivity {
     private EditText groupname;
     private Button saveButton;
     private List<Groups> groupList;
+    private String classUid;
     private GroupRecyclerAdapter groupRecyclerAdapter;
     private CollectionReference collectionReference;
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +55,10 @@ public class Group_page extends AppCompatActivity {
         setContentView(R.layout.activity_group_page);
 
         fab = findViewById(R.id.fab_group_page);
-        String documentID = getIntent().getStringExtra("DocId");
+        classUid = getIntent().getStringExtra("DocId");
 
-        assert documentID != null;
-        collectionReference = db.collection("Classes").document(documentID).collection("Groups");
+        assert classUid != null;
+        collectionReference = db.collection("Classes").document(classUid).collection("Groups");
 
 
         groupList = new ArrayList<>();
@@ -143,10 +139,10 @@ public class Group_page extends AppCompatActivity {
                     for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots) {
                         Groups group = groupDocumentSnapshot.toObject(Groups.class);
                         //isko hatana mat
-                       // group.setUid(groupDocumentSnapshot.getId().toString());
+                        group.setUid(groupDocumentSnapshot.getId().toString());
                         groupList.add(group);
                     }
-                    groupRecyclerAdapter = new GroupRecyclerAdapter(Group_page.this, groupList);
+                    groupRecyclerAdapter = new GroupRecyclerAdapter(Group_page.this, groupList,classUid);
                     recyclerView.setAdapter(groupRecyclerAdapter);
                     groupRecyclerAdapter.notifyDataSetChanged();
 

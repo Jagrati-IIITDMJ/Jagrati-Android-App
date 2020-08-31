@@ -54,10 +54,6 @@ public class Classes_page extends AppCompatActivity {
 
         fab = findViewById(R.id.fab_class_page);
 
-
-
-
-
         classesList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerview_classes_page);
         recyclerView.setHasFixedSize(true);

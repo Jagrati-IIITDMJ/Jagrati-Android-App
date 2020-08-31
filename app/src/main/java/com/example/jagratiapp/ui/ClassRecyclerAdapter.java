@@ -52,12 +52,12 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
-        public TextView classname_List;
-        String classUid;
+        private TextView classname_List;
+        private String classUid;
 
-        public Button classFurther;
-        public Button edit;
-        public Button delete;
+        private Button classFurther;
+        private Button edit;
+        private Button delete;
 
         public ViewHolder(@NonNull final View itemView, Context ctx) {
             super(itemView);
