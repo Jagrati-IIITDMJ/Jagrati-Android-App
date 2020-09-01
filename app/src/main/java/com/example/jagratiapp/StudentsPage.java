@@ -144,7 +144,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                     && !TextUtils.isEmpty(guardianName)
                     && !TextUtils.isEmpty(mobileNo)
                     && !TextUtils.isEmpty(villageName)){
-                    Students student = new Students(studentName,className,groupName,guardianName,mobileNo,villageName);
+                    Students student = new Students(classUid,groupUid,studentName,className,groupName,guardianName,mobileNo,villageName);
                     saveStudent(student);
                 }
             }
@@ -152,31 +152,31 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
     }
 
     private void saveStudent(final Students student) {
-        documentReference.collection("Students").add(student)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        documentReference.collection("Students").add(student).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(final DocumentReference documentReference) {
+                Toast.makeText(StudentsPage.this,"Student Saved",Toast.LENGTH_SHORT).show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
                     @Override
-                    public void onComplete(@NonNull final Task<DocumentReference> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(StudentsPage.this,"Student Saved",Toast.LENGTH_SHORT).show();
+                    public void run() {
 
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
+                        List<Students> newStudentList = studentsList;
+                        student.setUid(documentReference.getId());
+                        newStudentList.add(student);
 
-                                    List<Students> newStudentList = studentsList;
-                                    //student.setUid(.getId());
-                                    newStudentList.add(student);
-
-                                    StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList,newStudentList);
-                                    DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
-                                    diffResult.dispatchUpdatesTo(studentAdapter);
-                                    dialog.dismiss();
-                                }
-                            },600);
-                        }
+                        StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList,newStudentList);
+                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
+                        diffResult.dispatchUpdatesTo(studentAdapter);
+                        dialog.dismiss();
                     }
-                });
+                },600);
+
+            }
+        });
+
+
     }
 
     private void names() {

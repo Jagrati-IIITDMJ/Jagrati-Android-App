@@ -53,7 +53,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:inputType="phone"
-                    android:hint="Villaeg Name">
+                    android:hint="Village Name">
                 </EditText>
 
                 <Button

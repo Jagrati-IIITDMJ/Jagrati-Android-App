@@ -74,6 +74,7 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
             context.startActivity(intent);
 
         }
+
     }
     }
 
