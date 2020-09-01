@@ -10,7 +10,15 @@ public class Students {
     private String guardianName;
     private String mobileNo;
     private String villageName;
+    private String Uid;
 
+    public String getUid() {
+        return Uid;
+    }
+
+    public void setUid(String uid) {
+        Uid = uid;
+    }
 
     public Students(String studentName, String className, String groupName, String guardianName, String mobileNo, String villageName) {
         this.studentName = studentName;

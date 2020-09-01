@@ -81,7 +81,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                         if (!queryDocumentSnapshots.isEmpty()){
                             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                                 Students student = documentSnapshot.toObject(Students.class);
-                                //TODO:add student ID
+                                student.setUid(documentSnapshot.getId());
                                 studentsList.add(student);
                             }
                             studentAdapter = new StudentRecyclerAdapter(StudentsPage.this,studentsList);
@@ -155,7 +155,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
         documentReference.collection("Students").add(student)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                    public void onComplete(@NonNull final Task<DocumentReference> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(StudentsPage.this,"Student Saved",Toast.LENGTH_SHORT).show();
 
@@ -165,6 +165,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                                 public void run() {
 
                                     List<Students> newStudentList = studentsList;
+                                    //student.setUid(.getId());
                                     newStudentList.add(student);
 
                                     StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList,newStudentList);

@@ -132,12 +132,13 @@ public class Classes_page extends AppCompatActivity {
         classes.setClassName(classname.getText().toString().trim());
         collectionReference.add(classes).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
+            public void onSuccess(final DocumentReference documentReference) {
                 // to add delay
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         List<Classes> newClassList = classesList;
+                        classes.setuId(documentReference.getId());
                         newClassList.add(classes);
 
                         ClassDiffUtil diffUtil = new ClassDiffUtil(classesList,newClassList);
@@ -161,8 +162,6 @@ public class Classes_page extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
     }
 
 }
