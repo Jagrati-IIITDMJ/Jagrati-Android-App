@@ -1,11 +1,14 @@
 package com.example.jagratiapp;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -86,7 +89,7 @@ public class Group_page extends AppCompatActivity {
                     for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots) {
                         Groups group = groupDocumentSnapshot.toObject(Groups.class);
                         //isko hatana mat
-                        group.setUid(groupDocumentSnapshot.getId().toString());
+                        group.setUid(groupDocumentSnapshot.getId());
                         groupList.add(group);
                     }
                     groupRecyclerAdapter = new GroupRecyclerAdapter(Group_page.this, groupList,classUid);
@@ -145,14 +148,42 @@ public class Group_page extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         List<Groups> newGroupList = groupList;
                         group.setUid(documentReference.getId());
                         newGroupList.add(group);
+                        //groupRecyclerAdapter.notifyDataSetChanged();
 
-                        GroupDiffUtil diffUtil = new GroupDiffUtil(groupList,newGroupList);
-                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
-                        diffResult.dispatchUpdatesTo(groupRecyclerAdapter);
+
+                       // GroupDiffUtil diffUtil = new GroupDiffUtil(groupList,newGroupList);
+                       // DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
+
+                       /* diffResult.dispatchUpdatesTo(new ListUpdateCallback() {
+                            @Override
+                            public void onInserted(int position, int count) {
+                                //groupRecyclerAdapter.notifyItemInserted(position);
+                            }
+
+                            @Override
+                            public void onRemoved(int position, int count) {
+                               // groupRecyclerAdapter.notifyItemRangeRemoved(position,count);
+
+                            }
+
+                            @Override
+                            public void onMoved(int fromPosition, int toPosition) {
+                                //groupRecyclerAdapter.notifyItemMoved(fromPosition,toPosition);
+
+                            }
+
+                            @Override
+                            public void onChanged(int position, int count, @Nullable Object payload) {
+                               // groupRecyclerAdapter.notifyItemChanged(position);
+
+                            }
+                        });*/
                         dialog.dismiss();
+
 
                     }
                 },600);
