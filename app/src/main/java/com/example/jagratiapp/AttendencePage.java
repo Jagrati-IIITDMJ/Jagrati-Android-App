@@ -1,25 +1,16 @@
 package com.example.jagratiapp;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.ui.AttendenceRecyclerAdapter;
-import com.example.jagratiapp.ui.StudentDiffUtil;
-import com.example.jagratiapp.ui.StudentRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,9 +22,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class AttendencePage extends AppCompatActivity implements View.OnClickListener{
@@ -52,7 +47,6 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendence_page);
 
-
         attendenceRecyclerView = findViewById(R.id.attendence_recycler_view);
         attendenceRecyclerView.setHasFixedSize(true);
         attendenceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -70,20 +64,20 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
 
        // Map<String, Boolean>
         final Map<String, Boolean> attendence = new HashMap<String, Boolean>();
-        
 
-        documentReference.collection("Students").get()
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        final String formattedDate = df.format(c);
+        final boolean[] flag = {false};
+        collectionReference.get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()){
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                attendence.put(documentSnapshot.getId(),false);
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            if (formattedDate == documentSnapshot.getId()){
+                                flag[0] = true;
+                                break;
                             }
-
-                        }
-                        else {
-                            Toast.makeText(AttendencePage.this,"Access nahi hue",Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -94,45 +88,56 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                     }
                 });
 
-
-
-
-
-
-
-
-
-
-        //yaha add kiya hai onStart wala
-        //kyunki ab update yaha par nahi ho rha hai
-        documentReference.collection("Students").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()){
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                Students student = documentSnapshot.toObject(Students.class);
-                                student.setUid(documentSnapshot.getId());
-                                studentsList.add(student);
+        if (flag[0] == false){
+            documentReference.collection("Students").get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()){
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                    attendence.put(documentSnapshot.getId(),false);
+                                }
                             }
-                            attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList);
-                            attendenceRecyclerView.setAdapter(attendenceAdapter);
-                            //studentAdapter.notifyDataSetChanged();
+                            else {
+                                Toast.makeText(AttendencePage.this,"Access nahi hue",Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else {
-                            Toast.makeText(AttendencePage.this,"Kuch ni hain",Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                    });
+            collectionReference.document(formattedDate).set(attendence);
+        }
+        else{
+            documentReference.collection("Students").get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()){
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                    Students student = documentSnapshot.toObject(Students.class);
+                                    student.setUid(documentSnapshot.getId());
+                                    studentsList.add(student);
+                                }
+                                attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList);
+                                attendenceRecyclerView.setAdapter(attendenceAdapter);
+                                //studentAdapter.notifyDataSetChanged();
+                            }
+                            else {
+                                Toast.makeText(AttendencePage.this,"Kuch ni hain",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
 
-                    }
-                });
-
-
-
+                        }
+                    });
+        }
     }
 
     @Override
