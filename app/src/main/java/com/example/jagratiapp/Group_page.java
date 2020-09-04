@@ -1,32 +1,23 @@
 package com.example.jagratiapp;
 
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.Group;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.ListUpdateCallback;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.jagratiapp.model.Classes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.jagratiapp.model.Groups;
-import com.example.jagratiapp.model.Students;
-import com.example.jagratiapp.ui.ClassRecyclerAdapter;
 import com.example.jagratiapp.ui.GroupDiffUtil;
 import com.example.jagratiapp.ui.GroupRecyclerAdapter;
-import com.example.jagratiapp.ui.StudentDiffUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,7 +27,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +38,7 @@ public class Group_page extends AppCompatActivity {
     private AlertDialog dialog;
     private EditText groupname;
     private Button saveButton;
+    private Button cancel;
     private List<Groups> groupList;
     private String classUid;
     private GroupRecyclerAdapter groupRecyclerAdapter;
@@ -119,6 +110,7 @@ public class Group_page extends AppCompatActivity {
 
         groupname = view.findViewById(R.id.group_name_pop);
         saveButton = view.findViewById(R.id.saveGroup_pop);
+        cancel = view.findViewById(R.id.cancelgroup_pop);
 
         builder.setView(view);
         dialog = builder.create();
@@ -127,12 +119,28 @@ public class Group_page extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!groupname.getText().toString().isEmpty()){
+                if (!groupname.getText().toString().isEmpty()) {
                     saveGroup(view);
-                }else
-                {
-                    Snackbar.make(view,"Empty Not Allowed",Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(view, "Empty Not Allowed", Snackbar.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                        startActivity(new Intent(Group_page.this, Group_page.class));
+                        finish();
+                    }
+                }, 200);
+
+
             }
         });
 
@@ -143,47 +151,18 @@ public class Group_page extends AppCompatActivity {
         group.setGroupName(groupname.getText().toString().trim());
         collectionReference.add(group).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
-            public void onSuccess(final DocumentReference documentReference) {
+            public void onSuccess(DocumentReference documentReference) {
                 // to add delay
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
                         List<Groups> newGroupList = groupList;
-                        group.setUid(documentReference.getId());
                         newGroupList.add(group);
-                        //groupRecyclerAdapter.notifyDataSetChanged();
 
-
-                       // GroupDiffUtil diffUtil = new GroupDiffUtil(groupList,newGroupList);
-                       // DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
-
-                       /* diffResult.dispatchUpdatesTo(new ListUpdateCallback() {
-                            @Override
-                            public void onInserted(int position, int count) {
-                                //groupRecyclerAdapter.notifyItemInserted(position);
-                            }
-
-                            @Override
-                            public void onRemoved(int position, int count) {
-                               // groupRecyclerAdapter.notifyItemRangeRemoved(position,count);
-
-                            }
-
-                            @Override
-                            public void onMoved(int fromPosition, int toPosition) {
-                                //groupRecyclerAdapter.notifyItemMoved(fromPosition,toPosition);
-
-                            }
-
-                            @Override
-                            public void onChanged(int position, int count, @Nullable Object payload) {
-                               // groupRecyclerAdapter.notifyItemChanged(position);
-
-                            }
-                        });*/
+                        GroupDiffUtil diffUtil = new GroupDiffUtil(groupList,newGroupList);
+                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
+                        diffResult.dispatchUpdatesTo(groupRecyclerAdapter);
                         dialog.dismiss();
-
 
                     }
                 },600);
@@ -191,7 +170,7 @@ public class Group_page extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Group_page.this,e.getMessage().toString().trim(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(Group_page.this, e.getMessage().trim(), Toast.LENGTH_SHORT).show();
 
             }
         });
