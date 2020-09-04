@@ -5,9 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Group_page">
-
-    <include layout="@layout/background_activity" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_classes_page"
         android:layout_width="match_parent"
@@ -23,14 +20,16 @@
         android:id="@+id/fab_class_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-
-        android:layout_marginBottom="24dp"
+        android:layout_margin="@dimen/cardview_default_elevation"
         android:clickable="true"
-        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.895"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.943"
         app:srcCompat="@android:drawable/ic_menu_add"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

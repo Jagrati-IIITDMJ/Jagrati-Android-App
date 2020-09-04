@@ -35,11 +35,4 @@
     <string name="saveClass">Save Class</string>
     <string name="Class">Class One</string>
     <string name="checker">checker</string>
-    <string name="cancel">Cancel</string>
-    <string name="add_class">Add Class</string>
-    <string name="enter_the_name_of_class">Enter the name of Class</string>
-    <string name="enter_the_name_of_group">Enter the name of Group</string>
-    <string name="add_Group">Add Group</string>
-    <string name="there_must_be_something">THERE MUST BE SOMETHING</string>
-
 </resources>

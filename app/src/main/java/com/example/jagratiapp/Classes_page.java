@@ -1,15 +1,5 @@
 package com.example.jagratiapp;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +7,20 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.example.jagratiapp.model.Classes;
+import com.example.jagratiapp.model.Groups;
+import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.ui.ClassDiffUtil;
 import com.example.jagratiapp.ui.ClassRecyclerAdapter;
+import com.example.jagratiapp.ui.GroupDiffUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,7 +33,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Classes_page extends AppCompatActivity {
 
@@ -41,7 +41,6 @@ public class Classes_page extends AppCompatActivity {
     private AlertDialog dialog;
     private EditText classname;
     private Button saveButton;
-    private Button cancel;
 
     private List<Classes> classesList;
     private RecyclerView recyclerView;
@@ -80,7 +79,7 @@ public class Classes_page extends AppCompatActivity {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     for (QueryDocumentSnapshot classDocumentSnapshot : queryDocumentSnapshots) {
                         Classes classes = classDocumentSnapshot.toObject(Classes.class);
-                        classes.setuId(classDocumentSnapshot.getId());
+                        classes.setuId(classDocumentSnapshot.getId().toString());
                         classesList.add(classes);
                     }
                     classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this, classesList);
@@ -110,42 +109,22 @@ public class Classes_page extends AppCompatActivity {
 
         classname = view.findViewById(R.id.class_name_pop);
         saveButton = view.findViewById(R.id.saveClass_pop);
-        cancel = view.findViewById(R.id.cancelclass_pop);
 
         builder.setView(view);
         dialog = builder.create();
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!classname.getText().toString().isEmpty()) {
+                if(!classname.getText().toString().isEmpty()){
                     saveclass(view);
-                } else {
-                    Snackbar.make(view, "Empty Not Allowed", Snackbar.LENGTH_SHORT).show();
+                }else
+                {
+                    Snackbar.make(view,"Empty Not Allowed",Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                        startActivity(new Intent(Classes_page.this, Classes_page.class));
-                        finish();
-                    }
-                }, 200);
-
-
-            }
-        });
-
     }
 
     private void saveclass(View view) {
@@ -173,7 +152,7 @@ public class Classes_page extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Classes_page.this, e.getMessage().trim(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Classes_page.this,e.getMessage().toString().trim(),Toast.LENGTH_SHORT).show();
 
             }
         });
