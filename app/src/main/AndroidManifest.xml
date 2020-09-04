@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentCompleteInfo"></activity>
+        <activity android:name=".AttendencePage"></activity>
+        <activity android:name=".StudentCompleteInfo" />
         <activity
             android:name=".StudentsPage"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />

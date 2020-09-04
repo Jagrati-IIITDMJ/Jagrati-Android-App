@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.jagratiapp.model.Students;
+import com.example.jagratiapp.ui.AttendenceRecyclerAdapter;
 import com.example.jagratiapp.ui.StudentDiffUtil;
 import com.example.jagratiapp.ui.StudentRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,8 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentsPage extends AppCompatActivity implements View.OnClickListener{
-
+public class AttendencePage extends AppCompatActivity implements View.OnClickListener{
     private String classUid;
     private String groupUid;
     private Button addStudent;
@@ -50,19 +50,18 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
     private List<Students> studentsList;
-    private RecyclerView studentRecyclerView;
-    private StudentRecyclerAdapter studentAdapter;
+    private RecyclerView attendenceRecyclerView;
+    private AttendenceRecyclerAdapter attendenceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.students_page);
+        setContentView(R.layout.activity_attendence_page);
 
-        takeAttendence = findViewById(R.id.Attendence_button);
-        addStudent = findViewById(R.id.add_student_button);
-        studentRecyclerView = findViewById(R.id.student_recycler_view);
-        studentRecyclerView.setHasFixedSize(true);
-        studentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        attendenceRecyclerView = findViewById(R.id.attendence_recycler_view);
+        attendenceRecyclerView.setHasFixedSize(true);
+        attendenceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         studentsList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
@@ -72,8 +71,8 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                 .collection("Groups").document(groupUid);
 
         names();
-        addStudent.setOnClickListener(this);
-        takeAttendence.setOnClickListener(this);
+
+
 
 
         //yaha add kiya hai onStart wala
@@ -88,12 +87,12 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                                 student.setUid(documentSnapshot.getId());
                                 studentsList.add(student);
                             }
-                            studentAdapter = new StudentRecyclerAdapter(StudentsPage.this,studentsList);
-                            studentRecyclerView.setAdapter(studentAdapter);
+                            attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList);
+                            attendenceRecyclerView.setAdapter(attendenceAdapter);
                             //studentAdapter.notifyDataSetChanged();
                         }
                         else {
-                            Toast.makeText(StudentsPage.this,"Kuch ni hain",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AttendencePage.this,"Kuch ni hain",Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -103,7 +102,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
-                //yaha tak onstart wala hai
+
 
 
     }
@@ -117,73 +116,13 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.add_student_button:
-                addStudentPopup();
-                break;
-            case R.id.Attendence_button:
-                startActivity(new Intent(StudentsPage.this,AttendencePage.class).putExtra("classUid",classUid).putExtra("groupUid",groupUid));
+
         }
     }
 
-    private void addStudentPopup() {
-        builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.add_student_popup,null);
-
-        saveButton = view.findViewById(R.id.save_student);
-        studentNameEditText = view.findViewById(R.id.student_name_popup);
-        guardianNameEditText = view.findViewById(R.id.guardian_name_popup);
-        mobileNoEditText = view.findViewById(R.id.mobile_no_popup);
-        villageNameEditText = view.findViewById(R.id.village_name_popup);
-
-        builder.setView(view);
-        dialog = builder.create();
-        dialog.show();
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String studentName = studentNameEditText.getText().toString().trim();
-                String guardianName = guardianNameEditText.getText().toString().trim();
-                String mobileNo = mobileNoEditText.getText().toString().trim();
-                String villageName = villageNameEditText.getText().toString().trim();
-                if (!TextUtils.isEmpty(studentName)
-                    && !TextUtils.isEmpty(guardianName)
-                    && !TextUtils.isEmpty(mobileNo)
-                    && !TextUtils.isEmpty(villageName)){
-                    Students student = new Students(classUid,groupUid,studentName,className,groupName,guardianName,mobileNo,villageName);
-                    saveStudent(student);
-                }
-            }
-        });
-    }
-
-    private void saveStudent(final Students student) {
-        documentReference.collection("Students").add(student).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(final DocumentReference documentReference) {
-                Toast.makeText(StudentsPage.this,"Student Saved",Toast.LENGTH_SHORT).show();
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        List<Students> newStudentList = studentsList;
-                        student.setUid(documentReference.getId());
-                        newStudentList.add(student);
-
-                        StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList,newStudentList);
-                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
-                        diffResult.dispatchUpdatesTo(studentAdapter);
-                        dialog.dismiss();
-                    }
-                },600);
-
-            }
-        });
 
 
-    }
+
 
     private void names() {
         db.collection("Classes").document(classUid).get()
