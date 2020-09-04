@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,22 +32,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AttendencePage extends AppCompatActivity implements View.OnClickListener{
     private String classUid;
     private String groupUid;
-    private Button addStudent;
     private String className;
     private String groupName;
-    private Button takeAttendence;
-    private AlertDialog dialog;
-    private AlertDialog.Builder builder;
-    private Button saveButton;
-    private EditText studentNameEditText;
-    private EditText guardianNameEditText;
-    private EditText mobileNoEditText;
-    private EditText villageNameEditText;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
     private List<Students> studentsList;
@@ -71,6 +65,40 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                 .collection("Groups").document(groupUid);
 
         names();
+        CollectionReference collectionReference = db.collection("Classes").document(classUid)
+                .collection("Groups").document(groupUid).collection("Attendance");
+
+       // Map<String, Boolean>
+        final Map<String, Boolean> attendence = new HashMap<String, Boolean>();
+        
+
+        documentReference.collection("Students").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()){
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                attendence.put(documentSnapshot.getId(),false);
+                            }
+
+                        }
+                        else {
+                            Toast.makeText(AttendencePage.this,"Access nahi hue",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
+
+
+
+
+
 
 
 
