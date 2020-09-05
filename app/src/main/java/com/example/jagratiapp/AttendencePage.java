@@ -1,26 +1,22 @@
 package com.example.jagratiapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.ui.AttendenceRecyclerAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,7 +27,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 public class AttendencePage extends AppCompatActivity implements View.OnClickListener{
+    private Button submitButton;
     private String classUid;
     private String groupUid;
     private String className;
@@ -41,6 +40,7 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
     private List<Students> studentsList;
     private RecyclerView attendenceRecyclerView;
     private AttendenceRecyclerAdapter attendenceAdapter;
+    private boolean flag = false;
 
 
     @Override
@@ -48,11 +48,12 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendence_page);
 
+        submitButton = findViewById(R.id.submitAttendance);
         attendenceRecyclerView = findViewById(R.id.attendence_recycler_view);
         attendenceRecyclerView.setHasFixedSize(true);
         attendenceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         studentsList = new ArrayList<>();
-        final Map<String, Object> attendence = new HashMap<>();
+        final Map<String, Boolean> attendence = new HashMap<>();
 
         Bundle bundle = getIntent().getExtras();
         classUid = bundle.getString("classUid");
@@ -60,56 +61,49 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
         documentReference = db.collection("Classes").document(classUid)
                 .collection("Groups").document(groupUid);
 
-        names();
-
-
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         final String formattedDate = df.format(c);
 
-        /*final boolean[] flag = {false};
-        collectionReference.get()
+
+        documentReference.collection("Attendance").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                            if (formattedDate == documentSnapshot.getId()){
-                                flag[0] = true;
+                            if (formattedDate.equals(documentSnapshot.getId())){
+                                flag = true;
+                                Toast.makeText(AttendencePage.this,documentSnapshot.getId() + flag, LENGTH_SHORT).show();
                                 break;
                             }
+                            else {
+//                                Toast.makeText(AttendencePage.this,documentSnapshot.getId() +"   " + formattedDate ,Toast.LENGTH_SHORT).show();
+                                }
                         }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                });
 
-                    }
-                });*/
+//        Toast.makeText(AttendencePage.this," " +  flag,Toast.LENGTH_SHORT).show();
 
-     //   if (!flag[0]){
+        if (!flag){
+            //Toast.makeText(AttendencePage.this,"If  dfas",Toast.LENGTH_SHORT).show();
             documentReference.collection("Students").get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             if (!queryDocumentSnapshots.isEmpty()){
                                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                    attendence.put(documentSnapshot.getId(),false);
+                                    attendence.put(documentSnapshot.getId(),true);
                                 }
                                 documentReference.collection("Attendance").document(formattedDate).set(attendence);
-
                             }
                             else {
-                                Toast.makeText(AttendencePage.this,"Access nahi hue",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AttendencePage.this,"Access nahi hue", LENGTH_SHORT).show();
                             }
                         }
                     });
+        }
 
-
-
-
-       // }
-        /*else{
             documentReference.collection("Students").get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
@@ -120,22 +114,34 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                                     student.setUid(documentSnapshot.getId());
                                     studentsList.add(student);
                                 }
-                                attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList);
-                                attendenceRecyclerView.setAdapter(attendenceAdapter);
-                                //studentAdapter.notifyDataSetChanged();
+//                                attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList,attendence);
+//                                attendenceRecyclerView.setAdapter(attendenceAdapter);
+
                             }
                             else {
-                                Toast.makeText(AttendencePage.this,"Kuch ni hain",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AttendencePage.this,"Kuch ni hain", LENGTH_SHORT).show();
                             }
                         }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                        }
                     });
-        }*/
+
+        final Map<String,Boolean> recordedAttendance = new HashMap<>();
+        documentReference.collection("Attendance").document(formattedDate).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()){
+                            for (int i=0;i<studentsList.size();i++){
+                                recordedAttendance.put(studentsList.get(i).getUid(),documentSnapshot.getBoolean(studentsList.get(i).getUid()));
+                            }
+                        }
+                        else {
+                        }
+                    }
+                });
+
+        attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList,recordedAttendance);
+        attendenceRecyclerView.setAdapter(attendenceAdapter);
+
     }
 
     @Override
@@ -151,36 +157,4 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-
-
-
-
-    private void names() {
-        db.collection("Classes").document(classUid).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()){
-                            DocumentSnapshot documentSnapshot = task.getResult();
-                            if (documentSnapshot != null){
-                                className = documentSnapshot.getString("className");
-
-                            }
-                        }
-                    }
-                });
-
-
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    if (documentSnapshot != null){
-                        groupName = documentSnapshot.getString("groupName");
-                    }
-                }
-            }
-        });
-    }
 }
