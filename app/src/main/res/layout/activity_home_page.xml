@@ -66,13 +66,12 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/past_attendance"
-
+                android:id="@+id/quiz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@drawable/ic_main_pass"
-                android:text="@string/past_attendance"
+                android:text="@string/quiz"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 

@@ -126,9 +126,17 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()){
-                            for (int i=0;i<studentsList.size();i++){
-                                recordedAttendance.put(studentsList.get(i).getUid(),documentSnapshot.getBoolean(studentsList.get(i).getUid()));
+                            for (int i=0;i<studentsList.size();i++) {
+                                if (documentSnapshot.getBoolean(studentsList.get(i).getUid()) != null){
+                                    recordedAttendance.put(studentsList.get(i).getUid(),documentSnapshot.getBoolean(studentsList.get(i).getUid()));
+                                }
+                                else {
+                                    documentReference.collection("Attendance").document(formattedDate).update(studentsList.get(i).getUid(),false);
+                                    recordedAttendance.put(studentsList.get(i).getUid(),false);
+                                }
+
                             }
+
                             Log.d("newlist", "onSuccess: "+recordedAttendance);
                             attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList,recordedAttendance,onStudentListener);
                             attendenceRecyclerView.setAdapter(attendenceAdapter);
@@ -162,19 +170,8 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                         documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
                     }
                 }
-                startActivity(new Intent(AttendencePage.this,StudentsPage.class));
-//                for (String key : recordedAttendance.keySet())
-//                {
-//                    documentReference.collection("Attendance").document(formattedDate).update(key,
-//                }
-//                Toast.makeText(AttendencePage.this, (CharSequence) recordedAttendance, LENGTH_SHORT).show();
-//                documentReference.collection("Attendance").document(formattedDate).update(harsh)
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//
-//                            }
-//                        });
+                startActivity(new Intent(AttendencePage.this,StudentsPage.class).putExtra("classUid",classUid).putExtra("groupUid",groupUid));
+                finish();
                 break;
         }
     }
