@@ -47,7 +47,7 @@
                     android:layout_gravity="bottom|end"
                     android:elevation="8dp"
                     android:visibility="invisible"
-                    app:srcCompat="@drawable/ic_tick" />
+                    app:srcCompat="@drawable/ic_tick"/>
 
 
             </androidx.cardview.widget.CardView>

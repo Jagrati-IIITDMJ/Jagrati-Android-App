@@ -80,7 +80,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
 //                    .putExtra("classID",classID)
 //                    .putExtra("groupID",groupID));
 
-            if (recordedAttendance.get(studentID) == true){
+            if (recordedAttendance.get(studentID)){
                 recordedAttendance.put(studentID,false);
             }
             else {
