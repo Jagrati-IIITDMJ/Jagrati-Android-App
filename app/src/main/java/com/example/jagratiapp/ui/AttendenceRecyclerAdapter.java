@@ -82,9 +82,11 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
 
             if (recordedAttendance.get(studentID)){
                 recordedAttendance.put(studentID,false);
+                attendanceChecker.setVisibility(View.INVISIBLE);
             }
             else {
                 recordedAttendance.put(studentID,true);
+                attendanceChecker.setVisibility(View.VISIBLE);
             }
 
         }
