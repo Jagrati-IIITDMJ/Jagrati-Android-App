@@ -1,5 +1,6 @@
 package com.example.jagratiapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,13 +25,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class AttendencePage extends AppCompatActivity implements View.OnClickListener{
+public class AttendencePage extends AppCompatActivity implements View.OnClickListener , AttendenceRecyclerAdapter.OnStudentListener {
     private Button submitButton;
     private String classUid;
     private String groupUid;
@@ -42,7 +44,9 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
     private RecyclerView attendenceRecyclerView;
     private AttendenceRecyclerAdapter attendenceAdapter;
     private boolean flag;
-
+    private AttendenceRecyclerAdapter.OnStudentListener onStudentListener = this;
+    private final Map<String,Boolean> recordedAttendance = new HashMap<>();
+    private String formattedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +68,7 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        final String formattedDate = df.format(c);
+        formattedDate = df.format(c);
 
         documentReference.collection("Students").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -94,16 +98,15 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                                 break;
                             }
                         }
-                        Toast.makeText(AttendencePage.this,""+ flag, LENGTH_SHORT).show();
+//                        Toast.makeText(AttendencePage.this,""+ flag, LENGTH_SHORT).show();
                         if (!flag){
-
                             documentReference.collection("Students").get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                             if (!queryDocumentSnapshots.isEmpty()){
                                                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                                    attendence.put(documentSnapshot.getId(),true);
+                                                    attendence.put(documentSnapshot.getId(),false);
                                                 }
                                                 documentReference.collection("Attendance").document(formattedDate).set(attendence);
                                             }
@@ -117,11 +120,8 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                     }
                 });
 
-
-
-
-            final Map<String,Boolean> recordedAttendance = new HashMap<>();
-            documentReference.collection("Attendance").document(formattedDate).get()
+//        final Map<String,Boolean> recordedAttendance = new HashMap<>();
+        documentReference.collection("Attendance").document(formattedDate).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -130,11 +130,16 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                                 recordedAttendance.put(studentsList.get(i).getUid(),documentSnapshot.getBoolean(studentsList.get(i).getUid()));
                             }
                             Log.d("newlist", "onSuccess: "+recordedAttendance);
-                            attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList,recordedAttendance);
+                            attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList,recordedAttendance,onStudentListener);
                             attendenceRecyclerView.setAdapter(attendenceAdapter);
                         }
                     }
                 });
+
+        submitButton.setOnClickListener(this);
+
+//            attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList,recordedAttendance,this);
+//            attendenceRecyclerView.setAdapter(attendenceAdapter);
     }
 
     @Override
@@ -147,7 +152,37 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()){
 
+            case R.id.submitAttendance :
+                Toast.makeText(AttendencePage.this, "Yes i m there", LENGTH_SHORT).show();
+                if(!recordedAttendance.isEmpty()) {
+                    Iterator it = recordedAttendance.entrySet().iterator();
+                    while(it.hasNext()) {
+                        Map.Entry obj = (Map.Entry)it.next();
+                        Toast.makeText(AttendencePage.this,obj.getKey().toString() + " " + obj.getValue(), LENGTH_SHORT).show();
+                        documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
+                    }
+                }
+                startActivity(new Intent(AttendencePage.this,StudentsPage.class));
+//                for (String key : recordedAttendance.keySet())
+//                {
+//                    documentReference.collection("Attendance").document(formattedDate).update(key,
+//                }
+//                Toast.makeText(AttendencePage.this, (CharSequence) recordedAttendance, LENGTH_SHORT).show();
+//                documentReference.collection("Attendance").document(formattedDate).update(harsh)
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//
+//                            }
+//                        });
+                break;
         }
     }
 
+    @Override
+    public void onStudentClick(int position,boolean state) {
+        Students student = studentsList.get(position);
+        recordedAttendance.put(student.getUid(),state);
+        Toast.makeText(AttendencePage.this," " + recordedAttendance.get(student.getUid()), Toast.LENGTH_SHORT).show();
+    }
 }

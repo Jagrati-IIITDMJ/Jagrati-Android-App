@@ -20,18 +20,20 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
     private Context context;
     private List<Students> studentsList;
     private Map<String,Boolean> recordedAttendance;
+    private OnStudentListener onStudentListener;
 
-    public AttendenceRecyclerAdapter(Context context, List<Students> studentsList, Map<String, Boolean> recordedAttendance) {
+    public AttendenceRecyclerAdapter(Context context, List<Students> studentsList, Map<String, Boolean> recordedAttendance,OnStudentListener onStudentListener) {
         this.context = context;
         this.studentsList = studentsList;
         this.recordedAttendance = recordedAttendance;
+        this.onStudentListener = onStudentListener;
     }
 
     @NonNull
     @Override
     public AttendenceRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.student_card,parent,false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,onStudentListener);
     }
 
     @Override
@@ -61,14 +63,14 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
         private String studentID;
         private String classID;
         private String groupID;
+        private OnStudentListener onStudentListener;
 
-
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView,OnStudentListener onStudentListener) {
             super(itemView);
-
-            studentName = itemView.findViewById(R.id.student_name);
-            villageName = itemView.findViewById(R.id.student_village);
-            attendanceChecker = itemView.findViewById(R.id.attendance_checker);
+            this.onStudentListener = onStudentListener;
+            this.studentName = itemView.findViewById(R.id.student_name);
+            this.villageName = itemView.findViewById(R.id.student_village);
+            this.attendanceChecker = itemView.findViewById(R.id.attendance_checker);
 
             itemView.setOnClickListener(this);
 
@@ -76,24 +78,29 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
 
         @Override
         public void onClick(View view) {
+            boolean state;
 //            context.startActivity(new Intent(context, StudentCompleteInfo.class).putExtra("studentID",studentID)
 //                    .putExtra("classID",classID)
 //                    .putExtra("groupID",groupID));
-
+//
             if (recordedAttendance.get(studentID)){
-                recordedAttendance.put(studentID,false);
+                state = false;
                 attendanceChecker.setVisibility(View.INVISIBLE);
             }
             else {
-                recordedAttendance.put(studentID,true);
+                state = true;
                 attendanceChecker.setVisibility(View.VISIBLE);
             }
-
+            onStudentListener.onStudentClick(getAdapterPosition(),state);
         }
 
         @Override
         public boolean onLongClick(View view) {
             return false;
         }
+    }
+
+    public interface OnStudentListener{
+        void onStudentClick(int position,boolean state);
     }
 }
