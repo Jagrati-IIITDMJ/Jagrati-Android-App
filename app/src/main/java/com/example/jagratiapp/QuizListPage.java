@@ -49,10 +49,9 @@ public class QuizListPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_list_page);
-        collectionReference = db.collection("Classes").document(classid).collection("Groups");
-
 
         classid = getIntent().getStringExtra("ClassID");
+        collectionReference = db.collection("Classes").document(classid).collection("Groups");
 
         fab = findViewById(R.id.fab_quizList_page);
 
