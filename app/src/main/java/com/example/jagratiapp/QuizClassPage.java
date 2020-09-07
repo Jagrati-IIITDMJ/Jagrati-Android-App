@@ -43,7 +43,7 @@ public class QuizClassPage extends AppCompatActivity {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     for (QueryDocumentSnapshot classDocumentSnapshot : queryDocumentSnapshots) {
                         Classes classes = classDocumentSnapshot.toObject(Classes.class);
-                        classes.setuId(classDocumentSnapshot.getId().toString());
+                        classes.setuId(classDocumentSnapshot.getId());
                         classesList.add(classes);
                     }
                     quizClassAdapter = new QuizClassAdapter(QuizClassPage.this, classesList);

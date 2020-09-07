@@ -36,4 +36,8 @@
     <string name="Class">Class One</string>
     <string name="checker">checker</string>
     <string name="quiz">quiz</string>
+    <string name="addQuiz">Add Quiz</string>
+    <string name="enter_quiz_detail">"Enter name and description "</string>
+    <string name="hint_quizName">Enter Quiz Name here</string>
+    <string name="hint_quizDescription">Enter Quiz Description here</string>
 </resources>

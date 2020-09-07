@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_id_addQuiz"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:padding="30dp">
+
+
+            <Button
+                android:id="@+id/savequiz_pop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/quizDescription_pop"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="-90dp"
+                android:text="@string/addQuiz"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/quizName_pop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_quiz_pop"
+                android:autofillHints="none"
+                android:hint="@string/hint_quizName"
+                android:inputType="textAutoCorrect" />
+
+            <EditText
+                android:id="@+id/quizDescription_pop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/quizName_pop"
+                android:autofillHints="none"
+                android:hint="@string/hint_quizDescription"
+                android:inputType="textAutoCorrect" />
+
+            <TextView
+                android:id="@+id/title_quiz_pop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/enter_quiz_detail"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

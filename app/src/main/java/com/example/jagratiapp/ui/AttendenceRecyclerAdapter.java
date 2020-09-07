@@ -6,15 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jagratiapp.AttendencePage;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Students;
 
 import java.util.List;
 import java.util.Map;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRecyclerAdapter.ViewHolder>  {
     private Context context;
@@ -22,7 +26,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
     private Map<String,Boolean> recordedAttendance;
     private OnStudentListener onStudentListener;
 
-    public AttendenceRecyclerAdapter(Context context, List<Students> studentsList, Map<String, Boolean> recordedAttendance,OnStudentListener onStudentListener) {
+    public AttendenceRecyclerAdapter(Context context, List<Students> studentsList, Map<String, Boolean> recordedAttendance, OnStudentListener onStudentListener) {
         this.context = context;
         this.studentsList = studentsList;
         this.recordedAttendance = recordedAttendance;
@@ -42,12 +46,16 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
         holder.studentName.setText(student.getStudentName());
         holder.villageName.setText(student.getVillageName());
         holder.studentID = student.getUid();
+        holder.classID = student.getClassID();
+        holder.groupID = student.getGroupID();
+
+        if(student.getUid()==null)
+            Toast.makeText(context, "phat gai", LENGTH_SHORT).show();
+
         boolean attendanceState = recordedAttendance.get(holder.studentID);
         if (attendanceState){
             holder.attendanceChecker.setVisibility(View.VISIBLE);
         }
-        holder.classID = student.getClassID();
-        holder.groupID = student.getGroupID();
 
     }
 
@@ -65,12 +73,14 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
         private String groupID;
         private OnStudentListener onStudentListener;
 
+
         public ViewHolder(@NonNull View itemView,OnStudentListener onStudentListener) {
             super(itemView);
             this.onStudentListener = onStudentListener;
             this.studentName = itemView.findViewById(R.id.student_name);
             this.villageName = itemView.findViewById(R.id.student_village);
             this.attendanceChecker = itemView.findViewById(R.id.attendance_checker);
+
 
             itemView.setOnClickListener(this);
 

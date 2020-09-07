@@ -98,7 +98,7 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                                 break;
                             }
                         }
-//                        Toast.makeText(AttendencePage.this,""+ flag, LENGTH_SHORT).show();
+
                         if (!flag){
                             documentReference.collection("Students").get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -120,7 +120,6 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                     }
                 });
 
-//        final Map<String,Boolean> recordedAttendance = new HashMap<>();
         documentReference.collection("Attendance").document(formattedDate).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -136,8 +135,6 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                                 }
 
                             }
-
-                            Log.d("newlist", "onSuccess: "+recordedAttendance);
                             attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList,recordedAttendance,onStudentListener);
                             attendenceRecyclerView.setAdapter(attendenceAdapter);
                         }
@@ -146,8 +143,6 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
 
         submitButton.setOnClickListener(this);
 
-//            attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList,recordedAttendance,this);
-//            attendenceRecyclerView.setAdapter(attendenceAdapter);
     }
 
     @Override

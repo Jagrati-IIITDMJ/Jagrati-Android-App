@@ -49,7 +49,6 @@ public class Classes_page extends AppCompatActivity {
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //TODO: Path add karna hai.
     private CollectionReference collectionReference = db.collection("Classes");
 
     @Override
@@ -72,20 +71,17 @@ public class Classes_page extends AppCompatActivity {
         });
 
 
-        //yaha hi add kiya hai onstart wala
         collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     for (QueryDocumentSnapshot classDocumentSnapshot : queryDocumentSnapshots) {
                         Classes classes = classDocumentSnapshot.toObject(Classes.class);
-                        classes.setuId(classDocumentSnapshot.getId().toString());
+                        classes.setuId(classDocumentSnapshot.getId());
                         classesList.add(classes);
                     }
                     classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this, classesList);
                     recyclerView.setAdapter(classRecyclerAdapter);
-                    //d if(recyclerView == null)
-                    //classRecyclerAdapter.notifyDataSetChanged();
 
 
 
@@ -100,7 +96,7 @@ public class Classes_page extends AppCompatActivity {
 
             }
         });
-        //yaha se khatam hai onStart wala
+
     }
 
     private void createPopup() {
@@ -147,7 +143,7 @@ public class Classes_page extends AppCompatActivity {
                   dialog.dismiss();
 
                     }
-                },800);
+                },1);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

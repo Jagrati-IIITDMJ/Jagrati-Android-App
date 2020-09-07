@@ -66,6 +66,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
         studentsList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
         classUid = bundle.getString("classUid");
         groupUid = bundle.getString("groupUid");
         documentReference = db.collection("Classes").document(classUid)
@@ -122,6 +123,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.Attendence_button:
                 startActivity(new Intent(StudentsPage.this,AttendencePage.class).putExtra("classUid",classUid).putExtra("groupUid",groupUid));
+                finish();
         }
     }
 
