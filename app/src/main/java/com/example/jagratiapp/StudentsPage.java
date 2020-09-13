@@ -1,12 +1,5 @@
 package com.example.jagratiapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.ui.StudentDiffUtil;
@@ -25,12 +26,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StudentsPage extends AppCompatActivity implements View.OnClickListener{
 
@@ -47,6 +52,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
     private EditText guardianNameEditText;
     private EditText mobileNoEditText;
     private EditText villageNameEditText;
+    private EditText rollnoEditText;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
     private List<Students> studentsList;
@@ -136,6 +142,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
         guardianNameEditText = view.findViewById(R.id.guardian_name_popup);
         mobileNoEditText = view.findViewById(R.id.mobile_no_popup);
         villageNameEditText = view.findViewById(R.id.village_name_popup);
+        rollnoEditText = view.findViewById(R.id.roll_no_popup);
 
         builder.setView(view);
         dialog = builder.create();
@@ -148,11 +155,13 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                 String guardianName = guardianNameEditText.getText().toString().trim();
                 String mobileNo = mobileNoEditText.getText().toString().trim();
                 String villageName = villageNameEditText.getText().toString().trim();
+                String rollno = rollnoEditText.getText().toString().trim();
                 if (!TextUtils.isEmpty(studentName)
                     && !TextUtils.isEmpty(guardianName)
                     && !TextUtils.isEmpty(mobileNo)
-                    && !TextUtils.isEmpty(villageName)){
-                    Students student = new Students(classUid,groupUid,studentName,className,groupName,guardianName,mobileNo,villageName);
+                    && !TextUtils.isEmpty(villageName)
+                    && !TextUtils.isEmpty(rollno)){
+                    Students student = new Students(classUid,groupUid,studentName,className,groupName,guardianName,mobileNo,villageName,rollno);
                     saveStudent(student);
                 }
             }
@@ -160,31 +169,50 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
     }
 
     private void saveStudent(final Students student) {
-        documentReference.collection("Students").add(student).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(final DocumentReference documentReference) {
-                Toast.makeText(StudentsPage.this,"Student Saved",Toast.LENGTH_SHORT).show();
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+        db.collection("Students").document(student.getRollno())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    public void run() {
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (!value.exists()){
+                            documentReference.collection("Students").document(student.getRollno()).set(student)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Map<String,String> local = new HashMap<>();
+                                            local.put("classUid",classUid);
+                                            local.put("groupUid",groupUid);
+                                            db.collection("Students").document(student.getRollno()).set(local)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Toast.makeText(StudentsPage.this,"Student Saved",Toast.LENGTH_SHORT).show();
+                                                            Handler handler = new Handler();
+                                                            handler.postDelayed(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    List<Students> newStudentList = studentsList;
+                                                                    student.setUid(documentReference.getId());
+                                                                    newStudentList.add(student);
+                                                                    StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList,newStudentList);
+                                                                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
+                                                                diffResult.dispatchUpdatesTo(studentAdapter);
+                                                                                dialog.dismiss();
+                                                                            }
+                                                                        },600);
+                                                                    }})
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
 
-                        List<Students> newStudentList = studentsList;
-                        student.setUid(documentReference.getId());
-                        newStudentList.add(student);
-
-                        StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList,newStudentList);
-                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
-                        diffResult.dispatchUpdatesTo(studentAdapter);
-                        dialog.dismiss();
+                                                                    }});
+                                                    }
+                                                });
+                        }
+                        else {
+                            Toast.makeText(StudentsPage.this,"Roll no Exists",Toast.LENGTH_SHORT).show();
+                        }
                     }
-                },600);
-
-            }
-        });
-
-
+                });
     }
 
     private void names() {

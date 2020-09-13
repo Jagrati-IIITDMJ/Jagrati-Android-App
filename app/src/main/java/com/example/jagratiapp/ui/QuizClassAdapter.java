@@ -9,15 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jagratiapp.QuizClassPage;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.jagratiapp.QuizListPage;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Classes;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class QuizClassAdapter extends RecyclerView.Adapter<QuizClassAdapter.ViewHolder>{
     private Context context;
@@ -52,6 +51,7 @@ public class QuizClassAdapter extends RecyclerView.Adapter<QuizClassAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView classNameList;
         private String classid;
+
         public ViewHolder(@NonNull View itemView,Context ctx) {
             super(itemView);
             context = ctx;

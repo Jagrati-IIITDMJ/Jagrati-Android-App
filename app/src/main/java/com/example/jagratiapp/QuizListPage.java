@@ -1,11 +1,5 @@
 package com.example.jagratiapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,9 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.jagratiapp.model.Classes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.jagratiapp.model.Quiz;
-import com.example.jagratiapp.ui.ClassRecyclerAdapter;
 import com.example.jagratiapp.ui.QuizListAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,7 +49,7 @@ public class QuizListPage extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_list_page);
 
         classid = getIntent().getStringExtra("ClassID");
-        collectionReference = db.collection("Classes").document(classid).collection("Groups");
+        collectionReference = db.collection("Classes").document(classid).collection("Quizzes");
 
         fab = findViewById(R.id.fab_quizList_page);
 

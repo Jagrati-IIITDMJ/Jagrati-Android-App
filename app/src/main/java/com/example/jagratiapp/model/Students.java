@@ -1,9 +1,5 @@
 package com.example.jagratiapp.model;
 
-import android.os.Parcelable;
-
-import java.io.StringReader;
-
 public class Students {
 
     private String studentName;
@@ -15,6 +11,7 @@ public class Students {
     private String mobileNo;
     private String villageName;
     private String Uid;
+    private String rollno;
 
     public String getClassID() {
         return classID;
@@ -42,7 +39,7 @@ public class Students {
         Uid = uid;
     }
 
-    public Students(String classID,String groupID,String studentName, String className, String groupName, String guardianName, String mobileNo, String villageName) {
+    public Students(String classID,String groupID,String studentName, String className, String groupName, String guardianName, String mobileNo, String villageName,String rollno) {
         this.classID = classID;
         this.groupID = groupID;
         this.studentName = studentName;
@@ -51,6 +48,7 @@ public class Students {
         this.guardianName = guardianName;
         this.mobileNo = mobileNo;
         this.villageName = villageName;
+        this.rollno = rollno;
     }
 
     public Students(){}
@@ -101,5 +99,13 @@ public class Students {
 
     public void setVillageName(String villageName) {
         this.villageName = villageName;
+    }
+
+    public String getRollno() {
+        return rollno;
+    }
+
+    public void setRollno(String rollno) {
+        this.rollno = rollno;
     }
 }
