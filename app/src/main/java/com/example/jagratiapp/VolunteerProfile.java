@@ -35,6 +35,7 @@ import com.google.gson.internal.$Gson$Preconditions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class VolunteerProfile extends AppCompatActivity {
 
@@ -117,6 +118,7 @@ public class VolunteerProfile extends AppCompatActivity {
         builder.setView(view);
         alertDialog = builder.create();
         alertDialog.show();
+
 
 
         emailEditText = view.findViewById(R.id.email);

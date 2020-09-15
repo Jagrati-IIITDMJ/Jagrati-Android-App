@@ -64,13 +64,7 @@ public class signup_page extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        View decorView = getWindow().getDecorView();
 
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                View.SYSTEM_UI_FLAG_FULLSCREEN |
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-
-        decorView.setSystemUiVisibility(uiOptions);
 
         //starting from here
 
@@ -169,14 +163,14 @@ public class signup_page extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(signup_page.this,"Nahi bheja verification",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(signup_page.this,"Retry after some time",Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(signup_page.this,"FUCK OFF, NOT SAVED TO DATABASE ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(signup_page.this,"NOT SAVED TO DATABASE",Toast.LENGTH_SHORT).show();
             }
         });
     }

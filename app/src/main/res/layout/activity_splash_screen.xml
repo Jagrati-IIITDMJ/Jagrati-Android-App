@@ -4,6 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen">
+    tools:context=".SplashScreen"
+    android:background="#ffffff">
 
+    <ImageView
+        android:id="@+id/splash_logo"
+        android:layout_width="410dp"
+        android:layout_height="346dp"
+        android:layout_marginTop="112dp"
+        android:src="@drawable/jagrati_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/jagrati_logo" />
+
+    <ImageView
+        android:id="@+id/college_logo"
+        android:layout_width="91dp"
+        android:layout_height="82dp"
+        android:contentDescription="@string/iiitdmj_logo"
+        android:src="@drawable/college_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/splash_logo_faded"
+        android:layout_width="643dp"
+        android:layout_height="503dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="460dp"
+        android:alpha="0.25"
+        android:src="@drawable/jagrati_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/jagrati_logo" />
+
+    <TextView
+        android:id="@+id/splash_attr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="336dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/splash_attr"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="@+id/splash_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

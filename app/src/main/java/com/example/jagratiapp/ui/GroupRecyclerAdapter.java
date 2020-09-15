@@ -15,6 +15,7 @@ import com.example.jagratiapp.model.Groups;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdapter.ViewHolder> {
@@ -54,7 +55,7 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView groupname_List;
         private String groupUid;
-        private Button group_further;
+        private CardView group_further;
 
         public ViewHolder(@NonNull View itemView, Context ctx) {
             super(itemView);

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.QuizListPage;
@@ -50,13 +51,14 @@ public class QuizClassAdapter extends RecyclerView.Adapter<QuizClassAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView classNameList;
+        private CardView classFurther;
         private String classid;
 
         public ViewHolder(@NonNull View itemView,Context ctx) {
             super(itemView);
             context = ctx;
             classNameList = itemView.findViewById(R.id.classname_list);
-            classFurther = itemView.findViewById(R.id.class_further);
+            classFurther = itemView.findViewById(R.id.classfurther);
             classFurther.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

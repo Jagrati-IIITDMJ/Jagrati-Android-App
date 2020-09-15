@@ -8,11 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.jagratiapp.model.Classes;
@@ -36,12 +39,12 @@ import java.util.List;
 
 public class Classes_page extends AppCompatActivity {
 
-    private FloatingActionButton fab;
+    private ImageButton fab;
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
     private EditText classname;
     private Button saveButton;
-
+    private Button cancel;
     private List<Classes> classesList;
     private RecyclerView recyclerView;
     private ClassRecyclerAdapter classRecyclerAdapter;
@@ -105,9 +108,11 @@ public class Classes_page extends AppCompatActivity {
 
         classname = view.findViewById(R.id.class_name_pop);
         saveButton = view.findViewById(R.id.saveClass_pop);
+        cancel = view.findViewById(R.id.cancelClasspop);
 
         builder.setView(view);
         dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +124,13 @@ public class Classes_page extends AppCompatActivity {
                 {
                     Snackbar.make(view,"Empty Not Allowed",Snackbar.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
     }

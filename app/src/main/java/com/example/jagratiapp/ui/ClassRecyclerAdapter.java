@@ -17,12 +17,12 @@ import com.example.jagratiapp.model.Classes;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdapter.ViewHolder> {
     private Context context;
     private List<Classes> classesList;
-    private Button item;
 
     public ClassRecyclerAdapter(Context context, List<Classes> classesList) {
         this.context = context;
@@ -55,8 +55,9 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         private TextView classNameList;
         private String classUid;
+        private CardView classfurther;
 
-        private Button classFurther;
+
         private Button edit;
         private Button delete;
 
@@ -65,15 +66,16 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
             context = ctx;
 
             classNameList = itemView.findViewById(R.id.classname_list);
-            classFurther = itemView.findViewById(R.id.class_further);
-            classFurther.setOnClickListener(this);
+            classfurther = itemView.findViewById(R.id.classfurther);
+
+            classfurther.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             switch (view.getId())
             {
-                case R.id.class_further:
+                case R.id.classfurther:
                     goToGroup(classUid,context);
             }
         }

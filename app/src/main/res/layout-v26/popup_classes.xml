@@ -32,7 +32,7 @@
                 android:autofillHints="none"
                 android:hint="@string/hint"
                 android:backgroundTint="#fffff0"
-
+                android:focusedByDefault="true"
 
                 android:inputType="textAutoCorrect" />
 

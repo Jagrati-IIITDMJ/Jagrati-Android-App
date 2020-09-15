@@ -3,17 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_id_group"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="193dp"
-            android:padding="30dp">
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/saveGroup_pop"
@@ -35,17 +36,10 @@
                 android:hint="@string/hint"
                 android:inputType="textAutoCorrect" />
 
-            <TextView
-                android:id="@+id/title_group_pop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/enter_group_name"
-                android:textSize="20sp"
-                android:textStyle="italic" />
 
 
-        </RelativeLayout>
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>
