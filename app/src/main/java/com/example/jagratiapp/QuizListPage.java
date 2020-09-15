@@ -74,7 +74,7 @@ public class QuizListPage extends AppCompatActivity {
                         quiz.setQuizID(DocumentSnapshot.getId());
                         quizlist.add(quiz);
                     }
-                    quizListAdapter = new QuizListAdapter(QuizListPage.this, quizlist);
+                    quizListAdapter = new QuizListAdapter(QuizListPage.this, quizlist,classid);
                     recyclerView.setAdapter(quizListAdapter);
 
 

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_id_addQues"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="445dp"
+            android:padding="20dp">
+
+
+            <Button
+                android:id="@+id/saveques_popup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/AnsIn_ques_card_popup"
+                android:layout_marginTop="33dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="-90dp"
+                android:text="@string/addQues"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/Opt1In_ques_card_popup"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/QuesIn_ques_card_popup"
+                android:autofillHints="Enter Option Here"
+                android:hint="Enter First Option Here"
+                android:inputType="textAutoCorrect"
+                android:maxLines="2"
+                android:minLines="1"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/Opt2In_ques_card_popup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Opt1In_ques_card_popup"
+                android:autofillHints="Enter Option Here"
+                android:hint="Enter Second Option Here"
+                android:inputType="textAutoCorrect"
+                android:maxLines="2"
+                android:minLines="1"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/Opt3In_ques_card_popup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Opt2In_ques_card_popup"
+                android:autofillHints="EnterOption Here"
+                android:hint="Enter Third Option Here"
+                android:inputType="textAutoCorrect"
+                android:maxLines="2"
+                android:minLines="1"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/Opt4In_ques_card_popup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Opt3In_ques_card_popup"
+                android:autofillHints="Enter Option Here"
+                android:hint="Enter Fouth Option Here"
+                android:inputType="textAutoCorrect"
+                android:maxLines="2"
+                android:minLines="1"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/AnsIn_ques_card_popup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Opt4In_ques_card_popup"
+                android:autofillHints="Enter Option Here"
+                android:hint="Enter Correct Option Here"
+                android:inputType="textAutoCorrect"
+                android:maxLines="2"
+                android:minLines="1"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+            <EditText
+                android:id="@+id/QuesIn_ques_card_popup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/saveques_popup"
+                android:layout_alignEnd="@+id/saveques_popup"
+                android:layout_marginStart="63dp"
+                android:layout_marginEnd="79dp"
+                android:gravity="center_horizontal"
+                android:hint="Enter Question Here"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:maxLines="6"
+                android:minLines="1"
+                android:textSize="25sp"
+                android:textStyle="italic" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
