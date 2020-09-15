@@ -5,4 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".StudentQuizListPage">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/student_quiz_list_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

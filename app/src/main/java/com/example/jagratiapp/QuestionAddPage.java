@@ -1,12 +1,5 @@
 package com.example.jagratiapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -15,9 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.jagratiapp.model.Groups;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.jagratiapp.model.Question;
-import com.example.jagratiapp.ui.GroupDiffUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -105,7 +102,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         && !TextUtils.isEmpty(correctOption.getText().toString().trim())){
                     Question ques = new Question(question.getText().toString().trim(),option1.getText().toString().trim(),
                             option2.getText().toString().trim(),option3.getText().toString().trim(),option4.getText().toString().trim(),
-                            correctOption.getText().toString().trim());
+                            correctOption.getText().toString().trim(),null);
                     saveQuestion(ques);
 
 
