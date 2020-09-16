@@ -1,6 +1,7 @@
 package com.example.jagratiapp.student;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -16,6 +17,7 @@ import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.student.Util.StudentAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -38,6 +40,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private RadioButton optionC;
     private RadioButton optionD;
     private RadioGroup radioGroup;
+    private RadioButton radioButton;
     private Button previous;
     private Button next;
     private Button submit;
@@ -45,6 +48,8 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private int totalquestion;
     private Map<String,String> answerList;
     private Iterator questionIterator;
+    private String q;
+
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -63,10 +68,10 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 //        Toast.makeText(QuestionsPage.this,quizId,Toast.LENGTH_SHORT).show();
 //        //questionList = new ArrayList<>();
         question = findViewById(R.id.ques);
-        optionA = findViewById(R.id.optionA);
-        optionB = findViewById(R.id.optionB);
-        optionC = findViewById(R.id.optionC);
-        optionD = findViewById(R.id.optionD);
+        optionA = findViewById(R.id.optionA_radio);
+        optionB = findViewById(R.id.optionB_radio);
+        optionC = findViewById(R.id.optionC_radio);
+        optionD = findViewById(R.id.optionD_radio);
         radioGroup = findViewById(R.id.radio_group);
         previous = findViewById(R.id.previous);
         submit = findViewById(R.id.submit);
@@ -95,6 +100,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                                 questionIterator = questionList.entrySet().iterator();
                                 Map.Entry obj = (Map.Entry) questionIterator.next();
                                 Question question = (Question) obj.getValue();
+                                q = (String) obj.getKey();
                                 Toast.makeText(QuestionsPage.this, " " + question.getQuestion(), LENGTH_SHORT).show();
                                 setQuestion(question);
                                 //documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
@@ -116,24 +122,31 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                     }
                 });
 
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.previous :
+
                 break;
             case R.id.next:
+
                 if (questionIterator.hasNext()){
                     Map.Entry obj = (Map.Entry)questionIterator.next();
                     setQuestion((Question) obj.getValue());
+                    q = (String) obj.getKey();
                 }
                 else {
                     Toast.makeText(QuestionsPage.this,"This is last question",Toast.LENGTH_SHORT).show();
                 }
+
                 break;
             case R.id.submit:
                 checkAnswer();
+//                Toast.makeText(QuestionsPage.this,result,Toast.LENGTH_SHORT).show();
+                break;
             default:
                 break;
         }
@@ -150,27 +163,32 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     public void checkButton(View v){
 
         int radioId = radioGroup.getCheckedRadioButtonId();
-        optionA = findViewById(radioId);
-        Map.Entry obj = (Map.Entry)questionIterator;
-        String id = (String) obj.getKey();
-        answerList.put(id,optionA.getText().toString());
-        Toast.makeText(QuestionsPage.this,optionA.getText() + "", Toast.LENGTH_SHORT).show();
+        radioButton = findViewById(radioId);
+        Toast.makeText(QuestionsPage.this,radioButton.getText().toString()+" "+answerList.size(),Toast.LENGTH_SHORT).show();
+//        Map.Entry obj = (Map.Entry)questionIterator;
+//        String id = (String) obj.getKey();
+        answerList.put(q,radioButton.getText().toString());
+
 
     }
     public void checkAnswer(){
-        int result = 0;
+         int result= 0;
         if(!answerList.isEmpty()) {
             Iterator it = answerList.entrySet().iterator();
             while(it.hasNext()) {
                 Map.Entry obj = (Map.Entry)it.next();
                 String ans = (String) obj.getValue();
                 String id = (String) obj.getKey();
-                Question question = questionList.get(id);
-                String correctAns = question.getCorrectOption();
-                if (correctAns == ans){
+
+                Question question0 = questionList.get(id);
+                String correctAns = question0.getCorrectOption();
+                Log.d("hew", "checkAnswer: "+ correctAns+ " "+ans,null);
+                if (correctAns.trim().equals(ans.trim())){
                     result++;
                 }
             }
+            Log.d("hew", "checkAnswer: "+ result+ " ",null);
+         //   Snackbar .make(View, "An Error Occurred!", Snackbar.LENGTH_LONG).show()
         }
 
     }

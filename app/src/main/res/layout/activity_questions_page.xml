@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ques"
-            android:textSize="20dp"></TextView>
+            android:textSize="20dp" />
 
         <RadioGroup
             android:id="@+id/radio_group"
@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <RadioButton
-                android:id="@+id/optionA"
+                android:id="@+id/optionA_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
@@ -54,10 +54,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.317"
-                android:onClick="checkButton"></RadioButton>
+                android:onClick="checkButton" />
 
             <RadioButton
-                android:id="@+id/optionB"
+                android:id="@+id/optionB_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
@@ -66,10 +66,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.317"
-                android:onClick="checkButton"></RadioButton>
+                android:onClick="checkButton" />
 
             <RadioButton
-                android:id="@+id/optionC"
+                android:id="@+id/optionC_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
@@ -78,10 +78,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.317"
-                android:onClick="checkButton"></RadioButton>
+                android:onClick="checkButton" />
 
             <RadioButton
-                android:id="@+id/optionD"
+                android:id="@+id/optionD_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
@@ -90,7 +90,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.317"
-                android:onClick="checkButton"></RadioButton>
+                android:onClick="checkButton" />
         </RadioGroup>
 
     </LinearLayout>
@@ -104,7 +104,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.233"
-        app:layout_constraintStart_toStartOf="parent"></Button>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/next"
@@ -117,7 +117,7 @@
         app:layout_constraintHorizontal_bias="0.724"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="1.0"></Button>
+        app:layout_constraintVertical_bias="1.0"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
