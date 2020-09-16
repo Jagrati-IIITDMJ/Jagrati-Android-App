@@ -8,7 +8,9 @@
 
     tools:context=".student.QuestionsPage">
 
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,11 +32,27 @@
 
                 ></TextView>
 
+            <ImageView
+                android:id="@+id/tickA"
+                android:layout_width="32dp"
+                android:layout_height="31dp"
+                android:elevation="8dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_tick" />
+
             <TextView
                 android:id="@+id/optionA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"></TextView>
+
+            <ImageView
+                android:id="@+id/tickB"
+                android:layout_width="32dp"
+                android:layout_height="31dp"
+                android:elevation="8dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_tick"/>
 
             <TextView
                 android:id="@+id/optionB"
@@ -42,11 +60,27 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"></TextView>
 
+            <ImageView
+                android:id="@+id/tickC"
+                android:layout_width="32dp"
+                android:layout_height="31dp"
+                android:elevation="8dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_tick"/>
+
             <TextView
                 android:id="@+id/optionC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"></TextView>
+
+            <ImageView
+                android:id="@+id/tickD"
+                android:layout_width="32dp"
+                android:layout_height="31dp"
+                android:elevation="8dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_tick"/>
 
             <TextView
                 android:id="@+id/optionD"
@@ -58,6 +92,29 @@
 
     </androidx.cardview.widget.CardView>
 
+    <Button
+        android:id="@+id/previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="previous"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.221"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        app:layout_constraintVertical_bias="0.324"></Button>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        app:layout_constraintVertical_bias="0.324"></Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
