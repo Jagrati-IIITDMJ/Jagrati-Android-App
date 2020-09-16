@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Students;
-import com.example.jagratiapp.student.StudentCompleteInfo;
+import com.example.jagratiapp.StudentCompleteInfo;
 
 import java.util.List;
 

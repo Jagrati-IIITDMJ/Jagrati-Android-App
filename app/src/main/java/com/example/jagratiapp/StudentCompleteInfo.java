@@ -1,4 +1,4 @@
-package com.example.jagratiapp.student;
+package com.example.jagratiapp;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -23,7 +23,6 @@ public class StudentCompleteInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_complete_info);
-        //studID = getIntent().getStringExtra("studentID");
         villageName = findViewById(R.id.villageNameFinal);
         className = findViewById(R.id.classNameFinal);
 
