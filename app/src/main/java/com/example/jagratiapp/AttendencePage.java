@@ -2,7 +2,6 @@ package com.example.jagratiapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -36,8 +35,6 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
     private Button submitButton;
     private String classUid;
     private String groupUid;
-    private String className;
-    private String groupName;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
     private List<Students> studentsList;
