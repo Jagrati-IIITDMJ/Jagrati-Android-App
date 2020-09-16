@@ -3,7 +3,8 @@ package com.example.jagratiapp.student;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,26 +21,30 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class QuestionsPage extends AppCompatActivity implements View.OnClickListener {
 
     private String quizId;
-    private List<Question> questionList;
+    //private List<Question> questionList;
+    private Map<String,Question> questionList;
     private TextView question;
-    private TextView optionA;
-    private TextView optionB;
-    private TextView optionC;
-    private TextView optionD;
-    private ImageView tickA;
-    private ImageView tickB;
-    private ImageView tickC;
-    private ImageView tickD;
+    private RadioButton optionA;
+    private RadioButton optionB;
+    private RadioButton optionC;
+    private RadioButton optionD;
+    private RadioGroup radioGroup;
     private Button previous;
     private Button next;
+    private Button submit;
     private int questionNo = 0;
     private int totalquestion;
+    private Map<String,String> answerList;
+    private Iterator questionIterator;
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -55,48 +60,53 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                                 .collection("Quizzes").document(quizId)
                                 .collection("Question");
 
-        //Toast.makeText(QuestionsPage.this,quizId,Toast.LENGTH_SHORT).show();
-        questionList = new ArrayList<>();
+//        Toast.makeText(QuestionsPage.this,quizId,Toast.LENGTH_SHORT).show();
+//        //questionList = new ArrayList<>();
         question = findViewById(R.id.ques);
         optionA = findViewById(R.id.optionA);
         optionB = findViewById(R.id.optionB);
         optionC = findViewById(R.id.optionC);
         optionD = findViewById(R.id.optionD);
-        tickA = findViewById(R.id.tickA);
-        tickB = findViewById(R.id.tickB);
-        tickC = findViewById(R.id.tickC);
-        tickD = findViewById(R.id.tickD);
+        radioGroup = findViewById(R.id.radio_group);
         previous = findViewById(R.id.previous);
+        submit = findViewById(R.id.submit);
         next = findViewById(R.id.next);
         previous.setOnClickListener(this);
         next.setOnClickListener(this);
+        submit.setOnClickListener(this);
+        answerList = new HashMap<>();
+        questionList = new HashMap<>();
 
         collectionReference.get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                     if (!queryDocumentSnapshots.isEmpty()){
-                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                             Question question = documentSnapshot.toObject(Question.class);
-                             question.setQuestionId(documentSnapshot.getId());
-                             questionList.add(question);
-                         }
-                         totalquestion = questionList.size();
-                         if (!questionList.isEmpty()){
-                             setQuestion(0);
-                         }
-                         else {
-                             question.setVisibility(View.INVISIBLE);
-                             optionA.setVisibility(View.INVISIBLE);
-                             optionB.setVisibility(View.INVISIBLE);
-                             optionC.setVisibility(View.INVISIBLE);
-                             optionD.setVisibility(View.INVISIBLE);
-                             Toast.makeText(QuestionsPage.this,"Kuch ni hain",Toast.LENGTH_SHORT).show();
-                         }
-                     }
-                     else {
-                       //  Toast.makeText(QuestionsPage.this,"Kuch ni hain  kfdd",Toast.LENGTH_SHORT).show();
-                     }
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                Question question = documentSnapshot.toObject(Question.class);
+                                questionList.put(documentSnapshot.getId(), question);
+                                //question.setQuestionId(documentSnapshot.getId());
+                                //questionList.add(question);
+                            }
+                            totalquestion = questionList.size();
+                            //Toast.makeText(QuestionsPage.this,totalquestion + "",Toast.LENGTH_SHORT).show();
+
+                            if (!questionList.isEmpty()) {
+                                questionIterator = questionList.entrySet().iterator();
+                                Map.Entry obj = (Map.Entry) questionIterator.next();
+                                Question question = (Question) obj.getValue();
+                                Toast.makeText(QuestionsPage.this, " " + question.getQuestion(), LENGTH_SHORT).show();
+                                setQuestion(question);
+                                //documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
+                            } else {
+                                question.setVisibility(View.INVISIBLE);
+                                optionA.setVisibility(View.INVISIBLE);
+                                optionB.setVisibility(View.INVISIBLE);
+                                optionC.setVisibility(View.INVISIBLE);
+                                optionD.setVisibility(View.INVISIBLE);
+                                Toast.makeText(QuestionsPage.this, "Kuch ni hain", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -112,37 +122,56 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.previous :
-                if (questionNo > 0){
-                    questionNo--;
-                    setQuestion(questionNo);
-                }
-                else {
-                    Toast.makeText(QuestionsPage.this,"This is first question",Toast.LENGTH_SHORT).show();
-                }
                 break;
             case R.id.next:
-                if (questionNo < (totalquestion-1)){
-                    questionNo++;
-                    setQuestion(questionNo);
+                if (questionIterator.hasNext()){
+                    Map.Entry obj = (Map.Entry)questionIterator.next();
+                    setQuestion((Question) obj.getValue());
                 }
                 else {
                     Toast.makeText(QuestionsPage.this,"This is last question",Toast.LENGTH_SHORT).show();
                 }
                 break;
+            case R.id.submit:
+                checkAnswer();
             default:
                 break;
         }
     }
 
-    private void setQuestion(int questionNo){
-        question.setText(questionList.get(questionNo).getQuestion());
-        optionA.setText(questionList.get(questionNo).getOption1());
-        optionB.setText(questionList.get(questionNo).getOption2());
-        optionC.setText(questionList.get(questionNo).getOption3());
-        optionD.setText(questionList.get(questionNo).getOption4());
+    private void setQuestion(Question question2){
+        question.setText(question2.getQuestion());
+        optionA.setText(question2.getOption1());
+        optionB.setText(question2.getOption2());
+        optionC.setText(question2.getOption3());
+        optionD.setText(question2.getOption4());
     }
 
     public void checkButton(View v){
+
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        optionA = findViewById(radioId);
+        Map.Entry obj = (Map.Entry)questionIterator;
+        String id = (String) obj.getKey();
+        answerList.put(id,optionA.getText().toString());
+        Toast.makeText(QuestionsPage.this,optionA.getText() + "", Toast.LENGTH_SHORT).show();
+
+    }
+    public void checkAnswer(){
+        int result = 0;
+        if(!answerList.isEmpty()) {
+            Iterator it = answerList.entrySet().iterator();
+            while(it.hasNext()) {
+                Map.Entry obj = (Map.Entry)it.next();
+                String ans = (String) obj.getValue();
+                String id = (String) obj.getKey();
+                Question question = questionList.get(id);
+                String correctAns = question.getCorrectOption();
+                if (correctAns == ans){
+                    result++;
+                }
+            }
+        }
 
     }
 }

@@ -102,7 +102,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         && !TextUtils.isEmpty(correctOption.getText().toString().trim())){
                     Question ques = new Question(question.getText().toString().trim(),option1.getText().toString().trim(),
                             option2.getText().toString().trim(),option3.getText().toString().trim(),option4.getText().toString().trim(),
-                            correctOption.getText().toString().trim(),null);
+                            correctOption.getText().toString().trim());
                     saveQuestion(ques);
 
 
