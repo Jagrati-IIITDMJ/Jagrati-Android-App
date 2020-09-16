@@ -1,4 +1,4 @@
-package com.example.jagratiapp;
+package com.example.jagratiapp.student;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.jagratiapp.Util.StudentAPI;
+import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Students;
+import com.example.jagratiapp.student.Util.StudentAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;

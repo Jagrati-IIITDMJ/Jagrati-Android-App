@@ -1,4 +1,4 @@
-package com.example.jagratiapp.Util;
+package com.example.jagratiapp.student.Util;
 
 public class StudentAPI {
 

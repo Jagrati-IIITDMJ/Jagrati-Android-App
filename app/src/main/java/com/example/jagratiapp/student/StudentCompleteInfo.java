@@ -1,13 +1,12 @@
-package com.example.jagratiapp;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.jagratiapp.student;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.jagratiapp.R;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class StudentCompleteInfo extends AppCompatActivity {

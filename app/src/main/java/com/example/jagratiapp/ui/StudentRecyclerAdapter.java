@@ -2,7 +2,6 @@ package com.example.jagratiapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.jagratiapp.Group_page;
 import com.example.jagratiapp.R;
-import com.example.jagratiapp.StudentCompleteInfo;
-import com.example.jagratiapp.model.Classes;
 import com.example.jagratiapp.model.Students;
+import com.example.jagratiapp.student.StudentCompleteInfo;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecyclerAdapter.ViewHolder>  {

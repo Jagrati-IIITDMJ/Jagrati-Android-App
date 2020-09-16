@@ -1,4 +1,4 @@
-package com.example.jagratiapp;
+package com.example.jagratiapp.student;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -8,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.jagratiapp.Util.StudentAPI;
+import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Quiz;
-import com.example.jagratiapp.ui.StudentQuizListAdapter;
+import com.example.jagratiapp.student.Util.StudentAPI;
+import com.example.jagratiapp.student.ui.StudentQuizListAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
