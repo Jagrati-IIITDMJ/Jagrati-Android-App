@@ -1,4 +1,4 @@
-package com.example.jagratiapp.ui;
+package com.example.jagratiapp.student.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,40 +7,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.jagratiapp.QuestionAddPage;
-import com.example.jagratiapp.R;
-import com.example.jagratiapp.model.Classes;
-import com.example.jagratiapp.model.Quiz;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.ViewHolder> {
+import com.example.jagratiapp.R;
+import com.example.jagratiapp.model.Quiz;
+import com.example.jagratiapp.student.QuestionsPage;
+
+import java.util.List;
+
+public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizListAdapter.ViewHolder> {
     private Context context;
     private List<Quiz> quizList;
-    private String classid;
 
-    public QuizListAdapter(Context context, List<Quiz> quizList,String classid) {
+    public StudentQuizListAdapter(Context context, List<Quiz> quizList) {
         this.context = context;
         this.quizList = quizList;
-        this.classid =  classid;
-
-    }
-
-    public QuizListAdapter() {
     }
 
     @NonNull
     @Override
-    public QuizListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StudentQuizListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.quiz_cardview,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QuizListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StudentQuizListAdapter.ViewHolder holder, int position) {
         Quiz quiz = quizList.get(position);
         holder.quizName.setText(quiz.getQuizName());
         holder.quizDesCription.setText(quiz.getQuizDescription());
@@ -66,7 +59,7 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    context.startActivity(new Intent(context, QuestionAddPage.class).putExtra("ClassID",classid).putExtra("quizid",quizid));
+                    context.startActivity(new Intent(context, QuestionsPage.class).putExtra("quizId",quizid));
                 }
             });
 
