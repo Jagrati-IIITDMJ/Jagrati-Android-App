@@ -59,6 +59,7 @@ public class login_page extends AppCompatActivity{
                 if(TextUtils.isEmpty(emailEditText.getText().toString())){
                     emailEditText.setError("kuch likh toh");
                     emailEditText.requestFocus();
+
                 }
                 else if(TextUtils.isEmpty(passwordEditText.getText().toString())){
                         passwordEditText.setError("Password papa dalenge");

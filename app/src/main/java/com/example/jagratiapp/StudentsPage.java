@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,7 +69,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
         addStudent = findViewById(R.id.add_student_button);
         studentRecyclerView = findViewById(R.id.student_recycler_view);
         studentRecyclerView.setHasFixedSize(true);
-        studentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        studentRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         studentsList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();

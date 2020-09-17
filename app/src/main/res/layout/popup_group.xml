@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_id_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/transparent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        android:elevation="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,25 +19,55 @@
             android:padding="30dp"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/saveGroup_pop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/group_name_pop"
-                android:layout_marginEnd="5dp"
-                android:text="@string/saveGroup"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-
             <EditText
                 android:id="@+id/group_name_pop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title_group_pop"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:background="@drawable/rectangle"
                 android:autofillHints="none"
-                android:hint="@string/hint"
+                android:hint="@string/hint1"
+                android:backgroundTint="#fffff0"
                 android:inputType="textAutoCorrect" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/saveGroup_pop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ShapeAppearance.MaterialComponents.LargeComponent"
+                android:text="@string/saveClass"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="#0FEF0F"
+                android:layout_margin="8dp"
+
+                android:textStyle="bold" />
+
+            <Button
+                android:background="@drawable/rectangle"
+                android:id="@+id/cancelGrouppop"
+                style="@style/ShapeAppearance.MaterialComponents.LargeComponent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/cancel"
+                android:layout_weight="1"
+                android:backgroundTint="#F10142"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                />
+
+            </LinearLayout>
+
+
+
 
 
 

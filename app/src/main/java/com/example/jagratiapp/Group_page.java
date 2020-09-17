@@ -48,6 +48,7 @@ public class Group_page extends AppCompatActivity {
     private AlertDialog dialog;
     private EditText groupname;
     private Button saveButton;
+    private Button cancel;
     private List<Groups> groupList;
     private String classUid;
     private GroupRecyclerAdapter groupRecyclerAdapter;
@@ -119,6 +120,7 @@ public class Group_page extends AppCompatActivity {
 
         groupname = view.findViewById(R.id.group_name_pop);
         saveButton = view.findViewById(R.id.saveGroup_pop);
+        cancel = view.findViewById(R.id.cancelGrouppop);
 
         builder.setView(view);
         dialog = builder.create();
@@ -134,6 +136,12 @@ public class Group_page extends AppCompatActivity {
                 {
                     Snackbar.make(view,"Empty Not Allowed",Snackbar.LENGTH_SHORT).show();
                 }
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
 

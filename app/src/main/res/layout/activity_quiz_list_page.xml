@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuizListPage">
+    <include layout="@layout/background_activity"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/quiz_list_recyclerview"
         android:layout_width="match_parent"
@@ -14,20 +15,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/fab_quizList_page"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/cardview_default_elevation"
-        android:clickable="true"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+
+        android:background="@drawable/fab"
+        android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.895"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.943"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        tools:ignore="MissingConstraints"
-        android:focusable="true" />
+        android:contentDescription="@string/add"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

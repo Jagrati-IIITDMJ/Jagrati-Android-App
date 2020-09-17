@@ -48,4 +48,8 @@
     <string name="cancel">Cancel</string>
     <string name="there_must_be_something">THERE MUST BE SOMETHING</string>
     <string name="add">Add</string>
+    <string name="hint1">Enter the name of Group</string>
+    <string name="attendance_checker">Attendance Checkeer</string>
+    <string name="name">Name</string>
+    <string name="village">Village</string>
 </resources>

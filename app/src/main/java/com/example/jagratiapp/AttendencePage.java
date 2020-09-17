@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +39,7 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
     private Button submitButton;
     private String classUid;
     private String groupUid;
+
     private String className;
     private String groupName;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -53,10 +57,12 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendence_page);
 
+        Toolbar toolbar = findViewById(R.id.attendance_toolbar);
+
         submitButton = findViewById(R.id.submitAttendance);
         attendenceRecyclerView = findViewById(R.id.attendence_recycler_view);
         attendenceRecyclerView.setHasFixedSize(true);
-        attendenceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        attendenceRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         studentsList = new ArrayList<>();
         final Map<String, Boolean> attendence = new HashMap<>();
 
