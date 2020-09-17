@@ -178,10 +178,10 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Map<String,String> local = new HashMap<>();
-                                            local.put("classUid",classUid);
-                                            local.put("groupUid",groupUid);
-                                            db.collection("Students").document(student.getRollno()).set(local)
+                                            Map<String,String> outsideStudent = new HashMap<>();
+                                            outsideStudent.put("classUid",classUid);
+                                            outsideStudent.put("groupUid",groupUid);
+                                            db.collection("Students").document(student.getRollno()).set(outsideStudent)
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {

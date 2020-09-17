@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +39,7 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
         holder.quizName.setText(quiz.getQuizName());
         holder.quizDesCription.setText(quiz.getQuizDescription());
         holder.quizid = quiz.getQuizID();
+        holder.noOfQues = quiz.getNumberOfQues();
 
     }
 
@@ -50,6 +52,7 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
         private TextView quizName;
         private TextView quizDesCription;
         private String quizid;
+        private int noOfQues;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             quizName = itemView.findViewById(R.id.quizName_list);
@@ -59,7 +62,13 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    context.startActivity(new Intent(context, QuestionsPage.class).putExtra("quizId",quizid));
+                    if(noOfQues>0) {
+                        context.startActivity(new Intent(context, QuestionsPage.class).putExtra("quizId", quizid));
+                        Toast.makeText(context, ""+ quizList.size(), Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(context, "Quiz Not ready yet", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
