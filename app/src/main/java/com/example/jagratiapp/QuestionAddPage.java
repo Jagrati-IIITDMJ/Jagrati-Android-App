@@ -48,6 +48,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     private List<Question> questionList;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;
+    private DocumentReference documentToAddNumOfQues;
     private QuestionAddAdapter questionAddAdapter;
 
     @Override
@@ -67,6 +68,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         quizid = bundle.getString("quizid");
 
         collectionReference = db.collection("Classes").document(classid).collection("Quizzes").document(quizid).collection("Question");
+        documentToAddNumOfQues = db.collection("Classes").document(classid).collection("Quizzes").document(quizid);
 
         addQuestion.setOnClickListener(this);
 
@@ -76,7 +78,6 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                 if (!queryDocumentSnapshots.isEmpty()) {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                         Question q = documentSnapshot.toObject(Question.class);
-                        //q.setQuestionId(documentSnapshot.getId());
                         questionList.add(q);
                     }
                     questionAddAdapter = new QuestionAddAdapter(QuestionAddPage.this, questionList);
@@ -84,6 +85,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
+
 
 
 
@@ -151,7 +153,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                     public void run() {
                         List<Question> newQuestionList = questionList;
                         newQuestionList.add(q);
-
+                        documentToAddNumOfQues.update("numberOfQues",newQuestionList.size());
                         dialog.dismiss();
 
                     }

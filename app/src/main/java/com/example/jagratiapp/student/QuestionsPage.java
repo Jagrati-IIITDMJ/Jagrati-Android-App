@@ -1,5 +1,6 @@
 package com.example.jagratiapp.student;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,12 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jagratiapp.R;
+import com.example.jagratiapp.StudentCompleteInfo;
 import com.example.jagratiapp.model.Question;
+import com.example.jagratiapp.model.QuizReport;
+import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.student.Util.StudentAPI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -49,11 +56,13 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private Map<String,String> answerList;
     private Iterator questionIterator;
     private String q;
+    private QuizReport quizReport;
 
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;
+    private CollectionReference collectionToSaveReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +74,10 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                                 .collection("Quizzes").document(quizId)
                                 .collection("Question");
 
-//        Toast.makeText(QuestionsPage.this,quizId,Toast.LENGTH_SHORT).show();
-//        //questionList = new ArrayList<>();
+        collectionToSaveReport = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Groups")
+                .document(StudentAPI.Instance().getGroupUid()).collection("Students").document(StudentAPI.Instance().getRollno()).collection("Quizzes");
+
+
         question = findViewById(R.id.ques);
         optionA = findViewById(R.id.optionA_radio);
         optionB = findViewById(R.id.optionB_radio);
@@ -101,16 +112,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                                 Map.Entry obj = (Map.Entry) questionIterator.next();
                                 Question question = (Question) obj.getValue();
                                 q = (String) obj.getKey();
-                                Toast.makeText(QuestionsPage.this, " " + question.getQuestion(), LENGTH_SHORT).show();
                                 setQuestion(question);
-                                //documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
-                            } else {
-                                question.setVisibility(View.INVISIBLE);
-                                optionA.setVisibility(View.INVISIBLE);
-                                optionB.setVisibility(View.INVISIBLE);
-                                optionC.setVisibility(View.INVISIBLE);
-                                optionD.setVisibility(View.INVISIBLE);
-                                Toast.makeText(QuestionsPage.this, "Kuch ni hain", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -130,9 +132,9 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         switch (view.getId()){
             case R.id.previous :
 
+
                 break;
             case R.id.next:
-
                 if (questionIterator.hasNext()){
                     Map.Entry obj = (Map.Entry)questionIterator.next();
                     setQuestion((Question) obj.getValue());
@@ -145,7 +147,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.submit:
                 checkAnswer();
-//                Toast.makeText(QuestionsPage.this,result,Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -153,6 +154,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     }
 
     private void setQuestion(Question question2){
+        radioGroup.clearCheck();
         question.setText(question2.getQuestion());
         optionA.setText(question2.getOption1());
         optionB.setText(question2.getOption2());
@@ -161,15 +163,10 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     }
 
     public void checkButton(View v){
-
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
         Toast.makeText(QuestionsPage.this,radioButton.getText().toString()+" "+answerList.size(),Toast.LENGTH_SHORT).show();
-//        Map.Entry obj = (Map.Entry)questionIterator;
-//        String id = (String) obj.getKey();
         answerList.put(q,radioButton.getText().toString());
-
-
     }
     public void checkAnswer(){
          int result= 0;
@@ -182,14 +179,49 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
                 Question question0 = questionList.get(id);
                 String correctAns = question0.getCorrectOption();
-                Log.d("hew", "checkAnswer: "+ correctAns+ " "+ans,null);
+                //Log.d("hew", "checkAnswer: "+ correctAns+ " "+ans,null);
                 if (correctAns.trim().equals(ans.trim())){
                     result++;
                 }
             }
-            Log.d("hew", "checkAnswer: "+ result+ " ",null);
-         //   Snackbar .make(View, "An Error Occurred!", Snackbar.LENGTH_LONG).show()
         }
+
+        quizReport = new QuizReport(answerList,result);
+        collectionToSaveReport.document(quizId).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Toast.makeText(QuestionsPage.this, "Quiz Already Given", Toast.LENGTH_SHORT).show();
+                            } else {
+                                collectionToSaveReport.document(quizId).set(quizReport)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                startActivity(new Intent(QuestionsPage.this, StudentCompleteInfo.class)
+                                                        .putExtra("classID", StudentAPI.Instance().getClassUid())
+                                                        .putExtra("groupID", StudentAPI.Instance().getGroupUid())
+                                                        .putExtra("studentID", StudentAPI.Instance().getRollno()));
+                                                finish();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(QuestionsPage.this, e.getMessage().trim(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
+
+
+
+
+
 
     }
 }

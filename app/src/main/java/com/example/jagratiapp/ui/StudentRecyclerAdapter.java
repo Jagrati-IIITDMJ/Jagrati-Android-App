@@ -37,7 +37,7 @@ public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecycler
         Students student = studentsListAdapter.get(position);
         holder.studentName.setText(student.getStudentName());
         holder.villageName.setText(student.getVillageName());
-        holder.studentID = student.getUid();
+        holder.studentID = student.getRollno();
         holder.classID = student.getClassID();
         holder.groupID = student.getGroupID();
 
