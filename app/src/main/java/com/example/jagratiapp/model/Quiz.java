@@ -4,6 +4,15 @@ public class Quiz {
     String quizName;
     String quizDescription;
     String quizID;
+    int numberOfQues;
+
+    public int getNumberOfQues() {
+        return numberOfQues;
+    }
+
+    public void setNumberOfQues(int numberOfQues) {
+        this.numberOfQues = numberOfQues;
+    }
 
     public String getQuizDescription() {
         return quizDescription;

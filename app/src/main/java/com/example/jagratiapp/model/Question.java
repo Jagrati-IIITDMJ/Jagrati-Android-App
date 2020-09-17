@@ -1,12 +1,12 @@
 package com.example.jagratiapp.model;
 
 public class Question {
-    String question;
-    String option1;
-    String option2;
-    String option3;
-    String option4;
-    String correctOption;
+    private String question;
+    private String option1;
+    private String option2;
+    private String option3;
+    private String option4;
+    private String correctOption;
 
     public Question(String question, String option1, String option2, String option3, String option4, String correctOption) {
         this.question = question;

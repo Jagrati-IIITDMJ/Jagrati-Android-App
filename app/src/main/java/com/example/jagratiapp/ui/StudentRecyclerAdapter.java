@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Students;
-import com.example.jagratiapp.student.StudentCompleteInfo;
+import com.example.jagratiapp.StudentCompleteInfo;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecycler
         Students student = studentsListAdapter.get(position);
         holder.studentName.setText(student.getStudentName());
         holder.villageName.setText(student.getVillageName());
-        holder.studentID = student.getUid();
+        holder.studentID = student.getRollno();
         holder.classID = student.getClassID();
         holder.groupID = student.getGroupID();
 

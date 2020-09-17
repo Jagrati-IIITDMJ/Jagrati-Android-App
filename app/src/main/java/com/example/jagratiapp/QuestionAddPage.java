@@ -15,12 +15,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.model.Question;
+import com.example.jagratiapp.model.Students;
+import com.example.jagratiapp.ui.QuestionAddAdapter;
+import com.example.jagratiapp.ui.StudentRecyclerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +48,8 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     private List<Question> questionList;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;
+    private DocumentReference documentToAddNumOfQues;
+    private QuestionAddAdapter questionAddAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +68,26 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         quizid = bundle.getString("quizid");
 
         collectionReference = db.collection("Classes").document(classid).collection("Quizzes").document(quizid).collection("Question");
+        documentToAddNumOfQues = db.collection("Classes").document(classid).collection("Quizzes").document(quizid);
 
         addQuestion.setOnClickListener(this);
+
+        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        Question q = documentSnapshot.toObject(Question.class);
+                        questionList.add(q);
+                    }
+                    questionAddAdapter = new QuestionAddAdapter(QuestionAddPage.this, questionList);
+                    recyclerView.setAdapter(questionAddAdapter);
+                }
+            }
+        });
+
+
+
 
 
 
@@ -128,7 +153,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                     public void run() {
                         List<Question> newQuestionList = questionList;
                         newQuestionList.add(q);
-
+                        documentToAddNumOfQues.update("numberOfQues",newQuestionList.size());
                         dialog.dismiss();
 
                     }
