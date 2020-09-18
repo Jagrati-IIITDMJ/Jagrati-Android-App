@@ -2,6 +2,7 @@ package com.example.jagratiapp.student;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jagratiapp.R;
@@ -38,9 +40,15 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class QuestionsPage extends AppCompatActivity implements View.OnClickListener {
 
+    private static final long START_TIME_IN_MILLIS = 6000;
+    private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
+    private CountDownTimer mCountDownTimer;
     private String quizId;
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
     //private List<Question> questionList;
     private Map<String,Question> questionList;
+    private TextView mTextField;
     private TextView question;
     private RadioButton optionA;
     private RadioButton optionB;
@@ -78,6 +86,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                 .document(StudentAPI.Instance().getGroupUid()).collection("Students").document(StudentAPI.Instance().getRollno()).collection("Quizzes");
 
 
+        mTextField = findViewById(R.id.text_view_countdown);
         question = findViewById(R.id.ques);
         optionA = findViewById(R.id.optionA_radio);
         optionB = findViewById(R.id.optionB_radio);
@@ -124,6 +133,31 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                     }
                 });
 
+        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                mTimeLeftInMillis = millisUntilFinished;
+                mTextField.setText("" + (mTimeLeftInMillis / 1000));
+            }
+
+            public void onFinish() {
+                mTextField.setText("00:00");
+                checkAnswer();
+                builder = new AlertDialog.Builder(QuestionsPage.this);
+                View view = getLayoutInflater().inflate(R.layout.time_over_alert,null);
+                builder.setView(view);
+                dialog = builder.create();
+                dialog.show();
+
+            }
+        }.start();
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(false);
+        Toast.makeText(QuestionsPage.this,"Submit To go Back",Toast.LENGTH_SHORT).show();
 
     }
 
