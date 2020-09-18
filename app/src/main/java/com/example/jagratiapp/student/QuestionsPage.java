@@ -3,7 +3,6 @@ package com.example.jagratiapp.student;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -19,15 +18,10 @@ import com.example.jagratiapp.R;
 import com.example.jagratiapp.StudentCompleteInfo;
 import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.model.QuizReport;
-import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.student.Util.StudentAPI;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,11 +31,9 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
 public class QuestionsPage extends AppCompatActivity implements View.OnClickListener {
 
-    private static final long START_TIME_IN_MILLIS = 6000;
+    private static final long START_TIME_IN_MILLIS = 60000;
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private CountDownTimer mCountDownTimer;
     private String quizId;
@@ -259,7 +251,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
             public void onFinish() {
                 if(!submitchecker)
                     checkAnswer();
-
             }
         }.start();
 
