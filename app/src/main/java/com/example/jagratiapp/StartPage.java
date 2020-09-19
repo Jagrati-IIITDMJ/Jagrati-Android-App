@@ -65,4 +65,10 @@ public class StartPage extends AppCompatActivity {
         super.onRestart();
         firebaseAuth.addAuthStateListener(authStateListener);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
 }
