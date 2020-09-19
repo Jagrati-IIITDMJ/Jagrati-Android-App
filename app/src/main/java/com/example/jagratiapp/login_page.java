@@ -29,7 +29,7 @@ public class login_page extends AppCompatActivity{
     private Button loginButtonLogin;
     private EditText emailEditText;
     private EditText passwordEditText;
-    private Button studentLogin;
+
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -41,17 +41,19 @@ public class login_page extends AppCompatActivity{
         setContentView(R.layout.activity_login_page);
         findViews();
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
-        authStateListener =  new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (currentUser != null && currentUser.isEmailVerified()){
-                    startActivity(new Intent(login_page.this,HomePage.class));
-                    finish();
-                }
-            }
-        };
+       firebaseAuth = FirebaseAuth.getInstance();
+       currentUser = firebaseAuth.getCurrentUser();
+      // authStateListener =  new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                if (currentUser != null && currentUser.isEmailVerified()){
+//                    startActivity(new Intent(login_page.this,HomePage.class));
+//                    finish();
+//                    //to finish start page
+//
+//                }
+//            }
+//        };
 
 
         loginButtonLogin.setOnClickListener(new View.OnClickListener() {
@@ -80,12 +82,7 @@ public class login_page extends AppCompatActivity{
             }
         });
 
-        studentLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(login_page.this, StudentLogin.class));
-            }
-        });
+
 
     }
 
@@ -102,7 +99,8 @@ public class login_page extends AppCompatActivity{
                         if(cuser != null) {
                             if (cuser.isEmailVerified()) {
                                 startActivity(new Intent(login_page.this, HomePage.class));
-                                finish();
+                                //to finish StartPage activity
+                                finishAffinity();
 
                                 Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                             } else {
@@ -131,14 +129,14 @@ public class login_page extends AppCompatActivity{
         forgetPasswordLogin = findViewById(R.id.forget_password_button_login);
         emailEditText = findViewById(R.id.login_email);
         passwordEditText = findViewById(R.id.login_password);
-        studentLogin = findViewById(R.id.student_login);
+
 
     }
 
-//
-    @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
-    }
+////
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        firebaseAuth.addAuthStateListener(authStateListener);
+//    }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
-import static com.example.jagratiapp.R.drawable.ic_wrong_checkbox;
+//import static com.example.jagratiapp.R.drawable.ic_wrong_checkbox;
 
 public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRecyclerAdapter.ViewHolder>  {
     private Context context;
@@ -56,7 +56,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
 
         boolean attendanceState = recordedAttendance.get(holder.studentID);
         if (attendanceState){
-            holder.attendanceChecker.setImageResource(R.drawable.ic_tick);
+            holder.attendanceChecker.setVisibility(View.VISIBLE);
         }
 
     }
@@ -97,11 +97,11 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
 //
             if (recordedAttendance.get(studentID)){
                 state = false;
-                attendanceChecker.setImageResource(ic_wrong_checkbox);
+               attendanceChecker.setVisibility(View.INVISIBLE);
             }
             else {
                 state = true;
-                attendanceChecker.setImageResource(R.drawable.ic_tick);
+                attendanceChecker.setVisibility(View.VISIBLE);
             }
             onStudentListener.onStudentClick(getAdapterPosition(),state);
         }

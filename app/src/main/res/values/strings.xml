@@ -41,4 +41,5 @@
     <string name="hint_quizName">Enter Quiz Name here</string>
     <string name="hint_quizDescription">Enter Quiz Description here</string>
     <string name="addQues">Save Question</string>
+    <string name="volunteer_login">Volunteer Login</string>
 </resources>
