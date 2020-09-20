@@ -42,4 +42,17 @@
     <string name="hint_quizDescription">Enter Quiz Description here</string>
     <string name="addQues">Save Question</string>
     <string name="volunteer_login">Volunteer Login</string>
+    <string name="add">add</string>
+    <string name="there_must_be_something">theari \'aspdoifjn \'oidsa</string>
+    <string name="log_out">log out</string>
+    <string name="profile">profile</string>
+    <string name="cancel">cancel</string>
+    <string name="hint1">hint</string>
+    <string name="you_are_about_to_sign_out_nare_you_sure">You are about to sign out\n Are your Sure??</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+    <string name="submit">submit</string>
+    <string name="your_profile">your profile</string>
+    <string name="draweropen">Drawer open</string>
+    <string name="drawerclosed">Drawer Closed</string>
 </resources>
