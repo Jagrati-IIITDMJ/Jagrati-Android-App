@@ -2,7 +2,7 @@ package com.example.jagratiapp.student;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -11,36 +11,39 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.StudentCompleteInfo;
 import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.model.QuizReport;
-import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.student.Util.StudentAPI;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class QuestionsPage extends AppCompatActivity implements View.OnClickListener {
 
+    private static final long START_TIME_IN_MILLIS = 60000;
+    private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
+    private CountDownTimer mCountDownTimer;
     private String quizId;
-    //private List<Question> questionList;
+    private AlertDialog dialog;
+    private AlertDialog.Builder builder;
+    private Button backToListButton;
+    private Button solutionButton;
+    private TextView marksObtained;
     private Map<String,Question> questionList;
+    private TextView mTextField;
     private TextView question;
     private RadioButton optionA;
     private RadioButton optionB;
@@ -51,7 +54,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private Button previous;
     private Button next;
     private Button submit;
-    private int questionNo = 0;
+    private boolean submitchecker = false;
     private int totalquestion;
     private Map<String,String> answerList;
     private Iterator questionIterator;
@@ -78,6 +81,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                 .document(StudentAPI.Instance().getGroupUid()).collection("Students").document(StudentAPI.Instance().getRollno()).collection("Quizzes");
 
 
+        mTextField = findViewById(R.id.text_view_countdown);
         question = findViewById(R.id.ques);
         optionA = findViewById(R.id.optionA_radio);
         optionB = findViewById(R.id.optionB_radio);
@@ -124,6 +128,14 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                     }
                 });
 
+        setTimer();
+
+    }
+
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(false);
+        Toast.makeText(QuestionsPage.this,"Submit To go Back",Toast.LENGTH_SHORT).show();
 
     }
 
@@ -146,6 +158,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
                 break;
             case R.id.submit:
+                submitchecker = true;
                 checkAnswer();
                 break;
             default:
@@ -168,7 +181,8 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         Toast.makeText(QuestionsPage.this,radioButton.getText().toString()+" "+answerList.size(),Toast.LENGTH_SHORT).show();
         answerList.put(q,radioButton.getText().toString());
     }
-    public void checkAnswer(){
+    private void checkAnswer(){
+        mCountDownTimer.cancel();
          int result= 0;
         if(!answerList.isEmpty()) {
             Iterator it = answerList.entrySet().iterator();
@@ -187,41 +201,97 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         }
 
         quizReport = new QuizReport(answerList,result);
-        collectionToSaveReport.document(quizId).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                Toast.makeText(QuestionsPage.this, "Quiz Already Given", Toast.LENGTH_SHORT).show();
-                            } else {
-                                collectionToSaveReport.document(quizId).set(quizReport)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                startActivity(new Intent(QuestionsPage.this, StudentCompleteInfo.class)
-                                                        .putExtra("classID", StudentAPI.Instance().getClassUid())
-                                                        .putExtra("groupID", StudentAPI.Instance().getGroupUid())
-                                                        .putExtra("studentID", StudentAPI.Instance().getRollno()));
-                                                finish();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(QuestionsPage.this, e.getMessage().trim(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                            }
-                        }
-                    }
-                });
+//      TODO:Hatana mat abhi ise
 
+//        collectionToSaveReport.document(quizId).get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            if (document.exists()) {
+//                                Toast.makeText(QuestionsPage.this, "Quiz Already Given", Toast.LENGTH_SHORT).show();
+//                            } else {
+                                collectionToSaveReport.document(quizId).set(quizReport);
+//                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void aVoid) {
+//                                                startActivity(new Intent(QuestionsPage.this, StudentCompleteInfo.class)
+//                                                        .putExtra("classID", StudentAPI.Instance().getClassUid())
+//                                                        .putExtra("groupID", StudentAPI.Instance().getGroupUid())
+//                                                        .putExtra("studentID", StudentAPI.Instance().getRollno()));
+//                                                finish();
+//                                            }
+//                                        })
+//                                        .addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                Toast.makeText(QuestionsPage.this, e.getMessage().trim(), Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        });
+//                            }
+//                        }
+//                    }
+//                });
+        setPopup(result);
 
+    }
 
+    private void setTimer() {
+        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
 
+            public void onTick(long millisUntilFinished) {
+                mTimeLeftInMillis = millisUntilFinished;
+                int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
+                int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+                mTextField.setText(timeLeftFormatted);
+            }
+
+            public void onFinish() {
+                if(!submitchecker)
+                    checkAnswer();
+            }
+        }.start();
+
+    }
+
+    private void setPopup(int result) {
+        builder = new AlertDialog.Builder(QuestionsPage.this);
+        builder.setCancelable(false);
+        View view = getLayoutInflater().inflate(R.layout.time_over_alert,null);
+
+        solutionButton = view.findViewById(R.id.openSolutionButton_popup);
+        backToListButton =view.findViewById(R.id.BackToQuizListButton_popup);
+        marksObtained = view.findViewById(R.id.marks_popup);
+
+        marksObtained.setText(new StringBuilder().append("Marks Obtained: ").append(result).append(" Out Of ").append(totalquestion).toString());
+
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+
+        solutionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(QuestionsPage.this, StudentCompleteInfo.class)
+                                                       .putExtra("classID", StudentAPI.Instance().getClassUid())
+                                                       .putExtra("groupID", StudentAPI.Instance().getGroupUid())
+                                                       .putExtra("studentID", StudentAPI.Instance().getRollno()));
+                                               finish();
+            }
+        });
+
+        backToListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
     }
+
+
 }

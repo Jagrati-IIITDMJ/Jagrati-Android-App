@@ -2,17 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/transparent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:outlineSpotShadowColor="@color/transparent"
-        android:outlineAmbientShadowColor="@color/transparent"
-
-        app:cardBackgroundColor="@color/transparent">
+        android:layout_margin="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,25 +15,17 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/student_card1"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:outlineSpotShadowColor="@color/transparent"
 
-
-                app:cardBackgroundColor="@color/transparent"
                 app:cardCornerRadius="0dp">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/student_card2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:outlineSpotShadowColor="@color/transparent"
-
-
-                    app:cardBackgroundColor="@color/transparent"
+                    android:elevation="4dp"
                     app:cardCornerRadius="1000dp">
 
                     <ImageView
@@ -59,9 +46,8 @@
                     android:layout_height="31dp"
                     android:layout_gravity="bottom|end"
                     android:elevation="8dp"
-                    android:visibility="invisible"
-                    app:srcCompat="@drawable/ic_tick"
-                    android:contentDescription="@string/attendance_checker" />
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_wrong_checkbox"/>
 
 
             </androidx.cardview.widget.CardView>
@@ -74,7 +60,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
                 android:padding="2dp"
-                android:text="@string/name" />
+                android:text="TextView" />
 
 
             <TextView
@@ -84,7 +70,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
                 android:padding="2dp"
-                android:text="@string/village" />
+                android:text="TextView" />
 
         </LinearLayout>
 

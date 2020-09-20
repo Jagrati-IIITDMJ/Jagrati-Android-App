@@ -87,11 +87,6 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         });
 
 
-
-
-
-
-
     }
 
     @Override
@@ -148,16 +143,12 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         collectionReference.add(q).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+
                         List<Question> newQuestionList = questionList;
                         newQuestionList.add(q);
                         documentToAddNumOfQues.update("numberOfQues",newQuestionList.size());
                         dialog.dismiss();
 
-                    }
-                },600);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
