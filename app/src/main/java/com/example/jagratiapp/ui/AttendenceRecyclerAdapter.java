@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.jagratiapp.AttendencePage;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Students;
 
@@ -19,18 +18,21 @@ import java.util.List;
 import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
+//import static com.example.jagratiapp.R.drawable.ic_wrong_checkbox;
 
 public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRecyclerAdapter.ViewHolder>  {
     private Context context;
     private List<Students> studentsList;
     private Map<String,Boolean> recordedAttendance;
     private OnStudentListener onStudentListener;
+    private boolean today;
 
-    public AttendenceRecyclerAdapter(Context context, List<Students> studentsList, Map<String, Boolean> recordedAttendance, OnStudentListener onStudentListener) {
+    public AttendenceRecyclerAdapter(Context context, List<Students> studentsList, Map<String, Boolean> recordedAttendance, OnStudentListener onStudentListener,boolean today) {
         this.context = context;
         this.studentsList = studentsList;
         this.recordedAttendance = recordedAttendance;
         this.onStudentListener = onStudentListener;
+        this.today = today;
     }
 
     @NonNull
@@ -81,8 +83,8 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
             this.villageName = itemView.findViewById(R.id.student_village);
             this.attendanceChecker = itemView.findViewById(R.id.attendance_checker);
 
-
-            itemView.setOnClickListener(this);
+            if (today)
+                itemView.setOnClickListener(this);
 
         }
 
@@ -95,7 +97,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
 //
             if (recordedAttendance.get(studentID)){
                 state = false;
-                attendanceChecker.setVisibility(View.INVISIBLE);
+               attendanceChecker.setVisibility(View.INVISIBLE);
             }
             else {
                 state = true;
