@@ -7,14 +7,16 @@ public class Question {
     private String option3;
     private String option4;
     private String correctOption;
+    private String questionId;
 
-    public Question(String question, String option1, String option2, String option3, String option4, String correctOption) {
+    public Question(String question, String option1, String option2, String option3, String option4, String correctOption,String questionId) {
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
         this.correctOption = correctOption;
+        this.questionId = questionId;
     }
 
     public Question(){}
@@ -64,5 +66,13 @@ public class Question {
 
     public void setCorrectOption(String correctOption) {
         this.correctOption = correctOption;
+    }
+
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
     }
 }

@@ -152,7 +152,6 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
                                     documentReference.collection("Attendance").document(formattedDate).update(studentsList.get(i).getUid(),false);
                                     recordedAttendance.put(studentsList.get(i).getUid(),false);
                                 }
-
                             }
                             attendenceAdapter = new AttendenceRecyclerAdapter(AttendencePage.this,studentsList,recordedAttendance,onStudentListener,true);
                             attendenceRecyclerView.setAdapter(attendenceAdapter);
