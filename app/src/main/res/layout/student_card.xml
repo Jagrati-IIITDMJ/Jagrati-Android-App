@@ -46,8 +46,8 @@
                     android:layout_height="31dp"
                     android:layout_gravity="bottom|end"
                     android:elevation="8dp"
-                    android:visibility="visible"
-                    app:srcCompat="@drawable/ic_wrong_checkbox"/>
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/ic_tick"/>
 
 
             </androidx.cardview.widget.CardView>

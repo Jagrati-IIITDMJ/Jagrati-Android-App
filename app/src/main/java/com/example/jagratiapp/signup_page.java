@@ -75,19 +75,19 @@ public class signup_page extends AppCompatActivity {
         signup_button_signup = findViewById(R.id.signup_button);
         progressBar_signup = findViewById(R.id.signup_progress);
 
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                currentUser = firebaseAuth.getCurrentUser();
-
-                if(currentUser != null && currentUser.isEmailVerified()){
-                    //user is alread log in
-                    startActivity(new Intent(signup_page.this,HomePage.class));
-                    finish();
-                }
-
-            }
-        };
+//        authStateListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                currentUser = firebaseAuth.getCurrentUser();
+//
+//                if(currentUser != null && currentUser.isEmailVerified()){
+//                    //user is alread log in
+//                    startActivity(new Intent(signup_page.this,HomePage.class));
+//                    finish();
+//                }
+//
+//            }
+//        };
 
         signup_button_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,10 +179,10 @@ public class signup_page extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-            currentUser = firebaseAuth.getCurrentUser();
-        firebaseAuth.addAuthStateListener(authStateListener);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//            currentUser = firebaseAuth.getCurrentUser();
+//        firebaseAuth.addAuthStateListener(authStateListener);
+//    }
 }
