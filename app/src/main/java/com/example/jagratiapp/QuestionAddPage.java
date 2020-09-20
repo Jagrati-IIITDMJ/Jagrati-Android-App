@@ -1,7 +1,6 @@
 package com.example.jagratiapp;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.model.Question;
-import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.ui.QuestionAddAdapter;
-import com.example.jagratiapp.ui.StudentRecyclerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -122,7 +119,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         && !TextUtils.isEmpty(correctOption.getText().toString().trim())){
                     Question ques = new Question(question.getText().toString().trim(),option1.getText().toString().trim(),
                             option2.getText().toString().trim(),option3.getText().toString().trim(),option4.getText().toString().trim(),
-                            correctOption.getText().toString().trim());
+                            correctOption.getText().toString().trim(),null);
                     saveQuestion(ques);
 
 

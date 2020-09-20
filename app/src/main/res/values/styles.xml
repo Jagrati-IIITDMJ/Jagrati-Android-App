@@ -7,4 +7,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="RadioButtonColorRed" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@android:color/holo_red_light</item>
+        <item name="android:textColorPrimary">@android:color/holo_green_light</item>
+    </style>
+
+
+
 </resources>
