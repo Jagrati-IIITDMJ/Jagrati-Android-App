@@ -99,8 +99,12 @@ public class login_page extends AppCompatActivity{
                         if(cuser != null) {
                             if (cuser.isEmailVerified()) {
                                 startActivity(new Intent(login_page.this, HomePage.class));
+//                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//                                        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                                 //to finish StartPage activity
                                 finishAffinity();
+
 
                                 Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                             } else {

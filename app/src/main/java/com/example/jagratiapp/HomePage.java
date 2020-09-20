@@ -17,6 +17,7 @@ public class HomePage extends AppCompatActivity {
     private Button signout_button;
     private Button classes;
     private Button quizzes;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     private FirebaseAuth firebaseAuth;
 
@@ -74,4 +75,5 @@ public class HomePage extends AppCompatActivity {
         profile_button = findViewById(R.id.profile);
         quizzes = findViewById(R.id.quiz);
     }
+
 }
