@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,7 +65,7 @@ public class AttendencePage extends AppCompatActivity implements View.OnClickLis
         spinner = findViewById(R.id.date_picker);
         pastAttendance = findViewById(R.id.see_past_attendance);
         attendenceRecyclerView.setHasFixedSize(true);
-        attendenceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        attendenceRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         studentsList = new ArrayList<>();
         final Map<String, Boolean> attendence = new HashMap<>();
 

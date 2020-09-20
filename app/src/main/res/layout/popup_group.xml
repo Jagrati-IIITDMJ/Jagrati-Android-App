@@ -27,6 +27,8 @@
                 android:padding="8dp"
                 android:background="@drawable/rectangle"
                 android:autofillHints="none"
+                android:textColor="#000000"
+                android:textColorHint="@color/black_overlay"
                 android:hint="@string/hint1"
                 android:backgroundTint="#fffff0"
                 android:inputType="textAutoCorrect" />

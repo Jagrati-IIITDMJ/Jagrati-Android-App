@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.78"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.21"></Button>
+        app:layout_constraintVertical_bias="0.21" />
 
     <Spinner
         android:id="@+id/date_picker"
@@ -38,7 +38,7 @@
         app:layout_constraintHorizontal_bias="0.691"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.376"></Spinner>
+        app:layout_constraintVertical_bias="0.376" />
 
     <Button
         android:id="@+id/submitAttendance"
@@ -50,6 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.048"
-        android:text="Submit"></Button>
+        android:text="Submit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

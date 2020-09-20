@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,7 @@ public class QuizListPage extends AppCompatActivity {
     private String classid;
     private List<Quiz> quizlist;
     private RecyclerView recyclerView;
-    private FloatingActionButton fab;
+    private ImageButton fab;
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
     private EditText quizName;

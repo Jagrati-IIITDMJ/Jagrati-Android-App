@@ -29,6 +29,8 @@
                 android:layout_margin="8dp"
                 android:padding="8dp"
                 android:background="@drawable/rectangle"
+                android:textColor="#000000"
+                android:textColorHint="@color/black_overlay"
                 android:autofillHints="none"
                 android:hint="@string/hint"
                 android:backgroundTint="#fffff0"

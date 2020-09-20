@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jagratiapp">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,14 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".student.QuestionsPage"></activity>
+        <activity android:name=".student.QuestionsPage" />
         <activity android:name=".QuestionAddPage" />
         <activity android:name=".student.StudentQuizListPage" />
         <activity android:name=".student.StudentHomePage" />
         <activity android:name=".student.StudentLogin" />
         <activity android:name=".QuizListPage" />
         <activity android:name=".QuizClassPage" />
-        <activity android:name=".AttendencePage" />
+        <activity android:name=".AttendencePage"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity android:name=".StudentCompleteInfo" />
         <activity
             android:name=".StudentsPage"
@@ -51,6 +53,6 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>

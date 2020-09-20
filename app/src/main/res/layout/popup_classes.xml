@@ -28,6 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:padding="8dp"
+                android:textColorHint="@color/black_overlay"
+                android:textColor="#000000"
                 android:background="@drawable/rectangle"
                 android:autofillHints="none"
                 android:hint="@string/hint"

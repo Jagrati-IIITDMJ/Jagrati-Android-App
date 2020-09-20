@@ -23,22 +23,40 @@
     <string name="n_npast_attendance">\n\npast Attendance</string>
     <string name="n_nattendance">\n\nAttendance</string>
     <string name="we_lift_by_lifting_others">We lift by Lifting others</string>
-    <string name="attendance">Attendence</string>
-    <string name="classes">Classes</string>
-    <string name="n">pending</string>
+    <string name="attendance">\n\nAttendence</string>
+    <string name="classes">\n\nClasses</string>
+    <string name="n">\n\npending</string>
     <string name="past_attendance">Students</string>
     <string name="Group">Group One</string>
     <string name="enter_group_name">Enter Group name</string>
-    <string name="hint">Enter here</string>
+    <string name="hint">Enter the name of Class</string>
     <string name="saveGroup">Save Group</string>
     <string name="enter_class_name">Enter Class name</string>
     <string name="saveClass">Save Class</string>
     <string name="Class">Class One</string>
     <string name="checker">checker</string>
-    <string name="quiz">quiz</string>
+    <string name="quiz">\n\nquiz</string>
     <string name="addQuiz">Add Quiz</string>
     <string name="enter_quiz_detail">"Enter name and description "</string>
     <string name="hint_quizName">Enter Quiz Name here</string>
     <string name="hint_quizDescription">Enter Quiz Description here</string>
     <string name="addQues">Save Question</string>
+    <string name="add">Add</string>
+    <string name="log_out">Log Out</string>
+    <string name="profile">Profile</string>
+    <string name="there_must_be_something">There Must be something</string>
+
+    <string name="hint1">Enter the name of Group</string>
+    <string name="you_are_about_to_sign_out_nare_you_sure">You are about to Sign Out\n Are you Sure?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="attendance_checker">Attendance Checker</string>
+    <string name="name">Name</string>
+    <string name="village">Village</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="your_profile">Profile</string>
+    <string name="draweropen">Open navigation drawer</string>
+    <string name="drawerclosed">Close navigation drawer</string>
+
 </resources>
