@@ -2,12 +2,15 @@ package com.example.jagratiapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.R;
@@ -54,6 +57,8 @@ public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecycler
         private String studentID;
         private String classID;
         private String groupID;
+        private CardView card1;
+        private CardView card2;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -61,6 +66,12 @@ public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecycler
 
             studentName = itemView.findViewById(R.id.student_name);
             villageName = itemView.findViewById(R.id.student_village);
+            card1 = itemView.findViewById(R.id.card1);
+            card2 = itemView.findViewById(R.id.card2);
+            card1.setCardBackgroundColor(Color.TRANSPARENT);
+            card1.setCardElevation(0);
+            card2.setCardElevation(0);
+            card2.setCardBackgroundColor(Color.TRANSPARENT);
 
             itemView.setOnClickListener(this);
         }

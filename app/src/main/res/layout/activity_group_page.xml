@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Group_page">
+    <include layout="@layout/background_activity"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_group_page"
         android:layout_width="match_parent"
