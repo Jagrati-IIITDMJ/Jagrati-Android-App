@@ -1,7 +1,9 @@
 package com.example.jagratiapp.student;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 public class StudentLogin extends AppCompatActivity {
     private EditText usernameEditText;
     private Button loginButton;
+    private boolean state;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference collectionReference = db.collection("Students");
@@ -74,8 +77,16 @@ public class StudentLogin extends AppCompatActivity {
                                                     studentAPI.setGroupUid(student.getGroupID());
                                                     studentAPI.setRollno(student.getRollno());
                                                     studentAPI.setVillageName(student.getVillageName());
+
+                                                    SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = prefs.edit();
+                                                    editor.putBoolean("state", true);
+                                                    editor.putString("username", username);
+                                                    editor.apply();
                                                     startActivity(new Intent(StudentLogin.this,StudentHomePage.class));
-                                                    finish();
+                                                    finishAffinity();
+
+
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -98,5 +109,11 @@ public class StudentLogin extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
     }
 }
