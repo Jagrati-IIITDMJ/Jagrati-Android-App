@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <include layout="@layout/background_activity"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/quiz_class_recyclerview"
         android:layout_width="match_parent"

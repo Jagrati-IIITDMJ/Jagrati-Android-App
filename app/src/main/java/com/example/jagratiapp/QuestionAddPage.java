@@ -1,5 +1,7 @@
 package com.example.jagratiapp;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -131,6 +133,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
 
         builder.setView(view);
         dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 

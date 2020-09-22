@@ -1,6 +1,8 @@
 package com.example.jagratiapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -147,6 +149,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
 
         builder.setView(view);
         dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
         saveButton.setOnClickListener(new View.OnClickListener() {
