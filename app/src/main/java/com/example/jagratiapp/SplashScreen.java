@@ -29,7 +29,7 @@ public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
     private FirebaseAuth.AuthStateListener authStateListener;
-    boolean flag1 = false, flag2 = false;
+    boolean flag1 = true, flag2 = false;
 
 
 
@@ -45,12 +45,12 @@ public class SplashScreen extends AppCompatActivity {
                     @Override
                     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                         if (currentUser != null && currentUser.isEmailVerified()){
+                            flag1 = false;
                             startActivity(new Intent(SplashScreen.this,HomePage.class));
                             finish();
+
                         }
-                        else{
-                            flag1 = true;
-                        }
+
 
 
                     }
