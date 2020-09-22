@@ -55,4 +55,7 @@
     <string name="your_profile">your profile</string>
     <string name="draweropen">Drawer open</string>
     <string name="drawerclosed">Drawer Closed</string>
+    <string name="title_activity_student_holder">StudentHolderActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>
