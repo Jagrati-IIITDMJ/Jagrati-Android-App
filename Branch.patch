@@ -1,0 +1,25 @@
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/.gitignore	(revision c56b7ebad7eb04b00fcb114af0d59d1585f991e6)
++++ .idea/.gitignore	(revision c56b7ebad7eb04b00fcb114af0d59d1585f991e6)
+@@ -0,0 +1,2 @@
++# Default ignored files
++/shelf/
+Index: app/src/main/java/com/example/jagratiapp/StartPage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/jagratiapp/StartPage.java	(revision b2266be4263325abc838cd63ae401437404a7245)
++++ app/src/main/java/com/example/jagratiapp/StartPage.java	(revision c56b7ebad7eb04b00fcb114af0d59d1585f991e6)
+@@ -35,6 +35,7 @@
+     private Button volunteerLogin;
+     FirebaseFirestore db = FirebaseFirestore.getInstance();
+     CollectionReference collectionReference = db.collection("Students");
++    //to check in which branch in I am present
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
