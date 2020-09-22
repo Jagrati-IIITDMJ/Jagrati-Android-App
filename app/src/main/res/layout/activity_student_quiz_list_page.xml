@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".student.StudentQuizListPage">
-
+    <include layout="@layout/background_activity"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/student_quiz_list_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
