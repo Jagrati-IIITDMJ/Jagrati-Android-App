@@ -42,18 +42,18 @@ public class login_page extends AppCompatActivity{
         findViews();
 
        firebaseAuth = FirebaseAuth.getInstance();
-       currentUser = firebaseAuth.getCurrentUser();
-      // authStateListener =  new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                if (currentUser != null && currentUser.isEmailVerified()){
-//                    startActivity(new Intent(login_page.this,HomePage.class));
-//                    finish();
-//                    //to finish start page
-//
-//                }
-//            }
-//        };
+       //currentUser = firebaseAuth.getCurrentUser();
+       authStateListener =  new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (currentUser != null && currentUser.isEmailVerified()){
+                    startActivity(new Intent(login_page.this,HomePage.class));
+                    finishAffinity();
+                    //to finish start page
+
+                }
+            }
+        };
 
 
         loginButtonLogin.setOnClickListener(new View.OnClickListener() {
@@ -96,25 +96,28 @@ public class login_page extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        FirebaseUser cuser = FirebaseAuth.getInstance().getCurrentUser();
-                        if(cuser != null) {
-                            if (cuser.isEmailVerified()) {
+                         currentUser = firebaseAuth.getCurrentUser();
+                       /* if(currentUser != null) {
+                            if (currentUser.isEmailVerified()) {
+
                                 startActivity(new Intent(login_page.this, HomePage.class));
 //                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 //                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 //                                        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                                 //to finish StartPage activity
-                                finishAffinity();
+                              finishAffinity();*/
+                        firebaseAuth.addAuthStateListener(authStateListener);
 
 
-                                Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+
+                           /*     Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                             } else {
                                 
                                 Toast.makeText(login_page.this, "Babes you need to verify", Toast.LENGTH_SHORT).show();
                             }
                         }else{
                             Toast.makeText(login_page.this, "NULL hai boi", Toast.LENGTH_SHORT).show();
-                        }
+                        }*/
 
                     }
                 })

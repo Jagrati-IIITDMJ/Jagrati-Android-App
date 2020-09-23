@@ -28,14 +28,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class StartPage extends AppCompatActivity {
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser currentUser;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private Button studentLogin;
     private Button volunteerLogin;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference collectionReference = db.collection("Students");
-    //to check in which branch in I am present
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +38,6 @@ public class StartPage extends AppCompatActivity {
 
         studentLogin = findViewById(R.id.student_login);
         volunteerLogin = findViewById(R.id.volunteer_login);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
-        authStateListener =  new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (currentUser != null && currentUser.isEmailVerified()){
-                    startActivity(new Intent(StartPage.this,HomePage.class));
-                    finish();
-                }
-
-            }
-        };
-
-
 
         studentLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,23 +54,6 @@ public class StartPage extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
-
-//
-        final SharedPreferences SharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
-        boolean state =SharedPreferences.getBoolean("state", false);
-        String username = SharedPreferences.getString("username","");
-
-        if(state && username != null) {
-            login(username);
-        }
-
-
-
-    }
 
 //    @Override
 //    protected void onRestart() {
@@ -114,61 +76,5 @@ public class StartPage extends AppCompatActivity {
 //        }
 //
 //    }
-    private void login(final String username) {
-        collectionReference.document(username).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value.exists()){
-                    db.collection("Students").document(username).get()
-                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                                    String classUid = documentSnapshot.getString("classUid");
-                                    String groupUid = documentSnapshot.getString("groupUid");
-
-                                    db.collection("Classes").document(classUid).collection("Groups").document(groupUid).collection("Students").document(username).get()
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                    StudentAPI studentAPI = StudentAPI.Instance();
-                                                    Students student = documentSnapshot.toObject(Students.class);
-                                                    studentAPI.setGuardianName(student.getGuardianName());
-                                                    studentAPI.setStudentName(student.getStudentName());
-                                                    studentAPI.setClassUid(student.getClassID());
-                                                    studentAPI.setMobileNo(student.getMobileNo());
-                                                    studentAPI.setGroupUid(student.getGroupID());
-                                                    studentAPI.setRollno(student.getRollno());
-                                                    studentAPI.setVillageName(student.getVillageName());
-
-                                                    startActivity(new Intent(StartPage.this,StudentHomePage.class));
-                                                    finishAffinity();
-
-
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-
-                                                }
-                                            });
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                }
-                            });
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        firebaseAuth.addAuthStateListener(authStateListener);
-    }
 }
