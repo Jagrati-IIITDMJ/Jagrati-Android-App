@@ -5,18 +5,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-
-import com.example.jagratiapp.StudentsPage;
-import com.example.jagratiapp.R;
-import com.example.jagratiapp.model.Groups;
-
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.jagratiapp.R;
+import com.example.jagratiapp.StudentHolderActivity;
+import com.example.jagratiapp.model.Groups;
+
+import java.util.List;
 
 public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdapter.ViewHolder> {
     private Context context;
@@ -69,10 +68,12 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(context, StudentsPage.class);
-            intent.putExtra("classUid",classUid);
-            intent.putExtra("groupUid",groupUid);
-            context.startActivity(intent);
+//            Intent intent = new Intent(context, StudentsPage.class);
+//            intent.putExtra("classUid",classUid);
+//            intent.putExtra("groupUid",groupUid);
+//            context.startActivity(intent);
+
+            context.startActivity(new Intent(context, StudentHolderActivity.class));
 
         }
 

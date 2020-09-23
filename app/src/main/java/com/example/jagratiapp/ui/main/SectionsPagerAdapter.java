@@ -34,10 +34,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch(position) {
             case 0 :
                 fragment = new PastAttendanceFragment();
+                break;
             case 1 :
                 fragment = new StudentsFragment();
+                break;
             case 2:
                 fragment = new AttendanceFragment();
+                break;
         }
         return fragment;
     }

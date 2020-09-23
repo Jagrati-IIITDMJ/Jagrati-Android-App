@@ -1,66 +1,188 @@
 package com.example.jagratiapp.Fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.R;
+import com.example.jagratiapp.model.Students;
+import com.example.jagratiapp.ui.AttendenceRecyclerAdapter;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AttendanceFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class AttendanceFragment extends Fragment {
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import static android.widget.Toast.LENGTH_SHORT;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class AttendanceFragment extends Fragment implements AttendenceRecyclerAdapter.OnStudentListener {
+
+    private Button submitButton;
+    private String classUid;
+    private String groupUid;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DocumentReference documentReference;
+    private List<Students> studentsList;
+    private RecyclerView attendenceRecyclerView;
+    private AttendenceRecyclerAdapter attendenceAdapter;
+    private boolean flag;
+    private AttendenceRecyclerAdapter.OnStudentListener onStudentListener = this;
+    private final Map<String,Boolean> recordedAttendance = new HashMap<>();
+    private String formattedDate;
+    private Spinner spinner;
+    private Button pastAttendance;
 
     public AttendanceFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AttendanceFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AttendanceFragment newInstance(String param1, String param2) {
+    public static AttendanceFragment newInstance() {
         AttendanceFragment fragment = new AttendanceFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        studentsList = new ArrayList<>();
+        final Map<String, Boolean> attendence = new HashMap<>();
+
+
+        classUid = "OYJQbAQiVJYhKkO4xfs2";
+        groupUid = "kAzTRNUignhkSkMXwDVV";
+        documentReference = db.collection("Classes").document(classUid)
+                .collection("Groups").document(groupUid);
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        formattedDate = df.format(c);
+
+        documentReference.collection("Students").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()){
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                Students student = documentSnapshot.toObject(Students.class);
+                                student.setUid(documentSnapshot.getId());
+                                studentsList.add(student);
+                            }
+                        }
+                        else {
+                            Toast.makeText(getContext(),"Kuch ni hain", LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+        documentReference.collection("Attendance").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            if (formattedDate.equals(documentSnapshot.getId())) {
+                                flag = true;
+                                break;
+                            }
+                        }
+
+                        if (!flag){
+                            documentReference.collection("Students").get()
+                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                            if (!queryDocumentSnapshots.isEmpty()){
+                                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                                    attendence.put(documentSnapshot.getId(),false);
+                                                }
+                                                documentReference.collection("Attendance").document(formattedDate).set(attendence);
+                                                documentReference.collection("Attendance").document(formattedDate).update("timestamp", Timestamp.now());
+                                            }
+                                            else {
+                                                Toast.makeText(getContext(),"Access nahi hue", LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                        }
+
+                    }
+                });
+
+        documentReference.collection("Attendance").document(formattedDate).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()){
+                            for (int i=0;i<studentsList.size();i++) {
+                                if (documentSnapshot.getBoolean(studentsList.get(i).getUid()) != null){
+                                    recordedAttendance.put(studentsList.get(i).getUid(),documentSnapshot.getBoolean(studentsList.get(i).getUid()));
+                                }
+                                else {
+                                    documentReference.collection("Attendance").document(formattedDate).update(studentsList.get(i).getUid(),false);
+                                    recordedAttendance.put(studentsList.get(i).getUid(),false);
+                                }
+                            }
+                            attendenceAdapter = new AttendenceRecyclerAdapter(getContext(),studentsList,recordedAttendance,onStudentListener,true);
+                            attendenceRecyclerView.setAdapter(attendenceAdapter);
+                        }
+                    }
+                });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_attendance, container, false);
+        View view = inflater.inflate(R.layout.fragment_attendance, container, false);
+        submitButton = view.findViewById(R.id.submitAttendance);
+        attendenceRecyclerView = view.findViewById(R.id.attendence_recycler_view);
+        attendenceRecyclerView.setHasFixedSize(true);
+        attendenceRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Yes i m there", LENGTH_SHORT).show();
+                if(!recordedAttendance.isEmpty()) {
+                    Iterator it = recordedAttendance.entrySet().iterator();
+                    while(it.hasNext()) {
+                        Map.Entry obj = (Map.Entry)it.next();
+                        Toast.makeText(getContext(),obj.getKey().toString() + " " + obj.getValue(), LENGTH_SHORT).show();
+                        documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
+                    }
+                }
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onStudentClick(int position,boolean state) {
+        Students student = studentsList.get(position);
+        recordedAttendance.put(student.getUid(),state);
+        Toast.makeText(getContext()," " + recordedAttendance.get(student.getUid()), Toast.LENGTH_SHORT).show();
     }
 }
