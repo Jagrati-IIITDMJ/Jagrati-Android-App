@@ -29,7 +29,7 @@ public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
     private FirebaseAuth.AuthStateListener authStateListener;
-    boolean flag1 = true, flag2 = false;
+    boolean flag1 = false, flag2 = false;
 
 
 
@@ -45,16 +45,16 @@ public class SplashScreen extends AppCompatActivity {
                     @Override
                     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                         if (currentUser != null && currentUser.isEmailVerified()){
-                            flag1 = false;
                             startActivity(new Intent(SplashScreen.this,HomePage.class));
                             finish();
-
                         }
-
-
-
                     }
                 };
+                // For opening of start page
+                if (currentUser != null && currentUser.isEmailVerified())
+                    flag1 = false;
+                else
+                    flag1 = true;
 
         final SharedPreferences SharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
         boolean state =SharedPreferences.getBoolean("state", false);
@@ -71,7 +71,6 @@ public class SplashScreen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         firebaseAuth.addAuthStateListener(authStateListener);
-
         if(flag1 && flag2){
             startActivity(new Intent(SplashScreen.this,StartPage.class));
             finishAffinity();
@@ -79,9 +78,8 @@ public class SplashScreen extends AppCompatActivity {
 
         Toast.makeText(SplashScreen.this,"" +flag1 + flag2,Toast.LENGTH_SHORT).show();
 
-
-
     }
+
 
     private void login(final String username) {
         collectionReference.document(username).addSnapshotListener(new EventListener<DocumentSnapshot>() {
