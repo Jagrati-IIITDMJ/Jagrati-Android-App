@@ -84,21 +84,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(c);
 
-        documentReference.collection("Students").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                Students student = documentSnapshot.toObject(Students.class);
-                                student.setUid(documentSnapshot.getId());
-                                studentsList.add(student);
-                            }
-                        } else {
-                            Toast.makeText(getContext(), "Kuch ni hain", LENGTH_SHORT).show();
-                        }
-                    }
-                });
+
 
     }
 
@@ -113,6 +99,23 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         attendenceRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
         // To show the student list in attendance segment
+        if(studentsList.isEmpty()) {
+            documentReference.collection("Students").get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                    Students student = documentSnapshot.toObject(Students.class);
+                                    student.setUid(documentSnapshot.getId());
+                                    studentsList.add(student);
+                                }
+                            } else {
+                                Toast.makeText(getContext(), "Kuch ni hain", LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
 
 
 

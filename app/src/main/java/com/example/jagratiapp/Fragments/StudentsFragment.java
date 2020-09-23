@@ -34,9 +34,13 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class StudentsFragment extends Fragment {
@@ -60,6 +64,7 @@ public class StudentsFragment extends Fragment {
     private List<Students> studentsList;
     private RecyclerView studentRecyclerView;
     private StudentRecyclerAdapter studentAdapter;
+    private String formattedDate;
 
     public StudentsFragment() {
         // Required empty public constructor
@@ -91,6 +96,10 @@ public class StudentsFragment extends Fragment {
                 .collection("Groups").document(groupid);
 
         names();
+
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        formattedDate = df.format(c);
 
 
     }
@@ -204,6 +213,9 @@ public class StudentsFragment extends Fragment {
                                                                     List<Students> newStudentList = studentsList;
                                                                     student.setUid(documentReference.getId());
                                                                     newStudentList.add(student);
+
+                                                                    documentReference.collection("Attendance").document(formattedDate).update(documentReference.getId(),false);
+
                                                                     StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList, newStudentList);
                                                                     DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
                                                                     diffResult.dispatchUpdatesTo(studentAdapter);
