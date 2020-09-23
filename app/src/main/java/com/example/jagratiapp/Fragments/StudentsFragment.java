@@ -74,14 +74,8 @@ public class StudentsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        studentRecyclerView.setHasFixedSize(true);
-//        studentRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         studentsList = new ArrayList<>();
 
-//        Bundle bundle = getIntent().getExtras();
-//        assert bundle != null;
-//        classUid = bundle.getString("classUid");
-//        groupUid = bundle.getString("groupUid");
         classUid = "OYJQbAQiVJYhKkO4xfs2";
         groupUid = "kAzTRNUignhkSkMXwDVV";
         documentReference = db.collection("Classes").document(classUid)
@@ -89,9 +83,6 @@ public class StudentsFragment extends Fragment {
 
         names();
 
-
-        //yaha add kiya hai onStart wala
-        //kyunki ab update yaha par nahi ho rha hai
         documentReference.collection("Students").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
