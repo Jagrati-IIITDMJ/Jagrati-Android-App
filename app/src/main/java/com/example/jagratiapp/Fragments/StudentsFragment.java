@@ -41,8 +41,8 @@ import java.util.Map;
 
 public class StudentsFragment extends Fragment {
 
-    private String classUid;
-    private String groupUid;
+    private String classid;
+    private String groupid;
     private Button addStudent;
     private String className;
     private String groupName;
@@ -65,8 +65,12 @@ public class StudentsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static StudentsFragment newInstance() {
+    public static StudentsFragment newInstance(String classid,String groupid) {
         StudentsFragment fragment = new StudentsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("classid", classid);
+        bundle.putString("groupid",groupid);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -77,21 +81,33 @@ public class StudentsFragment extends Fragment {
 //        studentRecyclerView.setHasFixedSize(true);
 //        studentRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         studentsList = new ArrayList<>();
+        Bundle bundle=getArguments();
+        if(bundle!=null){
+                classid = bundle.getString("classid");
+                groupid = bundle.getString("groupid");
+        }
 
-//        Bundle bundle = getIntent().getExtras();
-//        assert bundle != null;
-//        classUid = bundle.getString("classUid");
-//        groupUid = bundle.getString("groupUid");
-        classUid = "OYJQbAQiVJYhKkO4xfs2";
-        groupUid = "kAzTRNUignhkSkMXwDVV";
-        documentReference = db.collection("Classes").document(classUid)
-                .collection("Groups").document(groupUid);
+        documentReference = db.collection("Classes").document(classid)
+                .collection("Groups").document(groupid);
 
         names();
 
 
-        //yaha add kiya hai onStart wala
-        //kyunki ab update yaha par nahi ho rha hai
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+
+        View view = inflater.inflate(R.layout.fragment_students, container, false);
+        takeAttendence = view.findViewById(R.id.Attendence_button);
+        addStudent = view.findViewById(R.id.add_student_button);
+        studentRecyclerView = view.findViewById(R.id.student_recycler_view);
+        studentRecyclerView.setHasFixedSize(true);
+        studentRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
         documentReference.collection("Students").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -116,20 +132,6 @@ public class StudentsFragment extends Fragment {
 
                     }
                 });
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_students, container, false);
-        takeAttendence = view.findViewById(R.id.Attendence_button);
-        addStudent = view.findViewById(R.id.add_student_button);
-        studentRecyclerView = view.findViewById(R.id.student_recycler_view);
-        studentRecyclerView.setHasFixedSize(true);
-        studentRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         addStudent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,7 +172,7 @@ public class StudentsFragment extends Fragment {
                         && !TextUtils.isEmpty(mobileNo)
                         && !TextUtils.isEmpty(villageName)
                         && !TextUtils.isEmpty(rollno)) {
-                    Students student = new Students(classUid, groupUid, studentName, className, groupName, guardianName, mobileNo, villageName, rollno);
+                    Students student = new Students(classid, groupid, studentName, className, groupName, guardianName, mobileNo, villageName,rollno);
                     saveStudent(student);
                 }
             }
@@ -188,8 +190,8 @@ public class StudentsFragment extends Fragment {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Map<String, String> outsideStudent = new HashMap<>();
-                                            outsideStudent.put("classUid", classUid);
-                                            outsideStudent.put("groupUid", groupUid);
+                                            outsideStudent.put("classUid", classid);
+                                            outsideStudent.put("groupUid", groupid);
                                             db.collection("Students").document(student.getRollno()).set(outsideStudent)
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
@@ -226,7 +228,7 @@ public class StudentsFragment extends Fragment {
     }
 
     private void names() {
-        db.collection("Classes").document(classUid).get()
+        db.collection("Classes").document(classid).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {

@@ -40,7 +40,7 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
             @Override
             public void onClick(View view) {
                 DialogFragment datePicker = new DatePickerDialogFragment();
-                datePicker.show();
+               // datePicker.show();
             }
         });
         return view;

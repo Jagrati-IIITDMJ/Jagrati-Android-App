@@ -18,14 +18,18 @@ import com.example.jagratiapp.R;
  * one of the sections/tabs/pages.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private String classid;
+    private String groupid;
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2,R.string.tab_text_3};
     private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public SectionsPagerAdapter(Context context, FragmentManager fm,String classid,String groupid) {
         super(fm);
         mContext = context;
+        this.classid = classid;
+        this.groupid = groupid;
     }
 
     @Override
@@ -36,10 +40,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new PastAttendanceFragment();
                 break;
             case 1 :
-                fragment = new StudentsFragment();
+                fragment = StudentsFragment.newInstance(classid,groupid);
                 break;
             case 2:
-                fragment = new AttendanceFragment();
+                fragment = AttendanceFragment.newInstance(classid,groupid);
                 break;
         }
         return fragment;

@@ -12,7 +12,7 @@
         <activity
             android:name=".StudentHolderActivity"
             android:label="@string/title_activity_student_holder"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
         <activity android:name=".student.QuestionsPage" />
         <activity android:name=".QuestionAddPage" />
         <activity android:name=".student.StudentQuizListPage" />

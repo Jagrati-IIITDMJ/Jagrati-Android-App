@@ -38,8 +38,8 @@ import static android.widget.Toast.LENGTH_SHORT;
 public class AttendanceFragment extends Fragment implements AttendenceRecyclerAdapter.OnStudentListener {
 
     private Button submitButton;
-    private String classUid;
-    private String groupUid;
+    private String classid;
+    private String groupid;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
     private List<Students> studentsList;
@@ -51,14 +51,18 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
     private String formattedDate;
     private Spinner spinner;
     private Button pastAttendance;
+    private Map<String, Boolean> attendence;
 
     public AttendanceFragment() {
         // Required empty public constructor
     }
 
-    public static AttendanceFragment newInstance() {
+    public static AttendanceFragment newInstance(String classid,String groupid) {
         AttendanceFragment fragment = new AttendanceFragment();
-
+        Bundle bundle = new Bundle();
+        bundle.putString("classid", classid);
+        bundle.putString("groupid",groupid);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -67,13 +71,14 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         super.onCreate(savedInstanceState);
 
         studentsList = new ArrayList<>();
-        final Map<String, Boolean> attendence = new HashMap<>();
-
-
-        classUid = "OYJQbAQiVJYhKkO4xfs2";
-        groupUid = "kAzTRNUignhkSkMXwDVV";
-        documentReference = db.collection("Classes").document(classUid)
-                .collection("Groups").document(groupUid);
+        attendence = new HashMap<>();
+        Bundle bundle=getArguments();
+        if(bundle!=null){
+            classid = bundle.getString("classid");
+            groupid = bundle.getString("groupid");
+        }
+        documentReference = db.collection("Classes").document(classid)
+                .collection("Groups").document(groupid);
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
@@ -83,20 +88,36 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()){
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 Students student = documentSnapshot.toObject(Students.class);
                                 student.setUid(documentSnapshot.getId());
                                 studentsList.add(student);
                             }
-                        }
-                        else {
-                            Toast.makeText(getContext(),"Kuch ni hain", LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Kuch ni hain", LENGTH_SHORT).show();
                         }
                     }
                 });
 
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_attendance, container, false);
+        submitButton = view.findViewById(R.id.submitAttendance);
+        attendenceRecyclerView = view.findViewById(R.id.attendence_recycler_view);
+        attendenceRecyclerView.setHasFixedSize(true);
+        attendenceRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+
+        // To show the student list in attendance segment
+
+
+
+
+        // Check weather attendance of particular day is present or not
         documentReference.collection("Attendance").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -107,7 +128,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                                 break;
                             }
                         }
-
+                        //Initialize false for every student having student ID
                         if (!flag){
                             documentReference.collection("Students").get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -149,19 +170,12 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                         }
                     }
                 });
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_attendance, container, false);
-        submitButton = view.findViewById(R.id.submitAttendance);
-        attendenceRecyclerView = view.findViewById(R.id.attendence_recycler_view);
-        attendenceRecyclerView.setHasFixedSize(true);
-        attendenceRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+
+
+
+                submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Yes i m there", LENGTH_SHORT).show();
