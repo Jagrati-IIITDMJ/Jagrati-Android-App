@@ -27,4 +27,11 @@
         app:layout_constraintVertical_bias="0.048"
         android:text="Submit" />
 
+    <Button
+        android:id="@+id/syncStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sync Student"
+        android:layout_marginLeft="290dp"/>
+
 </FrameLayout>

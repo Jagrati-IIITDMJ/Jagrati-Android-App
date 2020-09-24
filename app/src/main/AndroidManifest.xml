@@ -33,9 +33,9 @@
         <activity
             android:name=".Classes_page"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity android:name=".SplashScreen" />
+        <activity android:name=".StartPage" />
         <activity
-            android:name=".StartPage"
+            android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

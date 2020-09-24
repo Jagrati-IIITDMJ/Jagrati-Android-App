@@ -214,8 +214,6 @@ public class StudentsFragment extends Fragment {
                                                                     student.setUid(documentReference.getId());
                                                                     newStudentList.add(student);
 
-                                                                    documentReference.collection("Attendance").document(formattedDate).update(documentReference.getId(),false);
-
                                                                     StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList, newStudentList);
                                                                     DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
                                                                     diffResult.dispatchUpdatesTo(studentAdapter);

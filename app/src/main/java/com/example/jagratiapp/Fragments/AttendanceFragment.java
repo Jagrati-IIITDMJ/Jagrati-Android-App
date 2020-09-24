@@ -43,6 +43,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
     private List<Students> studentsList;
+    private List<Students> newStudentsList;
     private RecyclerView attendenceRecyclerView;
     private AttendenceRecyclerAdapter attendenceAdapter;
     private boolean flag;
@@ -50,7 +51,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
     private final Map<String,Boolean> recordedAttendance = new HashMap<>();
     private String formattedDate;
     private Spinner spinner;
-    private Button pastAttendance;
+    private Button syncButton;
     private Map<String, Boolean> attendence;
 
     public AttendanceFragment() {
@@ -70,6 +71,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         studentsList = new ArrayList<>();
         attendence = new HashMap<>();
         Bundle bundle=getArguments();
@@ -83,9 +85,27 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(c);
+        // To show the student list in attendance segment
+        updateStudentList();
 
+    }
 
-
+    private void updateStudentList( ) {
+        documentReference.collection("Students").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                Students student = documentSnapshot.toObject(Students.class);
+                                student.setUid(documentSnapshot.getId());
+                                studentsList.add(student);
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "Kuch ni hain", LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -94,32 +114,42 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_attendance, container, false);
         submitButton = view.findViewById(R.id.submitAttendance);
+        syncButton = view.findViewById(R.id.syncStudent);
         attendenceRecyclerView = view.findViewById(R.id.attendence_recycler_view);
         attendenceRecyclerView.setHasFixedSize(true);
         attendenceRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-
-        // To show the student list in attendance segment
-        if(studentsList.isEmpty()) {
-            documentReference.collection("Students").get()
-                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            if (!queryDocumentSnapshots.isEmpty()) {
-                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                    Students student = documentSnapshot.toObject(Students.class);
-                                    student.setUid(documentSnapshot.getId());
-                                    studentsList.add(student);
-                                }
-                            } else {
-                                Toast.makeText(getContext(), "Kuch ni hain", LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }
+        updateAndSet();
 
 
+        syncButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+               public void onClick(View view) {
+                studentsList.clear();
+                   updateStudentList();
+                   updateAndSet();
+               }
+           });
+
+         submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Yes i m there", LENGTH_SHORT).show();
+                if(!recordedAttendance.isEmpty()) {
+                    Iterator it = recordedAttendance.entrySet().iterator();
+                    while(it.hasNext()) {
+                        Map.Entry obj = (Map.Entry)it.next();
+                        Toast.makeText(getContext(),obj.getKey().toString() + " " + obj.getValue(), LENGTH_SHORT).show();
+                        documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
+                    }
+                }
+            }
+        });
 
 
+        return view;
+    }
+
+    private void updateAndSet() {
         // Check weather attendance of particular day is present or not
         documentReference.collection("Attendance").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -174,32 +204,21 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                     }
                 });
 
-
-
-
-
-                submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Yes i m there", LENGTH_SHORT).show();
-                if(!recordedAttendance.isEmpty()) {
-                    Iterator it = recordedAttendance.entrySet().iterator();
-                    while(it.hasNext()) {
-                        Map.Entry obj = (Map.Entry)it.next();
-                        Toast.makeText(getContext(),obj.getKey().toString() + " " + obj.getValue(), LENGTH_SHORT).show();
-                        documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
-                    }
-                }
-            }
-        });
-
-        return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
+
 
     @Override
     public void onStudentClick(int position,boolean state) {
         Students student = studentsList.get(position);
         recordedAttendance.put(student.getUid(),state);
-        Toast.makeText(getContext()," " + recordedAttendance.get(student.getUid()), Toast.LENGTH_SHORT).show();
-    }
+        Toast.makeText(getContext()," " + recordedAttendance.get(student.getUid()), Toast.LENGTH_SHORT).show();}
+
+
 }
