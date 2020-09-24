@@ -145,7 +145,6 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
             }
         });
 
-
         return view;
     }
 

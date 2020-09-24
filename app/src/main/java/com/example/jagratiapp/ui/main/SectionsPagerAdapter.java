@@ -37,7 +37,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch(position) {
             case 0 :
-                fragment = new PastAttendanceFragment();
+                fragment = PastAttendanceFragment.newInstance(classid,groupid);
                 break;
             case 1 :
                 fragment = StudentsFragment.newInstance(classid,groupid);
