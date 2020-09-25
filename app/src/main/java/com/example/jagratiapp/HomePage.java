@@ -24,6 +24,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,7 +38,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     private Button yes;
     private Button no;
 
+
+
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,17 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+
+        authStateListener =  new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (currentUser == null){
+                    startActivity(new Intent(HomePage.this,StartPage.class));
+                    finishAffinity();
+                }
+            }
+        };
 
 
         classes.setOnClickListener(new View.OnClickListener() {
@@ -87,9 +102,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     private void signOut(){
             firebaseAuth.signOut();
-            startActivity(new Intent(HomePage.this,StartPage.class));
-            finishAffinity();
-
+            firebaseAuth.addAuthStateListener(authStateListener);
     }
 
 

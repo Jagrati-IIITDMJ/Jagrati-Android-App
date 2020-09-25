@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jagratiapp">
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,24 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".student.QuestionsPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".QuestionAddPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".student.StudentQuizListPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        <activity
+            android:name=".StudentHolderActivity"
+            android:label="@string/title_activity_student_holder"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+        <activity android:name=".student.QuestionsPage" />
+        <activity android:name=".QuestionAddPage" />
+        <activity android:name=".student.StudentQuizListPage" />
         <activity android:name=".student.StudentHomePage"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".student.StudentLogin"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".QuizListPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".QuizClassPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".AttendencePage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".StudentCompleteInfo"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        <activity android:name=".student.StudentLogin" />
+        <activity android:name=".QuizListPage" />
+        <activity android:name=".QuizClassPage" />
+        <activity
+            android:name=".AttendencePage"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity android:name=".StudentCompleteInfo" />
         <activity
             android:name=".StudentsPage"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
@@ -37,10 +34,9 @@
         <activity
             android:name=".Classes_page"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity android:name=".SplashScreen"/>
-
+        <activity android:name=".StartPage" />
         <activity
-            android:name=".StartPage"
+            android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,6 +59,6 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
     </application>
 
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

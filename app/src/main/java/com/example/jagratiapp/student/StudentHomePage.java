@@ -34,6 +34,7 @@ public class StudentHomePage extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+
         drawer = findViewById(R.id.student_drawer_layout);
         NavigationView navigationView = findViewById(R.id.student_nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
