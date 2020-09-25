@@ -50,7 +50,6 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
     private PastAttendanceRecyclerAdapter pastAttendenceAdapter;
     private boolean flag;
     private final Map<String,Students> studentsMap = new HashMap<>();
-    private Map<String, Boolean> attendence;
 
     AttendenceRecyclerAdapter.OnStudentListener onStudentListener = this;
     public PastAttendanceFragment() {
