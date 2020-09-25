@@ -46,6 +46,7 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference documentReference;
     private List<String> recordedAttendance = new ArrayList<>();
+    private List<Boolean> recordedAttendance2 = new ArrayList<>();
     private RecyclerView attendenceRecyclerView;
     private PastAttendanceRecyclerAdapter pastAttendenceAdapter;
     private boolean flag;
@@ -166,13 +167,15 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
                         //Toast.makeText(getContext(),formattedDate + flag, LENGTH_SHORT).show();
                         if (!flag){
                             recordedAttendance.clear();
-                            pastAttendenceAdapter = new PastAttendanceRecyclerAdapter(getContext(),recordedAttendance,studentsMap);
+                            recordedAttendance2.clear();
+                            pastAttendenceAdapter = new PastAttendanceRecyclerAdapter(getContext(),recordedAttendance,recordedAttendance2,studentsMap);
                             attendenceRecyclerView.setAdapter(pastAttendenceAdapter);
                             pastAttendenceAdapter.notifyDataSetChanged();
                             Toast.makeText(getContext(),"there is no attendance record", LENGTH_SHORT).show();
                         }
                         else {
                                 recordedAttendance.clear();
+                                recordedAttendance2.clear();
                                 documentReference.collection("Attendance").document(formattedDate).get()
                                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
@@ -183,12 +186,12 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
                                                     while(it.hasNext()) {
                                                         Map.Entry obj = (Map.Entry)it.next();
                                                         if (documentSnapshot.getBoolean(obj.getKey().toString()) != null){
-                                                            Toast.makeText(getContext(),obj.getKey().toString(), LENGTH_SHORT).show();
                                                             recordedAttendance.add(obj.getKey().toString());
+                                                            recordedAttendance2.add(documentSnapshot.getBoolean(obj.getKey().toString()));
                                                         }
                                                     }
                                                 }
-                                                pastAttendenceAdapter = new PastAttendanceRecyclerAdapter(getContext(),recordedAttendance,studentsMap);
+                                                pastAttendenceAdapter = new PastAttendanceRecyclerAdapter(getContext(),recordedAttendance,recordedAttendance2,studentsMap);
                                                 attendenceRecyclerView.setAdapter(pastAttendenceAdapter);
                                                 pastAttendenceAdapter.notifyDataSetChanged();
                                             }
