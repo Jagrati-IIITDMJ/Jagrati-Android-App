@@ -22,11 +22,13 @@ public class PastAttendanceRecyclerAdapter extends RecyclerView.Adapter<PastAtte
     private Context context;
     private List<String> recordedAttendance;
     private Map<String,Students> studentsMap;
+    private List<Boolean> recordedAttendance2;
 
-    public PastAttendanceRecyclerAdapter(Context context, List<String> recordedAttendance, Map<String, Students> studentsMap) {
+    public PastAttendanceRecyclerAdapter(Context context, List<String> recordedAttendance,List<Boolean> recordedAttendance2, Map<String, Students> studentsMap) {
         this.context = context;
         this.recordedAttendance = recordedAttendance;
         this.studentsMap = studentsMap;
+        this.recordedAttendance2 = recordedAttendance2;
     }
 
     @NonNull
@@ -48,7 +50,8 @@ public class PastAttendanceRecyclerAdapter extends RecyclerView.Adapter<PastAtte
             holder.classID = students.getClassID();
             holder.groupID = students.getGroupID();
 
-            holder.attendanceChecker.setVisibility(View.VISIBLE);
+            if (recordedAttendance2.get(position))
+                holder.attendanceChecker.setVisibility(View.VISIBLE);
         }
     }
 
