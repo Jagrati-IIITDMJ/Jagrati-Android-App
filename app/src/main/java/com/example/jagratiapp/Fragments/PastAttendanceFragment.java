@@ -38,7 +38,7 @@ import java.util.Map;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class PastAttendanceFragment extends Fragment implements DatePickerDialog.OnDateSetListener,AttendenceRecyclerAdapter.OnStudentListener {
+public class PastAttendanceFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
 
     private String formattedDate;
     private String classUid;
@@ -50,8 +50,9 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
     private PastAttendanceRecyclerAdapter pastAttendenceAdapter;
     private boolean flag;
     private final Map<String,Students> studentsMap = new HashMap<>();
+    private Button date;
 
-    AttendenceRecyclerAdapter.OnStudentListener onStudentListener = this;
+
     public PastAttendanceFragment() {
         // Required empty public constructor
     }
@@ -107,7 +108,7 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_past_attendance, container, false);
 
-        Button date = view.findViewById(R.id.date);
+        date = view.findViewById(R.id.date_past_attendance);
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,6 +151,7 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
 
     public void setRecyclerView(){
         //Toast.makeText(getContext(),formattedDate +"", LENGTH_SHORT).show();
+        date.setText(formattedDate);
         flag = false;
         documentReference.collection("Attendance").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -197,8 +199,6 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
                 });
     }
 
-    @Override
-    public void onStudentClick(int position, boolean state) {
 
-    }
+
 }

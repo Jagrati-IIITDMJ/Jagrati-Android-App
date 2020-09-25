@@ -7,10 +7,17 @@
     tools:context=".Fragments.PastAttendanceFragment">
 
     <Button
-        android:id="@+id/date"
+        android:id="@+id/date_past_attendance"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Date"></Button>
+        android:layout_gravity="center_horizontal"
+        android:text="Select Date"
+        android:background="@drawable/login_button"
+        android:shadowColor="@color/black_overlay">
+
+    </Button>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/past_attendence_recycler_view"
