@@ -1,12 +1,15 @@
 package com.example.jagratiapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,7 +45,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
 
     private String classUid;
     private String groupUid;
-    private Button addStudent;
+    private ImageButton addStudent;
     private String className;
     private String groupName;
     private Button takeAttendence;
@@ -80,7 +83,13 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
                 .collection("Groups").document(groupUid);
 
         names();
-        addStudent.setOnClickListener(this);
+        addStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addStudentPopup();
+
+            }
+        });
         takeAttendence.setOnClickListener(this);
 
 
@@ -125,12 +134,11 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.add_student_button:
-                addStudentPopup();
-                break;
+
             case R.id.Attendence_button:
                 startActivity(new Intent(StudentsPage.this,AttendencePage.class).putExtra("classUid",classUid).putExtra("groupUid",groupUid));
                 finish();
+                break;
         }
     }
 
@@ -147,6 +155,7 @@ public class StudentsPage extends AppCompatActivity implements View.OnClickListe
 
         builder.setView(view);
         dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
         saveButton.setOnClickListener(new View.OnClickListener() {

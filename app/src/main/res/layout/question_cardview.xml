@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_id_addQues"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,51 +8,51 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="30dp">
 
             <TextView
                 android:id="@+id/QuesIn_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:text="@string/checker"
-                android:textSize="25sp"
+                style="bold"
+                android:textColor="#000000"
+                android:textSize="24sp"
                 android:minLines="1"
                 android:maxLines="6"
-                android:textStyle="italic"/>
+                />
             <TextView
                 android:id="@+id/Opt1In_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/QuesIn_ques_card"
+                android:textColor="#600000"
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
                 android:maxLines="2"
-                android:textStyle="italic"/>
+                />
             <TextView
                 android:id="@+id/Opt2In_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/Opt1In_ques_card"
+
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
                 android:maxLines="2"
-                android:textStyle="italic"/>
+                />
             <TextView
                 android:id="@+id/Opt3In_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/Opt2In_ques_card"
+
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
@@ -62,8 +62,7 @@
                 android:id="@+id/Opt4In_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/Opt3In_ques_card"
+
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
@@ -73,8 +72,7 @@
                 android:id="@+id/AnsIn_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/Opt4In_ques_card"
+
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
@@ -85,7 +83,7 @@
 
 
 
-        </RelativeLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

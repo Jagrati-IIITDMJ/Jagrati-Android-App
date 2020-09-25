@@ -15,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -76,7 +78,11 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         classes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomePage.this, Classes_page.class));
+                Intent intent = new Intent(HomePage.this, Classes_page.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        HomePage.this, classes, ViewCompat.getTransitionName(classes)
+                );
+                startActivity(intent, options.toBundle());
             }
         });
 

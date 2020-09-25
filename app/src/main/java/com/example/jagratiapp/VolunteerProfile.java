@@ -3,7 +3,10 @@ package com.example.jagratiapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.TextPaint;
@@ -117,6 +120,7 @@ public class VolunteerProfile extends AppCompatActivity {
         View view =getLayoutInflater().inflate(R.layout.basic_info_popup,null);
         builder.setView(view);
         alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
 
 

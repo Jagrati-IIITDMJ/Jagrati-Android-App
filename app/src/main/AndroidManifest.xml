@@ -16,7 +16,8 @@
         <activity android:name=".student.QuestionsPage" />
         <activity android:name=".QuestionAddPage" />
         <activity android:name=".student.StudentQuizListPage" />
-        <activity android:name=".student.StudentHomePage" />
+        <activity android:name=".student.StudentHomePage"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity android:name=".student.StudentLogin" />
         <activity android:name=".QuizListPage" />
         <activity android:name=".QuizClassPage" />
