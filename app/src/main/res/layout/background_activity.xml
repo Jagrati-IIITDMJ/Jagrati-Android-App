@@ -10,7 +10,7 @@
         android:id="@+id/background"
         android:layout_width="558dp"
         android:layout_height="451dp"
-        android:alpha=".25"
+        android:alpha=".1"
         android:contentDescription="@string/jagrati_logo"
         android:src="@drawable/jagrati_logo"
         app:layout_constraintBottom_toBottomOf="parent"

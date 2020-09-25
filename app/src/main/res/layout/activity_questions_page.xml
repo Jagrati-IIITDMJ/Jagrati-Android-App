@@ -6,129 +6,197 @@
     android:layout_height="match_parent"
     tools:context=".student.QuestionsPage">
 
+    <include layout="@layout/background_activity"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/quizToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Quiz">
+
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
     <TextView
         android:id="@+id/text_view_countdown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="24dp"
         android:text="00:00"
         android:textColor="@android:color/black"
-        android:textSize="60sp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView3"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints" />
-
 
     <Button
         android:id="@+id/submit"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#B3F5AB"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
         android:text="submit"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.82"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.278"></Button>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/previous"
+        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:elevation="8dp"
+        android:padding="20dp"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.691">
+        app:layout_constraintVertical_bias="0.213">
 
         <TextView
             android:id="@+id/ques"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ques"
-            android:textSize="20dp" />
-
-        <RadioGroup
-            android:id="@+id/radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_margin="10dp"
+            android:text="ques"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="20dp"
+
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3"
+        >
+
+
 
             <RadioButton
                 android:id="@+id/optionA_radio"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="checkButton"
+                android:buttonTint="#F17E01"
+                android:background="@drawable/rectangle"
+                android:padding="16dp"
+
+                android:text="446546456554654654656465464"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.073"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.317"
-                android:onClick="checkButton" />
+                app:layout_constraintVertical_bias="0.317" />
+
+
+
 
             <RadioButton
                 android:id="@+id/optionB_radio"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="checkButton"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rectangle"
+                android:buttonTint="#F17E01"
+                android:padding="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.073"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.317"
-                android:onClick="checkButton" />
+                app:layout_constraintVertical_bias="0.317" />
+
+
+
+
 
             <RadioButton
                 android:id="@+id/optionC_radio"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:layout_marginTop="8dp"
+                android:onClick="checkButton"
+                android:buttonTint="#F17E01"
+                android:padding="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.073"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.317"
-                android:onClick="checkButton" />
+                app:layout_constraintVertical_bias="0.317" />
+
 
             <RadioButton
                 android:id="@+id/optionD_radio"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="checkButton"
+                android:background="@drawable/rectangle"
+                android:layout_marginTop="8dp"
+                android:padding="16dp"
+                android:buttonTint="#F17E01"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.073"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.317"
-                android:onClick="checkButton" />
-        </RadioGroup>
+                app:layout_constraintVertical_bias="0.317" />
 
-    </LinearLayout>
+    </RadioGroup>
 
     <Button
         android:id="@+id/previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="220dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@color/colorAccent"
         android:text="previous"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.233"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="220dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#EFE00F"
         android:text="next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.724"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="1.0"/>
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/previous" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

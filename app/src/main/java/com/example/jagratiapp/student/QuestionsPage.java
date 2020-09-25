@@ -1,6 +1,8 @@
 package com.example.jagratiapp.student;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -269,6 +271,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
         builder.setView(view);
         dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
 

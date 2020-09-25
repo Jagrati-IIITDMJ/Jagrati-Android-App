@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.jagratiapp.model.Classes;
@@ -51,6 +52,7 @@ public class Classes_page extends AppCompatActivity {
 
 
 
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference = db.collection("Classes");
 
@@ -64,6 +66,8 @@ public class Classes_page extends AppCompatActivity {
         classesList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerview_classes_page);
         recyclerView.setHasFixedSize(true);
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fab.setOnClickListener(new View.OnClickListener() {

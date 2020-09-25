@@ -103,9 +103,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:drawableLeft="@drawable/ic_tick"
-                android:backgroundTint="#CBF9C6"
 
+                android:backgroundTint="#CBF9C6"
                 android:autofillHints="Enter Option Here"
                 android:hint="Enter Correct Option Here"
                 android:inputType="textAutoCorrect"

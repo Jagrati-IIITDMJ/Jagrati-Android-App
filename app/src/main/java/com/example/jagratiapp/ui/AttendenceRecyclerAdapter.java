@@ -57,6 +57,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
             Toast.makeText(context, "phat gai", LENGTH_SHORT).show();
 
         boolean attendanceState = recordedAttendance.get(holder.studentID);
+
         if (attendanceState){
             holder.attendanceChecker.setVisibility(View.VISIBLE);
         }
