@@ -111,7 +111,7 @@ public class StudentsFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_students, container, false);
-        takeAttendence = view.findViewById(R.id.Attendence_button);
+     
         addStudent = view.findViewById(R.id.add_student_button);
         studentRecyclerView = view.findViewById(R.id.student_recycler_view);
         studentRecyclerView.setHasFixedSize(true);

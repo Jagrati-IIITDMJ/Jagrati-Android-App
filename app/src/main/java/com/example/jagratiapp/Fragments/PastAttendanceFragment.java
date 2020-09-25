@@ -52,6 +52,9 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
     private boolean flag;
     private final Map<String,Students> studentsMap = new HashMap<>();
     private Button date;
+    private SimpleDateFormat df;
+    private DatePickerDialog datePickerDialog;
+    private int year1 ,month1, day1;
 
 
     public PastAttendanceFragment() {
@@ -80,8 +83,12 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
                               .collection("Groups").document(groupUid);
 
         Date c = Calendar.getInstance().getTime();
+        Calendar c1 = Calendar.getInstance();;
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(c);
+        year1 = c1.get(Calendar.YEAR);
+        month1 = c1.get(Calendar.MONTH);
+        day1 = c1.get(Calendar.DAY_OF_MONTH);
 
         // To show the student list in attendance segment
         if(studentsMap.isEmpty()) {
@@ -126,19 +133,27 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
     }
 
     public void showDatePickerDialog(){
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
+        datePickerDialog = new DatePickerDialog(
                 getContext(),
                 this,
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         );
+
+        datePickerDialog.updateDate(year1,month1,day1);
         datePickerDialog.show();
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+        year1 = year;
+        month1 = month ;
+        day1 = day;
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH,month);
@@ -146,8 +161,10 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
 
         Date date = calendar.getTime();
         formattedDate = new SimpleDateFormat("dd-MMM-yyyy").format(date);
+
         //Toast.makeText(getContext(),formattedDate +"", LENGTH_SHORT).show();
         setRecyclerView();
+
     }
 
     public void setRecyclerView(){
