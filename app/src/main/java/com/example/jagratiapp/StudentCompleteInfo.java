@@ -43,7 +43,5 @@ public class StudentCompleteInfo extends AppCompatActivity {
         });*/
 
 
-
-
     }
 }
