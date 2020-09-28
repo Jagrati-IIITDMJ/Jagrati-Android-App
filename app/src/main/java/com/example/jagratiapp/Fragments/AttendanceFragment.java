@@ -108,6 +108,8 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
 
         AsyncTaskFetching task = new AsyncTaskFetching(AttendanceFragment.this);
         task.execute();
+        updateAttendance();
+        setAttendance();
 
 
 
@@ -227,6 +229,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                             }
                             attendenceAdapter = new AttendenceRecyclerAdapter(getContext(),studentsList,recordedAttendance,onStudentListener,true);
                             attendenceRecyclerView.setAdapter(attendenceAdapter);
+                            attendenceAdapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -272,7 +275,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         }
 
 
-        @Override
+        /*@Override
         protected void onPreExecute() {
             super.onPreExecute();
             AttendanceFragment activity = WeakReference.get();
@@ -280,7 +283,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                 return;
             }
             //activity.progressBar.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         @Override
         protected Void doInBackground(Void... voids) {

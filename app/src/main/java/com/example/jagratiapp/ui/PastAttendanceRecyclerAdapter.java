@@ -50,8 +50,11 @@ public class PastAttendanceRecyclerAdapter extends RecyclerView.Adapter<PastAtte
             holder.classID = students.getClassID();
             holder.groupID = students.getGroupID();
 
-            if (recordedAttendance2.get(position))
+            if (recordedAttendance2.get(position)) {
                 holder.attendanceChecker.setVisibility(View.VISIBLE);
+            }else{
+                holder.attendanceChecker.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
