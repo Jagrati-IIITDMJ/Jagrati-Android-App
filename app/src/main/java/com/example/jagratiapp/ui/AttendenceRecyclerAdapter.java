@@ -45,7 +45,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Students student = studentsList.get(position);
         holder.studentName.setText(student.getStudentName());
         holder.villageName.setText(student.getVillageName());
@@ -53,14 +53,39 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
         holder.classID = student.getClassID();
         holder.groupID = student.getGroupID();
 
-        if(student.getUid()==null)
-            Toast.makeText(context, "phat gai", LENGTH_SHORT).show();
-
-        boolean attendanceState = recordedAttendance.get(holder.studentID);
-
-        if (attendanceState){
+        boolean attendanceState = recordedAttendance.get(student.getUid());
+        if (attendanceState) {
             holder.attendanceChecker.setVisibility(View.VISIBLE);
+        }else{
+            holder.attendanceChecker.setVisibility(View.INVISIBLE);
         }
+
+
+        if (today) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean state = false;
+                    if (recordedAttendance.get(holder.studentID)) {
+                        state = false;
+                        holder.attendanceChecker.setVisibility(View.INVISIBLE);
+                    } else if (!recordedAttendance.get(holder.studentID)) {
+                        state = true;
+                        holder.attendanceChecker.setVisibility(View.VISIBLE);
+                    } else{
+                        holder.attendanceChecker.setVisibility(View.INVISIBLE);
+                    }
+                    onStudentListener.onStudentClick(holder.getAdapterPosition(), state);
+
+                }
+            });
+
+        }
+
+
+
+
+
 
     }
 
@@ -69,7 +94,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
         return studentsList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         private TextView studentName;
         private TextView villageName;
         private ImageView attendanceChecker;
@@ -78,6 +103,8 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
         private String groupID;
         private CardView card1;
         private CardView card2;
+
+
 
         private OnStudentListener onStudentListener;
 
@@ -94,29 +121,9 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
             card1.setCardElevation(0);
             card2.setCardElevation(0);
             card2.setCardBackgroundColor(Color.TRANSPARENT);
-
-            if (today)
-                itemView.setOnClickListener(this);
-
         }
 
-        @Override
-        public void onClick(View view) {
-            boolean state;
-//            context.startActivity(new Intent(context, StudentCompleteInfo.class).putExtra("studentID",studentID)
-//                    .putExtra("classID",classID)
-//                    .putExtra("groupID",groupID));
-//
-            if (recordedAttendance.get(studentID)){
-                state = false;
-               attendanceChecker.setVisibility(View.INVISIBLE);
-            }
-            else {
-                state = true;
-                attendanceChecker.setVisibility(View.VISIBLE);
-            }
-            onStudentListener.onStudentClick(getAdapterPosition(),state);
-        }
+
 
         @Override
         public boolean onLongClick(View view) {
