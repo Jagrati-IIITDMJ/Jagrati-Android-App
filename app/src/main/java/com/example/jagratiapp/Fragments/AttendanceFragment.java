@@ -1,10 +1,12 @@
 package com.example.jagratiapp.Fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,6 +56,8 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
     private Spinner spinner;
     private Button syncButton;
     private Map<String, Boolean> attendence;
+    private int count = 0;
+    private ProgressBar progressBar;
 
     public AttendanceFragment() {
         // Required empty public constructor
@@ -67,11 +72,10 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         studentsList = new ArrayList<>();
         attendence = new HashMap<>();
         Bundle bundle=getArguments();
@@ -87,6 +91,67 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         formattedDate = df.format(c);
         // To show the student list in attendance segment
         updateStudentList();
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_attendance, container, false);
+        submitButton = view.findViewById(R.id.submitAttendance);
+        syncButton = view.findViewById(R.id.syncStudent);
+        attendenceRecyclerView = view.findViewById(R.id.attendence_recycler_view);
+        attendenceRecyclerView.setHasFixedSize(true);
+        attendenceRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        progressBar = view.findViewById(R.id.progressAttendance);
+
+        AsyncTaskFetching task = new AsyncTaskFetching(AttendanceFragment.this);
+        task.execute();
+        updateAttendance();
+        setAttendance();
+
+
+
+         submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Yes i m there", LENGTH_SHORT).show();
+                if(!recordedAttendance.isEmpty()) {
+                    Iterator it = recordedAttendance.entrySet().iterator();
+                    while(it.hasNext()) {
+                        Map.Entry obj = (Map.Entry)it.next();
+                        Toast.makeText(getContext(),obj.getKey().toString() + " " + obj.getValue(), LENGTH_SHORT).show();
+                        documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
+                    }
+                }
+            }
+        });
+
+        syncButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                studentsList.clear();
+                updateStudentList();
+                updateAttendance();
+                setAttendance();
+            }
+        });
+
+
+        return view;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        deleteIfNone();
 
     }
 
@@ -108,47 +173,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                 });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_attendance, container, false);
-        submitButton = view.findViewById(R.id.submitAttendance);
-        syncButton = view.findViewById(R.id.syncStudent);
-        attendenceRecyclerView = view.findViewById(R.id.attendence_recycler_view);
-        attendenceRecyclerView.setHasFixedSize(true);
-        attendenceRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-        updateAndSet();
-
-
-        syncButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-               public void onClick(View view) {
-                studentsList.clear();
-                   updateStudentList();
-                   updateAndSet();
-               }
-           });
-
-         submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Yes i m there", LENGTH_SHORT).show();
-                if(!recordedAttendance.isEmpty()) {
-                    Iterator it = recordedAttendance.entrySet().iterator();
-                    while(it.hasNext()) {
-                        Map.Entry obj = (Map.Entry)it.next();
-                        Toast.makeText(getContext(),obj.getKey().toString() + " " + obj.getValue(), LENGTH_SHORT).show();
-                        documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
-                    }
-                }
-            }
-        });
-
-        return view;
-    }
-
-    private void updateAndSet() {
+    private void updateAttendance() {
         // Check weather attendance of particular day is present or not
         documentReference.collection("Attendance").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -183,6 +208,11 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                     }
                 });
 
+
+
+    }
+
+    public void setAttendance(){
         documentReference.collection("Attendance").document(formattedDate).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -199,25 +229,84 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                             }
                             attendenceAdapter = new AttendenceRecyclerAdapter(getContext(),studentsList,recordedAttendance,onStudentListener,true);
                             attendenceRecyclerView.setAdapter(attendenceAdapter);
+                            attendenceAdapter.notifyDataSetChanged();
                         }
                     }
                 });
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
 
     }
 
 
+    private void deleteIfNone() {
+        documentReference.collection("Attendance").document(formattedDate).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            for (int i = 0; i < studentsList.size(); i++) {
+                                if (!documentSnapshot.getBoolean(studentsList.get(i).getUid())) {
+                                    count++;
+                                }
+                            }
+
+                            if (count == studentsList.size()) {
+                                documentReference.collection("Attendance").document(formattedDate).delete();
+                            }
+                        }
+
+                    }
+                });
+
+    }
     @Override
     public void onStudentClick(int position,boolean state) {
         Students student = studentsList.get(position);
         recordedAttendance.put(student.getUid(),state);
         Toast.makeText(getContext()," " + recordedAttendance.get(student.getUid()), Toast.LENGTH_SHORT).show();}
 
+
+
+    private static class  AsyncTaskFetching extends AsyncTask<Void,Void,Void> {
+
+        private WeakReference<AttendanceFragment> WeakReference;
+        AsyncTaskFetching(AttendanceFragment activity) {
+            WeakReference = new WeakReference<AttendanceFragment>(activity);
+        }
+
+
+        /*@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            AttendanceFragment activity = WeakReference.get();
+            if (activity == null) {
+                return;
+            }
+            //activity.progressBar.setVisibility(View.VISIBLE);
+        }*/
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            AttendanceFragment activity = WeakReference.get();
+            if (activity == null) {
+                return null;
+            }
+            activity.updateAttendance();
+            return null;
+
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            AttendanceFragment activity = WeakReference.get();
+            if (activity == null ) {
+                return;
+            }
+            activity.setAttendance();
+           // activity.progressBar.setVisibility(View.INVISIBLE);
+        }
+
+
+    }
 
 }
