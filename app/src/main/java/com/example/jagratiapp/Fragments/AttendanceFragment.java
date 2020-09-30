@@ -1,5 +1,6 @@
 package com.example.jagratiapp.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Students;
@@ -51,8 +53,9 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
     private final Map<String,Boolean> recordedAttendance = new HashMap<>();
     private String formattedDate;
     private Spinner spinner;
-    private Button syncButton;
+
     private Map<String, Boolean> attendence;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public AttendanceFragment() {
         // Required empty public constructor
@@ -66,6 +69,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         fragment.setArguments(bundle);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,27 +112,33 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                 });
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_attendance, container, false);
         submitButton = view.findViewById(R.id.submitAttendance);
-        syncButton = view.findViewById(R.id.syncStudent);
+        swipeRefreshLayout = view.findViewById(R.id.attendance_swipe);
+
+
         attendenceRecyclerView = view.findViewById(R.id.attendence_recycler_view);
         attendenceRecyclerView.setHasFixedSize(true);
         attendenceRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         updateAndSet();
 
-
-        syncButton.setOnClickListener(new View.OnClickListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-               public void onClick(View view) {
+            public void onRefresh() {
                 studentsList.clear();
-                   updateStudentList();
-                   updateAndSet();
-               }
-           });
+                updateStudentList();
+                updateAndSet();
+                swipeRefreshLayout.setRefreshing(false);
+
+
+            }
+        });
+
 
          submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +168,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                             if (formattedDate.equals(documentSnapshot.getId())) {
                                 flag = true;
                                 break;
+
                             }
                         }
                         //Initialize false for every student having student ID
@@ -172,9 +183,11 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                                                 }
                                                 documentReference.collection("Attendance").document(formattedDate).set(attendence);
                                                 documentReference.collection("Attendance").document(formattedDate).update("timestamp", Timestamp.now());
+
                                             }
                                             else {
                                                 Toast.makeText(getContext(),"Access nahi hue", LENGTH_SHORT).show();
+
                                             }
                                         }
                                     });

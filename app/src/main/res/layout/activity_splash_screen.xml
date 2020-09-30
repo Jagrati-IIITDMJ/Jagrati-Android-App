@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/splash"
     tools:context=".SplashScreen"
+    android:transitionName="splash"
     android:background="#ffffff">
 
     <ImageView
+        android:transitionName="splash_logo"
         android:id="@+id/splash_logo"
         android:layout_width="410dp"
         android:layout_height="346dp"

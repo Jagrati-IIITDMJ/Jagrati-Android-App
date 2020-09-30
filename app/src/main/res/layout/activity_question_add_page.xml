@@ -12,7 +12,8 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
-    <include layout="@layout/background_activity"/>
+
+    <include layout="@layout/background_activity" />
 
     <ImageButton
         android:id="@+id/fab_ques_add"

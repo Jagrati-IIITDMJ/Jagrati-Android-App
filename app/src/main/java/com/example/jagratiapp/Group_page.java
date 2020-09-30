@@ -4,17 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewDebug;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,6 +34,7 @@ import com.example.jagratiapp.ui.GroupRecyclerAdapter;
 import com.example.jagratiapp.ui.StudentDiffUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
@@ -53,6 +59,8 @@ public class Group_page extends AppCompatActivity {
     private String classUid;
     private GroupRecyclerAdapter groupRecyclerAdapter;
     private CollectionReference collectionReference;
+    private Context ctx;
+    private MaterialToolbar toolbar;
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -61,7 +69,8 @@ public class Group_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_page);
-
+        ctx = Group_page.this;
+        toolbar = findViewById(R.id.class_page_toolbar);
         fab = findViewById(R.id.fab_group_page);
         classUid = getIntent().getStringExtra("DocId");
 
@@ -78,6 +87,7 @@ public class Group_page extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                
                 createPopup();
             }
         });
@@ -94,7 +104,12 @@ public class Group_page extends AppCompatActivity {
                         groupList.add(group);
                     }
                     groupRecyclerAdapter = new GroupRecyclerAdapter(Group_page.this, groupList,classUid);
+                    LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(ctx,
+                            R.anim.layout_animation_fall_down);
+
+                    recyclerView.setLayoutAnimation(controller);
                     recyclerView.setAdapter(groupRecyclerAdapter);
+                    recyclerView.scheduleLayoutAnimation();
                     //groupRecyclerAdapter.notifyDataSetChanged();
 
 
@@ -179,6 +194,9 @@ public class Group_page extends AppCompatActivity {
 
 
     }
+
+
+
     @Override
     protected void onStart() {
         super.onStart();

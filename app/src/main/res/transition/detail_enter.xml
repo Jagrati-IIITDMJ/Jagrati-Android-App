@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<transitionSet
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <transitionSet>
+        <!-- Dont apply this animation on below views -->
+        <targets>
+            <target android:excludeId="@android:id/navigationBarBackground" />
+            <target android:excludeId="@android:id/statusBarBackground" />
+
+        </targets>
+        <!-- Slide from bottom all the transitioning views -->
+        <transition
+            class="android.transition.Slide"
+            android:duration="500"
+            android:interpolator="@android:interpolator/linear_out_slow_in" />
+        <!-- Delay fading in so that the shared element transition on the background
+             has time to run -->
+        <fade
+            android:startDelay="150"
+            android:duration="350"
+            android:interpolator="@android:interpolator/linear" />
+    </transitionSet>
+
+    <!-- Fade animation on system bars -->
+    <fade
+        android:duration="500"
+        android:interpolator="@android:interpolator/linear">
+        <targets>
+            <target android:targetId="@android:id/statusBarBackground" />
+            <target android:targetId="@android:id/navigationBarBackground" />
+        </targets>
+    </fade>
+
+</transitionSet>

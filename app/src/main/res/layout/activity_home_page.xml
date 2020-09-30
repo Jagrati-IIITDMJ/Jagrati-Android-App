@@ -6,10 +6,10 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:layout_gravity="start"
     tools:openDrawer="start"
-    >
+    tools:context=".HomePage"
+        >
 
     <include
         layout="@layout/home_page"
