@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,8 +17,6 @@ import com.example.jagratiapp.model.Students;
 
 import java.util.List;
 import java.util.Map;
-
-import static android.widget.Toast.LENGTH_SHORT;
 //import static com.example.jagratiapp.R.drawable.ic_wrong_checkbox;
 
 public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRecyclerAdapter.ViewHolder>  {
@@ -81,12 +78,6 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
             });
 
         }
-
-
-
-
-
-
     }
 
     @Override
