@@ -3,6 +3,7 @@ package com.example.jagratiapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,6 +36,13 @@ public class StartPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
 
         studentLogin = findViewById(R.id.student_login);
         volunteerLogin = findViewById(R.id.volunteer_login);
@@ -42,14 +50,20 @@ public class StartPage extends AppCompatActivity {
         studentLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(StartPage.this, StudentLogin.class));
+                Intent intent = new Intent(StartPage.this, StudentLogin.class);
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(StartPage.this,
+                        findViewById(R.id.splash_logo),"splash_logo");
+                startActivity(intent,optionsCompat.toBundle());
             }
         });
 
         volunteerLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent (StartPage.this,login_page.class));
+                Intent intent = new Intent(StartPage.this,login_page.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(StartPage.this,
+                        findViewById(R.id.splash_logo),"splash_logo");
+                startActivity(intent, options.toBundle());
             }
         });
     }
@@ -77,4 +91,16 @@ public class StartPage extends AppCompatActivity {
 //
 //    }
 
+
+    @Override
+    protected void onResume() {
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
+        super.onResume();
+    }
 }

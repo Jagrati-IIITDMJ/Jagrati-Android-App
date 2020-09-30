@@ -3,11 +3,15 @@ package com.example.jagratiapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityOptionsCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.jagratiapp.model.Students;
@@ -30,6 +34,7 @@ public class SplashScreen extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseAuth.AuthStateListener authStateListener;
     boolean flag1 = false, flag2 = false;
+    private ConstraintLayout root;
 
 
 
@@ -37,16 +42,35 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
+        root = findViewById(R.id.splash);
+
 
 
                 authStateListener =  new FirebaseAuth.AuthStateListener() {
                     @Override
                     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                         if (currentUser != null && currentUser.isEmailVerified()){
-                            startActivity(new Intent(SplashScreen.this,HomePage.class));
-                            finish();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    startActivity(new Intent(SplashScreen.this,HomePage.class));
+                                    finish();
+
+                                }
+                            },1000);
+
                         }
                     }
                 };
@@ -71,10 +95,17 @@ public class SplashScreen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         firebaseAuth.addAuthStateListener(authStateListener);
-        if(flag1 && flag2){
-            startActivity(new Intent(SplashScreen.this,StartPage.class));
-            finishAffinity();
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(flag1 && flag2){
+                    final ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashScreen.this,root,"splash");
+                    startActivity(new Intent(SplashScreen.this,StartPage.class),optionsCompat.toBundle());
+                    finishAffinity();
+                }
+            }
+        },1000);
+
 
         Toast.makeText(SplashScreen.this,"" +flag1 + flag2,Toast.LENGTH_SHORT).show();
 

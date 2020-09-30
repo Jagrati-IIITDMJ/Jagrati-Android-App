@@ -1,11 +1,16 @@
 package com.example.jagratiapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.transition.ChangeClipBounds;
+import android.transition.Fade;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowInsetsAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,6 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.navigation.NavigationView;
+import com.google.common.collect.BoundType;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -43,6 +49,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +57,31 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         findViews();
         MaterialToolbar toolbar = findViewById(R.id.attendance_toolbar);
         setSupportActionBar(toolbar);
+
+        Fade fade = new Fade();
+        View decor = getWindow().getDecorView();
+        fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
+        fade.excludeTarget(android.R.id.statusBarBackground, true);
+        fade.excludeTarget(android.R.id.navigationBarBackground, true);
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        getWindow().setEnterTransition(fade);
+        getWindow().setExitTransition(fade);
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+//        ChangeClipBounds changeClipBounds = new ChangeClipBounds();
+//        changeClipBounds.addTarget(R.id.classes);
+//        getWindow().setSharedElementEnterTransition(changeClipBounds);
+//        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
@@ -100,10 +129,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     }
 
 
-    private void signOut(){
-            firebaseAuth.signOut();
-            firebaseAuth.addAuthStateListener(authStateListener);
-    }
+
 
 
     private void findViews() {
@@ -144,7 +170,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signOut();
+
+                firebaseAuth.signOut();
+                startActivity(new Intent(HomePage.this,StartPage.class));
+                finishAffinity();
                 dialog.dismiss();
 
             }
@@ -166,5 +195,17 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             drawer.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
+        super.onResume();
     }
 }
