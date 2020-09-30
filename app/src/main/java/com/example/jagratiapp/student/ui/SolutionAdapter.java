@@ -18,12 +18,12 @@ import java.util.Map;
 
 public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHolder> {
     private List<Question> questonList;
-    private Map<String,String> answerList;
+    private Map<String,String> answerMap;
     private Context context;
 
-    public SolutionAdapter(Context context,List<Question> questionList, Map<String, String> answerList) {
+    public SolutionAdapter(Context context,List<Question> questionList, Map<String, String> answerMap) {
         this.questonList = questionList;
-        this.answerList = answerList;
+        this.answerMap = answerMap;
         this.context = context;
     }
 
@@ -36,23 +36,29 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull SolutionAdapter.ViewHolder holder, int position) {
+        String answer = "";
         Question question = questonList.get(position);
-        String answer = answerList.get(question.getQuestionId());
-        String correctAnswer = answerList.get(question.getQuestionId());
 
+        holder.question.setText(question.getQuestion());
         holder.optionA.setText(question.getOption1());
         holder.optionB.setText(question.getOption2());
         holder.optionC.setText(question.getOption3());
         holder.optionD.setText(question.getOption4());
+
+        String correctAnswer = question.getCorrectOption();
+
         if (correctAnswer.equals(question.getOption1()))
             holder.optionA.setChecked(true);
-        if (correctAnswer.equals(question.getOption2()))
+        else if (correctAnswer.equals(question.getOption2()))
             holder.optionB.setChecked(true);
-        if (correctAnswer.equals(question.getOption3()))
+        else if (correctAnswer.equals(question.getOption3()))
             holder.optionC.setChecked(true);
-        if (correctAnswer.equals(question.getOption4()))
+        else if (correctAnswer.equals(question.getOption4()))
             holder.optionD.setChecked(true);
-        if (answer!= null){
+
+        if (answerMap.get(question.getQuestionId()) != null)
+            answer = answerMap.get(question.getQuestionId());
+//        if (answer != null){
             if (!correctAnswer.equals(answer)){
                 if (answer.equals(question.getOption1()))
                     holder.optionA.setChecked(true);
@@ -62,13 +68,18 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
                     holder.optionC.setChecked(true);
                 if (answer.equals(question.getOption4()))
                     holder.optionD.setChecked(true);
-            }
+            //}
         }
+
+            holder.optionA.setEnabled(false);
+        holder.optionB.setEnabled(false);
+        holder.optionC.setEnabled(false);
+        holder.optionD.setEnabled(false);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return questonList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

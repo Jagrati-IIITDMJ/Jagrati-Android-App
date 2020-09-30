@@ -9,15 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".student.SolutionPage"></activity>
         <activity
             android:name=".StudentHolderActivity"
             android:label="@string/title_activity_student_holder"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity android:name=".student.QuestionsPage" />
         <activity android:name=".QuestionAddPage" />
         <activity android:name=".student.StudentQuizListPage" />
-        <activity android:name=".student.StudentHomePage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        <activity
+            android:name=".student.StudentHomePage"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity android:name=".student.StudentLogin" />
         <activity android:name=".QuizListPage" />
         <activity android:name=".QuizClassPage" />

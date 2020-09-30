@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:orientation="vertical">
+
             <EditText
 
                 android:id="@+id/QuesIn_ques_card_popup"
@@ -37,10 +38,6 @@
                 android:textColorHint="@color/black_overlay"
                 android:textSize="25sp"
                 android:autofillHints="Enter Question Here" />
-
-
-
-
 
             <EditText
                 android:layout_margin="4dp"
@@ -112,6 +109,7 @@
                 android:minLines="1"
                 android:textSize="20sp"
                  />
+
             <Button
                 android:id="@+id/saveques_popup"
                 android:layout_width="match_parent"

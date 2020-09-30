@@ -17,7 +17,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jagratiapp.R;
-import com.example.jagratiapp.StudentCompleteInfo;
 import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.model.QuizReport;
 import com.example.jagratiapp.student.Util.StudentAPI;
@@ -183,9 +182,10 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         Toast.makeText(QuestionsPage.this,radioButton.getText().toString()+" "+answerList.size(),Toast.LENGTH_SHORT).show();
         answerList.put(q,radioButton.getText().toString());
     }
+
     private void checkAnswer(){
         mCountDownTimer.cancel();
-         int result= 0;
+        int result= 0;
         if(!answerList.isEmpty()) {
             Iterator it = answerList.entrySet().iterator();
             while(it.hasNext()) {
@@ -195,7 +195,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
                 Question question0 = questionList.get(id);
                 String correctAns = question0.getCorrectOption();
-                //Log.d("hew", "checkAnswer: "+ correctAns+ " "+ans,null);
                 if (correctAns.trim().equals(ans.trim())){
                     result++;
                 }
@@ -214,17 +213,19 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 //                            if (document.exists()) {
 //                                Toast.makeText(QuestionsPage.this, "Quiz Already Given", Toast.LENGTH_SHORT).show();
 //                            } else {
-                                collectionToSaveReport.document(quizId).set(quizReport);
-//                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void aVoid) {
+        final int finalResult = result;
+        collectionToSaveReport.document(quizId).set(quizReport)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                setPopup(finalResult);
 //                                                startActivity(new Intent(QuestionsPage.this, StudentCompleteInfo.class)
 //                                                        .putExtra("classID", StudentAPI.Instance().getClassUid())
 //                                                        .putExtra("groupID", StudentAPI.Instance().getGroupUid())
 //                                                        .putExtra("studentID", StudentAPI.Instance().getRollno()));
 //                                                finish();
-//                                            }
-//                                        })
+                                            }
+                                        });
 //                                        .addOnFailureListener(new OnFailureListener() {
 //                                            @Override
 //                                            public void onFailure(@NonNull Exception e) {
@@ -235,7 +236,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 //                        }
 //                    }
 //                });
-        setPopup(result);
 
     }
 
@@ -275,13 +275,18 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
 
+        final String classId = StudentAPI.Instance().getClassUid();
+        final String groupId = StudentAPI.Instance().getGroupUid();
+
+        Toast.makeText(QuestionsPage.this,classId + " " + groupId,Toast.LENGTH_SHORT).show();
         solutionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(QuestionsPage.this, StudentCompleteInfo.class)
-                                                       .putExtra("classID", StudentAPI.Instance().getClassUid())
-                                                       .putExtra("groupID", StudentAPI.Instance().getGroupUid())
-                                                       .putExtra("studentID", StudentAPI.Instance().getRollno()));
+                startActivity(new Intent(QuestionsPage.this, SolutionPage.class)
+                                                       .putExtra("studentRollNo", StudentAPI.Instance().getRollno())
+                                                       .putExtra("quizId",quizId)
+                                                       .putExtra("classId",classId)
+                                                       .putExtra("groupId",groupId));
                                                finish();
             }
         });

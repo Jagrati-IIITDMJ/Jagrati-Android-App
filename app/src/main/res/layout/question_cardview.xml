@@ -32,7 +32,7 @@
                 android:id="@+id/Opt1In_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#600000"
+                android:background="@drawable/rectangle_input"
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
@@ -42,7 +42,7 @@
                 android:id="@+id/Opt2In_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:background="@drawable/rectangle_input"
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
@@ -52,7 +52,7 @@
                 android:id="@+id/Opt3In_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:background="@drawable/rectangle_input"
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
@@ -62,7 +62,7 @@
                 android:id="@+id/Opt4In_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:background="@drawable/rectangle_input"
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
@@ -72,7 +72,6 @@
                 android:id="@+id/AnsIn_ques_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="@string/checker"
                 android:textSize="25sp"
                 android:minLines="1"
