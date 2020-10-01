@@ -56,8 +56,6 @@ public class SplashScreen extends AppCompatActivity {
         currentUser = firebaseAuth.getCurrentUser();
         root = findViewById(R.id.splash);
 
-
-
                 authStateListener =  new FirebaseAuth.AuthStateListener() {
                     @Override
                     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -101,7 +99,7 @@ public class SplashScreen extends AppCompatActivity {
                 if(flag1 && flag2){
                     final ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashScreen.this,root,"splash");
                     startActivity(new Intent(SplashScreen.this,StartPage.class),optionsCompat.toBundle());
-                    finishAffinity();
+                    finish();
                 }
             }
         },1000);
