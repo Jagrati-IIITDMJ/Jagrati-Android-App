@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_id_addQues"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/transparent">
 
     <androidx.cardview.widget.CardView
         app:cardCornerRadius="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         >
 
         <LinearLayout
@@ -39,23 +39,48 @@
                 android:textSize="25sp"
                 android:autofillHints="Enter Question Here" />
 
-            <EditText
-                android:layout_margin="4dp"
-                android:id="@+id/Opt1In_ques_card_popup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <RadioGroup
+                android:id="@+id/add_question_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                android:autofillHints="Enter Option Here"
-                android:hint="Enter First Option Here"
-                android:inputType="textAutoCorrect"
-                android:maxLines="2"
-                android:minLines="1"
-                android:textSize="20sp"
-                 />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/optionA_question_card_popup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"></RadioButton>
+
+                    <EditText
+                        android:layout_margin="4dp"
+                        android:id="@+id/Opt1In_ques_card_popup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:autofillHints="Enter Option Here"
+                        android:hint="Enter First Option Here"
+                        android:inputType="textAutoCorrect"
+                        android:maxLines="2"
+                        android:minLines="1"
+                        android:textSize="20sp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/optionB_question_card_popup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></RadioButton>
 
             <EditText
                 android:id="@+id/Opt2In_ques_card_popup"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_margin="4dp"
                 android:layout_height="wrap_content"
 
@@ -67,9 +92,20 @@
                 android:textSize="20sp"
                  />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/optionC_question_card_popup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></RadioButton>
+
             <EditText
                 android:id="@+id/Opt3In_ques_card_popup"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_margin="4dp"
                 android:layout_height="wrap_content"
 
@@ -81,9 +117,20 @@
                 android:textSize="20sp"
                  />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/optionD_question_card_popup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></RadioButton>
+
             <EditText
                 android:id="@+id/Opt4In_ques_card_popup"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
 
@@ -95,20 +142,9 @@
                 android:textSize="20sp"
                  />
 
-            <EditText
-                android:id="@+id/AnsIn_ques_card_popup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                </LinearLayout>
 
-                android:backgroundTint="#CBF9C6"
-                android:autofillHints="Enter Option Here"
-                android:hint="Enter Correct Option Here"
-                android:inputType="textAutoCorrect"
-                android:maxLines="2"
-                android:minLines="1"
-                android:textSize="20sp"
-                 />
+            </RadioGroup>
 
             <Button
                 android:id="@+id/saveques_popup"
@@ -116,8 +152,6 @@
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#0FEF0F"
                 android:layout_height="wrap_content"
-
-
                 android:text="@string/addQues"
                 android:textSize="14sp"
                 android:textStyle="bold" />

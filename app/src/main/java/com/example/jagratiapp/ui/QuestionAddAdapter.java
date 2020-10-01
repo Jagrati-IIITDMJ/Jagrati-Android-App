@@ -6,14 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Question;
-import com.example.jagratiapp.model.Students;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import static android.graphics.Color.rgb;
 
 public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.ViewHolder> {
     private Context context;
@@ -37,12 +38,20 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
     @Override
     public void onBindViewHolder(@NonNull QuestionAddAdapter.ViewHolder holder, int position) {
         Question ques = questionList.get(position);
-        holder.question.setText(ques.getQuestion());
-        holder.option1.setText(ques.getOption1());
-        holder.option2.setText(ques.getOption2());
-        holder.option3.setText(ques.getOption3());
-        holder.option4.setText(ques.getOption4());
-        holder.correctanswer.setText(ques.getCorrectOption());
+        holder.question.setText("Ques." +(++position) + " " + ques.getQuestion());
+        holder.option1.setText("1. " + ques.getOption1());
+        holder.option2.setText("2. " + ques.getOption2());
+        holder.option3.setText("3. " + ques.getOption3());
+        holder.option4.setText("4. " + ques.getOption4());
+
+        if (ques.getCorrectOption().equals(ques.getOption1()))
+            holder.option1.setTextColor(rgb(0, 128, 0));
+        else if (ques.getCorrectOption().equals(ques.getOption2()))
+            holder.option2.setTextColor(rgb(0, 128, 0));
+        else if (ques.getCorrectOption().equals(ques.getOption3()))
+            holder.option3.setTextColor(rgb(0, 128, 0));
+        else if (ques.getCorrectOption().equals(ques.getOption4()))
+            holder.option4.setTextColor(rgb(0, 128, 0));
 
     }
 
@@ -57,7 +66,6 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
         private TextView option2;
         private TextView option3;
         private TextView option4;
-        private TextView correctanswer;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -66,7 +74,6 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             option2 = itemView.findViewById(R.id.Opt2In_ques_card);
             option3 = itemView.findViewById(R.id.Opt3In_ques_card);
             option4 = itemView.findViewById(R.id.Opt4In_ques_card);
-            correctanswer = itemView.findViewById(R.id.AnsIn_ques_card);
 
         }
     }

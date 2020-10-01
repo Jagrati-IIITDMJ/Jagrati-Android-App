@@ -75,6 +75,8 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
         holder.optionB.setEnabled(false);
         holder.optionC.setEnabled(false);
         holder.optionD.setEnabled(false);
+
+
     }
 
     @Override
