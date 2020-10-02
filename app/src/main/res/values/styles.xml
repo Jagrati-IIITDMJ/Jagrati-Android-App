@@ -27,4 +27,11 @@
     </style>
 
 
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/light_black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 </resources>

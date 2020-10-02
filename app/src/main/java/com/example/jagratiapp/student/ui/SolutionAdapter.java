@@ -56,8 +56,8 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
         else if (correctAnswer.equals(question.getOption4()))
             holder.optionD.setChecked(true);
 
-        if (answerMap.get(question.getQuestionId()) != null)
-            answer = answerMap.get(question.getQuestionId());
+//        if (answerMap.get(question.getQuestionId()) != null)
+//            answer = answerMap.get(question.getQuestionId());
 //        if (answer != null){
             if (!correctAnswer.equals(answer)){
                 if (answer.equals(question.getOption1()))
@@ -71,10 +71,10 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
             //}
         }
 
-            holder.optionA.setEnabled(false);
-        holder.optionB.setEnabled(false);
-        holder.optionC.setEnabled(false);
-        holder.optionD.setEnabled(false);
+//            holder.optionA.setEnabled(false);
+//        holder.optionB.setEnabled(false);
+//        holder.optionC.setEnabled(false);
+//        holder.optionD.setEnabled(false);
 
 
     }

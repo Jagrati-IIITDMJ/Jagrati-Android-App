@@ -1,13 +1,11 @@
 package com.example.jagratiapp;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.jagratiapp.student.StudentLogin;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -32,7 +29,7 @@ public class login_page extends AppCompatActivity{
     private Button loginButtonLogin;
     private EditText emailEditText;
     private EditText passwordEditText;
-
+    private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -44,14 +41,8 @@ public class login_page extends AppCompatActivity{
         setContentView(R.layout.activity_login_page);
         findViews();
 
-
-
-
-
         View decorView = getWindow().getDecorView();
-
-        int uiOptions =
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(uiOptions);
@@ -63,9 +54,8 @@ public class login_page extends AppCompatActivity{
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (currentUser != null && currentUser.isEmailVerified()){
                     startActivity(new Intent(login_page.this,HomePage.class));
+                    hideProgressDialog();
                     finishAffinity();
-                    //to finish start page
-
                 }
             }
         };
@@ -85,7 +75,6 @@ public class login_page extends AppCompatActivity{
                     }
                     else {
                     checkLogin();
-
                 }
             }
         });
@@ -107,12 +96,20 @@ public class login_page extends AppCompatActivity{
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
+        if (progressDialog == null){
+            progressDialog = new ProgressDialog(this,R.style.MyAlertDialogStyle);
+            progressDialog.setMessage("Logging In .....");
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.show();
+
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                          currentUser = firebaseAuth.getCurrentUser();
-                       /* if(currentUser != null) {
+                        if(currentUser != null) {
                             if (currentUser.isEmailVerified()) {
 
                                 startActivity(new Intent(login_page.this, HomePage.class));
@@ -120,19 +117,16 @@ public class login_page extends AppCompatActivity{
 //                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 //                                        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                                 //to finish StartPage activity
-                              finishAffinity();*/
-                        firebaseAuth.addAuthStateListener(authStateListener);
-
-
-
-                           /*     Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+                              finishAffinity();
+                        //firebaseAuth.addAuthStateListener(authStateListener);
+                                Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                             } else {
                                 
                                 Toast.makeText(login_page.this, "Babes you need to verify", Toast.LENGTH_SHORT).show();
                             }
                         }else{
                             Toast.makeText(login_page.this, "NULL hai boi", Toast.LENGTH_SHORT).show();
-                        }*/
+                        }
 
                     }
                 })
@@ -152,8 +146,6 @@ public class login_page extends AppCompatActivity{
         forgetPasswordLogin = findViewById(R.id.forget_password_button_login);
         emailEditText = findViewById(R.id.login_email);
         passwordEditText = findViewById(R.id.login_password);
-
-
     }
 
     @Override
@@ -173,4 +165,10 @@ public class login_page extends AppCompatActivity{
 //        super.onStart();
 //        firebaseAuth.addAuthStateListener(authStateListener);
 //    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
 }
