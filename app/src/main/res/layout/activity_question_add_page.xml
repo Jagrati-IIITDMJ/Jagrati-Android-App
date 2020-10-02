@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuestionAddPage"><androidx.recyclerview.widget.RecyclerView
+    tools:context=".QuestionAddPage">
+    <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/quesAdd_recyclerview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

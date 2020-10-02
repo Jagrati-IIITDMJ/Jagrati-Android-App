@@ -32,8 +32,10 @@ import com.example.jagratiapp.ui.ClassRecyclerAdapter;
 import com.example.jagratiapp.ui.GroupDiffUtil;
 import com.example.jagratiapp.ui.GroupRecyclerAdapter;
 import com.example.jagratiapp.ui.StudentDiffUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -61,6 +63,7 @@ public class Group_page extends AppCompatActivity {
     private CollectionReference collectionReference;
     private Context ctx;
     private MaterialToolbar toolbar;
+    private String classp;
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -73,6 +76,11 @@ public class Group_page extends AppCompatActivity {
         toolbar = findViewById(R.id.class_page_toolbar);
         fab = findViewById(R.id.fab_group_page);
         classUid = getIntent().getStringExtra("DocId");
+        classp = getIntent().getStringExtra("class_name");
+        MaterialToolbar toolbar = findViewById(R.id.group_page_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(classp);
+       // getActionBar().setDisplayHomeAsUpEnabled(true);
 
         assert classUid != null;
         collectionReference = db.collection("Classes").document(classUid).collection("Groups");
@@ -92,17 +100,20 @@ public class Group_page extends AppCompatActivity {
             }
         });
 
-        //Yaha add kiya hai onStart wala
+
+
         collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()) {
+                if (queryDocumentSnapshots.isEmpty()) {
+                Toast.makeText(Group_page.this, "It's nothing there", Toast.LENGTH_SHORT).show();
+                }else {
                     for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots) {
                         Groups group = groupDocumentSnapshot.toObject(Groups.class);
-                        //isko hatana mat
                         group.setUid(groupDocumentSnapshot.getId().toString());
                         groupList.add(group);
                     }
+                }
                     groupRecyclerAdapter = new GroupRecyclerAdapter(Group_page.this, groupList,classUid);
                     LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(ctx,
                             R.anim.layout_animation_fall_down);
@@ -110,13 +121,7 @@ public class Group_page extends AppCompatActivity {
                     recyclerView.setLayoutAnimation(controller);
                     recyclerView.setAdapter(groupRecyclerAdapter);
                     recyclerView.scheduleLayoutAnimation();
-                    //groupRecyclerAdapter.notifyDataSetChanged();
 
-
-
-                } else {
-                    Toast.makeText(Group_page.this, "It's nothing there", Toast.LENGTH_SHORT).show();
-                }
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -125,7 +130,6 @@ public class Group_page extends AppCompatActivity {
 
             }
         });
-        //Yaha tak kiya hai
 
     }
 
@@ -169,18 +173,19 @@ public class Group_page extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 // to add delay
-                new Handler().postDelayed(new Runnable() {
+               new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         List<Groups> newGroupList = groupList;
                         newGroupList.add(group);
 
-                        GroupDiffUtil diffUtil = new GroupDiffUtil(groupList,newGroupList);
-                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
-                        diffResult.dispatchUpdatesTo(groupRecyclerAdapter);
+//                        GroupDiffUtil diffUtil = new GroupDiffUtil(groupList,newGroupList);
+//                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
+//                        diffResult.dispatchUpdatesTo(groupRecyclerAdapter);
+                        groupRecyclerAdapter.notifyDataSetChanged();
                         dialog.dismiss();
 
-                    }
+                   }
                 },600);
             }
         }).addOnFailureListener(new OnFailureListener() {

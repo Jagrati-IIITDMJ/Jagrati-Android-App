@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.jagratiapp.model.Students;
@@ -35,6 +36,7 @@ public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     boolean flag1 = false, flag2 = false;
     private ConstraintLayout root;
+    private ImageView splash_logo;
 
 
 
@@ -43,18 +45,13 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        View decorView = getWindow().getDecorView();
 
-        int uiOptions =
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(uiOptions);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
         root = findViewById(R.id.splash);
+        splash_logo = findViewById(R.id.splash_logo);
 
 
 
@@ -65,8 +62,9 @@ public class SplashScreen extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    startActivity(new Intent(SplashScreen.this,HomePage.class));
-                                    finish();
+                                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashScreen.this, splash_logo, "splash_logo");
+                                    startActivity(new Intent(SplashScreen.this,HomePage.class),optionsCompat.toBundle());
+                                    supportFinishAfterTransition();
 
                                 }
                             },1000);
@@ -94,6 +92,13 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
         firebaseAuth.addAuthStateListener(authStateListener);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -102,6 +107,7 @@ public class SplashScreen extends AppCompatActivity {
                     final ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashScreen.this,root,"splash");
                     startActivity(new Intent(SplashScreen.this,StartPage.class),optionsCompat.toBundle());
                     finishAffinity();
+
                 }
             }
         },1000);

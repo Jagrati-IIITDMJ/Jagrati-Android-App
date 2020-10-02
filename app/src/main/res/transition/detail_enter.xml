@@ -9,6 +9,7 @@
             <target android:excludeId="@android:id/navigationBarBackground" />
             <target android:excludeId="@android:id/statusBarBackground" />
 
+
         </targets>
         <!-- Slide from bottom all the transitioning views -->
         <transition

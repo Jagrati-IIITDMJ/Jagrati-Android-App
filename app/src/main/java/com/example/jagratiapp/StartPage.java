@@ -68,8 +68,12 @@ public class StartPage extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
-//    @Override
+    //    @Override
 //    protected void onRestart() {
 //        super.onRestart();
 //        firebaseAuth.addAuthStateListener(authStateListener);

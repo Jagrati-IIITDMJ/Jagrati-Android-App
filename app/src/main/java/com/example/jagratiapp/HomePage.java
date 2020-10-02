@@ -1,12 +1,15 @@
 package com.example.jagratiapp;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.transition.ChangeClipBounds;
 import android.transition.Fade;
+import android.transition.Transition;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -58,18 +61,13 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         MaterialToolbar toolbar = findViewById(R.id.attendance_toolbar);
         setSupportActionBar(toolbar);
 
+
         Fade fade = new Fade();
         View decor = getWindow().getDecorView();
         fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
+        fade.excludeTarget(decor.findViewById(R.id.home_page_logo),true);
         fade.excludeTarget(android.R.id.statusBarBackground, true);
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
-        View decorView = getWindow().getDecorView();
-
-        int uiOptions =
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(uiOptions);
 
         getWindow().setEnterTransition(fade);
         getWindow().setExitTransition(fade);
@@ -188,24 +186,41 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
 
     }
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START))
             drawer.closeDrawer(GravityCompat.START);
         else
-            super.onBackPressed();
+            {
+
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    return;
+                }
+
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce=false;
+                    }
+                }, 2000);
+            }
     }
 
-    @Override
-    protected void onResume() {
-        View decorView = getWindow().getDecorView();
 
-        int uiOptions =
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(uiOptions);
-        super.onResume();
+
+    @Override
+    protected void onStop() {
+
+
+        super.onStop();
+        
+
     }
 }
