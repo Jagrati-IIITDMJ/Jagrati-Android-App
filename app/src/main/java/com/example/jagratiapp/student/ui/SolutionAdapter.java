@@ -1,6 +1,10 @@
 package com.example.jagratiapp.student.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.media.effect.EffectFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.R;
@@ -34,12 +39,13 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull SolutionAdapter.ViewHolder holder, int position) {
         String answer = "";
         Question question = questonList.get(position);
 
-        holder.question.setText(question.getQuestion());
+        holder.question.setText((++position) +". " +(question.getQuestion()));
         holder.optionA.setText(question.getOption1());
         holder.optionA.setClickable(false);
         holder.optionB.setText(question.getOption2());
@@ -63,9 +69,30 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
 //        if (answerMap.get(question.getQuestionId()) != null)
 //            answer = answerMap.get(question.getQuestionId());
 //        if (answer != null){
+        AppCompatRadioButton rb;
+        rb = new AppCompatRadioButton(context);
+
+        ColorStateList colorStateList = new ColorStateList(
+                new int[][]{
+                        new int[]{-android.R.attr.state_checked},
+                        new int[]{android.R.attr.state_checked}
+                },
+                new int[]{
+
+                        Color.DKGRAY
+                        , Color.rgb (242,81,112),
+                }
+        );
+
+        holder.optionB.setButtonTintList(colorStateList);
+        holder.optionB.setChecked(true);
             if (!correctAnswer.equals(answer)){
                 if (answer.equals(question.getOption1()))
+                {
                     holder.optionA.setChecked(true);
+
+                }
+
                 if (answer.equals(question.getOption2()))
                     holder.optionB.setChecked(true);
                 if (answer.equals(question.getOption3()))

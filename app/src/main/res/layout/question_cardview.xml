@@ -1,76 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_id_addQues"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    <LinearLayout
 
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="20dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/black_overlay"
+        android:elevation="4dp"
+        android:layout_margin="4dp"
+        >
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp">
-
+        app:cardCornerRadius="8dp"
+        app:strokeColor="@color/black_overlay"
+        android:elevation="4dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="30dp">
-
+            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            app:cardCornerRadius="8dp"
+            android:layout_margin="12dp">
             <TextView
                 android:id="@+id/QuesIn_ques_card"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/checker"
-                style="bold"
+                android:padding="10dp"
+                android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
+                android:textSize="24dp"
                 android:textColor="#000000"
-                android:textSize="24sp"
-                android:minLines="1"
-                android:maxLines="6"
                 />
-            <TextView
-                android:id="@+id/Opt1In_ques_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_input"
-                android:text="@string/checker"
-                android:textSize="25sp"
-                android:minLines="1"
-                android:maxLines="2"
-                />
-            <TextView
-                android:id="@+id/Opt2In_ques_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_input"
-                android:text="@string/checker"
-                android:textSize="25sp"
-                android:minLines="1"
-                android:maxLines="2"
-                />
-            <TextView
-                android:id="@+id/Opt3In_ques_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_input"
-                android:text="@string/checker"
-                android:textSize="25sp"
-                android:minLines="1"
-                android:maxLines="2"
-                android:textStyle="italic"/>
-            <TextView
-                android:id="@+id/Opt4In_ques_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_input"
-                android:text="@string/checker"
-                android:textSize="25sp"
-                android:minLines="1"
-                android:maxLines="2"
-                android:textStyle="italic"/>
 
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:cardCornerRadius="20dp"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                >
+                <TextView
+                    android:id="@+id/Opt1In_ques_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
+                    android:textSize="24dp"
+                    android:layout_margin="8dp"
+
+                    android:textColor="@color/black_overlay"
+                    />
+                <TextView
+                    android:id="@+id/Opt2In_ques_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
+                    android:textSize="24dp"
+                    android:layout_margin="8dp"
+
+                    android:textColor="@color/black_overlay"
+                    />
+                <TextView
+                    android:id="@+id/Opt3In_ques_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
+                    android:textSize="24dp"
+                    android:layout_margin="8dp"
+
+                    android:textColor="@color/black_overlay"
+                    />
+                <TextView
+                    android:id="@+id/Opt4In_ques_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
+                    android:textSize="24dp"
+                    android:layout_margin="8dp"
+
+                    android:textColor="@color/black_overlay"
+                    />
+
+
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+
+
+
+
 </LinearLayout>
+
+
