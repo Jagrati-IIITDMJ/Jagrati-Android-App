@@ -51,7 +51,6 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
                         new int[]{android.R.attr.state_checked}
                 },
                 new int[]{
-
                         Color.DKGRAY
                         , rgb(128, 0, 0),
                 }
