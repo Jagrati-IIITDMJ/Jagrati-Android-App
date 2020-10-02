@@ -91,7 +91,9 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(c);
+
         // To show the student list in attendance segment
+        updateStudentList();
 
     }
 
@@ -132,12 +134,11 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //studentsList.clear();
-                //updateStudentList();
+                studentsList.clear();
+                updateStudentList();
                 updateAttendance();
                 setAttendance();
-                swipeRefreshLayout.setRefreshing(true);
-
+                swipeRefreshLayout.setRefreshing(false);
 
             }
         });
@@ -239,6 +240,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                         attendenceAdapter = new AttendenceRecyclerAdapter(getContext(),studentsList,recordedAttendance,onStudentListener,true);
                         attendenceRecyclerView.setAdapter(attendenceAdapter);
                         attendenceAdapter.notifyDataSetChanged();
+
                     }
                 });
 
