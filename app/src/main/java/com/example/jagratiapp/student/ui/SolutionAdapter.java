@@ -41,9 +41,13 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
 
         holder.question.setText(question.getQuestion());
         holder.optionA.setText(question.getOption1());
+        holder.optionA.setClickable(false);
         holder.optionB.setText(question.getOption2());
+        holder.optionB.setClickable(false);
         holder.optionC.setText(question.getOption3());
+        holder.optionC.setClickable(false);
         holder.optionD.setText(question.getOption4());
+        holder.optionD.setClickable(false);
 
         String correctAnswer = question.getCorrectOption();
 

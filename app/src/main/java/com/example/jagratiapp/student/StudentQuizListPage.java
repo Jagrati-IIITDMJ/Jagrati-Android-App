@@ -34,7 +34,7 @@ public class StudentQuizListPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_quiz_list_page);
-        Toast.makeText(StudentQuizListPage.this,StudentAPI.Instance().getClassUid(),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(StudentQuizListPage.this,StudentAPI.Instance().getClassUid(),Toast.LENGTH_SHORT).show();
         collectionReference = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Quizzes");
         recyclerView = findViewById(R.id.student_quiz_list_recyclerview);
         quizlist = new ArrayList<>();
