@@ -61,6 +61,7 @@ public class Group_page extends AppCompatActivity {
     private CollectionReference collectionReference;
     private Context ctx;
     private MaterialToolbar toolbar;
+    private String classp;
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -73,6 +74,11 @@ public class Group_page extends AppCompatActivity {
         toolbar = findViewById(R.id.class_page_toolbar);
         fab = findViewById(R.id.fab_group_page);
         classUid = getIntent().getStringExtra("DocId");
+        classp = getIntent().getStringExtra("class_name");
+        MaterialToolbar toolbar = findViewById(R.id.group_page_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(classp);
+       // getActionBar().setDisplayHomeAsUpEnabled(true);
 
         assert classUid != null;
         collectionReference = db.collection("Classes").document(classUid).collection("Groups");

@@ -7,6 +7,8 @@
         <targets>
             <target android:excludeId="@android:id/navigationBarBackground" />
             <target android:excludeId="@android:id/statusBarBackground" />
+
+
         </targets>
         <fade
             android:duration="48"

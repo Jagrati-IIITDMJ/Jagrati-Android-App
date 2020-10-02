@@ -14,27 +14,27 @@
         <activity
             android:name=".StudentHolderActivity"
             android:label="@string/title_activity_student_holder"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".student.QuestionsPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".QuestionAddPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".student.StudentQuizListPage" />
         <activity android:name=".student.StudentHomePage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".student.StudentLogin"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".QuizListPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".QuizClassPage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".StudentCompleteInfo" />
         <activity
             android:name=".Group_page"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Classes_page"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".StartPage"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
@@ -49,17 +49,17 @@
         </activity>
         <activity
             android:name=".HomePage"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar"
             />
         <activity
             android:name=".login_page"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".signup_page"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".VolunteerProfile"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 

@@ -93,6 +93,7 @@ public class Classes_page extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     supportFinishAfterTransition();
+
             }
         });
 
