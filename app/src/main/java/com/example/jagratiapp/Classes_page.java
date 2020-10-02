@@ -194,7 +194,7 @@ public class Classes_page extends AppCompatActivity {
 //                        ClassDiffUtil diffUtil = new ClassDiffUtil(classesList,newClassList);
 //                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
 //                        diffResult.dispatchUpdatesTo(classRecyclerAdapter);
-
+                        classRecyclerAdapter.notifyDataSetChanged();
                   dialog.dismiss();
 
                     }
