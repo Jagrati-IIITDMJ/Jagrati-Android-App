@@ -171,12 +171,13 @@ public class Group_page extends AppCompatActivity {
         group.setGroupName(groupname.getText().toString().trim());
         collectionReference.add(group).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
+            public void onSuccess(final DocumentReference documentReference) {
                 // to add delay
                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         List<Groups> newGroupList = groupList;
+                        group.setUid(documentReference.getId());
                         newGroupList.add(group);
 
 //                        GroupDiffUtil diffUtil = new GroupDiffUtil(groupList,newGroupList);
@@ -186,7 +187,7 @@ public class Group_page extends AppCompatActivity {
                         dialog.dismiss();
 
                    }
-                },600);
+                },60);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

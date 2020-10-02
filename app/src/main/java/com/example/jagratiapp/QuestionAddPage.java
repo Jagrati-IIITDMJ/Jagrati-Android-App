@@ -84,9 +84,10 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         Question q = documentSnapshot.toObject(Question.class);
                         questionList.add(q);
                     }
-                    questionAddAdapter = new QuestionAddAdapter(QuestionAddPage.this, questionList);
-                    recyclerView.setAdapter(questionAddAdapter);
                 }
+                questionAddAdapter = new QuestionAddAdapter(QuestionAddPage.this, questionList);
+                recyclerView.setAdapter(questionAddAdapter);
+
             }
         });
 
@@ -170,6 +171,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
 
                         List<Question> newQuestionList = questionList;
                         newQuestionList.add(q);
+                        questionAddAdapter.notifyDataSetChanged();
                         documentToAddNumOfQues.update("numberOfQues",newQuestionList.size());
 
             }

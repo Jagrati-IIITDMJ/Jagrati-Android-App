@@ -134,6 +134,7 @@ public class login_page extends AppCompatActivity{
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(login_page.this,e.getMessage().toString().trim(),Toast.LENGTH_SHORT).show();
+                        hideProgressDialog();
                     }
                 });
     }
