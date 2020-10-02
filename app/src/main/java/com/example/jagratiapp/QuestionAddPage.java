@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,6 @@ import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.ui.QuestionAddAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,7 +38,10 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     private EditText option2;
     private EditText option3;
     private EditText option4;
-    private EditText correctOption;
+    private RadioButton option1RadioButton;
+    private RadioButton option2RadioButton;
+    private RadioButton option3RadioButton;
+    private RadioButton option4RadioButton;
     private Button savequesButton;
     private String quizid;
     private AlertDialog dialog;
@@ -50,6 +53,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     private CollectionReference collectionReference;
     private DocumentReference documentToAddNumOfQues;
     private QuestionAddAdapter questionAddAdapter;
+    private String correctOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +112,10 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         option2 = view.findViewById(R.id.Opt2In_ques_card_popup);
         option3 = view.findViewById(R.id.Opt3In_ques_card_popup);
         option4 = view.findViewById(R.id.Opt4In_ques_card_popup);
-        correctOption = view.findViewById(R.id.AnsIn_ques_card_popup);
+        option1RadioButton = view.findViewById(R.id.optionA_question_card_popup);
+        option2RadioButton = view.findViewById(R.id.optionB_question_card_popup);
+        option3RadioButton = view.findViewById(R.id.optionC_question_card_popup);
+        option4RadioButton = view.findViewById(R.id.optionD_question_card_popup);
         savequesButton = view.findViewById(R.id.saveques_popup);
 
         savequesButton.setOnClickListener(new View.OnClickListener() {
@@ -119,13 +126,29 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         && !TextUtils.isEmpty(option2.getText().toString().trim())
                         && !TextUtils.isEmpty(option3.getText().toString().trim())
                         && !TextUtils.isEmpty(option4.getText().toString().trim())
-                        && !TextUtils.isEmpty(correctOption.getText().toString().trim())){
+                        && (option1RadioButton.isChecked()
+                        || option2RadioButton.isChecked()
+                        || option3RadioButton.isChecked()
+                        || option4RadioButton.isChecked())){
+                    dialog.dismiss();
+                    if (option1RadioButton.isChecked())
+                        correctOption = option1.getText().toString();
+                    else if (option2RadioButton.isChecked())
+                        correctOption = option2.getText().toString();
+                    else if (option3RadioButton.isChecked())
+                        correctOption = option3.getText().toString();
+                    else if (option4RadioButton.isChecked())
+                        correctOption = option4.getText().toString();
+
                     Question ques = new Question(question.getText().toString().trim(),option1.getText().toString().trim(),
                             option2.getText().toString().trim(),option3.getText().toString().trim(),option4.getText().toString().trim(),
-                            correctOption.getText().toString().trim(),null);
+                            correctOption,null);
+
+
                     saveQuestion(ques);
-
-
+                }
+                else {
+                    Toast.makeText(QuestionAddPage.this,"sab dalo",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -148,7 +171,6 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         List<Question> newQuestionList = questionList;
                         newQuestionList.add(q);
                         documentToAddNumOfQues.update("numberOfQues",newQuestionList.size());
-                        dialog.dismiss();
 
             }
         }).addOnFailureListener(new OnFailureListener() {

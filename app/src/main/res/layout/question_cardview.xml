@@ -69,19 +69,6 @@
                 android:minLines="1"
                 android:maxLines="2"
                 android:textStyle="italic"/>
-            <TextView
-                android:id="@+id/AnsIn_ques_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/checker"
-                android:textSize="25sp"
-                android:minLines="1"
-                android:maxLines="2"
-                android:textStyle="italic"/>
-
-
-
-
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

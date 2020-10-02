@@ -104,8 +104,7 @@
                 android:buttonTint="#F17E01"
                 android:background="@drawable/rectangle"
                 android:padding="16dp"
-
-                android:text="446546456554654654656465464"
+                android:text="Option A"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.073"
@@ -126,16 +125,12 @@
                 android:buttonTint="#F17E01"
                 android:padding="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
-
+                android:text="Option B"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.073"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.317" />
-
-
-
-
 
             <RadioButton
                 android:id="@+id/optionC_radio"
@@ -146,6 +141,7 @@
                 android:onClick="checkButton"
                 android:buttonTint="#F17E01"
                 android:padding="16dp"
+                android:text="Option C"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.073"
@@ -163,6 +159,7 @@
                 android:layout_marginTop="8dp"
                 android:padding="16dp"
                 android:buttonTint="#F17E01"
+                android:text="Option D"
                 app:layout_constraintBottom_toTopOf="@+id/cardView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.073"

@@ -118,26 +118,22 @@ public class Classes_page extends AppCompatActivity {
         collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()) {
+                if (queryDocumentSnapshots.isEmpty()) {
+                    Toast.makeText(Classes_page.this, "It's noting there", Toast.LENGTH_SHORT).show();
+                }else {
                     for (QueryDocumentSnapshot classDocumentSnapshot : queryDocumentSnapshots) {
                         Classes classes = classDocumentSnapshot.toObject(Classes.class);
                         classes.setuId(classDocumentSnapshot.getId());
                         classesList.add(classes);
                     }
-                    classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this, classesList);
-                    LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(ctx,
-                            R.anim.layout_animation_fall_down);
-                    recyclerView.setLayoutAnimation(controller);
-
-                    recyclerView.setAdapter(classRecyclerAdapter);
-                    recyclerView.scheduleLayoutAnimation();
-
-
-
-
-                } else {
-                    Toast.makeText(Classes_page.this, "It's noting there", Toast.LENGTH_SHORT).show();
                 }
+                classRecyclerAdapter = new ClassRecyclerAdapter(Classes_page.this, classesList);
+                LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(ctx,
+                        R.anim.layout_animation_fall_down);
+                recyclerView.setLayoutAnimation(controller);
+                recyclerView.setAdapter(classRecyclerAdapter);
+                recyclerView.scheduleLayoutAnimation();
+
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -196,9 +192,10 @@ public class Classes_page extends AppCompatActivity {
                         classes.setuId(documentReference.getId());
                         newClassList.add(classes);
 
-                        ClassDiffUtil diffUtil = new ClassDiffUtil(classesList,newClassList);
-                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
-                        diffResult.dispatchUpdatesTo(classRecyclerAdapter);
+//                        ClassDiffUtil diffUtil = new ClassDiffUtil(classesList,newClassList);
+//                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
+//                        diffResult.dispatchUpdatesTo(classRecyclerAdapter);
+
                   dialog.dismiss();
 
                     }
