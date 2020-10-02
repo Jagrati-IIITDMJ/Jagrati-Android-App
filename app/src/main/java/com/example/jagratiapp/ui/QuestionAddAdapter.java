@@ -38,7 +38,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
     @Override
     public void onBindViewHolder(@NonNull QuestionAddAdapter.ViewHolder holder, int position) {
         Question ques = questionList.get(position);
-        holder.question.setText("Ques." +(++position) + " " + ques.getQuestion());
+        holder.question.setText("<b>"+"Ques."+ "</b>" +(++position) + " " + ques.getQuestion());
         holder.option1.setText("1. " + ques.getOption1());
         holder.option2.setText("2. " + ques.getOption2());
         holder.option3.setText("3. " + ques.getOption3());
