@@ -62,6 +62,12 @@ public class SolutionPage extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         answerMap = (Map<String, String>) documentSnapshot.get("answerList");
+
+//                        Iterator it = answerMap.entrySet().iterator();
+//                        while (it.hasNext()){
+//                            Map.Entry obj = (Map.Entry)it.next();
+//                            Toast.makeText(SolutionPage.this,obj.getValue() +"",Toast.LENGTH_SHORT).show();
+//                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -82,6 +88,7 @@ public class SolutionPage extends AppCompatActivity {
                             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                                 Question question = documentSnapshot.toObject(Question.class);
                                 question.setQuestionId(documentSnapshot.getId());
+                                //Toast.makeText(SolutionPage.this,question.getQuestionId(),Toast.LENGTH_SHORT).show();
                                 questionList.add(question);
                             }
                             //Toast.makeText(SolutionPage.this,answerMap.size() +" " + questionList.size() ,Toast.LENGTH_SHORT).show();
