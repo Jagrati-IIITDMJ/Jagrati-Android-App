@@ -235,10 +235,10 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                                     recordedAttendance.put(studentsList.get(i).getUid(),false);
                                 }
                             }
-                            attendenceAdapter = new AttendenceRecyclerAdapter(getContext(),studentsList,recordedAttendance,onStudentListener,true);
-                            attendenceRecyclerView.setAdapter(attendenceAdapter);
-                            attendenceAdapter.notifyDataSetChanged();
                         }
+                        attendenceAdapter = new AttendenceRecyclerAdapter(getContext(),studentsList,recordedAttendance,onStudentListener,true);
+                        attendenceRecyclerView.setAdapter(attendenceAdapter);
+                        attendenceAdapter.notifyDataSetChanged();
                     }
                 });
 
