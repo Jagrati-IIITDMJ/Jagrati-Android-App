@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jagratiapp.Classes_page;
 import com.example.jagratiapp.R;
+import com.example.jagratiapp.StudentHolderActivity;
 import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.ui.StudentDiffUtil;
 import com.example.jagratiapp.ui.StudentRecyclerAdapter;
@@ -121,18 +123,20 @@ public class StudentsFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            Toast.makeText(getContext(), "It's noting there", Toast.LENGTH_SHORT).show();
+                        }else {
                             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 Students student = documentSnapshot.toObject(Students.class);
                                 student.setUid(documentSnapshot.getId());
                                 studentsList.add(student);
                             }
+                        }
                             studentAdapter = new StudentRecyclerAdapter(getContext(), studentsList);
                             studentRecyclerView.setAdapter(studentAdapter);
-                            //studentAdapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(getContext(), "Kuch ni hain", Toast.LENGTH_SHORT).show();
-                        }
+
+
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -214,9 +218,7 @@ public class StudentsFragment extends Fragment {
                                                                     student.setUid(documentReference.getId());
                                                                     newStudentList.add(student);
 
-                                                                    StudentDiffUtil diffUtil = new StudentDiffUtil(studentsList, newStudentList);
-                                                                    DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
-                                                                    diffResult.dispatchUpdatesTo(studentAdapter);
+                                                                    studentAdapter.notifyDataSetChanged();
                                                                     dialog.dismiss();
                                                                 }
                                                             }, 600);

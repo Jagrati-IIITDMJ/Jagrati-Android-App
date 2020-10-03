@@ -50,11 +50,13 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
         holder.classID = student.getClassID();
         holder.groupID = student.getGroupID();
 
-        boolean attendanceState = recordedAttendance.get(student.getUid());
-        if (attendanceState) {
-            holder.attendanceChecker.setVisibility(View.VISIBLE);
-        }else{
-            holder.attendanceChecker.setVisibility(View.INVISIBLE);
+        if(!recordedAttendance.isEmpty()) {
+            boolean attendanceState = recordedAttendance.get(student.getUid());
+            if (attendanceState) {
+                holder.attendanceChecker.setVisibility(View.VISIBLE);
+            } else {
+                holder.attendanceChecker.setVisibility(View.INVISIBLE);
+            }
         }
 
 
@@ -63,15 +65,22 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
                 @Override
                 public void onClick(View view) {
                     boolean state = false;
-                    if (recordedAttendance.get(holder.studentID)) {
-                        state = false;
-                        holder.attendanceChecker.setVisibility(View.INVISIBLE);
-                    } else if (!recordedAttendance.get(holder.studentID)) {
-                        state = true;
-                        holder.attendanceChecker.setVisibility(View.VISIBLE);
-                    } else{
-                        holder.attendanceChecker.setVisibility(View.INVISIBLE);
-                    }
+
+                        if(recordedAttendance.get(holder.studentID)==null){
+                            state = true;
+                            holder.attendanceChecker.setVisibility(View.VISIBLE);
+                        }
+                        else if (recordedAttendance.get(holder.studentID)) {
+                            state = false;
+                            holder.attendanceChecker.setVisibility(View.INVISIBLE);
+                        } else if (!recordedAttendance.get(holder.studentID)) {
+                            state = true;
+                            holder.attendanceChecker.setVisibility(View.VISIBLE);
+                        } else {
+                            holder.attendanceChecker.setVisibility(View.INVISIBLE);
+                        }
+
+
                     onStudentListener.onStudentClick(holder.getAdapterPosition(), state);
 
                 }
