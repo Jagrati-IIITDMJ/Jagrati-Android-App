@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.AttendanceFragment"
-    android:id="@+id/attendance_swipe">
+    android:id="@+id/attendance_swipe"
+    android:theme="@style/AppTheme.NoActionBar">
 
     <FrameLayout
         android:layout_width="match_parent"

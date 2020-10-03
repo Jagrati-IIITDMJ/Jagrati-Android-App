@@ -12,6 +12,7 @@ import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.student.ui.SolutionAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,6 +40,9 @@ public class SolutionPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution_page);
+
+        MaterialToolbar toolbar = findViewById(R.id.student_holder_toolbar);
+        setSupportActionBar(toolbar);
 
         Bundle bundle = getIntent().getExtras();
         classId = getIntent().getStringExtra("classId");

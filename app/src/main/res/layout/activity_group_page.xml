@@ -17,7 +17,7 @@
 
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:background="@drawable/rectangle_actionbar"
+
             android:id="@+id/group_page_toolbar"
             android:layout_width="match_parent"
              android:layout_height="60dp"

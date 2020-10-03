@@ -84,6 +84,13 @@ public class Group_page extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
        // getActionBar().setDisplayHomeAsUpEnabled(true);
 
         assert classUid != null;

@@ -21,7 +21,7 @@
     <style name="AppTheme.NoActionBar">
 
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="windowActionBar">true</item>
+        <item name="windowActionBar">false</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>

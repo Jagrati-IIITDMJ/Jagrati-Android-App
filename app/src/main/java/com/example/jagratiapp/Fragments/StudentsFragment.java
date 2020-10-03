@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,7 @@ public class StudentsFragment extends Fragment {
 
     private String classid;
     private String groupid;
-    private Button addStudent;
+    private ImageButton addStudent;
     private String className;
     private String groupName;
     private Button takeAttendence;
