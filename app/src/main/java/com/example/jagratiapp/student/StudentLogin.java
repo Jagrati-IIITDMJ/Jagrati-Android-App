@@ -46,6 +46,9 @@ public class StudentLogin extends AppCompatActivity {
                 String username = usernameEditText.getText().toString().trim();
                 if (!TextUtils.isEmpty(username))
                     login(username);
+                else {
+                    Toast.makeText(StudentLogin.this,"Student does not exists",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -77,14 +77,13 @@ public class QuizListPage extends AppCompatActivity {
                         quiz.setQuizID(DocumentSnapshot.getId());
                         quizlist.add(quiz);
                     }
-                    quizListAdapter = new QuizListAdapter(QuizListPage.this, quizlist,classid);
-                    recyclerView.setAdapter(quizListAdapter);
-
 
 
                 } else {
                     Toast.makeText(QuizListPage.this, "Dalo nayi quiz", Toast.LENGTH_SHORT).show();
                 }
+                quizListAdapter = new QuizListAdapter(QuizListPage.this, quizlist,classid);
+                recyclerView.setAdapter(quizListAdapter);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -141,6 +140,7 @@ public class QuizListPage extends AppCompatActivity {
                         List<Quiz> newQuizList = quizlist;
                         quiz.setQuizID(documentReference.getId());
                         newQuizList.add(quiz);
+                        quizListAdapter.notifyDataSetChanged();
                         dialog.dismiss();
                     }
                 },1);

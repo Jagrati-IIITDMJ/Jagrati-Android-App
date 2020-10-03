@@ -96,9 +96,10 @@ public class SolutionPage extends AppCompatActivity {
                                 questionList.add(question);
                             }
                             //Toast.makeText(SolutionPage.this,answerMap.size() +" " + questionList.size() ,Toast.LENGTH_SHORT).show();
-                            solutionAdapter = new SolutionAdapter(SolutionPage.this,questionList,answerMap);
-                            solutionRecyclerView.setAdapter(solutionAdapter);
                         }
+                        solutionAdapter = new SolutionAdapter(SolutionPage.this,questionList,answerMap);
+                        solutionRecyclerView.setAdapter(solutionAdapter);
+                        solutionAdapter.notifyDataSetChanged();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
