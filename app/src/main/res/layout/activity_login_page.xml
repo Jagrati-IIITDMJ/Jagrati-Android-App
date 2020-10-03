@@ -33,7 +33,7 @@
             android:background="@drawable/rectangle_input"
             android:gravity="center"
             android:hint="@string/enter_username"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textColorHint="@color/black_overlay"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"

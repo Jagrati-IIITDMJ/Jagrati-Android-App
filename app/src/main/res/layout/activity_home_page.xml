@@ -9,6 +9,7 @@
     android:layout_gravity="start"
     tools:openDrawer="start"
     tools:context=".HomePage"
+    android:theme="@style/AppTheme.NoActionBar"
         >
 
     <include

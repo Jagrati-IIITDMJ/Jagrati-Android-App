@@ -20,9 +20,11 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:id="@+id/class_page_toolbar"
+
+
             android:layout_height="60dp"
-            android:background="@drawable/rectangle_actionbar"
-            app:titleTextColor="#000000"
+
+            app:titleTextColor="#A75700"
 
             app:title="Class" />
 

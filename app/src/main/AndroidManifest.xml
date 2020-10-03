@@ -3,6 +3,7 @@
     package="com.example.jagratiapp">
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         
         android:allowBackup="true"
@@ -10,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".StudentHolderActivity"
             android:label="@string/title_activity_student_holder"
@@ -28,7 +29,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".QuizClassPage"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".StudentCompleteInfo" />
+        <activity android:name=".StudentCompleteInfo"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Group_page"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -59,7 +61,8 @@
         <activity
             android:name=".VolunteerProfile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".student.SolutionPage"> </activity>
+        <activity android:name=".student.SolutionPage"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 

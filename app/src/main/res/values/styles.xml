@@ -8,11 +8,24 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowFullscreen">true</item>
+
     </style>
 
+<!--    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">-->
+<!--        &lt;!&ndash; Customize color of navigation drawer icon and back arrow &ndash;&gt;-->
+<!--        <item name="colorControlNormal">#A75700</item>-->
+<!--    </style>-->
+
     <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
+
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="windowActionBar">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

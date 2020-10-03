@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -59,7 +60,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         setContentView(R.layout.activity_home_page);
         findViews();
         MaterialToolbar toolbar = findViewById(R.id.attendance_toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
 
 
         Fade fade = new Fade();
@@ -85,6 +86,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.draweropen,R.string.drawerclosed);
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.jag1));
+
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();

@@ -79,7 +79,11 @@ public class Group_page extends AppCompatActivity {
         classp = getIntent().getStringExtra("class_name");
         MaterialToolbar toolbar = findViewById(R.id.group_page_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(classp);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(classp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
        // getActionBar().setDisplayHomeAsUpEnabled(true);
 
         assert classUid != null;
