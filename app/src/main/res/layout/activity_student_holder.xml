@@ -34,6 +34,4 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary" />
     </com.google.android.material.appbar.AppBarLayout>
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

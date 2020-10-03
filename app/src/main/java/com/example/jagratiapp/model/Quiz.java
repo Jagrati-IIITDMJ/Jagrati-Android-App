@@ -5,6 +5,15 @@ public class Quiz {
     String quizDescription;
     String quizID;
     int numberOfQues;
+    int quesTime;
+
+    public int getQuesTime() {
+        return quesTime;
+    }
+
+    public void setQuesTime(int quesTime) {
+        this.quesTime = quesTime;
+    }
 
     public int getNumberOfQues() {
         return numberOfQues;

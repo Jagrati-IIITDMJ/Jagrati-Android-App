@@ -14,7 +14,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="270dp"
             android:padding="30dp">
 
             <TextView
@@ -46,6 +46,14 @@
                 android:hint="@string/hint_quizDescription"
                 android:inputType="textAutoCorrect" />
 
+            <EditText
+                android:id="@+id/quizTime_pop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/quizDescription_pop"
+                android:autofillHints="none"
+                android:hint="@string/hint_quizTime"
+                android:inputType="textAutoCorrect" />
 
             <Button
                 android:id="@+id/savequiz_pop"

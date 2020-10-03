@@ -12,7 +12,9 @@ import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Classes;
 import com.example.jagratiapp.model.Quiz;
 
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,8 +45,10 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.ViewHo
     public void onBindViewHolder(@NonNull QuizListAdapter.ViewHolder holder, int position) {
         Quiz quiz = quizList.get(position);
         holder.quizName.setText(quiz.getQuizName());
-        holder.quizDesCription.setText(quiz.getQuizDescription());
+        holder.quizDescription.setText(quiz.getQuizDescription());
+        holder.quizTime.setText(MessageFormat.format("Time: {0} min", quiz.getQuesTime()));
         holder.quizid = quiz.getQuizID();
+
 
     }
 
@@ -55,13 +59,14 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.ViewHo
 
     public class ViewHolder extends  RecyclerView.ViewHolder{
         private TextView quizName;
-        private TextView quizDesCription;
+        private TextView quizDescription;
         private String quizid;
+        private TextView quizTime;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             quizName = itemView.findViewById(R.id.quizName_list);
-            quizDesCription = itemView.findViewById(R.id.quizDescription_list);
-
+            quizDescription = itemView.findViewById(R.id.quizDescription_list);
+            quizTime = itemView.findViewById(R.id.quizTime_list);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

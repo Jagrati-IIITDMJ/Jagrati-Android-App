@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -39,6 +40,7 @@ public class QuizListPage extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
     private EditText quizName;
+    private EditText quizTime;
     private EditText quizDescription;
     private Button addQuiz;
     private QuizListAdapter quizListAdapter;
@@ -105,6 +107,7 @@ public class QuizListPage extends AppCompatActivity {
         quizName = view.findViewById(R.id.quizName_pop);
         quizDescription = view.findViewById(R.id.quizDescription_pop);
         addQuiz = view.findViewById(R.id.savequiz_pop);
+        quizTime = view.findViewById(R.id.quizTime_pop);
 
         builder.setView(view);
         dialog = builder.create();
@@ -115,7 +118,8 @@ public class QuizListPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!quizName.getText().toString().isEmpty()
-                && !quizDescription.getText().toString().isEmpty()){
+                && !quizDescription.getText().toString().isEmpty()
+                && !quizTime.getText().toString().isEmpty()){
                     addQuizToDatabase(view);
                 }else
                 {
@@ -130,6 +134,7 @@ public class QuizListPage extends AppCompatActivity {
         final Quiz quiz = new Quiz();
         quiz.setQuizName(quizName.getText().toString());
         quiz.setQuizDescription(quizDescription.getText().toString());
+        quiz.setQuesTime(Integer.parseInt(quizTime.getText().toString()));
 
         collectionReference.add(quiz).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
