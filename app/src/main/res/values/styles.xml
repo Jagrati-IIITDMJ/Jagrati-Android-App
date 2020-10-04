@@ -10,6 +10,7 @@
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@color/appbar</item>
 
     </style>
 

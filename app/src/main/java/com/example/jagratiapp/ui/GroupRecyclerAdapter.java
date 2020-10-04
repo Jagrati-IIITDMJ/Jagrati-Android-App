@@ -31,7 +31,7 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
     @NonNull
     @Override
     public GroupRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.group_cardview, parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.class_cardview, parent,false);
 
         return new ViewHolder(view,context);
     }
@@ -60,8 +60,8 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
             super(itemView);
             context = ctx;
 
-            groupname_List = itemView.findViewById(R.id.groupname_list);
-            group_further = itemView.findViewById(R.id.group_further);
+            groupname_List = itemView.findViewById(R.id.classname_list);
+            group_further = itemView.findViewById(R.id.classfurther);
             group_further.setOnClickListener(this);
 
         }
