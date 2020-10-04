@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.jagratiapp.model.Groups;
 import com.example.jagratiapp.model.Students;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 public class StudentCompleteInfo extends AppCompatActivity {
@@ -34,7 +36,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
     private TextView guardianName;
     private TextView rollNo;
     private TextView attendance;
-    private int count = 0;
+    private int present = 0;
+    private int totalDays = 0;
 
 
     @Override
@@ -70,22 +73,18 @@ public class StudentCompleteInfo extends AppCompatActivity {
             }
         });
 
-        attendanceReference
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                Map<String,Object> obj = (document.getData());
-                                if(obj.get(rollNo) == "true")
-                                    count++;
-                            }
-                            Log.d(TAG, "" + count);
-                        }
-                    }
-                });
+        attendanceReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots){
+                    totalDays++;
+                   if(groupDocumentSnapshot.getBoolean(studID)){
+                       present++;
+                   }
+                }
+                attendance.setText(MessageFormat.format("Attendance: {0} Out of {1} days", present, totalDays));
+            }
+        });
 
     }
 }
