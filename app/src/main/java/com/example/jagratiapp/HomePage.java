@@ -60,19 +60,20 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         setContentView(R.layout.activity_home_page);
         findViews();
         MaterialToolbar toolbar = findViewById(R.id.attendance_toolbar);
-//        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
 
-        Fade fade = new Fade();
-        View decor = getWindow().getDecorView();
-        fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
-        fade.excludeTarget(decor.findViewById(R.id.home_page_logo),true);
-        fade.excludeTarget(android.R.id.statusBarBackground, true);
-        fade.excludeTarget(android.R.id.navigationBarBackground, true);
-
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
+//        Fade fade = new Fade();
+//        View decor = getWindow().getDecorView();
+//        fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
+//        fade.excludeTarget(decor.findViewById(R.id.home_page_logo),true);
+//        fade.excludeTarget(android.R.id.statusBarBackground, true);
+//        fade.excludeTarget(android.R.id.navigationBarBackground, true);
+//
+//        getWindow().setEnterTransition(fade);
+//        getWindow().setExitTransition(fade);
         drawer = findViewById(R.id.drawer_layout);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 

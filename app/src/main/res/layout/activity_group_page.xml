@@ -18,6 +18,8 @@
 
         <com.google.android.material.appbar.MaterialToolbar
 
+            android:background="@color/appbar"
+
             android:id="@+id/group_page_toolbar"
             android:layout_width="match_parent"
              android:layout_height="60dp"

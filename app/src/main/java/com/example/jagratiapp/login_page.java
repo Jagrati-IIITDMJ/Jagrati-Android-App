@@ -41,11 +41,7 @@ public class login_page extends AppCompatActivity{
         setContentView(R.layout.activity_login_page);
         findViews();
 
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(uiOptions);
+
 
        firebaseAuth = FirebaseAuth.getInstance();
        //currentUser = firebaseAuth.getCurrentUser();
@@ -149,17 +145,7 @@ public class login_page extends AppCompatActivity{
         passwordEditText = findViewById(R.id.login_password);
     }
 
-    @Override
-    protected void onResume() {
-        View decorView = getWindow().getDecorView();
 
-        int uiOptions =
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(uiOptions);
-        super.onResume();
-    }
     ////
 //    @Override
 //    protected void onStart() {

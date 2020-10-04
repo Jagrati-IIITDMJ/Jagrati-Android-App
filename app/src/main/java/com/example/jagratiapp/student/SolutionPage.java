@@ -44,11 +44,7 @@ public class SolutionPage extends AppCompatActivity {
 
         MaterialToolbar toolbar = findViewById(R.id.student_holder_toolbar);
         setSupportActionBar(toolbar);
-        View decorView = getWindow().getDecorView();
-        int uiOptions =
-                View.SYSTEM_UI_FLAG_FULLSCREEN;
 
-        decorView.setSystemUiVisibility(uiOptions);
 
         Bundle bundle = getIntent().getExtras();
         classId = getIntent().getStringExtra("classId");

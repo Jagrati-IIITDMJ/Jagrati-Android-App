@@ -44,6 +44,13 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
 
 
 
@@ -92,13 +99,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        View decorView = getWindow().getDecorView();
 
-        int uiOptions =
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(uiOptions);
         firebaseAuth.addAuthStateListener(authStateListener);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -170,7 +171,18 @@ public class SplashScreen extends AppCompatActivity {
         });
     }
 
-//    private final class LongOperation extends AsyncTask<Void, Void, Integer> {
+    @Override
+    protected void onResume() {
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
+        super.onResume();
+    }
+    //    private final class LongOperation extends AsyncTask<Void, Void, Integer> {
 //
 //@Override
 //protected

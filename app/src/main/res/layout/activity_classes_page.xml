@@ -20,6 +20,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:id="@+id/class_page_toolbar"
+            android:background="@color/appbar"
 
 
             android:layout_height="60dp"

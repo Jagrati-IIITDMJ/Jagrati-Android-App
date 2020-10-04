@@ -15,6 +15,7 @@
         android:orientation="vertical">
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
+            android:background="@color/appbar"
             android:layout_height="60dp"
             android:id="@+id/quiz_class_page_toolbar"
             />

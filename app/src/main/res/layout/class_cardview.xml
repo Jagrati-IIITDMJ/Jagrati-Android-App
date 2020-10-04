@@ -22,12 +22,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="8dp"
-
             android:textColor="@color/black_overlay"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:text="@string/there_must_be_something"
+             />
 
-            android:text="@string/there_must_be_something" />
 
 
 

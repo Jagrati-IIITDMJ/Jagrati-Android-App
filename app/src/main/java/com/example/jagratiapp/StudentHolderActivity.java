@@ -32,8 +32,7 @@ public class StudentHolderActivity extends AppCompatActivity {
 
         MaterialToolbar toolbar = findViewById(R.id.student_holder_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("");
+
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         classid = bundle.getString("classid");

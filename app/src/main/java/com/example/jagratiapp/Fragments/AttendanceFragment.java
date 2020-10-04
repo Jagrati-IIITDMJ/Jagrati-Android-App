@@ -19,6 +19,7 @@ import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.ui.AttendenceRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,7 +42,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class AttendanceFragment extends Fragment implements AttendenceRecyclerAdapter.OnStudentListener {
 
-    private Button submitButton;
+    private FloatingActionButton submitButton;
     private String classid;
     private String groupid;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
