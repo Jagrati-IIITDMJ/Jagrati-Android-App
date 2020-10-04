@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.jagratiapp.R;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class StudentInfo extends AppCompatActivity {
 
@@ -12,5 +13,7 @@ public class StudentInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_info);
+        MaterialToolbar toolbar = findViewById(R.id.student_info_toolbar);
+        setSupportActionBar(toolbar);
     }
 }

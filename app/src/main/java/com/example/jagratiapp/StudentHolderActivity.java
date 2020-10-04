@@ -1,8 +1,15 @@
 package com.example.jagratiapp;
 
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.jagratiapp.ui.main.SectionsPagerAdapter;
@@ -14,15 +21,19 @@ public class StudentHolderActivity extends AppCompatActivity {
     private String classid;
     private String groupid;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_holder);
 
 
+
+
         MaterialToolbar toolbar = findViewById(R.id.student_holder_toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("");
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         classid = bundle.getString("classid");
@@ -39,4 +50,6 @@ public class StudentHolderActivity extends AppCompatActivity {
 
 
     }
+
+
 }

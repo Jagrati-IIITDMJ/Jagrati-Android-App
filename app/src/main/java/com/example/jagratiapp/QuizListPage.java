@@ -20,6 +20,7 @@ import com.example.jagratiapp.model.Quiz;
 import com.example.jagratiapp.ui.QuizListAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
@@ -50,6 +51,9 @@ public class QuizListPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_list_page);
+
+        MaterialToolbar toolbar = findViewById(R.id.quiz_list_toolbar);
+        setSupportActionBar(toolbar);
 
         classid = getIntent().getStringExtra("ClassID");
         collectionReference = db.collection("Classes").document(classid).collection("Quizzes");

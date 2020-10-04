@@ -11,6 +11,7 @@ import com.example.jagratiapp.model.Students;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -47,6 +48,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
         className = findViewById(R.id.class_name_info);
         guardianName = findViewById(R.id.guardian_name_info);
         attendance = findViewById(R.id.attendance_info);
+        MaterialToolbar toolbar = findViewById(R.id.student_info_complete_toolbar);
+        setSupportActionBar(toolbar);
 
         Bundle bundle = getIntent().getExtras();
         classID = bundle.getString("classID");

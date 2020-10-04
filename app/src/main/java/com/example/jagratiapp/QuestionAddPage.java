@@ -21,6 +21,7 @@ import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.ui.QuestionAddAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -59,6 +60,9 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_add_page);
+
+        MaterialToolbar toolbar = findViewById(R.id.quiz_add_toolbar);
+        setSupportActionBar(toolbar);
 
         addQuestion = findViewById(R.id.fab_ques_add);
         recyclerView = findViewById(R.id.quesAdd_recyclerview);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.StudentsFragment"
-    android:theme="@style/AppTheme.NoActionBar">
+  >
 
 
 
@@ -23,14 +23,12 @@
         />
 
 
-
-
-        <ImageButton
+    <ImageButton
         android:id="@+id/add_student_button"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="52dp"
 
         android:background="@drawable/fab"
         android:contentDescription="Add"

@@ -22,6 +22,8 @@
 
         <item name="android:backgroundDimEnabled">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:backgroundDimAmount">.1</item>
+        <item name="android:fitsSystemWindows">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>

@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:text="Correct Answer"
                 android:textSize="24dp"
-                android:textStyle="italic"></TextView>
+                android:textStyle="italic" />
         </androidx.cardview.widget.CardView>
 
             <TextView

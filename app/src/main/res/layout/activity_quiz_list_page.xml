@@ -9,6 +9,16 @@
 
 
     <include layout="@layout/background_activity"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/quiz_list_toolbar"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/quiz_list_recyclerview"
         android:layout_width="match_parent"
@@ -17,6 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/fab_quizList_page"

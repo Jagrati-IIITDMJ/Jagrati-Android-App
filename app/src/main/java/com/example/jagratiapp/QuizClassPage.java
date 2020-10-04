@@ -12,6 +12,7 @@ import com.example.jagratiapp.model.Classes;
 import com.example.jagratiapp.ui.QuizClassAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -32,6 +33,9 @@ public class QuizClassPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_class_page);
+
+        MaterialToolbar toolbar = findViewById(R.id.quiz_class_page_toolbar);
+        setSupportActionBar(toolbar);
 
         quizClassRecyclerView = findViewById(R.id.quiz_class_recyclerview);
         quizClassRecyclerView.setHasFixedSize(true);
