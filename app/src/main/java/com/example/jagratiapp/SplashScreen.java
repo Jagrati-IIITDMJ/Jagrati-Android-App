@@ -53,58 +53,47 @@ public class SplashScreen extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
 
 
-
-
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
         root = findViewById(R.id.splash);
         splash_logo = findViewById(R.id.splash_logo);
 
-
-
-                authStateListener =  new FirebaseAuth.AuthStateListener() {
-                    @Override
-                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                        if (currentUser != null && currentUser.isEmailVerified()){
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashScreen.this, splash_logo, "splash_logo");
-                                    startActivity(new Intent(SplashScreen.this,HomePage.class),optionsCompat.toBundle());
-                                    supportFinishAfterTransition();
-
-                                }
-                            },1000);
-
-                        }
+                if (currentUser != null && currentUser.isEmailVerified()){
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                flag1 = true;
+                                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashScreen.this, splash_logo, "splash_logo");
+                                startActivity(new Intent(SplashScreen.this,HomePage.class),optionsCompat.toBundle());
+                                supportFinishAfterTransition();
+                            }
+                        },1000);
                     }
-                };
-                // For opening of start page
-                if (currentUser != null && currentUser.isEmailVerified())
+                else {
                     flag1 = false;
-                else
-                    flag1 = true;
+                }
 
         final SharedPreferences SharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
         boolean state =SharedPreferences.getBoolean("state", false);
         String username = SharedPreferences.getString("username","");
 
         if(state && username != null) {
+            flag2 = true;
             login(username);
         }
-        else{ flag2 = true; }
+        else{
+            flag2 = false;
+        }
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        firebaseAuth.addAuthStateListener(authStateListener);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(flag1 && flag2){
+                if(!flag1 && !flag2){
                     final ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashScreen.this,root,"splash");
                     startActivity(new Intent(SplashScreen.this,StartPage.class),optionsCompat.toBundle());
                     finishAffinity();

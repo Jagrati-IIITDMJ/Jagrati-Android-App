@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.jagratiapp.R;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.example.jagratiapp.model.Students;
+import com.example.jagratiapp.student.Util.StudentAPI;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -38,21 +38,15 @@ public class StudentInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_info);
-        MaterialToolbar toolbar = findViewById(R.id.student_info_toolbar);
-        setSupportActionBar(toolbar);
-        setContentView(R.layout.activity_student_info);     studentName = findViewById(R.id.student_name_info);
+        studentName = findViewById(R.id.student_name_info);
         rollNo = findViewById(R.id.roll_no_info);
         villageName = findViewById(R.id.village_name_info);
         className = findViewById(R.id.class_name_info);
         guardianName = findViewById(R.id.guardian_name_info);
         attendance = findViewById(R.id.attendance_info);
 
-        Bundle bundle = getIntent().getExtras();
-        classID = bundle.getString("classID");
-        groupID = bundle.getString("groupID");
-        studID = bundle.getString("studentID");
-        studentReference = db.collection("Classes").document(classID)
-                .collection("Groups").document(groupID).collection("Students").document(studID);
+        studentReference = db.collection("Classes").document(StudentAPI.Instance().getClassUid())
+                .collection("Groups").document(StudentAPI.Instance().getGroupUid()).collection("Students").document(StudentAPI.Instance().getRollno());
 
         attendanceReference = db.collection("Classes").document(classID)
                 .collection("Groups").document(groupID).collection("Attendance");
