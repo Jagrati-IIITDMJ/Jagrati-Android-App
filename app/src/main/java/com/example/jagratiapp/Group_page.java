@@ -117,11 +117,11 @@ public class Group_page extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots.isEmpty()) {
-                Toast.makeText(Group_page.this, "It's nothing there", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Group_page.this, "It's nothing there", Toast.LENGTH_SHORT).show();
                 }else {
                     for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots) {
                         Groups group = groupDocumentSnapshot.toObject(Groups.class);
-                        group.setUid(groupDocumentSnapshot.getId().toString());
+                        group.setUid(groupDocumentSnapshot.getId());
                         groupList.add(group);
                     }
                 }

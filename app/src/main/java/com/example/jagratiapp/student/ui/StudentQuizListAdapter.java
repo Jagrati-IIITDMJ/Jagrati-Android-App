@@ -15,6 +15,7 @@ import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Quiz;
 import com.example.jagratiapp.student.QuestionsPage;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizListAdapter.ViewHolder> {
@@ -40,6 +41,7 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
         holder.quizDesCription.setText(quiz.getQuizDescription());
         holder.quizid = quiz.getQuizID();
         holder.noOfQues = quiz.getNumberOfQues();
+        holder.quizTime.setText(MessageFormat.format("Time: {0} min", quiz.getQuesTime()));
 
     }
 
@@ -52,11 +54,13 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
         private TextView quizName;
         private TextView quizDesCription;
         private String quizid;
+        private TextView quizTime;
         private int noOfQues;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             quizName = itemView.findViewById(R.id.quizName_list);
             quizDesCription = itemView.findViewById(R.id.quizDescription_list);
+            quizTime = itemView.findViewById(R.id.quizTime_list);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

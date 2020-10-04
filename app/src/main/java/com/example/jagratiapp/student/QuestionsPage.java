@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -18,11 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Question;
+import com.example.jagratiapp.model.Quiz;
 import com.example.jagratiapp.model.QuizReport;
 import com.example.jagratiapp.student.Util.StudentAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,10 +38,12 @@ import java.util.Map;
 
 public class QuestionsPage extends AppCompatActivity implements View.OnClickListener {
 
-    private static final long START_TIME_IN_MILLIS = 60000;
-    private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
+    private static final String TAG = "QuestionsPage";
+
     private CountDownTimer mCountDownTimer;
     private String quizId;
+    private String classId;
+    private long quizTime;
     private AlertDialog dialog;
     private AlertDialog.Builder builder;
     private Button backToListButton;
@@ -61,12 +67,14 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private Iterator questionIterator;
     private String q;
     private QuizReport quizReport;
+    private long mTimeLeftInMillis;
 
 
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;
     private CollectionReference collectionToSaveReport;
+    private DocumentReference timeReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +89,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         collectionToSaveReport = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Groups")
                 .document(StudentAPI.Instance().getGroupUid()).collection("Students").document(StudentAPI.Instance().getRollno()).collection("Quizzes");
 
+        timeReference = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Quizzes").document(quizId);
 
         mTextField = findViewById(R.id.text_view_countdown);
         question = findViewById(R.id.ques);
@@ -128,8 +137,17 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
                     }
                 });
+        timeReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Quiz quiz = documentSnapshot.toObject(Quiz.class);
+                long START_TIME_IN_MILLIS = quiz.getQuesTime();
+                mTimeLeftInMillis = START_TIME_IN_MILLIS * 60000;
+                setTimer();
+            }
+        });
 
-        setTimer();
+
 
     }
 
@@ -143,7 +161,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.previous :
+            case R.id.previous:
 
 
                 break;
@@ -184,7 +202,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     }
 
     private void checkAnswer(){
-        mCountDownTimer.cancel();
+       mCountDownTimer.cancel();
         int result= 0;
         if(!answerList.isEmpty()) {
             Iterator it = answerList.entrySet().iterator();
