@@ -39,9 +39,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/studentinfonest"
-        app:layout_anchor="@color/appbar"
-        app:layout_anchorGravity="center"/>
+    <include layout="@layout/studentinfonest"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
