@@ -5,201 +5,380 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VolunteerProfile"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:theme="@style/AppThemeM"
+    android:background="@drawable/profile_back">
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="33dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/verror"
+        android:text="Error Text"
+        android:textColor="#ff0000"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.009" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <ImageButton
+        android:id="@+id/vedit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/transparent"
+        android:contentDescription="Edit button"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.543" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         app:cardCornerRadius="55dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
-
+        app:layout_constraintTop_toTopOf="parent" >
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:contentDescription="TODO" />
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_default_dp"
+            android:contentDescription="@string/profile_dp" />
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Not Available"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.549"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <ImageView
-        android:id="@+id/edit_name"
-        android:layout_width="32dp"
-        android:layout_height="44dp"
-        android:src="@drawable/edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/name"
-        app:layout_constraintTop_toTopOf="@+id/name">
-
-    </ImageView>
-
-    <View
-        android:id="@+id/view"
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:background="#d8d8d8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-    <ImageView
-        android:id="@+id/edit_basic_info"
-        android:layout_width="32dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/edit"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/view">
-
-    </ImageView>
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="35dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/mail_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        android:contentDescription="TODO" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
 
-    <TextView
-        android:id="@+id/email"
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+
+            app:hintTextColor="#ff0000"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_perm_identity_24"
+           >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/vname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="297dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Batch"
+
+            app:hintTextColor="#ff0000"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_class_24"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/vbatch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="297dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+
+            app:hintTextColor="#ff0000"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_email_24"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/vemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="297dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone"
+
+            app:hintTextColor="#ff0000"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_local_phone_24"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/vphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="297dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Preferred Days"
+
+            app:hintTextColor="#ff0000"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_today_24"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/vdays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="297dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Subject"
+
+            app:hintTextColor="#ff0000"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_subject_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/vsubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="18dp"
+                tools:layout_editor_absoluteY="297dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/vsave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Not Available"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.539"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@color/appbar"
+        android:text="Save"
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="46dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/branch"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintHorizontal_bias="0.777"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        android:contentDescription="TODO" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
-    <TextView
-        android:id="@+id/branch"
+    <Button
+        android:id="@+id/vcancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:text="Computer Science and Engineering"
-        android:textSize="18dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@color/appbar"
+        android:text="Cancel"
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="43dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/batch"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.091"
+        app:layout_constraintHorizontal_bias="0.244"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
-    <TextView
-        android:id="@+id/batch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="2018-2022"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.268"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/branch"></TextView>
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
+    <!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:contentDescription="TODO"-->
+<!--            android:scaleType="centerCrop" />-->
+<!--    </androidx.cardview.widget.CardView>-->
 
-        android:layout_marginTop="52dp"
-        android:background="#d8d8d8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/batch" />
+<!--    <TextView-->
+<!--        android:id="@+id/name"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Not Available"-->
+<!--        android:textSize="24dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.549"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/cardView"-->
+<!--        tools:layout_editor_absoluteY="88dp" />-->
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="58dp"
-        android:layout_height="79dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/call"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.074"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"></ImageView>
+<!--    <ImageView-->
+<!--        android:id="@+id/edit_name"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="44dp"-->
+<!--        android:src="@drawable/edit"-->
+<!--        tools:layout_editor_absoluteX="370dp"-->
+<!--        tools:layout_editor_absoluteY="108dp">-->
 
-    <TextView
-        android:id="@+id/contact_no"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="9454425194"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/view2"></TextView>
+<!--    </ImageView>-->
 
-    <ImageView
-        android:id="@+id/edit_contact_no"
-        android:layout_width="38dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/contact_no"
-        app:layout_constraintTop_toBottomOf="@+id/view2"></ImageView>
+<!--    <ImageView-->
+<!--        android:id="@+id/edit_basic_info"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="44dp"-->
+<!--        android:src="@drawable/edit"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/imageView4"-->
+<!--        tools:layout_editor_absoluteY="230dp">-->
+
+<!--    </ImageView>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView4"-->
+<!--        android:layout_width="35dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:contentDescription="TODO"-->
+<!--        android:src="@drawable/mail_icon"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.064"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="242dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/email"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Not Available"-->
+<!--        android:textSize="24dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.539"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/imageView4"-->
+<!--        tools:layout_editor_absoluteY="250dp" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView5"-->
+<!--        android:layout_width="46dp"-->
+<!--        android:layout_height="52dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:src="@drawable/branch"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.069"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageView4"-->
+<!--        android:contentDescription="TODO" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/branch"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="12dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="Computer Science and Engineering"-->
+<!--        android:textSize="18dp"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/imageView5"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/email" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="43dp"-->
+<!--        android:layout_height="52dp"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        android:src="@drawable/batch"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.091"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageView5"></ImageView>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/batch"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="36dp"-->
+<!--        android:text="2018-2022"-->
+<!--        android:textSize="18dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.268"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/imageView"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/branch"></TextView>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView7"-->
+<!--        android:layout_width="58dp"-->
+<!--        android:layout_height="79dp"-->
+<!--        android:src="@drawable/call"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.074"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="475dp"></ImageView>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/contact_no"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="9454425194"-->
+<!--        android:textSize="24dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.455"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/imageView7"-->
+<!--        tools:layout_editor_absoluteY="494dp"></TextView>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/edit_contact_no"-->
+<!--        android:layout_width="38dp"-->
+<!--        android:layout_height="43dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:src="@drawable/edit"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/contact_no"-->
+<!--        tools:layout_editor_absoluteY="454dp"></ImageView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -85,6 +85,7 @@ public class Group_page extends AppCompatActivity {
 
 // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.appbar));
+        
 
         ctx = Group_page.this;
         toolbar = findViewById(R.id.class_page_toolbar);
