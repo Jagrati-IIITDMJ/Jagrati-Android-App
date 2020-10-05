@@ -80,7 +80,7 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
         else if (correctAnswer.equals(question.getOption4()))
             holder.optionD.setChecked(true);
 
-        if (!answerMap.isEmpty()&& answerMap.containsKey(question.getQuestionId())) {
+        if (answerMap != null && answerMap.containsKey(question.getQuestionId())) {
             answer = answerMap.get(question.getQuestionId());
             if (!correctAnswer.equals(answer)) {
                 holder.result.setText("Incorrect Answer");

@@ -6,6 +6,15 @@ public class Quiz {
     String quizID;
     int numberOfQues;
     int quesTime;
+    long marks;
+
+    public long getMarks() {
+        return marks;
+    }
+
+    public void setMarks(long marks) {
+        this.marks = marks;
+    }
 
     public int getQuesTime() {
         return quesTime;

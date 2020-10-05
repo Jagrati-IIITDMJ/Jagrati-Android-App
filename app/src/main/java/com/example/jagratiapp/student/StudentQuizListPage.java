@@ -78,6 +78,13 @@ public class StudentQuizListPage extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(studentQuizListAdapter != null){
+            studentQuizListAdapter.notifyDataSetChanged();
+            recyclerView.setAdapter(studentQuizListAdapter);
+        }
 
-
+    }
 }
