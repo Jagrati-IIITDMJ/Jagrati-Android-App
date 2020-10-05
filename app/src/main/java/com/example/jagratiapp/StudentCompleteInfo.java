@@ -12,6 +12,7 @@ import com.example.jagratiapp.model.Students;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -53,6 +54,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
         attendance = findViewById(R.id.attendance_info);
         MaterialToolbar toolbar = findViewById(R.id.student_info_complete_toolbar);
         setSupportActionBar(toolbar);
+        CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
+        toolbarLayout.setTitle(getTitle());
 
         Bundle bundle = getIntent().getExtras();
         classID = bundle.getString("classID");
