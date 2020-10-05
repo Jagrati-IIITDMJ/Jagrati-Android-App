@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.StudentHolderActivity;
 import com.example.jagratiapp.model.Groups;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -49,6 +50,16 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
     @Override
     public int getItemCount() {
         return groupList.size();
+    }
+
+    public void edit(RecyclerView.ViewHolder viewHolder) {
+    }
+
+    public void removeItem(RecyclerView.ViewHolder viewHolder) {
+        groupList.remove(viewHolder.getAdapterPosition());
+        notifyItemRemoved(viewHolder.getAdapterPosition());
+
+        Snackbar.make(viewHolder.itemView,"Item Deleted",Snackbar.LENGTH_SHORT).show();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

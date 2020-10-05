@@ -17,6 +17,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -108,9 +109,7 @@ public class Classes_page extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 if (direction == ItemTouchHelper.RIGHT){
-                    Toast.makeText(Classes_page.this,"Deleted",Toast.LENGTH_SHORT).show();
-                    collectionReference.document(String.valueOf(classesList.get(viewHolder.getAdapterPosition()).getuId())).delete() ;
-                    classRecyclerAdapter.removeItem(viewHolder);
+                    createWarningPopup(classesList.get(viewHolder.getAdapterPosition()).getClassName(),viewHolder);
                 }
                 else {
                     classRecyclerAdapter.notifyDataSetChanged();
@@ -191,6 +190,39 @@ public class Classes_page extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void createWarningPopup(String name, final RecyclerView.ViewHolder viewHolder) {
+        Button yes,no;
+        TextView warningMessage;
+            builder = new AlertDialog.Builder(this);
+            View view = getLayoutInflater().inflate(R.layout.delete_popup,null);
+
+            yes = view.findViewById(R.id.confirml_signout);
+            no= view.findViewById(R.id.cancel_signout);
+            warningMessage = view.findViewById(R.id.warning);
+            warningMessage.setText("You want to delete " + name +" Are your sure you want to delete confirm it   ");
+            builder.setView(view);
+            dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+            yes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                    Toast.makeText(Classes_page.this,"Deleted",Toast.LENGTH_SHORT).show();
+                    collectionReference.document(String.valueOf(classesList.get(viewHolder.getAdapterPosition()).getuId())).delete() ;
+                    classRecyclerAdapter.removeItem(viewHolder);
+                }
+            });
+
+            no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    classRecyclerAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                    dialog.dismiss();
+                }
+            });
     }
 
     private void createPopup() {

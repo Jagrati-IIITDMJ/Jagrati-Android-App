@@ -54,6 +54,12 @@ public class StudentQuizListPage extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        quizlist.clear();
         collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -77,7 +83,4 @@ public class StudentQuizListPage extends AppCompatActivity {
             }
         });
     }
-
-
-
 }

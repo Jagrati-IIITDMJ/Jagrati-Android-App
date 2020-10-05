@@ -1,33 +1,26 @@
 package com.example.jagratiapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
-import android.text.TextPaint;
+import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jagratiapp.Util.VolunteerAPI;
-import com.example.jagratiapp.model.Volunteer;
-import com.google.android.gms.tasks.OnCompleteListener;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,17 +28,16 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.ThrowOnExtraProperties;
-import com.google.gson.internal.$Gson$Preconditions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
+import java.io.IOException;
 
 public class VolunteerProfile extends AppCompatActivity {
 
+    private static final int PICK_IMAGE_REQUEST = 20;
     private TextInputEditText name;
     private TextInputEditText email;
     private TextInputEditText batch;
@@ -56,6 +48,9 @@ public class VolunteerProfile extends AppCompatActivity {
     private TextView error;
     private Button save;
     private Button cancel;
+    private ImageButton student_upload_dp;
+    private ImageView student_dp;
+    private Uri filePath;
 
 
     FirebaseAuth firebaseAuth ;
@@ -63,10 +58,13 @@ public class VolunteerProfile extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference collectionReference = db.collection("User");
     DocumentReference documentReference = db.collection("User").document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+    FirebaseStorage storage;
+    StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer_profile);
+
         findViews();
 
         name.setEnabled(false);
@@ -83,17 +81,20 @@ public class VolunteerProfile extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
         String id = currentUser.getUid();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
 
-        documentReference.get().
-                addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+        documentReference.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         name.setText(documentSnapshot.getString("username"));
                         email.setText(documentSnapshot.getString("email"));
 
                         if (documentSnapshot.getString("batch")!=null)
-                             batch.setText(documentSnapshot.getString("batch"));
+                            batch.setText(documentSnapshot.getString("batch"));
 
                         if(documentSnapshot.getString("phone")!=null)
                             phone.setText(documentSnapshot.getString("phone"));
@@ -104,6 +105,29 @@ public class VolunteerProfile extends AppCompatActivity {
                         if (documentSnapshot.getString("subject")!=null)
                             subject.setText(documentSnapshot.getString("subject"));
 
+                        if (documentSnapshot.getString("volunteer_dp") != null) {
+                            Toast.makeText(VolunteerProfile.this,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+                            final long FIVE_MEGABYTE = 5 * 1024 * 1024;
+                            Bitmap bitmap = null;
+                            storageReference.child("volunteers/" + currentUser.getUid() + ".jpg")
+                                    .getBytes(FIVE_MEGABYTE)
+                                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                        @Override
+                                        public void onSuccess(byte[] bytes) {
+                                            Toast.makeText(VolunteerProfile.this,"sb mst h",Toast.LENGTH_SHORT).show();
+                                            Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                            student_dp.setImageBitmap(bm);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(VolunteerProfile.this,"Kuch to gadabad h",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                        else
+                            Toast.makeText(VolunteerProfile.this,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -172,22 +196,99 @@ public class VolunteerProfile extends AppCompatActivity {
 
             }
         });
+
+        student_upload_dp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage();
+            }
+        });
     }
 
-    private void findViews(){
+    private void selectImage()
+    {
 
-        name = findViewById(R.id.vname);
-        batch = findViewById(R.id.vbatch);
-        email = findViewById(R.id.vemail);
-        phone = findViewById(R.id.vphone);
-        days =findViewById(R.id.vdays);
-        subject =findViewById(R.id.vsubject);
-        save = findViewById(R.id.vsave);
-        cancel = findViewById(R.id.vcancel);
-        edit = findViewById(R.id.vedit);
-        error = findViewById(R.id.verror);
-
+        // Defining Implicit Intent to mobile gallery
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(
+                        intent,
+                        "Select Image from here..."),
+                PICK_IMAGE_REQUEST);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST
+                && resultCode == RESULT_OK
+                && data != null
+                && data.getData() != null) {
+
+            // Get the Uri of data
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore
+                        .Images
+                        .Media
+                        .getBitmap(
+                                getContentResolver(),
+                                filePath);
+                student_dp.setImageBitmap(bitmap);
+                uploadImage();
+//                imageView.setImageBitmap(bitmap);
+            }
+
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void uploadImage()
+    {
+        if (filePath != null) {
+
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference ref = storageReference.child("volunteers/" + currentUser.getUid() +".jpg" );
+
+            ref.putFile(filePath)
+                    .addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    progressDialog.setTitle("Profile Uploaded");
+                                    progressDialog.dismiss();
+                                    documentReference.update("volunteer_dp",currentUser.getUid());
+                                }
+                            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+                            progressDialog.dismiss();
+                            Toast.makeText(VolunteerProfile.this,"Failed " + e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
+                                }
+                            });
+        }
+    }
+
 
 //    private void editBasicInfoFunction() {
 //
@@ -203,6 +304,24 @@ public class VolunteerProfile extends AppCompatActivity {
 //                    Snackbar.make(view, "SB bharna hain chodu", Snackbar.LENGTH_SHORT).show();
 //                }
 //            }
+
+    private void findViews(){
+
+        name = findViewById(R.id.vname);
+        batch = findViewById(R.id.vbatch);
+        email = findViewById(R.id.vemail);
+        phone = findViewById(R.id.vphone);
+        days =findViewById(R.id.vdays);
+        subject =findViewById(R.id.vsubject);
+        save = findViewById(R.id.vsave);
+        cancel = findViewById(R.id.vcancel);
+        edit = findViewById(R.id.vedit);
+        error = findViewById(R.id.verror);
+        student_upload_dp = findViewById(R.id.student_info_upload_dp);
+        student_dp = findViewById(R.id.student_dp);
+
+    }
+
 
 
 }
