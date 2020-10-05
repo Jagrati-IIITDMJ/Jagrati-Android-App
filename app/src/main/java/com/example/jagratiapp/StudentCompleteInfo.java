@@ -35,8 +35,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextInputEditText villageName;
     private TextInputEditText className;
-    private TextView studentName;
-    private TextView guardianName;
+    private TextInputEditText studentName;
+    private TextInputEditText guardianName;
     private TextView rollNo;
     private TextView attendance;
     private int present = 0;
