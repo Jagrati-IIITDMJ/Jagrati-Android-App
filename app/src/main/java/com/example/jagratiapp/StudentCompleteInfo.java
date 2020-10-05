@@ -1,13 +1,20 @@
 package com.example.jagratiapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.jagratiapp.model.Groups;
 import com.example.jagratiapp.model.Students;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -16,6 +23,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.MessageFormat;
+import java.util.Map;
 
 public class StudentCompleteInfo extends AppCompatActivity {
     private static final String TAG = "StudentCompleteInfo";
@@ -25,10 +33,10 @@ public class StudentCompleteInfo extends AppCompatActivity {
     private DocumentReference studentReference;
     private CollectionReference attendanceReference;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private TextView villageName;
-    private TextView className;
-    private TextView studentName;
-    private TextView guardianName;
+    private TextInputEditText villageName;
+    private TextInputEditText className;
+    private TextInputEditText studentName;
+    private TextInputEditText guardianName;
     private TextView rollNo;
     private TextView attendance;
     private int present = 0;
@@ -47,6 +55,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
         attendance = findViewById(R.id.attendance_info);
         MaterialToolbar toolbar = findViewById(R.id.student_info_complete_toolbar);
         setSupportActionBar(toolbar);
+        CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
+        toolbarLayout.setTitle(getTitle());
 
         Bundle bundle = getIntent().getExtras();
         classID = bundle.getString("classID");
@@ -74,12 +84,10 @@ public class StudentCompleteInfo extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots){
-                    if (groupDocumentSnapshot.getBoolean(studID) != null){
-                        totalDays++;
-                        if(groupDocumentSnapshot.getBoolean(studID)){
-                            present++;
-                        }
-                    }
+                    totalDays++;
+                   if(groupDocumentSnapshot.getBoolean(studID)){
+                       present++;
+                   }
                 }
                 attendance.setText(MessageFormat.format("Attendance: {0} Out of {1} days", present, totalDays));
             }
