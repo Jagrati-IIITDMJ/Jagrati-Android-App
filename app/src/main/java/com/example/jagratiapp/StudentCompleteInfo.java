@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,8 +33,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
     private DocumentReference studentReference;
     private CollectionReference attendanceReference;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private TextView villageName;
-    private TextView className;
+    private TextInputEditText villageName;
+    private TextInputEditText className;
     private TextView studentName;
     private TextView guardianName;
     private TextView rollNo;
