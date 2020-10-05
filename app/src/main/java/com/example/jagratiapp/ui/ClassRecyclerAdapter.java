@@ -2,7 +2,6 @@ package com.example.jagratiapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jagratiapp.Group_page;
-import com.example.jagratiapp.R;
-import com.example.jagratiapp.model.Classes;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.jagratiapp.Group_page;
+import com.example.jagratiapp.R;
+import com.example.jagratiapp.model.Classes;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdapter.ViewHolder> {
     private Context context;
@@ -45,9 +45,6 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
         classp = classes.getClassName();
         holder.classNameList.setText(classes.getClassName());
         holder.classUid = classes.getuId();
-
-
-
     }
 
     public int getItemCount() {
@@ -95,5 +92,23 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
 
         }
     }
+
+    public void removeItem(RecyclerView.ViewHolder viewHolder) {
+        classesList.remove(viewHolder.getAdapterPosition());
+        notifyItemRemoved(viewHolder.getAdapterPosition());
+
+        Snackbar.make(viewHolder.itemView,"Item Deleted",Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void edit(final RecyclerView.ViewHolder viewHolder) {
+        int position = viewHolder.getAdapterPosition();
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(viewHolder.itemView,"Pata ni kya ho rha",Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 }
