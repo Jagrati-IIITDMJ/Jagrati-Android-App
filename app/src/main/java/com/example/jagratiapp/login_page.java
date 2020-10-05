@@ -41,20 +41,20 @@ public class login_page extends AppCompatActivity{
         setContentView(R.layout.activity_login_page);
         findViews();
 
-
+        Toast.makeText(login_page.this,"login Page",Toast.LENGTH_SHORT).show();
 
        firebaseAuth = FirebaseAuth.getInstance();
        //currentUser = firebaseAuth.getCurrentUser();
-       authStateListener =  new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (currentUser != null && currentUser.isEmailVerified()){
-                    startActivity(new Intent(login_page.this,HomePage.class));
-                    hideProgressDialog();
-                    finishAffinity();
-                }
-            }
-        };
+//       authStateListener =  new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                if (currentUser != null && currentUser.isEmailVerified()){
+//                    startActivity(new Intent(login_page.this,HomePage.class));
+//                    hideProgressDialog();
+//                    finishAffinity();
+//                }
+//            }
+//        };
 
 
         loginButtonLogin.setOnClickListener(new View.OnClickListener() {
