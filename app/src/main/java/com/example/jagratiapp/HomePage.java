@@ -1,23 +1,14 @@
 package com.example.jagratiapp;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.transition.ChangeClipBounds;
-import android.transition.Fade;
-import android.transition.Transition;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowInsetsAnimation;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,9 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.navigation.NavigationView;
-import com.google.common.collect.BoundType;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -62,6 +51,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         MaterialToolbar toolbar = findViewById(R.id.attendance_toolbar);
         setSupportActionBar(toolbar);
 
+        Toast.makeText(HomePage.this,"Home Page",Toast.LENGTH_SHORT).show();
 
 //        Fade fade = new Fade();
 //        View decor = getWindow().getDecorView();
@@ -174,8 +164,9 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
                 firebaseAuth.signOut();
                 startActivity(new Intent(HomePage.this,StartPage.class));
-                finishAffinity();
+                finish();
                 dialog.dismiss();
+                finish();
 
             }
         });

@@ -1,34 +1,18 @@
 package com.example.jagratiapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
-import com.example.jagratiapp.model.Students;
-import com.example.jagratiapp.student.StudentHomePage;
 import com.example.jagratiapp.student.StudentLogin;
-import com.example.jagratiapp.student.Util.StudentAPI;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class StartPage extends AppCompatActivity {
+
     private Button studentLogin;
     private Button volunteerLogin;
 
@@ -37,6 +21,8 @@ public class StartPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
         View decorView = getWindow().getDecorView();
+
+        Toast.makeText(StartPage.this,"Start Page",Toast.LENGTH_SHORT).show();
 
         int uiOptions =
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -54,6 +40,7 @@ public class StartPage extends AppCompatActivity {
                 ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(StartPage.this,
                         findViewById(R.id.splash_logo),"splash_logo");
                 startActivity(intent,optionsCompat.toBundle());
+                finish();
             }
         });
 
@@ -64,14 +51,15 @@ public class StartPage extends AppCompatActivity {
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(StartPage.this,
                         findViewById(R.id.splash_logo),"splash_logo");
                 startActivity(intent, options.toBundle());
+                finish();
             }
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        finish();
+//    }
 
     //    @Override
 //    protected void onRestart() {

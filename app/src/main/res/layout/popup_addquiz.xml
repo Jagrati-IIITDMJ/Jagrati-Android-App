@@ -53,7 +53,7 @@
                 android:layout_below="@+id/quizDescription_pop"
                 android:autofillHints="none"
                 android:hint="@string/hint_quizTime"
-                android:inputType="textAutoCorrect" />
+                android:inputType="number" />
 
             <Button
                 android:id="@+id/savequiz_pop"
