@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:hint="Name"
 
+
             app:hintTextColor="#ff0000"
 
 

@@ -31,7 +31,7 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
     private List<Quiz> quizList;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionToCheckQuiz = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Groups")
-            .document(StudentAPI.Instance().getGroupUid()).collection("Students").document(StudentAPI.Instance().getRollno()).collection("Quizzes");;
+            .document(StudentAPI.Instance().getGroupUid()).collection("Students").document(StudentAPI.Instance().getRollno()).collection("Quizzes");
 
 
 
@@ -101,7 +101,6 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
                 public void onClick(View view) {
                     if(noOfQues>0 && !checkIfGiven) {
                         context.startActivity(new Intent(context, QuestionsPage.class).putExtra("quizId", quizid));
-                        Toast.makeText(context, ""+ quizList.size(), Toast.LENGTH_SHORT).show();
                     }
                     else if(checkIfGiven){
                         context.startActivity(new Intent(context, SolutionPage.class).putExtra("classId",StudentAPI.Instance().getClassUid())
