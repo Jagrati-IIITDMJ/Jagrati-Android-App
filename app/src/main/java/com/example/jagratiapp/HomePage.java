@@ -166,7 +166,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(HomePage.this,StartPage.class));
                 finish();
                 dialog.dismiss();
-                finish();
+                //finish();
 
             }
         });
