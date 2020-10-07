@@ -101,13 +101,19 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     }
 
     public void edit(final RecyclerView.ViewHolder viewHolder) {
+
         int position = viewHolder.getAdapterPosition();
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(viewHolder.itemView,"Pata ni kya ho rha",Snackbar.LENGTH_SHORT).show();
-            }
-        });
+        View view = viewHolder.itemView;
+        classesList.get(position).setClassName("dsgsd");
+        notifyItemChanged(position);
+        TextView className = view.findViewById(R.id.classname_list);
+        className.setText("sdfdsf");
+//        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(viewHolder.itemView,"Pata ni kya ho rha",Snackbar.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
 

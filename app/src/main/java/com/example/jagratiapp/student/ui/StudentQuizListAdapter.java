@@ -17,7 +17,6 @@ import com.example.jagratiapp.student.QuestionsPage;
 import com.example.jagratiapp.student.SolutionPage;
 import com.example.jagratiapp.student.Util.StudentAPI;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -88,7 +87,7 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
         private int noOfQues;
         private boolean checkIfGiven = false;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView)  {
             super(itemView);
             quizName = itemView.findViewById(R.id.quizName_list);
             quizDesCription = itemView.findViewById(R.id.quizDescription_list);
@@ -112,9 +111,7 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
                     }
                 }
             });
-
-
-
         }
+
     }
 }
