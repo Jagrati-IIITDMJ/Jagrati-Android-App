@@ -1,29 +1,19 @@
 package com.example.jagratiapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.jagratiapp.model.Groups;
 import com.example.jagratiapp.model.Quiz;
 import com.example.jagratiapp.model.Students;
-import com.example.jagratiapp.student.StudentQuizListPage;
-import com.example.jagratiapp.student.Util.StudentAPI;
-import com.example.jagratiapp.student.ui.StudentQuizListAdapter;
 import com.example.jagratiapp.ui.StudentQuizInfoAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,11 +26,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class StudentCompleteInfo extends AppCompatActivity {
     private static final String TAG = "StudentCompleteInfo";
@@ -167,9 +155,11 @@ public class StudentCompleteInfo extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots){
-                    totalDays++;
-                    if(groupDocumentSnapshot.getBoolean(studID)){
-                        present++;
+                    if (groupDocumentSnapshot.getBoolean(studID) != null){
+                        totalDays++;
+                        if(groupDocumentSnapshot.getBoolean(studID)){
+                            present++;
+                        }
                     }
                 }
                 attendance.setText(MessageFormat.format("Attendance: {0} Out of {1} days", present, totalDays));
