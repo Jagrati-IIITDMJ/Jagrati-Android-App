@@ -174,8 +174,6 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 Students student = documentSnapshot.toObject(Students.class);
                                 student.setUid(documentSnapshot.getId());
-                                if (documentSnapshot.getString("student_dp")!=null)
-                                         student.setStudent_dp(documentSnapshot.getString("student_dp"));
                                 studentsList.add(student);
                             }
                         } else {

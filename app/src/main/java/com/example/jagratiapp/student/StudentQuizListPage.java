@@ -32,25 +32,21 @@ public class StudentQuizListPage extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_quiz_list_page);
         MaterialToolbar toolbar = findViewById(R.id.student_list_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Solution");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        View decorView = getWindow().getDecorView();
+        int uiOptions =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                |View.SYSTEM_UI_FLAG_VISIBLE;
 
 
-
+        decorView.setSystemUiVisibility(uiOptions);
 //        Toast.makeText(StudentQuizListPage.this,StudentAPI.Instance().getClassUid(),Toast.LENGTH_SHORT).show();
         collectionReference = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Quizzes");
         recyclerView = findViewById(R.id.student_quiz_list_recyclerview);
@@ -82,6 +78,13 @@ public class StudentQuizListPage extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(studentQuizListAdapter != null){
+            studentQuizListAdapter.notifyDataSetChanged();
+            recyclerView.setAdapter(studentQuizListAdapter);
+        }
 
-
+    }
 }
