@@ -63,6 +63,16 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
 
         MaterialToolbar toolbar = findViewById(R.id.quiz_add_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Profile");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         addQuestion = findViewById(R.id.fab_ques_add);
         recyclerView = findViewById(R.id.quesAdd_recyclerview);

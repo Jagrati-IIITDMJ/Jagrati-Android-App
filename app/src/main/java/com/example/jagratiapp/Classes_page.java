@@ -107,21 +107,18 @@ public class Classes_page extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                if (direction == ItemTouchHelper.LEFT){
+                if (direction == ItemTouchHelper.LEFT)
+                {
                     createWarningPopup(classesList.get(viewHolder.getAdapterPosition()).getClassName(),viewHolder);
                 }
                 else {
-                    classRecyclerAdapter.notifyDataSetChanged();
-                    View view = viewHolder.itemView;
 
-                    classRecyclerAdapter.edit(viewHolder);
-                    Toast.makeText(Classes_page.this,"Edit",Toast.LENGTH_SHORT).show();
-                }
 
+            }
             }
 
             @Override
-            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull final RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 Bitmap icon;
                 if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
 
@@ -131,11 +128,32 @@ public class Classes_page extends AppCompatActivity {
 
                     if(dX > 0){
 
-                        p.setColor(Color.parseColor("#388E3C"));
-                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
-                        c.drawRect(background,p);
-                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tick);
-                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
+                        View view = viewHolder.itemView;
+
+                        Toast.makeText(Classes_page.this,"sfsdfsd", Toast.LENGTH_SHORT).show();
+                        final EditText className =view.findViewById(R.id.classname_list);
+                        final ImageButton save = view.findViewById(R.id.save_class);
+                        className.setEnabled(true);
+
+
+                        save.setVisibility(View.VISIBLE);
+                        save.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                int position = viewHolder.getAdapterPosition();
+                                classesList.get(position).setClassName(className.getText().toString().trim());
+                                classRecyclerAdapter.notifyItemChanged(position);
+                                FirebaseFirestore.getInstance().collection("Classes").document(classesList.get(position).getuId()).update("className",className.getText().toString().trim());
+                                save.setVisibility(View.GONE);
+                                className.setEnabled(false);
+                            }
+                        });
+//                        p.setColor(Color.parseColor("#388E3C"));
+//                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
+//                        c.drawRect(background,p);
+//                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tick);
+//                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
                         //c.drawBitmap(icon,null,icon_dest,p);
                     } else {
                         p.setColor(Color.parseColor("#D32F2F"));

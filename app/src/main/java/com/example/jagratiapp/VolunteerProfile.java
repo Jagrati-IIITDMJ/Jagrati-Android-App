@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,6 +67,8 @@ public class VolunteerProfile extends AppCompatActivity {
         setContentView(R.layout.activity_volunteer_profile);
 
         findViews();
+        MaterialToolbar toolbar = findViewById(R.id.volunteer_dp_toolbar);
+        setSupportActionBar(toolbar);
         student_upload_dp.setVisibility(View.GONE);
         name.setEnabled(false);
         email.setEnabled(false);
@@ -83,6 +86,16 @@ public class VolunteerProfile extends AppCompatActivity {
         String id = currentUser.getUid();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Profile");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
 

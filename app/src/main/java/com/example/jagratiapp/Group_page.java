@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -126,7 +128,7 @@ public class Group_page extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                if (direction == ItemTouchHelper.RIGHT){
+                if (direction == ItemTouchHelper.LEFT){
                     createWarningPopup(groupList.get(viewHolder.getAdapterPosition()).getGroupName(),viewHolder);
                 }
                 else {
@@ -139,7 +141,7 @@ public class Group_page extends AppCompatActivity {
             }
 
             @Override
-            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull final RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 Bitmap icon;
                 if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
 
@@ -149,12 +151,35 @@ public class Group_page extends AppCompatActivity {
 
                     if(dX > 0){
 
-                        p.setColor(Color.parseColor("#388E3C"));
-                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
-                        c.drawRect(background,p);
-                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tick);
-                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
-                        //c.drawBitmap(icon,null,icon_dest,p);
+                        View view = viewHolder.itemView;
+
+                        Toast.makeText(Group_page.this,"sfsdfsd", Toast.LENGTH_SHORT).show();
+                        final EditText groupName =view.findViewById(R.id.classname_list);
+                        final ImageButton save = view.findViewById(R.id.save_class);
+                        groupName.setEnabled(true);
+
+
+
+                        save.setVisibility(View.VISIBLE);
+                        save.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                int position = viewHolder.getAdapterPosition();
+                                groupList.get(position).setGroupName(groupName.getText().toString().trim());
+                                groupRecyclerAdapter.notifyItemChanged(position);
+                                FirebaseFirestore.getInstance().collection("Classes").document(classUid).collection("Groups").document(groupList.get(position).getUid()).update("groupName",groupName.getText().toString().trim());
+                                save.setVisibility(View.GONE);
+                                groupName.setEnabled(false);
+                            }
+                        });
+
+//                        p.setColor(Color.parseColor("#388E3C"));
+//                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX,(float) itemView.getBottom());
+//                        c.drawRect(background,p);
+//                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_tick);
+//                        RectF icon_dest = new RectF((float) itemView.getLeft() + width ,(float) itemView.getTop() + width,(float) itemView.getLeft()+ 2*width,(float)itemView.getBottom() - width);
+//                        //c.drawBitmap(icon,null,icon_dest,p);
                     } else {
                         p.setColor(Color.parseColor("#D32F2F"));
                         RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(),(float) itemView.getRight(), (float) itemView.getBottom());

@@ -80,6 +80,7 @@ public class StudentLogin extends AppCompatActivity {
                                                     studentAPI.setRollno(student.getRollno());
                                                     studentAPI.setVillageName(student.getVillageName());
 
+
                                                     SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
                                                     SharedPreferences.Editor editor = prefs.edit();
                                                     editor.putBoolean("state", true);

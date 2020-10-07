@@ -32,6 +32,16 @@ public class StudentHolderActivity extends AppCompatActivity {
 
         MaterialToolbar toolbar = findViewById(R.id.student_holder_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Profile");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;

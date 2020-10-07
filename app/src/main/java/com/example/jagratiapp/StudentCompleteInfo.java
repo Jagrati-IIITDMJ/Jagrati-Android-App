@@ -113,6 +113,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 studentName.setEnabled(true);
                 villageName.setEnabled(true);
                 className.setEnabled(true);
@@ -121,6 +123,27 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 save.setVisibility(View.VISIBLE);
                 edit.setVisibility(View.GONE);
 
+
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                studentReference.update("studentName",studentName.getText().toString().trim());
+                studentReference.update("guardianName",guardianName.getText().toString().trim());
+                studentReference.update("mobileNo",phone.getText().toString().trim());
+                studentReference.update("villageName",villageName.getText().toString().trim());
+
+
+
+                studentName.setEnabled(false);
+                villageName.setEnabled(false);
+                className.setEnabled(false);
+                guardianName.setEnabled(false);
+                phone.setEnabled(false);
+                save.setVisibility(View.GONE);
+                edit.setVisibility(View.VISIBLE);
             }
         });
 
@@ -137,6 +160,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 villageName.setText(student.getVillageName());
                 className.setText(student.getClassName());
                 studentName.setText(student.getStudentName());
+                phone.setText(student.getMobileNo());
                 rollNo.setText(student.getRollno());
                 guardianName.setText(student.getGuardianName());
             }

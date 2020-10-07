@@ -19,6 +19,7 @@ import com.example.jagratiapp.Group_page;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Classes;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
 
             classNameList = itemView.findViewById(R.id.classname_list);
             classfurther = itemView.findViewById(R.id.classfurther);
-            save_edit = itemView.findViewById(R.id.save_class_edit);
+            save_edit = itemView.findViewById(R.id.save_class);
             classNameList.setEnabled(false);
 
             classfurther.setOnClickListener(this);
@@ -105,7 +106,27 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     }
 
     public void edit(final RecyclerView.ViewHolder viewHolder) {
-        int position = viewHolder.getAdapterPosition();
+        final int position = viewHolder.getAdapterPosition();
+        View view = viewHolder.itemView;
+
+
+        final EditText className =view.findViewById(R.id.classname_list);
+        ImageButton save = view.findViewById(R.id.save_class);
+        className.setEnabled(true);
+
+
+        save.setVisibility(View.VISIBLE);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            Toast.makeText(context,position,Toast.LENGTH_SHORT).show();
+//            classesList.get(position).setClassName(className.getText().toString().trim());
+//            notifyItemChanged(position);
+//                FirebaseFirestore.getInstance().collection("Classes").document(classesList.get(position).getuId()).update("className",className.getText().toString().trim());
+            }
+        });
+
+
         
 //        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override

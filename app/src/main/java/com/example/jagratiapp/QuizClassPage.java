@@ -1,6 +1,7 @@
 package com.example.jagratiapp;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,16 @@ public class QuizClassPage extends AppCompatActivity {
 
         MaterialToolbar toolbar = findViewById(R.id.quiz_class_page_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Profile");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         quizClassRecyclerView = findViewById(R.id.quiz_class_recyclerview);
         quizClassRecyclerView.setHasFixedSize(true);

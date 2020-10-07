@@ -54,6 +54,16 @@ public class QuizListPage extends AppCompatActivity {
 
         MaterialToolbar toolbar = findViewById(R.id.quiz_list_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Profile");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         classid = getIntent().getStringExtra("ClassID");
         collectionReference = db.collection("Classes").document(classid).collection("Quizzes");
