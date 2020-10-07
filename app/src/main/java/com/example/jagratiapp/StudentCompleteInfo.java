@@ -113,8 +113,6 @@ public class StudentCompleteInfo extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 studentName.setEnabled(true);
                 villageName.setEnabled(true);
                 className.setEnabled(true);
@@ -122,8 +120,6 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 phone.setEnabled(true);
                 save.setVisibility(View.VISIBLE);
                 edit.setVisibility(View.GONE);
-
-
             }
         });
 

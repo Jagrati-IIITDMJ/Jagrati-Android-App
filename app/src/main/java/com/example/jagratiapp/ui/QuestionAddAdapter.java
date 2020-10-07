@@ -35,7 +35,6 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
     private LayoutInflater inflator;
     private Button editLongPress;
     private Button deleteLongPress;
-    private DocumentReference documentReference;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String classid;
     private String quizid;
@@ -77,7 +76,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
         else if (ques.getCorrectOption().equals(ques.getOption4()))
             holder.option4.setTextColor(rgb(0, 128, 0));
 
-        documentReference = db.collection("Classes").document(classid).collection("Quizzes").document(quizid).collection("Question").document(ques.getQuestionId());
+
 
 
     }
@@ -96,6 +95,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
         private TextView option4;
         private String correctOption;
         private EditText questionPopup;
+        private EditText quesPopup;
         private EditText option1Popup;
         private EditText option2Popup;
         private EditText option3Popup;
@@ -106,6 +106,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
         private RadioButton option4RadioButton;
         private Button savequesButton;
         private String quesId;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -151,7 +152,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             inflator = LayoutInflater.from(context);
             final View view = inflator.inflate(R.layout.popup_add_question, null);
 
-            question = view.findViewById(R.id.QuesIn_ques_card_popup);
+            questionPopup= view.findViewById(R.id.QuesIn_ques_card_popup);
             option1Popup = view.findViewById(R.id.Opt1In_ques_card_popup);
             option2Popup = view.findViewById(R.id.Opt2In_ques_card_popup);
             option3Popup = view.findViewById(R.id.Opt3In_ques_card_popup);
@@ -162,7 +163,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             option4RadioButton = view.findViewById(R.id.optionD_question_card_popup);
             savequesButton = view.findViewById(R.id.saveques_popup);
 
-            question.setText(ques.getQuestion());
+            questionPopup.setText(ques.getQuestion());
             option1Popup.setText(ques.getOption1());
             option2Popup.setText(ques.getOption2());
             option3Popup.setText(ques.getOption3());
@@ -186,7 +187,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             savequesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!TextUtils.isEmpty(question.getText().toString().trim())
+                    if (!TextUtils.isEmpty(questionPopup.getText().toString().trim())
                             && !TextUtils.isEmpty(option1Popup.getText().toString().trim())
                             && !TextUtils.isEmpty(option2Popup.getText().toString().trim())
                             && !TextUtils.isEmpty(option3Popup.getText().toString().trim())
@@ -205,7 +206,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
                         else if (option4RadioButton.isChecked())
                             correctOption = option4Popup.getText().toString();
 
-                        Question ques = new Question(question.getText().toString().trim(), option1Popup.getText().toString().trim(),
+                        Question ques = new Question(questionPopup.getText().toString().trim(), option1Popup.getText().toString().trim(),
                                 option2Popup.getText().toString().trim(), option3Popup.getText().toString().trim(), option4Popup.getText().toString().trim(),
                                 correctOption, null);
 
@@ -221,10 +222,11 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
         private void updateQuestion(Question ques) {
             final Question q = ques;
 
-            documentReference.set(ques).addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("Classes").document(classid).collection("Quizzes").document(quizid).collection("Question").document(ques.getQuestionId())
+                    .set(ques).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    questionList.get(getAdapterPosition()).setQuestion(question.getText().toString().trim());
+                    questionList.get(getAdapterPosition()).setQuestion(questionPopup.getText().toString().trim());
                     questionList.get(getAdapterPosition()).setOption1(option1Popup.getText().toString());
                     questionList.get(getAdapterPosition()).setOption2(option2Popup.getText().toString());
                     questionList.get(getAdapterPosition()).setOption3(option3Popup.getText().toString());

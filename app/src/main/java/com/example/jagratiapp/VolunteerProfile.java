@@ -202,7 +202,6 @@ public class VolunteerProfile extends AppCompatActivity {
                     student_upload_dp.setVisibility(View.GONE);
 
 
-
                 }
                 else{
                     error.setText("Empty Fields are not allowed");

@@ -184,9 +184,9 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.ViewHo
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             View view = LayoutInflater.from(context).inflate(R.layout.delete_popup,null);
 
-            yes = view.findViewById(R.id.confirml_signout);
-            no= view.findViewById(R.id.cancel_signout);
-            warningMessage = view.findViewById(R.id.warning);
+            yes = view.findViewById(R.id.confirm_delete);
+            no= view.findViewById(R.id.cancel_delete);
+            warningMessage = view.findViewById(R.id.warning_delete);
             warningMessage.setText("You want to delete " );
             builder.setView(view);
             final Dialog dialog = builder.create();

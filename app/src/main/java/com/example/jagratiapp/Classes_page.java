@@ -111,9 +111,8 @@ public class Classes_page extends AppCompatActivity {
                 {
                     createWarningPopup(classesList.get(viewHolder.getAdapterPosition()).getClassName(),viewHolder);
                 }
-                else {
-
-
+                else {classRecyclerAdapter.notifyDataSetChanged();
+                    Toast.makeText(Classes_page.this,"Edit",Toast.LENGTH_SHORT).show();
             }
             }
 
@@ -129,8 +128,6 @@ public class Classes_page extends AppCompatActivity {
                     if(dX > 0){
 
                         View view = viewHolder.itemView;
-
-                        Toast.makeText(Classes_page.this,"sfsdfsd", Toast.LENGTH_SHORT).show();
                         final EditText className =view.findViewById(R.id.classname_list);
                         final ImageButton save = view.findViewById(R.id.save_class);
                         className.setEnabled(true);

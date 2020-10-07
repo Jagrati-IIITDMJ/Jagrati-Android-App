@@ -133,8 +133,6 @@ public class Group_page extends AppCompatActivity {
                 }
                 else {
                     groupRecyclerAdapter.notifyDataSetChanged();
-                    View view = viewHolder.itemView;
-                    groupRecyclerAdapter.edit(viewHolder);
                     Toast.makeText(Group_page.this,"Edit",Toast.LENGTH_SHORT).show();
                 }
 
@@ -157,8 +155,6 @@ public class Group_page extends AppCompatActivity {
                         final EditText groupName =view.findViewById(R.id.classname_list);
                         final ImageButton save = view.findViewById(R.id.save_class);
                         groupName.setEnabled(true);
-
-
 
                         save.setVisibility(View.VISIBLE);
                         save.setOnClickListener(new View.OnClickListener() {
@@ -233,9 +229,9 @@ public class Group_page extends AppCompatActivity {
         builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.delete_popup,null);
 
-        yes = view.findViewById(R.id.confirml_signout);
-        no= view.findViewById(R.id.cancel_signout);
-        warningMessage = view.findViewById(R.id.warning);
+        yes = view.findViewById(R.id.confirm_delete);
+        no= view.findViewById(R.id.cancel_delete);
+        warningMessage = view.findViewById(R.id.warning_delete);
         warningMessage.setText("You want to delete " + name +" Are your sure you want to delete confirm it   ");
         builder.setView(view);
         dialog = builder.create();
