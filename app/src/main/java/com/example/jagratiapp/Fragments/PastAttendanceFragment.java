@@ -84,7 +84,7 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
 
         Date c = Calendar.getInstance().getTime();
         Calendar c1 = Calendar.getInstance();;
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        final SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(c);
         year1 = c1.get(Calendar.YEAR);
         month1 = c1.get(Calendar.MONTH);
@@ -99,6 +99,9 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
                             if (!queryDocumentSnapshots.isEmpty()) {
                                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                     Students student = documentSnapshot.toObject(Students.class);
+
+                                    if(documentSnapshot.getString("student_dp") != null)
+                                        student.setStudent_dp(documentSnapshot.getString("student_dp"));
                                     studentsMap.put(documentSnapshot.getId(), student);
                                 }
                             }

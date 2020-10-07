@@ -1,12 +1,15 @@
 package com.example.jagratiapp.ui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -14,6 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Students;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 import java.util.Map;
@@ -50,6 +57,32 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
         holder.classID = student.getClassID();
         holder.groupID = student.getGroupID();
 
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        if (student.getStudent_dp() != null) {
+            Toast.makeText(context,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+            final long FIVE_MEGABYTE = 5 * 1024 * 1024;
+            Bitmap bitmap = null;
+            storageReference.child("students/" + student.getRollno() + ".jpg")
+                    .getBytes(FIVE_MEGABYTE)
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Toast.makeText(context,"sb mst h",Toast.LENGTH_SHORT).show();
+                            Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            holder.student_dp.setImageBitmap(bm);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context,"Kuch to gadabad h",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+        else
+            Toast.makeText(context,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
+
         if(!recordedAttendance.isEmpty()) {
             boolean attendanceState = recordedAttendance.get(student.getUid());
             if (attendanceState) {
@@ -83,6 +116,8 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
 
                     onStudentListener.onStudentClick(holder.getAdapterPosition(), state);
 
+
+
                 }
             });
 
@@ -103,6 +138,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
         private String groupID;
         private CardView card1;
         private CardView card2;
+        private ImageView student_dp;
 
 
 
@@ -115,6 +151,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
             this.studentName = itemView.findViewById(R.id.student_name);
             this.villageName = itemView.findViewById(R.id.student_village);
             this.attendanceChecker = itemView.findViewById(R.id.attendance_checker);
+            this.student_dp = itemView.findViewById(R.id.student_card_imageView);
             card1 = itemView.findViewById(R.id.card1);
             card2 = itemView.findViewById(R.id.card2);
             card1.setCardBackgroundColor(Color.TRANSPARENT);

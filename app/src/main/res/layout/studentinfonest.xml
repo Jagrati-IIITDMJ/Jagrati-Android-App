@@ -46,13 +46,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageButton
-                    android:id="@+id/student_upload_photo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:background="@color/transparent"
-                    android:src="@drawable/ic_baseline_camera_alt_24" />
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -66,14 +60,25 @@
                         android:layout_height="100dp"
                         app:cardCornerRadius="55dp">
 
+
                         <ImageView
 
-                            android:id="@+id/student_dp"
+                            android:id="@+id/student_dp_1"
                             android:layout_width="160dp"
                             android:layout_height="160dp"
                             android:layout_gravity="center"
                             android:contentDescription="@string/profile_dp"
                             android:src="@drawable/ic_default_dp" />
+                        <ImageButton
+
+                            android:id="@+id/student_upload_photo_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_baseline_camera_alt_24"
+                            android:contentDescription="Upload Photo"/>
+
 
 
                     </androidx.cardview.widget.CardView>
@@ -254,19 +259,7 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/student_info_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:background="@drawable/rectangle"
-                android:backgroundTint="@color/appbar"
-                android:text="Save"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

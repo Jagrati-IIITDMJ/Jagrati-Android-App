@@ -12,6 +12,15 @@ public class Students {
     private String villageName;
     private String Uid;
     private String rollno;
+    private String student_dp;
+
+    public String getStudent_dp() {
+        return student_dp;
+    }
+
+    public void setStudent_dp(String student_dp) {
+        this.student_dp = student_dp;
+    }
 
     public String getClassID() {
         return classID;

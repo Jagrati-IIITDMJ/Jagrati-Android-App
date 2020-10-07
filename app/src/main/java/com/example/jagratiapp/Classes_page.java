@@ -213,9 +213,9 @@ public class Classes_page extends AppCompatActivity {
             builder = new AlertDialog.Builder(this);
             View view = getLayoutInflater().inflate(R.layout.delete_popup,null);
 
-            yes = view.findViewById(R.id.confirml_signout);
-            no= view.findViewById(R.id.cancel_signout);
-            warningMessage = view.findViewById(R.id.warning);
+            yes = view.findViewById(R.id.confirm_delete);
+            no= view.findViewById(R.id.cancel_delete);
+            warningMessage = view.findViewById(R.id.warning_delete);
             warningMessage.setText("You want to delete " + name +" Are your sure you want to delete confirm it   ");
             builder.setView(view);
             dialog = builder.create();

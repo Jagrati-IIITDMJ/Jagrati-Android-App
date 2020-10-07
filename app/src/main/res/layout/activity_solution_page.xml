@@ -11,7 +11,9 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/solutionPagetool"
         android:layout_width="match_parent"
+        android:background="@color/appbar"
         android:layout_height="60dp"
+        app:title="Solution"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

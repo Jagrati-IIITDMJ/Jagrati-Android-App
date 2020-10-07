@@ -42,8 +42,18 @@ public class SolutionPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution_page);
 
-        MaterialToolbar toolbar = findViewById(R.id.student_holder_toolbar);
+        MaterialToolbar toolbar = findViewById(R.id.solutionPagetool);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("Hello");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         Bundle bundle = getIntent().getExtras();

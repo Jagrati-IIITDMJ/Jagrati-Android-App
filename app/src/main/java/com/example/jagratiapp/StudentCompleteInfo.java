@@ -1,11 +1,21 @@
 package com.example.jagratiapp;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jagratiapp.model.Quiz;
 import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.ui.StudentQuizInfoAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -23,7 +34,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,8 +48,10 @@ import java.util.Map;
 
 public class StudentCompleteInfo extends AppCompatActivity {
     private static final String TAG = "StudentCompleteInfo";
+    private static final int PICK_IMAGE_REQUEST = 22;
     private String studID;
     private String classID;
+    private Uri filePath;
     private String groupID;
     private DocumentReference studentReference;
     private CollectionReference attendanceReference;
@@ -45,8 +63,11 @@ public class StudentCompleteInfo extends AppCompatActivity {
     private TextInputEditText phone;
     private TextView rollNo;
     private TextView attendance;
+    private StorageReference storageReference;
     private ImageButton edit;
-    private Button save;
+    private ImageButton upload;
+    private ImageView student_dp;
+
     private int present = 0;
     private int totalDays = 0;
     private StudentQuizInfoAdapter studentQuizInfoAdapter;
@@ -60,7 +81,10 @@ public class StudentCompleteInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_complete_info);
+
+
         studentName = findViewById(R.id.student_name_info);
+        student_dp = findViewById(R.id.student_dp_1);
         rollNo = findViewById(R.id.roll_no_info);
         villageName = findViewById(R.id.village_name_info);
         className = findViewById(R.id.class_name_info);
@@ -68,14 +92,18 @@ public class StudentCompleteInfo extends AppCompatActivity {
         attendance = findViewById(R.id.attendance_info);
         phone = findViewById(R.id.student_phone_info);
         edit = findViewById(R.id.student_info_edit);
-        save = findViewById(R.id.student_info_save);
+        upload = findViewById(R.id.student_upload_photo_1);
 
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        upload.setVisibility(View.GONE);
         studentName.setEnabled(false);
         villageName.setEnabled(false);
         className.setEnabled(false);
         guardianName.setEnabled(false);
         phone.setEnabled(false);
-        save.setVisibility(View.GONE);
+
+
 
 
         MaterialToolbar toolbar = findViewById(R.id.student_info_complete_toolbar);
@@ -106,30 +134,42 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 className.setEnabled(true);
                 guardianName.setEnabled(true);
                 phone.setEnabled(true);
-                save.setVisibility(View.VISIBLE);
-                edit.setVisibility(View.GONE);
+                upload.setVisibility(View.VISIBLE);
+                upload.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        selectImage();
+
+                    }
+                });
+
+               // edit.setVisibility(View.GONE);
+                edit.setImageDrawable(getDrawable(R.drawable.ic_tick));
+                edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view){
+                        studentReference.update("studentName",studentName.getText().toString().trim());
+                        studentReference.update("guardianName",guardianName.getText().toString().trim());
+                        studentReference.update("mobileNo",phone.getText().toString().trim());
+                        studentReference.update("villageName",villageName.getText().toString().trim());
+
+
+
+                        studentName.setEnabled(false);
+                        villageName.setEnabled(false);
+                        className.setEnabled(false);
+                        guardianName.setEnabled(false);
+                        phone.setEnabled(false);
+                        upload.setVisibility(View.GONE);
+
+                        edit.setImageDrawable(getDrawable(R.drawable.ic_baseline_edit_24));
+
+                    }
+                });
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                studentReference.update("studentName",studentName.getText().toString().trim());
-                studentReference.update("guardianName",guardianName.getText().toString().trim());
-                studentReference.update("mobileNo",phone.getText().toString().trim());
-                studentReference.update("villageName",villageName.getText().toString().trim());
 
-
-
-                studentName.setEnabled(false);
-                villageName.setEnabled(false);
-                className.setEnabled(false);
-                guardianName.setEnabled(false);
-                phone.setEnabled(false);
-                save.setVisibility(View.GONE);
-                edit.setVisibility(View.VISIBLE);
-            }
-        });
 
 
     }
@@ -147,6 +187,29 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 phone.setText(student.getMobileNo());
                 rollNo.setText(student.getRollno());
                 guardianName.setText(student.getGuardianName());
+                if (documentSnapshot.getString("student_dp") != null) {
+                    Toast.makeText(StudentCompleteInfo.this,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+                    final long FIVE_MEGABYTE = 5 * 1024 * 1024;
+                    Bitmap bitmap = null;
+                    storageReference.child("students/" + student.getRollno() + ".jpg")
+                            .getBytes(FIVE_MEGABYTE)
+                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+                                    Toast.makeText(StudentCompleteInfo.this,"sb mst h",Toast.LENGTH_SHORT).show();
+                                    Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                    student_dp.setImageBitmap(bm);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(StudentCompleteInfo.this,"Kuch to gadabad h",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+                else
+                    Toast.makeText(StudentCompleteInfo.this,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -197,5 +260,89 @@ public class StudentCompleteInfo extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void selectImage()
+    {
+
+        // Defining Implicit Intent to mobile gallery
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(
+                        intent,
+                        "Select Image from here..."),
+                PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST
+                && resultCode == RESULT_OK
+                && data != null
+                && data.getData() != null) {
+
+            // Get the Uri of data
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore
+                        .Images
+                        .Media
+                        .getBitmap(
+                                getContentResolver(),
+                                filePath);
+                student_dp.setImageBitmap(bitmap);
+                uploadImage();
+//                imageView.setImageBitmap(bitmap);
+            }
+
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void uploadImage()
+    {
+        if (filePath != null) {
+
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference ref = storageReference.child("students/" + student.getRollno() +".jpg" );
+
+            ref.putFile(filePath)
+                    .addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    progressDialog.setTitle("Profile Uploaded");
+                                    progressDialog.dismiss();
+                                    studentReference.update("student_dp",student.getRollno());
+                                }
+                            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+                            progressDialog.dismiss();
+                            Toast.makeText(StudentCompleteInfo.this,"Failed " + e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
+                                }
+                            });
+        }
     }
 }

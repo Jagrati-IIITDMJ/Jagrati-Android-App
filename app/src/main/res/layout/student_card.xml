@@ -32,7 +32,7 @@
                     app:cardCornerRadius="1000dp">
 
                     <ImageView
-                        android:id="@+id/student_dp"
+                        android:id="@+id/student_card_imageView"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
                         android:layout_gravity="center"
