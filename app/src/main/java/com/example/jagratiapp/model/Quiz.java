@@ -40,10 +40,10 @@ public class Quiz {
         this.quizDescription = quizDescription;
     }
 
-    public Quiz(String quizName, String quizID, String quizDescription) {
+    public Quiz(String quizName, String quizDescription,int quizTime) {
         this.quizName = quizName;
-        this.quizID = quizID;
         this.quizDescription = quizDescription;
+        this.quesTime = quizTime;
     }
 
     public Quiz() {

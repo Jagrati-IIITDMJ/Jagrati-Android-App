@@ -86,10 +86,11 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                 if (!queryDocumentSnapshots.isEmpty()) {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                         Question q = documentSnapshot.toObject(Question.class);
+                        q.setQuestionId(documentSnapshot.getId());
                         questionList.add(q);
                     }
                 }
-                questionAddAdapter = new QuestionAddAdapter(QuestionAddPage.this, questionList);
+                questionAddAdapter = new QuestionAddAdapter(QuestionAddPage.this, questionList,classid,quizid);
                 recyclerView.setAdapter(questionAddAdapter);
 
             }

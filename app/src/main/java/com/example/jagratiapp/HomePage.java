@@ -166,12 +166,11 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(HomePage.this,StartPage.class));
                 finish();
                 dialog.dismiss();
-                //finish();
 
             }
         });
 
-        no.setOnClickListener(new View.OnClickListener() {
+        no.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 dialog.dismiss();

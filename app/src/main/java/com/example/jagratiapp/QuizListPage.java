@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -22,7 +21,6 @@ import com.example.jagratiapp.ui.QuizListAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,7 +45,7 @@ public class QuizListPage extends AppCompatActivity {
     private QuizListAdapter quizListAdapter;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference collectionReference;
+    private CollectionReference     collectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,4 +155,5 @@ public class QuizListPage extends AppCompatActivity {
             }
         });
     }
+
 }
