@@ -108,12 +108,13 @@ public class Classes_page extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                if (direction == ItemTouchHelper.RIGHT){
+                if (direction == ItemTouchHelper.LEFT){
                     createWarningPopup(classesList.get(viewHolder.getAdapterPosition()).getClassName(),viewHolder);
                 }
                 else {
                     classRecyclerAdapter.notifyDataSetChanged();
                     View view = viewHolder.itemView;
+
                     classRecyclerAdapter.edit(viewHolder);
                     Toast.makeText(Classes_page.this,"Edit",Toast.LENGTH_SHORT).show();
                 }

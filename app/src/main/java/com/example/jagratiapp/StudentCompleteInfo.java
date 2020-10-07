@@ -2,6 +2,9 @@ package com.example.jagratiapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,8 +54,11 @@ public class StudentCompleteInfo extends AppCompatActivity {
     private TextInputEditText className;
     private TextInputEditText studentName;
     private TextInputEditText guardianName;
+    private TextInputEditText phone;
     private TextView rollNo;
     private TextView attendance;
+    private ImageButton edit;
+    private Button save;
     private int present = 0;
     private int totalDays = 0;
     private StudentQuizInfoAdapter studentQuizInfoAdapter;
@@ -72,6 +78,18 @@ public class StudentCompleteInfo extends AppCompatActivity {
         className = findViewById(R.id.class_name_info);
         guardianName = findViewById(R.id.guardian_name_info);
         attendance = findViewById(R.id.attendance_info);
+        phone = findViewById(R.id.student_phone_info);
+        edit = findViewById(R.id.student_info_edit);
+        save = findViewById(R.id.student_info_save);
+
+        studentName.setEnabled(false);
+        villageName.setEnabled(false);
+        className.setEnabled(false);
+        guardianName.setEnabled(false);
+        phone.setEnabled(false);
+        save.setVisibility(View.GONE);
+
+
         MaterialToolbar toolbar = findViewById(R.id.student_info_complete_toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
@@ -91,6 +109,20 @@ public class StudentCompleteInfo extends AppCompatActivity {
 
         attendanceReference = db.collection("Classes").document(classID)
                 .collection("Groups").document(groupID).collection("Attendance");
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                studentName.setEnabled(true);
+                villageName.setEnabled(true);
+                className.setEnabled(true);
+                guardianName.setEnabled(true);
+                phone.setEnabled(true);
+                save.setVisibility(View.VISIBLE);
+                edit.setVisibility(View.GONE);
+
+            }
+        });
 
 
     }

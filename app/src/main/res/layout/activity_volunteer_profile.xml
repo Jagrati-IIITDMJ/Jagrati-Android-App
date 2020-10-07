@@ -34,44 +34,59 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:layout_constraintVertical_bias="0.543" />
 
-    <ImageButton
-        android:id="@+id/student_info_upload_dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="84dp"
-        android:background="@color/transparent"
-        android:contentDescription="Edit button"
-        android:src="@drawable/ic_baseline_edit_24"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.695" />
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="60dp"
-        app:cardCornerRadius="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparent"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060000002">
 
-        <ImageView
-            android:id="@+id/student_dp"
-            android:layout_gravity="center"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@drawable/ic_default_dp"
-            android:contentDescription="@string/profile_dp" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:elevation="0dp"
+            app:cardCornerRadius="55dp">
+
+
+
+            <ImageView
+                android:id="@+id/student_dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/profile_dp"
+                android:src="@drawable/ic_default_dp" />
+            <ImageButton
+                android:id="@+id/student_info_upload_dp"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:background="@color/transparent"
+                android:layout_alignTop="@id/student_dp"
+
+                android:contentDescription="Edit button"
+                android:src="@drawable/ic_baseline_camera_alt_24" />
+
+        </androidx.cardview.widget.CardView>
+
+
+
     </androidx.cardview.widget.CardView>
+
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginHorizontal="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

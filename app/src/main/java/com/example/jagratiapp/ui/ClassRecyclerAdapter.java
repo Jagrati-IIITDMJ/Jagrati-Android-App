@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,13 +54,13 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
-        private TextView classNameList;
+        private EditText classNameList;
         private String classUid;
         private CardView classfurther;
 
 
-        private Button edit;
-        private Button delete;
+        private ImageButton save_edit;
+
 
         public ViewHolder(@NonNull final View itemView, Context ctx) {
             super(itemView);
@@ -66,6 +68,8 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
 
             classNameList = itemView.findViewById(R.id.classname_list);
             classfurther = itemView.findViewById(R.id.classfurther);
+            save_edit = itemView.findViewById(R.id.save_class_edit);
+            classNameList.setEnabled(false);
 
             classfurther.setOnClickListener(this);
         }
@@ -102,12 +106,13 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
 
     public void edit(final RecyclerView.ViewHolder viewHolder) {
         int position = viewHolder.getAdapterPosition();
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(viewHolder.itemView,"Pata ni kya ho rha",Snackbar.LENGTH_SHORT).show();
-            }
-        });
+        
+//        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(viewHolder.itemView,"Pata ni kya ho rha",Snackbar.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
 

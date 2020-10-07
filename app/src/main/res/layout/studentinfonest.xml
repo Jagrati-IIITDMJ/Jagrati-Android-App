@@ -22,7 +22,19 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/student_info_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+
+                android:background="@color/transparent"
+                android:src="@drawable/ic_baseline_edit_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <androidx.cardview.widget.CardView
@@ -33,6 +45,7 @@
                 app:layout_constraintHorizontal_bias="0.053"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <ImageButton
                     android:id="@+id/student_upload_photo"
                     android:layout_width="wrap_content"
@@ -40,34 +53,30 @@
                     android:layout_gravity="bottom|end"
                     android:background="@color/transparent"
                     android:src="@drawable/ic_baseline_camera_alt_24" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                >
+                    android:layout_height="wrap_content">
 
 
+                    <androidx.cardview.widget.CardView
 
-            <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:cardCornerRadius="55dp">
 
-                android:id="@+id/cardView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:cardCornerRadius="55dp"
-                >
+                        <ImageView
 
-                <ImageView
-
-                    android:id="@+id/student_dp"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/profile_dp"
-                    android:src="@drawable/ic_default_dp" />
+                            android:id="@+id/student_dp"
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/profile_dp"
+                            android:src="@drawable/ic_default_dp" />
 
 
-
-
-            </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
 
                 </androidx.cardview.widget.CardView>
@@ -78,24 +87,29 @@
                 android:id="@+id/roll_no_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
 
                 android:text="TextView"
 
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.096"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.592" />
 
             <TextView
                 android:id="@+id/attendance_info"
-                android:layout_width="134dp"
-                android:layout_height="46dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.045"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                app:layout_constraintVertical_bias="0.293" />
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -110,9 +124,12 @@
                 app:layout_constraintVertical_bias="0.501">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="198dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
+
                     android:hint="Name"
+                    app:boxStrokeWidth="0dp"
                     app:hintTextColor="#ff0000"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.868"
@@ -123,7 +140,9 @@
                         android:id="@+id/student_name_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="alskdgn;alsjhgokasfd"
+                        android:maxLength="20"
+                        android:maxLines="1"
+
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="298dp" />
 
@@ -134,6 +153,7 @@
                     android:layout_width="198dp"
                     android:layout_height="wrap_content"
                     android:hint="Village"
+                    android:maxLines="1"
                     app:hintTextColor="#ff0000"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.868"
@@ -145,8 +165,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:text="adfafafd"
-
 
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="298dp" />
@@ -157,6 +175,7 @@
 
                     android:layout_width="198dp"
                     android:layout_height="wrap_content"
+
                     android:hint="Guardian Name"
                     app:hintTextColor="#ff0000"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -168,7 +187,8 @@
                         android:id="@+id/guardian_name_info"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="alskdgn;alsjhgokasfd"
+                        android:maxLength="20"
+                        android:maxLines="1"
 
 
                         tools:layout_editor_absoluteX="0dp"
@@ -181,6 +201,7 @@
                     android:layout_width="198dp"
                     android:layout_height="wrap_content"
 
+
                     android:hint="Class Name"
                     app:hintTextColor="#ff0000"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -190,10 +211,39 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/class_name_info"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="alskdgn;alsjhgokasfd"
 
+                        android:maxLength="10"
+                        android:maxLines="1"
+
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:layout_editor_absoluteY="298dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="198dp"
+                    android:layout_height="wrap_content"
+
+                    android:hint="Phone"
+                    android:maxLines="1"
+                    app:boxStrokeColor="@color/appbar"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10"
+                    app:hintTextColor="#ff0000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.868"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/student_phone_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:maxLength="10"
 
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="298dp" />
@@ -203,7 +253,23 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/student_info_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="@color/appbar"
+                android:text="Save"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
     </androidx.cardview.widget.CardView>

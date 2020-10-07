@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">@color/appbar</color>
     <color name="colorPrimaryDark">#FFE0BE</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccent">#F17E01</color>
     <color name="appbar">#FFE0BE</color>
     <color name="white">#FFFFFF</color>
     <color name="black_overlay">#66000000</color>
     <color name="transparent">#00000000</color>
     <color name="jag1">#F17E01</color>
     <color name="light_black">#5e5c5c</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
+
 </resources>

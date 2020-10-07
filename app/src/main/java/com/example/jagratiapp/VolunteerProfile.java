@@ -66,7 +66,7 @@ public class VolunteerProfile extends AppCompatActivity {
         setContentView(R.layout.activity_volunteer_profile);
 
         findViews();
-
+        student_upload_dp.setVisibility(View.GONE);
         name.setEnabled(false);
         email.setEnabled(false);
         batch.setEnabled(false);
@@ -144,6 +144,7 @@ public class VolunteerProfile extends AppCompatActivity {
                 save.setVisibility(View.VISIBLE);
                 cancel.setVisibility(View.VISIBLE);
                 error.setVisibility(View.VISIBLE);
+                student_upload_dp.setVisibility(View.VISIBLE);
                 name.setEnabled(true);
 //                email.setEnabled(true);
                 batch.setEnabled(true);
@@ -185,6 +186,7 @@ public class VolunteerProfile extends AppCompatActivity {
                     cancel.setVisibility(View.GONE);
                     error.setVisibility(View.GONE);
                     edit.setVisibility(View.VISIBLE);
+                    student_upload_dp.setVisibility(View.GONE);
 
 
 
