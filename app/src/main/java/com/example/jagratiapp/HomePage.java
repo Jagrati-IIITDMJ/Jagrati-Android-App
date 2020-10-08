@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -53,30 +56,25 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
         Toast.makeText(HomePage.this,"Home Page",Toast.LENGTH_SHORT).show();
 
-//        Fade fade = new Fade();
-//        View decor = getWindow().getDecorView();
-//        fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
-//        fade.excludeTarget(decor.findViewById(R.id.home_page_logo),true);
-//        fade.excludeTarget(android.R.id.statusBarBackground, true);
-//        fade.excludeTarget(android.R.id.navigationBarBackground, true);
-//
-//        getWindow().setEnterTransition(fade);
-//        getWindow().setExitTransition(fade);
+
         drawer = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        ChangeClipBounds changeClipBounds = new ChangeClipBounds();
-//        changeClipBounds.addTarget(R.id.classes);
-//        getWindow().setSharedElementEnterTransition(changeClipBounds);
-//        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-
-
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.draweropen,R.string.drawerclosed);
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.jag1));
+
+        Window window = getWindow();
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.appbar));
 
 
         drawer.addDrawerListener(toggle);
@@ -205,8 +203,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 }, 2000);
             }
     }
-
-
 
     @Override
     protected void onStop() {
