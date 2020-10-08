@@ -5,19 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:background="@drawable/border"
-
+    android:theme="@style/ShapeAppearanceOverlay.App.Card.Media"
     >
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
+
             android:id="@+id/classfurther"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="@color/transparent"
-            android:elevation="20dp"
-            app:cardCornerRadius="20dp"
-            style="@style/Base.CardView"
+            android:elevation="0dp"
+            android:background="@drawable/border"
             >
 
                 <EditText
@@ -26,7 +24,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="16dp"
-                    android:background="@color/transparent"
+                    android:background="@color/white"
                     android:enabled="false"
                     android:padding="8dp"
                     android:text="@string/there_must_be_something"
@@ -42,5 +40,5 @@
                     android:background="@color/transparent"
                     android:src="@drawable/ic_tick"
                     android:visibility="gone" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

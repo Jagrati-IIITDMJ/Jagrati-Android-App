@@ -10,12 +10,13 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.Group_page;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Classes;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         private EditText classNameList;
         private String classUid;
-        private CardView classfurther;
+        private MaterialCardView classfurther;
         private String classp;
 
 
@@ -67,6 +68,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
 
             classNameList = itemView.findViewById(R.id.classname_list);
             classfurther = itemView.findViewById(R.id.classfurther);
+
             save_edit = itemView.findViewById(R.id.save_class);
             classNameList.setEnabled(false);
 

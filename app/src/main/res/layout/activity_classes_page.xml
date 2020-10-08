@@ -27,12 +27,7 @@
             android:background="@color/appbar"
             android:layout_height="60dp"
             app:titleTextColor="#A75700"
-            app:title="Class"
-            android:theme="@style/ToolbarTheme"
-            android:elevation="10dp"
-            />
-
-        </com.google.android.material.appbar.AppBarLayout>
+            app:title="Class" />
 
 
         <androidx.recyclerview.widget.RecyclerView
