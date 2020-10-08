@@ -25,7 +25,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
 
-        android:backgroundTint="#FFC585"
+        android:backgroundTint="@color/jag1"
         android:contentDescription="Add"
         android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
