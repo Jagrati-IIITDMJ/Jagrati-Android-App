@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:background="@color/appbar"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:theme="@style/ToolbarTheme"
+        android:elevation="10dp">
 <!--        android:theme="@style/AppTheme.AppBarOverlay"-->
 
 

@@ -18,7 +18,9 @@
             android:background="@color/appbar"
             android:layout_height="60dp"
             android:id="@+id/quiz_add_toolbar"
-            app:titleTextColor="#A75700"/>
+            app:titleTextColor="#A75700"
+            android:theme="@style/ToolbarTheme"
+            android:elevation="10dp"/>
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -19,6 +19,8 @@
             android:layout_height="60dp"
             android:id="@+id/quiz_class_page_toolbar"
             app:titleTextColor="#A75700"
+            android:theme="@style/ToolbarTheme"
+            android:elevation="10dp"
             />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/quiz_class_recyclerview"

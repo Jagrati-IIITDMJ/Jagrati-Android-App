@@ -17,17 +17,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:id="@+id/class_page_toolbar"
             android:background="@color/appbar"
             android:layout_height="60dp"
             app:titleTextColor="#A75700"
-            app:title="Class" />
+            app:title="Class"
+            android:theme="@style/ToolbarTheme"
+            android:elevation="10dp"/>
 
 
         <androidx.recyclerview.widget.RecyclerView

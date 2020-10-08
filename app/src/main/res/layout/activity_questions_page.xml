@@ -21,7 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Quiz"
-        app:titleTextColor="#A75700">
+        app:titleTextColor="#A75700"
+        android:elevation="10dp">
 
 
     </androidx.appcompat.widget.Toolbar>

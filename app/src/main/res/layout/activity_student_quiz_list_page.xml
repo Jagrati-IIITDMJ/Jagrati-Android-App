@@ -18,6 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:titleTextColor="#A75700"
+        android:theme="@style/ToolbarTheme"
+        android:elevation="10dp"
          />
 
     <androidx.recyclerview.widget.RecyclerView
