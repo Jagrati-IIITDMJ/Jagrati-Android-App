@@ -23,7 +23,7 @@ import java.util.List;
 public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdapter.ViewHolder> {
     private Context context;
     private List<Classes> classesList;
-    private String classp;
+
 
     public ClassRecyclerAdapter(Context context, List<Classes> classesList) {
         this.context = context;
@@ -42,7 +42,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     public void onBindViewHolder(@NonNull ClassRecyclerAdapter.ViewHolder holder, int position) {
 
         Classes classes = classesList.get(position);
-        classp = classes.getClassName();
+        holder.classp = classes.getClassName();
         holder.classNameList.setText(classes.getClassName());
         holder.classUid = classes.getuId();
     }
@@ -55,6 +55,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
         private EditText classNameList;
         private String classUid;
         private CardView classfurther;
+        private String classp;
 
 
         private ImageButton save_edit;

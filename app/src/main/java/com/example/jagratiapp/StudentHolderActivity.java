@@ -20,22 +20,25 @@ import com.google.android.material.tabs.TabLayout;
 public class StudentHolderActivity extends AppCompatActivity {
     private String classid;
     private String groupid;
-
+    private String groupName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_holder);
 
-
-
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        classid = bundle.getString("classid");
+        groupid = bundle.getString("groupid");
+        groupName = bundle.getString("groupName");
 
         MaterialToolbar toolbar = findViewById(R.id.student_holder_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setTitle(groupName);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,10 +46,7 @@ public class StudentHolderActivity extends AppCompatActivity {
             }
         });
 
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        classid = bundle.getString("classid");
-        groupid = bundle.getString("groupid");
+
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),classid,groupid);
         ViewPager viewPager = findViewById(R.id.view_pager);

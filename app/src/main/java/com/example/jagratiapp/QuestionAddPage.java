@@ -55,18 +55,24 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     private DocumentReference documentToAddNumOfQues;
     private QuestionAddAdapter questionAddAdapter;
     private String correctOption;
+    private String quizName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_add_page);
+        Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
+        classid = bundle.getString("ClassID");
+        quizid = bundle.getString("quizid");
+        quizName = bundle.getString("quizName");
 
         MaterialToolbar toolbar = findViewById(R.id.quiz_add_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setTitle(quizName);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,10 +86,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         questionList = new ArrayList<>();
 
-        Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        classid = bundle.getString("ClassID");
-        quizid = bundle.getString("quizid");
+
 
         collectionReference = db.collection("Classes").document(classid).collection("Quizzes").document(quizid).collection("Question");
         documentToAddNumOfQues = db.collection("Classes").document(classid).collection("Quizzes").document(quizid);

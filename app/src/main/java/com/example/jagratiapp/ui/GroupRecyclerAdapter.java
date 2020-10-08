@@ -43,6 +43,7 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
         Groups groups = groupList.get(position);
         holder.groupname_List.setText(groups.getGroupName());
         holder.groupUid= groups.getUid();
+        holder.groupName= groups.getGroupName();
 
 
     }
@@ -66,6 +67,7 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
         private TextView groupname_List;
         private String groupUid;
         private CardView group_further;
+        private String groupName;
 
         public ViewHolder(@NonNull View itemView, Context ctx) {
             super(itemView);
@@ -87,7 +89,7 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
         public void onClick(View view) {
 
             context.startActivity(new Intent(context, StudentHolderActivity.class).putExtra("classid",classUid)
-            .putExtra("groupid",groupUid));
+            .putExtra("groupid",groupUid).putExtra("groupName",groupName));
 
         }
 

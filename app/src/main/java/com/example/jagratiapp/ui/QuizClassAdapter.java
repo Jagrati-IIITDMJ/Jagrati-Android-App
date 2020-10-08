@@ -41,6 +41,8 @@ public class QuizClassAdapter extends RecyclerView.Adapter<QuizClassAdapter.View
         Classes classes = classList.get(position);
         holder.classNameList.setText(classes.getClassName());
         holder.classid = classes.getuId();
+        holder.className = classes.getClassName();
+
 
     }
 
@@ -53,6 +55,7 @@ public class QuizClassAdapter extends RecyclerView.Adapter<QuizClassAdapter.View
         private TextView classNameList;
         private CardView classFurther;
         private String classid;
+        private String className;
 
         public ViewHolder(@NonNull View itemView,Context ctx) {
             super(itemView);
@@ -63,7 +66,8 @@ public class QuizClassAdapter extends RecyclerView.Adapter<QuizClassAdapter.View
                 @Override
                 public void onClick(View view) {
                     if(classid != null)
-                    context.startActivity(new Intent(context, QuizListPage.class).putExtra("ClassID",classid));
+                    context.startActivity(new Intent(context, QuizListPage.class).putExtra("ClassID",classid)
+                    .putExtra("className",className));
                     else {
                         Toast.makeText(context, "Null", Toast.LENGTH_LONG).show();
                     }
