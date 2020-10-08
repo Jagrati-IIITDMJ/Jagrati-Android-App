@@ -35,19 +35,18 @@
 
     </LinearLayout>
 
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_class_page"
         android:layout_width="56dp"
         android:layout_height="56dp"
-
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
 
-        android:background="@drawable/fab"
-        android:src="@drawable/ic_baseline_add_24"
+        android:backgroundTint="@color/jag1"
+        android:contentDescription="Add"
+        android:src="@drawable/ic_group_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/add" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 

@@ -23,15 +23,6 @@
         android:contentDescription="@string/jagrati_logo" />
 
     <ImageView
-        android:id="@+id/college_logo"
-        android:layout_width="91dp"
-        android:layout_height="82dp"
-        android:contentDescription="@string/iiitdmj_logo"
-        android:src="@drawable/college_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
         android:id="@+id/splash_logo_faded"
         android:layout_width="643dp"
         android:layout_height="503dp"

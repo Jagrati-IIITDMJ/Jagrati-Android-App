@@ -20,7 +20,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Quiz">
+        app:title="Quiz"
+        app:titleTextColor="#A75700">
 
 
     </androidx.appcompat.widget.Toolbar>

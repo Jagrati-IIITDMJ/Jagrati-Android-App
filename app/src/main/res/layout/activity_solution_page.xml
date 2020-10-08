@@ -16,7 +16,8 @@
         app:title="Solution"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#A75700"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/student_quiz_solution_recycler_view"

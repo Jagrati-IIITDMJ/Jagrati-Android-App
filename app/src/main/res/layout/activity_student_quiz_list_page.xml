@@ -17,6 +17,7 @@
         android:id="@+id/student_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        app:titleTextColor="#A75700"
          />
 
     <androidx.recyclerview.widget.RecyclerView
