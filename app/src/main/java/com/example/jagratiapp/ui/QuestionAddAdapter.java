@@ -1,7 +1,10 @@
 package com.example.jagratiapp.ui;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +68,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
         holder.option2.setText("(b) " + ques.getOption2());
         holder.option3.setText("(c) " + ques.getOption3());
         holder.option4.setText("(d) " + ques.getOption4());
-
+        holder.quesId  = ques.getQuestionId();
 
         if (ques.getCorrectOption().equals(ques.getOption1()))
             holder.option1.setTextColor(rgb(0, 128, 0));
@@ -145,6 +148,14 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
                     editques(ques);
                 }
             });
+
+            deleteLongPress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                    createWarningPopup(getAdapterPosition());
+                }
+            });
         }
 
         private void editques(Question ques) {
@@ -222,8 +233,8 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
         private void updateQuestion(Question ques) {
             final Question q = ques;
 
-            db.collection("Classes").document(classid).collection("Quizzes").document(quizid).collection("Question").document(ques.getQuestionId())
-                    .set(ques).addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("Classes").document(classid).collection("Quizzes").document(quizid).collection("Question").document(quesId)
+                    .set(q).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     questionList.get(getAdapterPosition()).setQuestion(questionPopup.getText().toString().trim());
@@ -245,6 +256,53 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
                     });
         }
 
+        private void createWarningPopup(final int adapterPosition) {
+            Button yes,no;
+            TextView warningMessage;
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
+            View view = LayoutInflater.from(context).inflate(R.layout.delete_popup,null);
+
+            yes = view.findViewById(R.id.confirm_delete);
+            no= view.findViewById(R.id.cancel_delete);
+            warningMessage = view.findViewById(R.id.warning_delete);
+            warningMessage.setText("You want to delete " );
+            builder.setView(view);
+            final Dialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+            yes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                    Toast.makeText(context,"Deleted",Toast.LENGTH_SHORT).show();
+                    db.collection("Classes").document(classid).collection("Quizzes").document(quizid)
+                            .collection("Question").document(quesId)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                    questionList.remove(adapterPosition);
+                    notifyItemRemoved(adapterPosition);
+                }
+            });
+
+            no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notifyItemChanged(adapterPosition);
+                    dialog.dismiss();
+                }
+            });
+        }
 
     }
 

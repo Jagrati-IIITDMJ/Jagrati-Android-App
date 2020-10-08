@@ -99,9 +99,6 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
                             if (!queryDocumentSnapshots.isEmpty()) {
                                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                     Students student = documentSnapshot.toObject(Students.class);
-
-                                    if(documentSnapshot.getString("student_dp") != null)
-                                        student.setStudent_dp(documentSnapshot.getString("student_dp"));
                                     studentsMap.put(documentSnapshot.getId(), student);
                                 }
                             }

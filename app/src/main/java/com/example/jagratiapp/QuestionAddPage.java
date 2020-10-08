@@ -185,6 +185,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
             public void onSuccess(DocumentReference documentReference) {
 
                         List<Question> newQuestionList = questionList;
+                        q.setQuestionId(documentReference.getId());
                         newQuestionList.add(q);
                         questionAddAdapter.notifyDataSetChanged();
                         documentToAddNumOfQues.update("numberOfQues",newQuestionList.size());

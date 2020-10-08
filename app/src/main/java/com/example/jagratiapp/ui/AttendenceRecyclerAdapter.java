@@ -60,7 +60,6 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         if (student.getStudent_dp() != null) {
-            Toast.makeText(context,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
             final long FIVE_MEGABYTE = 5 * 1024 * 1024;
             Bitmap bitmap = null;
             storageReference.child("students/" + student.getRollno() + ".jpg")
@@ -68,7 +67,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
                     .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {
-                            Toast.makeText(context,"sb mst h",Toast.LENGTH_SHORT).show();
+
                             Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             holder.student_dp.setImageBitmap(bm);
                         }
@@ -76,7 +75,7 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context,"Kuch to gadabad h",Toast.LENGTH_SHORT).show();
+
                         }
                     });
         }
