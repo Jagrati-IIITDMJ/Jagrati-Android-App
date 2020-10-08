@@ -8,6 +8,7 @@
     tools:context=".Fragments.PastAttendanceFragment">
 
     <Button
+        android:elevation="10dp"
         android:id="@+id/date_past_attendance"
         android:layout_marginTop="10dp"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"

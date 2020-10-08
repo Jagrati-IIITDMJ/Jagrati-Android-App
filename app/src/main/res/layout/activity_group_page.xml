@@ -19,10 +19,10 @@
         <com.google.android.material.appbar.MaterialToolbar
 
             android:background="@color/appbar"
-
+            android:elevation="10dp"
             android:id="@+id/group_page_toolbar"
             android:layout_width="match_parent"
-             android:layout_height="60dp"
+            android:layout_height="60dp"
             app:titleTextColor="#A75700"
 
          />

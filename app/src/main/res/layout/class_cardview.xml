@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:background="@drawable/border">
+    android:background="@drawable/border"
 
+    >
 
-
-        <EditText
-
-            android:id="@+id/classname_list"
-            android:layout_width="wrap_content"
-            android:background="@color/transparent"
-            android:layout_marginVertical="16dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/classfurther"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="8dp"
-            android:enabled="false"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="@string/there_must_be_something"
+            android:backgroundTint="@color/transparent"
+            android:elevation="20dp"
+            app:cardCornerRadius="20dp"
+            style="@style/Base.CardView"
+            >
 
-            />
-        <ImageButton
+                <EditText
+                    android:id="@+id/classname_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="16dp"
+                    android:background="@color/transparent"
+                    android:enabled="false"
+                    android:padding="8dp"
+                    android:text="@string/there_must_be_something"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            android:id="@+id/save_class"
-            android:visibility="gone"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="end|center_vertical"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_tick"/>
-
+                <ImageButton
+                    android:id="@+id/save_class"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_tick"
+                    android:visibility="gone" />
+        </androidx.cardview.widget.CardView>
 </LinearLayout>
