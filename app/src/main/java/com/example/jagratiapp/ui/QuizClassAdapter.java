@@ -61,7 +61,7 @@ public class QuizClassAdapter extends RecyclerView.Adapter<QuizClassAdapter.View
             super(itemView);
             context = ctx;
             classNameList = itemView.findViewById(R.id.classname_list);
-//            classFurther = itemView.findViewById(R.id.classfurther);
+            classFurther = itemView.findViewById(R.id.classfurther);
             classFurther.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
