@@ -15,8 +15,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:elevation="0dp"
-            android:background="@drawable/border"
-            >
+            app:cardCornerRadius="20dp"
+            app:strokeWidth="2dp"
+            app:strokeColor="#000000"            >
 
                 <EditText
                     android:id="@+id/classname_list"

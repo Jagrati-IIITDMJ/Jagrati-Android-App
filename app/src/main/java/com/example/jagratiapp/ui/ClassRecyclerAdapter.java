@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.Group_page;
@@ -55,7 +56,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         private EditText classNameList;
         private String classUid;
-        private MaterialCardView classfurther;
+        private CardView classfurther;
         private String classp;
 
 

@@ -48,10 +48,10 @@
 
     </style>
 
-    <style name="ShapeAppearanceOverlay.App.Card.Media" parent="">
+    <style name="ShapeAppearanceOverlay.App.Card.Media" parent="AppThemeM">
+
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
-
         <item name="borderWidth">2dp</item>
 
     </style>
