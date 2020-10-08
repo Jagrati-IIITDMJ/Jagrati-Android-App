@@ -51,7 +51,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
         return classesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder/* implements  View.OnClickListener*/{
         private EditText classNameList;
         private String classUid;
         private CardView classfurther;
@@ -66,11 +66,11 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
             context = ctx;
 
             classNameList = itemView.findViewById(R.id.classname_list);
-            classfurther = itemView.findViewById(R.id.classfurther);
+//            classfurther = itemView.findViewById(R.id.classfurther);
             save_edit = itemView.findViewById(R.id.save_class);
             classNameList.setEnabled(false);
 
-            classfurther.setOnClickListener(this);
+//            classfurther.setOnClickListener(this);
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {
@@ -80,14 +80,14 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
 //            });
         }
 
-        @Override
-        public void onClick(View view) {
-            switch (view.getId())
-            {
-                case R.id.classfurther:
-                    goToGroup(classUid,context);
-            }
-        }
+//        @Override
+//        public void onClick(View view) {
+//            switch (view.getId())
+//            {
+//                case R.id.classfurther:
+//                    goToGroup(classUid,context);
+//            }
+//        }
 
         private void goToGroup(String classUid, Context context) {
             if(classUid != null) {

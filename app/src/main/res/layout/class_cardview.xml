@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@drawable/border">
 
-    android:layout_margin="16dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/classfurther"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-
-        app:cardCornerRadius="20dp"
-        android:elevation="20dp"
-        android:backgroundTint="#F2F3FF"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored">
 
         <EditText
 
@@ -34,7 +23,7 @@
             android:textStyle="bold"
             android:text="@string/there_must_be_something"
 
-             />
+            />
         <ImageButton
 
             android:id="@+id/save_class"
@@ -44,11 +33,5 @@
             android:layout_gravity="end|center_vertical"
             android:background="@color/transparent"
             android:src="@drawable/ic_tick"/>
-
-
-
-
-
-    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
