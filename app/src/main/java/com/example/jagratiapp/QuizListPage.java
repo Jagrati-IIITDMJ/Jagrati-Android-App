@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +20,7 @@ import com.example.jagratiapp.ui.QuizListAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,7 +35,7 @@ public class QuizListPage extends AppCompatActivity {
     private String classid;
     private List<Quiz> quizlist;
     private RecyclerView recyclerView;
-    private ImageButton fab;
+    private FloatingActionButton fab;
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
     private EditText quizName;

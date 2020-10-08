@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.transition.Fade;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
@@ -44,6 +45,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Classes_page extends AppCompatActivity {
 
     private FloatingActionButton fab;
@@ -67,6 +69,9 @@ public class Classes_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classes_page);
+
+        Window window = getWindow();
+
         fab = findViewById(R.id.fab_class_page);
 
         classesList = new ArrayList<>();

@@ -34,20 +34,18 @@
 
 
 
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_ques_add"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginEnd="16dp"
-
         android:layout_marginBottom="16dp"
-        android:background="@drawable/fab"
-        android:clickable="true"
-        android:focusable="true"
+
+        android:backgroundTint="@color/jag1"
+        android:contentDescription="Add"
+        android:src="@drawable/ic_baseline_question_answer_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        android:contentDescription="@string/add" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -22,6 +21,7 @@ import com.example.jagratiapp.ui.QuestionAddAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,7 +48,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     private AlertDialog dialog;
     private AlertDialog.Builder builder;
     private RecyclerView recyclerView;
-    private ImageButton addQuestion;
+    private FloatingActionButton addQuestion;
     private List<Question> questionList;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;

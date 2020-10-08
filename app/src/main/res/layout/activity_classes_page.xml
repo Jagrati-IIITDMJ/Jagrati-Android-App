@@ -17,13 +17,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:id="@+id/class_page_toolbar"
             android:background="@color/appbar"
             android:layout_height="60dp"
             app:titleTextColor="#A75700"
-            app:title="Class" />
+            app:title="Class"
+            android:theme="@style/ToolbarTheme"
+            android:elevation="10dp"
+            />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#A75700"
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -37,16 +52,15 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_class_page"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-
         android:backgroundTint="@color/jag1"
         android:contentDescription="Add"
         android:src="@drawable/ic_group_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 
