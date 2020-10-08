@@ -59,6 +59,7 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.ViewHo
         holder.quizid = quiz.getQuizID();
 
 
+
     }
 
     @Override
@@ -72,6 +73,7 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.ViewHo
         private String quizid;
         private TextView quizTime;
 
+
         long down,up;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,7 +84,7 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizListAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    context.startActivity(new Intent(context, QuestionAddPage.class).putExtra("ClassID",classid).putExtra("quizid",quizid));
+                    context.startActivity(new Intent(context, QuestionAddPage.class).putExtra("ClassID",classid).putExtra("quizid",quizid).putExtra("quizName",quizName.getText().toString()));
                 }
             });
 

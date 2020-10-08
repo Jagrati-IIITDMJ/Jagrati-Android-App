@@ -43,6 +43,7 @@ public class QuizListPage extends AppCompatActivity {
     private EditText quizDescription;
     private Button addQuiz;
     private QuizListAdapter quizListAdapter;
+    private String className;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference     collectionReference;
@@ -52,12 +53,14 @@ public class QuizListPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_list_page);
 
+        classid = getIntent().getStringExtra("ClassID");
+        className = getIntent().getStringExtra("className");
         MaterialToolbar toolbar = findViewById(R.id.quiz_list_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setTitle(className);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +68,7 @@ public class QuizListPage extends AppCompatActivity {
             }
         });
 
-        classid = getIntent().getStringExtra("ClassID");
+
         collectionReference = db.collection("Classes").document(classid).collection("Quizzes");
 
         fab = findViewById(R.id.fab_quizList_page);
