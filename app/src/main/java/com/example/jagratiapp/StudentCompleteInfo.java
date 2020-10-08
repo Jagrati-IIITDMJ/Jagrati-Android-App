@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -67,6 +66,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
     private ImageButton edit;
     private ImageButton upload;
     private ImageView student_dp;
+    private ImageView save;
 
     private int present = 0;
     private int totalDays = 0;
@@ -78,7 +78,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_complete_info);
 
@@ -93,6 +93,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
         phone = findViewById(R.id.student_phone_info);
         edit = findViewById(R.id.student_info_edit);
         upload = findViewById(R.id.student_upload_photo_1);
+        save = findViewById(R.id.student_info_save);
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -139,33 +140,35 @@ public class StudentCompleteInfo extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         selectImage();
-
                     }
                 });
 
-               // edit.setVisibility(View.GONE);
-                edit.setImageDrawable(getDrawable(R.drawable.ic_tick));
-                edit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view){
-                        studentReference.update("studentName",studentName.getText().toString().trim());
-                        studentReference.update("guardianName",guardianName.getText().toString().trim());
-                        studentReference.update("mobileNo",phone.getText().toString().trim());
-                        studentReference.update("villageName",villageName.getText().toString().trim());
+                edit.setVisibility(View.GONE);
+                save.setVisibility(View.VISIBLE);
+//                edit.setImageDrawable(getDrawable(R.drawable.ic_tick));
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                studentReference.update("studentName",studentName.getText().toString().trim());
+                studentReference.update("guardianName",guardianName.getText().toString().trim());
+                studentReference.update("mobileNo",phone.getText().toString().trim());
+                studentReference.update("villageName",villageName.getText().toString().trim());
 
 
 
-                        studentName.setEnabled(false);
-                        villageName.setEnabled(false);
-                        className.setEnabled(false);
-                        guardianName.setEnabled(false);
-                        phone.setEnabled(false);
-                        upload.setVisibility(View.GONE);
+                studentName.setEnabled(false);
+                villageName.setEnabled(false);
+                className.setEnabled(false);
+                guardianName.setEnabled(false);
+                phone.setEnabled(false);
+                upload.setVisibility(View.GONE);
 
-                        edit.setImageDrawable(getDrawable(R.drawable.ic_baseline_edit_24));
+                save.setVisibility(View.GONE);
+                edit.setVisibility(View.VISIBLE);
 
-                    }
-                });
             }
         });
 

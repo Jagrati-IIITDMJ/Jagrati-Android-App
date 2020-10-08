@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,7 +17,6 @@ import com.example.jagratiapp.Group_page;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Classes;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -73,6 +70,13 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
             classNameList.setEnabled(false);
 
             classfurther.setOnClickListener(this);
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Toast.makeText(context,"working",Toast.LENGTH_SHORT).show();
+//                    goToGroup(classUid,context);
+//                }
+//            });
         }
 
         @Override

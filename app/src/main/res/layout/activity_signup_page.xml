@@ -106,7 +106,8 @@
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textStyle="italic"
             tools:layout_editor_absoluteX="20dp"
-            tools:layout_editor_absoluteY="667dp">
+            tools:layout_editor_absoluteY="667dp"
+            >
 
         </EditText>
 

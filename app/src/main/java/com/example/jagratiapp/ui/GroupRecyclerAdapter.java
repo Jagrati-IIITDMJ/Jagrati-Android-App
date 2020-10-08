@@ -74,6 +74,12 @@ public class GroupRecyclerAdapter extends RecyclerView.Adapter<GroupRecyclerAdap
             groupname_List = itemView.findViewById(R.id.classname_list);
             group_further = itemView.findViewById(R.id.classfurther);
             group_further.setOnClickListener(this);
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Toast.makeText(context,"Working",Toast.LENGTH_SHORT).show();
+//                }
+//            });
 
         }
 
