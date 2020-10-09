@@ -209,7 +209,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     public void checkButton(View v){
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
-        Toast.makeText(QuestionsPage.this,radioButton.getText().toString()+" "+answerList.size(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(QuestionsPage.this,radioButton.getText().toString()+" "+answerList.size(),Toast.LENGTH_SHORT).show();
         answerList.put(q,radioButton.getText().toString());
     }
 
@@ -232,40 +232,14 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         }
 
         quizReport = new QuizReport(answerList,result);
-//      TODO:Hatana mat abhi ise
-
-//        collectionToSaveReport.document(quizId).get()
-//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            if (document.exists()) {
-//                                Toast.makeText(QuestionsPage.this, "Quiz Already Given", Toast.LENGTH_SHORT).show();
-//                            } else {
         final int finalResult = result;
         collectionToSaveReport.document(quizId).set(quizReport)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                 setPopup(finalResult);
-//                                                startActivity(new Intent(QuestionsPage.this, StudentCompleteInfo.class)
-//                                                        .putExtra("classID", StudentAPI.Instance().getClassUid())
-//                                                        .putExtra("groupID", StudentAPI.Instance().getGroupUid())
-//                                                        .putExtra("studentID", StudentAPI.Instance().getRollno()));
-//                                                finish();
                                             }
                                         });
-//                                        .addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Toast.makeText(QuestionsPage.this, e.getMessage().trim(), Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        });
-//                            }
-//                        }
-//                    }
-//                });
 
     }
 
@@ -308,7 +282,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         final String classId = StudentAPI.Instance().getClassUid();
         final String groupId = StudentAPI.Instance().getGroupUid();
 
-        Toast.makeText(QuestionsPage.this,classId + " " + groupId,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(QuestionsPage.this,classId + " " + groupId,Toast.LENGTH_SHORT).show();
         solutionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

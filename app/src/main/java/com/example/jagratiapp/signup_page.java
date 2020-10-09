@@ -92,7 +92,7 @@ public class signup_page extends AppCompatActivity {
                     String cpassword = cpassword_edit_signup.getText().toString().trim();
 
                     if (password != cpassword){
-                        cpassword_edit_signup.setError("password same dalo beta");
+                        cpassword_edit_signup.setError("password doesn't match");
                     }
                     else
                         createAccount(email,password,name);

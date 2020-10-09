@@ -177,7 +177,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                                 studentsList.add(student);
                             }
                         } else {
-                            Toast.makeText(getContext(), "Kuch ni hain", LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "No students for attendance", LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -207,9 +207,6 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                                                 }
                                                 documentReference.collection("Attendance").document(formattedDate).set(attendence);
                                                 documentReference.collection("Attendance").document(formattedDate).update("timestamp", Timestamp.now());
-                                            }
-                                            else {
-                                                Toast.makeText(getContext(),"Access nahi hue", LENGTH_SHORT).show();
                                             }
                                         }
                                     });
@@ -274,7 +271,8 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
     public void onStudentClick(int position,boolean state) {
         Students student = studentsList.get(position);
         recordedAttendance.put(student.getUid(),state);
-        Toast.makeText(getContext()," " + recordedAttendance.get(student.getUid()), Toast.LENGTH_SHORT).show();}
+       // Toast.makeText(getContext()," " + recordedAttendance.get(student.getUid()), Toast.LENGTH_SHORT).show();
+    }
 
 
 

@@ -204,7 +204,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 rollNo.setText(student.getRollno());
                 guardianName.setText(student.getGuardianName());
                 if (documentSnapshot.getString("student_dp") != null) {
-                    Toast.makeText(StudentCompleteInfo.this,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(StudentCompleteInfo.this,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
                     final long FIVE_MEGABYTE = 5 * 1024 * 1024;
                     Bitmap bitmap = null;
                     storageReference.child("students/" + student.getRollno() + ".jpg")
@@ -224,8 +224,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
                                 }
                             });
                 }
-                else
-                    Toast.makeText(StudentCompleteInfo.this,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
+               // else
+                  //  Toast.makeText(StudentCompleteInfo.this,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
             }
         });
 

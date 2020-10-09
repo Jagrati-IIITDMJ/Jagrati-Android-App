@@ -132,7 +132,7 @@ public class VolunteerProfile extends AppCompatActivity {
                             subject.setText(documentSnapshot.getString("subject"));
 
                         if (documentSnapshot.getString("volunteer_dp") != null) {
-                            Toast.makeText(VolunteerProfile.this,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(VolunteerProfile.this,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
                             final long FIVE_MEGABYTE = 5 * 1024 * 1024;
                             Bitmap bitmap = null;
                             storageReference.child("volunteers/" + currentUser.getUid() + ".jpg")
@@ -140,7 +140,7 @@ public class VolunteerProfile extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                         @Override
                                         public void onSuccess(byte[] bytes) {
-                                            Toast.makeText(VolunteerProfile.this,"sb mst h",Toast.LENGTH_SHORT).show();
+                                           // Toast.makeText(VolunteerProfile.this,"sb mst h",Toast.LENGTH_SHORT).show();
                                             Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                             student_dp.setImageBitmap(bm);
                                         }
@@ -152,8 +152,6 @@ public class VolunteerProfile extends AppCompatActivity {
                                         }
                                     });
                         }
-                        else
-                            Toast.makeText(VolunteerProfile.this,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

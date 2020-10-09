@@ -103,7 +103,7 @@ public class SplashScreen extends AppCompatActivity {
         },1000);
 
 
-        Toast.makeText(SplashScreen.this,"" +flag1 + flag2,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(SplashScreen.this,"" +flag1 + flag2,Toast.LENGTH_SHORT).show();
 
     }
 

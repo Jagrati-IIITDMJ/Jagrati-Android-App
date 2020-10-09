@@ -59,7 +59,7 @@ public class PastAttendanceRecyclerAdapter extends RecyclerView.Adapter<PastAtte
 
             StorageReference storageReference = FirebaseStorage.getInstance().getReference();
             if (student.getStudent_dp() != null) {
-                Toast.makeText(context,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
                 final long FIVE_MEGABYTE = 5 * 1024 * 1024;
                 Bitmap bitmap = null;
                 storageReference.child("students/" + student.getRollno() + ".jpg")
@@ -67,7 +67,7 @@ public class PastAttendanceRecyclerAdapter extends RecyclerView.Adapter<PastAtte
                         .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override
                             public void onSuccess(byte[] bytes) {
-                                Toast.makeText(context,"sb mst h",Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(context,"sb mst h",Toast.LENGTH_SHORT).show();
                                 Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 holder.student_dp.setImageBitmap(bm);
                             }
@@ -79,8 +79,8 @@ public class PastAttendanceRecyclerAdapter extends RecyclerView.Adapter<PastAtte
                             }
                         });
             }
-            else
-                Toast.makeText(context,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
+            /*else
+                Toast.makeText(context,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();*/
 
             if (recordedAttendance2.get(position)) {
                 holder.attendanceChecker.setVisibility(View.VISIBLE);

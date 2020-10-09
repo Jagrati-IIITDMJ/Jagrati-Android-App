@@ -181,7 +181,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                     saveQuestion(ques);
                 }
                 else {
-                    Toast.makeText(QuestionAddPage.this,"sab dalo",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuestionAddPage.this,"Empty not allowed",Toast.LENGTH_SHORT).show();
                 }
             }
         });

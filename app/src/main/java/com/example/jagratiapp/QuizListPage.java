@@ -110,7 +110,7 @@ public class QuizListPage extends AppCompatActivity {
 
 
                 } else {
-                    Toast.makeText(QuizListPage.this, "Dalo nayi quiz", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuizListPage.this, "Enter new Quiz", Toast.LENGTH_SHORT).show();
                 }
                 quizListAdapter = new QuizListAdapter(QuizListPage.this, quizlist,classid);
                 recyclerView.setAdapter(quizListAdapter);

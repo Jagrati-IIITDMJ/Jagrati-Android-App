@@ -123,9 +123,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
 
 
-    private void findViews() {
 
-    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId())

@@ -61,12 +61,12 @@ public class login_page extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 if(TextUtils.isEmpty(emailEditText.getText().toString())){
-                    emailEditText.setError("kuch likh toh");
+                    emailEditText.setError("kripya kuch likhe");
                     emailEditText.requestFocus();
 
                 }
                 else if(TextUtils.isEmpty(passwordEditText.getText().toString())){
-                        passwordEditText.setError("Password papa dalenge");
+                        passwordEditText.setError("Password daalna na bhule");
                         passwordEditText.requestFocus();
                     }
                     else {
@@ -94,7 +94,7 @@ public class login_page extends AppCompatActivity{
 
         if (progressDialog == null){
             progressDialog = new ProgressDialog(this,R.style.MyAlertDialogStyle);
-            progressDialog.setMessage("Logging In .....");
+            progressDialog.setMessage("Logging In..");
             progressDialog.setIndeterminate(true);
             progressDialog.setCanceledOnTouchOutside(false);
         }
@@ -118,10 +118,10 @@ public class login_page extends AppCompatActivity{
                                 Toast.makeText(login_page.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
                             } else {
                                 
-                                Toast.makeText(login_page.this, "Babes you need to verify", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(login_page.this, "You need to verify", Toast.LENGTH_SHORT).show();
                             }
                         }else{
-                            Toast.makeText(login_page.this, "NULL hai boi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(login_page.this, "NULL", Toast.LENGTH_SHORT).show();
                         }
 
                     }

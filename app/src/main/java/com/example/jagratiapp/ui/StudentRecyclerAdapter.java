@@ -53,7 +53,7 @@ public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecycler
         holder.groupID = student.getGroupID();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         if (student.getStudent_dp() != null) {
-            Toast.makeText(context,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
             final long FIVE_MEGABYTE = 5 * 1024 * 1024;
             Bitmap bitmap = null;
             storageReference.child("students/" + student.getRollno() + ".jpg")
@@ -69,12 +69,11 @@ public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecycler
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context,"Kuch to gadabad h",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
         }
-        else
-            Toast.makeText(context,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
+
 
     }
 

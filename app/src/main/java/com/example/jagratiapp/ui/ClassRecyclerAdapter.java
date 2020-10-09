@@ -99,7 +99,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
                 intent.putExtra("class_name",classp);
                 context.startActivity(intent);
             }else {
-                Toast.makeText(context,"Null hai boi",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"classID Null",Toast.LENGTH_LONG).show();
             }
 
 
@@ -127,7 +127,7 @@ public class ClassRecyclerAdapter extends RecyclerView.Adapter<ClassRecyclerAdap
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Toast.makeText(context,position,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,position,Toast.LENGTH_SHORT).show();
 //            classesList.get(position).setClassName(className.getText().toString().trim());
 //            notifyItemChanged(position);
 //                FirebaseFirestore.getInstance().collection("Classes").document(classesList.get(position).getuId()).update("className",className.getText().toString().trim());

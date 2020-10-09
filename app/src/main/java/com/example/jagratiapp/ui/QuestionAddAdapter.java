@@ -224,7 +224,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
 
                         updateQuestion(ques);
                     } else {
-                        Toast.makeText(context, "sab dalo", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Enter everything", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

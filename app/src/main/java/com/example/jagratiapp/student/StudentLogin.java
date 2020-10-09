@@ -46,7 +46,7 @@ public class StudentLogin extends AppCompatActivity {
                 if (!TextUtils.isEmpty(username))
                     login(username);
                 else {
-                    Toast.makeText(StudentLogin.this,"Beta ji Roll no dalo",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentLogin.this,"Enter your roll number",Toast.LENGTH_SHORT).show();
                 }
             }
         });

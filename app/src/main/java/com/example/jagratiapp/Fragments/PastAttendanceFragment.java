@@ -102,9 +102,6 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
                                     studentsMap.put(documentSnapshot.getId(), student);
                                 }
                             }
-                            else {
-                                Toast.makeText(getContext(), "Kuch ni hain", LENGTH_SHORT).show();
-                            }
                         }
                     });
         }

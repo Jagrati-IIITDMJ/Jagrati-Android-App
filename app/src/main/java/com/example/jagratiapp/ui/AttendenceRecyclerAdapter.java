@@ -79,8 +79,8 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
                         }
                     });
         }
-        else
-            Toast.makeText(context,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
+       /* else
+            Toast.makeText(context,"",Toast.LENGTH_SHORT).show();*/
 
         if(!recordedAttendance.isEmpty()) {
             boolean attendanceState = recordedAttendance.get(student.getUid());

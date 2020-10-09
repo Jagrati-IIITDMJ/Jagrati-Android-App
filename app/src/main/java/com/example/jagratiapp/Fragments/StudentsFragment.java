@@ -251,7 +251,6 @@ public class StudentsFragment extends Fragment {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot != null) {
                                 className = documentSnapshot.getString("className");
-
                             }
                         }
                     }

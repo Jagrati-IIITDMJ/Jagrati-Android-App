@@ -22,7 +22,7 @@ public class StartPage extends AppCompatActivity {
         setContentView(R.layout.activity_start_page);
         View decorView = getWindow().getDecorView();
 
-        Toast.makeText(StartPage.this,"Start Page",Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(StartPage.this,"Start Page",Toast.LENGTH_SHORT).show();
 
         int uiOptions =
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
