@@ -19,7 +19,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="#A75700"
         android:theme="@style/ToolbarTheme"
-        android:elevation="10dp"/>
+        android:elevation="10dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/student_quiz_solution_recycler_view"

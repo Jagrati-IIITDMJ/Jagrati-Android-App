@@ -124,7 +124,7 @@ public class AttendanceFragment extends Fragment implements AttendenceRecyclerAd
                     Iterator it = recordedAttendance.entrySet().iterator();
                     while(it.hasNext()) {
                         Map.Entry obj = (Map.Entry)it.next();
-                        Toast.makeText(getContext(),obj.getKey().toString() + " " + obj.getValue(), LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(),obj.getKey().toString() + " " + obj.getValue(), LENGTH_SHORT).show();
                         documentReference.collection("Attendance").document(formattedDate).update(obj.getKey().toString(),obj.getValue());
                     }
                 }

@@ -21,6 +21,7 @@
             app:titleTextColor="#A75700"
             android:theme="@style/ToolbarTheme"
             android:elevation="10dp"
+
             />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/quiz_class_recyclerview"

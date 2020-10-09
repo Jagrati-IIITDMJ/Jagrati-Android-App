@@ -15,7 +15,8 @@
         android:background="@color/appbar"
         android:fitsSystemWindows="true"
         android:theme="@style/ToolbarTheme"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        >
 <!--        android:theme="@style/AppTheme.AppBarOverlay"-->
 
 

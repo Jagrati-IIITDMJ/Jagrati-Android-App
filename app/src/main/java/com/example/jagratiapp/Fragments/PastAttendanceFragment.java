@@ -185,7 +185,7 @@ public class PastAttendanceFragment extends Fragment implements DatePickerDialog
                             pastAttendenceAdapter = new PastAttendanceRecyclerAdapter(getContext(),recordedAttendance,recordedAttendance2,studentsMap);
                             attendenceRecyclerView.setAdapter(pastAttendenceAdapter);
                             pastAttendenceAdapter.notifyDataSetChanged();
-                            Toast.makeText(getContext(),"there is no attendance record", LENGTH_SHORT).show();
+                           // Toast.makeText(getContext(),"there is no attendance record", LENGTH_SHORT).show();
                         }
                         else {
                                 recordedAttendance.clear();

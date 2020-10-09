@@ -75,7 +75,7 @@ public class PastAttendanceRecyclerAdapter extends RecyclerView.Adapter<PastAtte
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(context,"Kuch to gadabad h",Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(context,"Kuch to gadabad h",Toast.LENGTH_SHORT).show();
                             }
                         });
             }

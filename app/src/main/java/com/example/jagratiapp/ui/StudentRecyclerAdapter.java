@@ -61,7 +61,7 @@ public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecycler
                     .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {
-                            Toast.makeText(context,"sb mst h",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context,"sb mst h",Toast.LENGTH_SHORT).show();
                             Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             holder.student_dp.setImageBitmap(bm);
                         }

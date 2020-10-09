@@ -112,7 +112,6 @@ public class AttendenceRecyclerAdapter extends RecyclerView.Adapter<AttendenceRe
                             holder.attendanceChecker.setVisibility(View.INVISIBLE);
                         }
 
-
                     onStudentListener.onStudentClick(holder.getAdapterPosition(), state);
 
 
