@@ -150,7 +150,7 @@
                 android:id="@+id/saveques_popup"
                 android:layout_width="match_parent"
                 android:background="@drawable/rectangle"
-                android:backgroundTint="#0FEF0F"
+                android:backgroundTint="#FFFFC585"
                 android:layout_height="wrap_content"
                 android:text="@string/addQues"
                 android:textSize="14sp"

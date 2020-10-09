@@ -56,7 +56,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:text="Solution"
                     android:textColor="#000000"
-                    android:backgroundTint="#F17E01"
+                    android:backgroundTint="#FFF17E01"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:background="@drawable/rectangle"/>
@@ -69,7 +69,7 @@
                     android:layout_margin="20dp"
                     android:layout_marginHorizontal="20dp"
                     android:textColor="#000000"
-                    android:backgroundTint="#FCB76B"
+                    android:backgroundTint="#FFFFC585"
                     android:text="Back"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -30,10 +30,9 @@
                 android:padding="8dp"
                 android:textColorHint="@color/black_overlay"
                 android:textColor="#000000"
-                android:background="@drawable/rectangle"
+                android:background="@drawable/border"
                 android:autofillHints="none"
                 android:hint="@string/hint"
-                android:backgroundTint="#fffff0"
 
 
                 android:inputType="textAutoCorrect" />
@@ -53,7 +52,7 @@
                 android:textSize="14sp"
                 android:layout_weight="1"
                 android:background="@drawable/rectangle"
-                android:backgroundTint="#0FEF0F"
+                android:backgroundTint="#FFFFC585"
                 android:layout_margin="8dp"
 
                 android:textStyle="bold" />
@@ -66,7 +65,7 @@
                    android:layout_margin="8dp"
                    android:text="@string/cancel"
                    android:layout_weight="1"
-                   android:backgroundTint="#F10142"
+                   android:backgroundTint="#FFF17E01"
                    android:textSize="14sp"
                    android:textStyle="bold"
                    />

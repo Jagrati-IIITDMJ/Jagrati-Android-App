@@ -50,7 +50,9 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        findViews();
+
+        classes = findViewById(R.id.classes);
+        quizzes = findViewById(R.id.quiz);
         MaterialToolbar toolbar = findViewById(R.id.attendance_toolbar);
         setSupportActionBar(toolbar);
 
@@ -97,10 +99,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomePage.this, Classes_page.class);
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        HomePage.this, classes, ViewCompat.getTransitionName(classes)
-                );
-                startActivity(intent, options.toBundle());
+//                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                        HomePage.this, classes, ViewCompat.getTransitionName(classes)
+//                );
+                startActivity(intent);
             }
         });
 
@@ -123,12 +125,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     private void findViews() {
 
-        classes = findViewById(R.id.classes);
-        quizzes = findViewById(R.id.quiz);
-
-
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId())

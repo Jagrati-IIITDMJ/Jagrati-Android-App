@@ -23,9 +23,9 @@
     <string name="n_npast_attendance">\n\npast Attendance</string>
     <string name="n_nattendance">\n\nAttendance</string>
     <string name="we_lift_by_lifting_others">We rise by lifting others</string>
-    <string name="attendance">Attendence</string>
+    <string name="attendance">Attendence\n and\n Students</string>
     <string name="classes">Classes</string>
-    <string name="n">pending</string>
+    <string name="info">Info</string>
     <string name="past_attendance">Students</string>
     <string name="Group">Group One</string>
     <string name="enter_group_name">Enter Group name</string>
@@ -48,7 +48,7 @@
     <string name="profile">profile</string>
     <string name="cancel">cancel</string>
     <string name="hint1">Group</string>
-    <string name="you_are_about_to_sign_out_nare_you_sure">You are about to sign out\n Are your Sure??</string>
+    <string name="you_are_about_to_sign_out_nare_you_sure">Sure about sign out??</string>
     <string name="no">no</string>
     <string name="yes">yes</string>
     <string name="submit">submit</string>
@@ -64,4 +64,7 @@
     <string name="jg">\nJagrati</string>
     <string name="hint_quizTime">Enter Time (In minutes)</string>
     <string name="profile_dp">Profile DP</string>
+    <string name="scheduling">Volunteer\n Scheduling</string>
+    <string name="delete_popup_warning">Are you sure for deleting this ?</string>
+    <string name="n">Study Material</string>
 </resources>

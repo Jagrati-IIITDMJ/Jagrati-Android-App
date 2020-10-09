@@ -232,7 +232,7 @@ public class Classes_page extends AppCompatActivity {
             yes = view.findViewById(R.id.confirm_delete);
             no= view.findViewById(R.id.cancel_delete);
             warningMessage = view.findViewById(R.id.warning_delete);
-            warningMessage.setText("You want to delete " + name +" Are your sure you want to delete confirm it   ");
+            warningMessage.setText("You want to delete " + name +" ?");
             builder.setView(view);
             dialog = builder.create();
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

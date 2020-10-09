@@ -58,29 +58,27 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/attendance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/ic_main_student"
-                android:text="@string/attendance"
-                android:textSize="12sp"
-                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-                android:textStyle="bold"
-                android:textColor="#000000"/>
-
-            <Button
                 android:id="@+id/classes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:transitionName="classt"
-                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
 
-                android:background="@drawable/ic_main_classes"
-                android:text="@string/classes"
-                android:textSize="12sp"
+                android:background="@drawable/ic_main_student"
+                android:text="@string/attendance"
                 android:textColor="#000000"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/quiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/ic_main_classes"
+                android:text="@string/quiz"
+                android:textColor="#000000"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -90,19 +88,19 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/quiz"
+                android:id="@+id/volunteer_scheduling"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@drawable/ic_main_pass"
-                android:text="@string/quiz"
+                android:text="@string/scheduling"
                 style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
                 android:textSize="12sp"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/empty"
+                android:id="@+id/study_material"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"

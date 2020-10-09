@@ -6,7 +6,7 @@
         android:gradientRadius="50dp"
         android:startColor="#ffffff"
         android:type="radial" />
-    <solid android:color="#0FEF0F" />
+    <solid android:color="#FFFFC585" />
     #0FEF0
     <corners android:radius="10dp" />
     <padding
