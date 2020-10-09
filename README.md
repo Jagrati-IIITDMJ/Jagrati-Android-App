@@ -11,3 +11,8 @@ The android app lets you:
 - Quiz can created through the app for a particular class.
 - Student enrolled in that particular class can give the quiz, details of answer submitted are given in student profile.
 
+# Contributing Guidelines
+
+- Fork the repo and clone it to your local machine.
+
+
