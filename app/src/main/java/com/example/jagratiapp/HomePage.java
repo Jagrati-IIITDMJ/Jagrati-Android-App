@@ -6,11 +6,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,16 +25,24 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.jagratiapp.Util.VolunteerAPI;
+import com.example.jagratiapp.model.Volunteer;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    private Button classes;
-    private Button quizzes;
+    private MaterialCardView classes;
+    private MaterialCardView quizzes;
     private FirebaseAuth.AuthStateListener authStateListener;
     private DrawerLayout drawer;
     private AlertDialog dialog;
@@ -44,6 +54,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference collectionReference = db.collection("User");
+    DocumentReference documentReference = db.collection("User").document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -62,6 +76,19 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         drawer = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        final View headerLayout = navigationView.getHeaderView(0);
+        final TextView name = headerLayout.findViewById(R.id.nav_header_name);
+
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                name.setText( documentSnapshot.getString("username"));
+
+            }
+        });
+
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
@@ -130,14 +157,16 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         {
             case R.id.profile_nav:
                 startActivity(new Intent(HomePage.this,VolunteerProfile.class));
+                drawer.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.sign_out_nav:
                 createSignOutPop();
+                drawer.closeDrawer(GravityCompat.START);
                 break;
         }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+
+        return false;
     }
 
     private void createSignOutPop() {
@@ -198,6 +227,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 }, 2000);
             }
     }
+
+
 
     @Override
     protected void onStop() {

@@ -11,10 +11,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+
+
+        >
 
         <activity
-            android:name=".StudentHolderActivity"/>
+            android:name=".StudentHolderActivity"
+            />
         <activity android:name=".student.QuestionsPage"/>
         <activity android:name=".QuestionAddPage"/>
         <activity android:name=".student.StudentQuizListPage"/>
@@ -59,6 +63,10 @@
              />
         <activity android:name=".student.SolutionPage"
             />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 

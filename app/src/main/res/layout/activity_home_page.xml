@@ -9,22 +9,25 @@
     android:layout_gravity="start"
     tools:openDrawer="start"
     tools:context=".HomePage"
-    android:theme="@style/AppTheme.NoActionBar"
-        >
+    android:theme="@style/AppTheme.NoActionBar">
 
     <include
         layout="@layout/home_page"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:itemIconTint="#F17E01"
-        app:menu="@menu/menu" />
+        app:headerLayout="@layout/main_header_nav"
+        app:menu="@menu/menu"/>
+
+
+
 </androidx.drawerlayout.widget.DrawerLayout>

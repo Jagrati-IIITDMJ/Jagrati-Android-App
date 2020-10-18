@@ -77,7 +77,7 @@ public class VolunteerProfile extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
 // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this,R.color.appbar));
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.pr));
 
         findViews();
         MaterialToolbar toolbar = findViewById(R.id.volunteer_dp_toolbar);
@@ -92,6 +92,8 @@ public class VolunteerProfile extends AppCompatActivity {
         save.setVisibility(View.GONE);
         cancel.setVisibility(View.GONE);
         error.setVisibility(View.GONE);
+
+
 
 
         firebaseAuth = FirebaseAuth.getInstance();

@@ -5,6 +5,7 @@
     tools:showIn="navigation_view"
     >
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/profile_nav"
             android:icon="@drawable/ic_baseline_person_24"

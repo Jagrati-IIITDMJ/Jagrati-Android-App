@@ -23,7 +23,7 @@
     <string name="n_npast_attendance">\n\npast Attendance</string>
     <string name="n_nattendance">\n\nAttendance</string>
     <string name="we_lift_by_lifting_others">We rise by lifting others</string>
-    <string name="attendance">Attendence\n and\n Students</string>
+    <string name="attendance">Attendence\nand\nStudents</string>
     <string name="classes">Classes</string>
     <string name="info">Info</string>
     <string name="past_attendance">Students</string>
@@ -35,7 +35,7 @@
     <string name="saveClass">Save Class</string>
     <string name="Class">Class One</string>
     <string name="checker">checker</string>
-    <string name="quiz">quiz</string>
+    <string name="quiz">Quiz</string>
     <string name="addQuiz">Add Quiz</string>
     <string name="enter_quiz_detail">"Enter name and description "</string>
     <string name="hint_quizName">Enter Quiz Name here</string>
@@ -44,7 +44,7 @@
     <string name="volunteer_login">Volunteer Login</string>
     <string name="add">add</string>
     <string name="there_must_be_something">theari \'aspdoifjn \'oidsa</string>
-    <string name="log_out">log out</string>
+    <string name="log_out">Log Out</string>
     <string name="profile">profile</string>
     <string name="cancel">cancel</string>
     <string name="hint1">Group</string>
@@ -52,7 +52,7 @@
     <string name="no">no</string>
     <string name="yes">yes</string>
     <string name="submit">submit</string>
-    <string name="your_profile">your profile</string>
+    <string name="your_profile">My Profile</string>
     <string name="draweropen">Drawer open</string>
     <string name="drawerclosed">Drawer Closed</string>
     <string name="title_activity_student_holder">StudentHolderActivity</string>
@@ -64,7 +64,12 @@
     <string name="jg">\nJagrati</string>
     <string name="hint_quizTime">Enter Time (In minutes)</string>
     <string name="profile_dp">Profile DP</string>
-    <string name="scheduling">Volunteer\n Scheduling</string>
+    <string name="scheduling">Schedule</string>
     <string name="delete_popup_warning">Are you sure for deleting this ?</string>
     <string name="n">Study Material</string>
+    <string name="class_pic">Class Pic</string>
+
+    <string name="schedule">Schedule</string>
+    <string name="books">Books</string>
+    <string name="study_material">Study\nMaterial</string>
 </resources>

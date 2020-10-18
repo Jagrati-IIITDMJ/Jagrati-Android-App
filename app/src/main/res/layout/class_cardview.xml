@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:elevation="0dp"
             app:cardCornerRadius="20dp"
-            app:strokeWidth="2dp"
+            app:strokeWidth="1dp"
             app:strokeColor="#000000"            >
 
                 <EditText

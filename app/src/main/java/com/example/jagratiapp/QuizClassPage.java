@@ -1,9 +1,12 @@
 package com.example.jagratiapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +32,7 @@ public class QuizClassPage extends AppCompatActivity {
     private RecyclerView quizClassRecyclerView;
     private List<Classes> classesList;
     private QuizClassAdapter quizClassAdapter;
+    private Context ctx;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference = db.collection("Classes");
@@ -37,6 +41,8 @@ public class QuizClassPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_class_page);
+
+        ctx =  this;
 
         Window window = getWindow();
         // clear FLAG_TRANSLUCENT_STATUS flag:
@@ -75,7 +81,11 @@ public class QuizClassPage extends AppCompatActivity {
                         classesList.add(classes);
                     }
                     quizClassAdapter = new QuizClassAdapter(QuizClassPage.this, classesList);
+                    LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(ctx,
+                            R.anim.layout_animation_fall_down);
+                    quizClassRecyclerView.setLayoutAnimation(controller);
                     quizClassRecyclerView.setAdapter(quizClassAdapter);
+                    quizClassRecyclerView.scheduleLayoutAnimation();
                 } else {
                     Toast.makeText(QuizClassPage.this, "It's noting there", Toast.LENGTH_SHORT).show();
                 }

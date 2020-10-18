@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AppTheme.NoActionBar"
     >
-
     <include
         android:id="@+id/include3"
         layout="@layout/background_activity" />
+
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/attendance_toolbar"
@@ -21,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Volunteer"
         app:titleTextColor="#A75700"
+        android:background="@color/appbar"
 
         >
 
@@ -31,14 +34,12 @@
         android:id="@+id/home_page_logo"
         android:layout_width="210dp"
         android:layout_height="146dp"
-        android:layout_marginBottom="12dp"
         android:contentDescription="@string/jagrati_logo"
         android:transitionName="splash_logo"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/attendance_toolbar"
         app:srcCompat="@drawable/jagrati_logo" />
 
     <LinearLayout
@@ -49,7 +50,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/home_page_logo"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
 
@@ -57,29 +59,99 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/classes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="132dp"
+
+                android:layout_height="175dp"
                 android:layout_margin="16dp"
+                android:background="@color/white"
+                android:elevation="4dp"
+                android:theme="@style/ShapeAppearanceOverlay.App.Card.Media"
+                app:cardCornerRadius="@dimen/card_corner"
+                app:strokeColor="#000000"
+                app:strokeWidth="0.5dp">
 
-                android:background="@drawable/ic_main_student"
-                android:text="@string/attendance"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <Button
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_hat"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.507"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.18"
+                        android:contentDescription="@string/class_pic" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/attendance"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="16sp"
+                        android:textColor="#C66300"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.9" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/quiz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/ic_main_classes"
-                android:text="@string/quiz"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:layout_width="132dp"
+
+                android:layout_height="175dp"
+                android:layout_margin="16dp"
+                android:background="@color/white"
+                android:elevation="4dp"
+                android:theme="@style/ShapeAppearanceOverlay.App.Card.Media"
+                app:cardCornerRadius="@dimen/card_corner"
+                app:strokeColor="#000000"
+                app:strokeWidth="0.5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_pc"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.507"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.18"
+                        android:contentDescription="@string/quiz" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/quiz"
+                        android:textColor="#C66300"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/roboto_medium"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.76" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
         <LinearLayout
@@ -87,27 +159,103 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/volunteer_scheduling"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/ic_main_pass"
-                android:text="@string/scheduling"
-                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-                android:textSize="12sp"
-                android:textColor="#000000"
-                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/study_material"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="132dp"
+
+                android:layout_height="175dp"
                 android:layout_margin="16dp"
-                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-                android:background="@drawable/ic_main_empty"
-                android:textColor="#000000"
-                android:text="Study Material" />
+                android:background="@color/white"
+                android:elevation="4dp"
+                android:theme="@style/ShapeAppearanceOverlay.App.Card.Media"
+                app:cardCornerRadius="@dimen/card_corner"
+                app:strokeColor="#000000"
+                app:strokeWidth="0.5dp"
+
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_clock"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.507"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.18"
+                        android:contentDescription="@string/schedule" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:text="@string/scheduling"
+                        android:textColor="#C66300"
+                        android:fontFamily="@font/roboto_medium"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.82" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/study_material"
+                android:layout_width="132dp"
+
+                android:layout_height="175dp"
+                android:layout_margin="16dp"
+                android:background="@color/white"
+                android:elevation="4dp"
+                android:theme="@style/ShapeAppearanceOverlay.App.Card.Media"
+                app:cardCornerRadius="@dimen/card_corner"
+                app:strokeColor="#000000"
+                app:strokeWidth="0.5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_books"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.507"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.18"
+                        android:contentDescription="@string/books" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="@string/study_material"
+                        android:textSize="16sp"
+                        android:textColor="#C66300"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.9" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
 
         </LinearLayout>
@@ -115,33 +263,6 @@
 
     </LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="185dp"
-        android:layout_height="145dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_welift"
-        android:contentDescription="@string/we_lift_by_lifting_others"/>
-
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/we_lift_by_lifting_others"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

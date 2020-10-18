@@ -18,7 +18,7 @@
 <!--        &lt;!&ndash; Customize color of navigation drawer icon and back arrow &ndash;&gt;-->
 <!--        <item name="colorControlNormal">#A75700</item>-->
 <!--    </style>-->
-    <style name="AppThemeM" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppThemeM" parent="Theme.MaterialComponents.Light.DarkActionBar" >
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -30,6 +30,7 @@
         <item name="android:statusBarColor">@color/appbar</item>
         <item name="boxStrokeColor">@color/appbar</item>
         <item name="boxStrokeWidth">1dp</item>
+
         <item name="colorOnPrimary">@color/appbar</item>
 
 

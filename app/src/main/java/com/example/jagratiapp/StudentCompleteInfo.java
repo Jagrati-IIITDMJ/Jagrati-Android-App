@@ -122,8 +122,12 @@ public class StudentCompleteInfo extends AppCompatActivity {
 
         MaterialToolbar toolbar = findViewById(R.id.student_info_complete_toolbar);
         setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbar_layout);
-        toolbarLayout.setTitle(getTitle());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        toolbar.setTitle("Student Info");
+
 
         Bundle bundle = getIntent().getExtras();
         classID = bundle.getString("classID");
