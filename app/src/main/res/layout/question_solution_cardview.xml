@@ -1,45 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp"
+    android:orientation="vertical">
+
 
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            app:cardCornerRadius="8dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <TextView
                 android:id="@+id/correct_answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Correct Answer"
-                android:textSize="24dp"
-                android:textStyle="italic" />
-        </androidx.cardview.widget.CardView>
+                android:textSize="16sp"
+
+                />
+
 
             <TextView
                 android:id="@+id/question"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
-                android:textSize="24sp"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:text="Question"
+                android:textSize="16sp"
                 android:textColor="#000000"
                 />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <RadioButton
-
                 android:id="@+id/optionA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
-                android:textSize="24sp"
+                android:text="Option A"
+                android:textSize="16dp"
                 android:layout_margin="8dp"
 
                 android:textColor="@color/black_overlay"/>
@@ -48,8 +67,8 @@
                 android:id="@+id/optionB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
-                android:textSize="24sp"
+                android:text="Option B"
+                android:textSize="16dp"
                 android:layout_margin="8dp"
 
                 android:textColor="@color/black_overlay"/>
@@ -58,8 +77,8 @@
                 android:id="@+id/optionC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
-                android:textSize="24sp"
+                android:text="Option C"
+                android:textSize="16dp"
                 android:layout_margin="8dp"
 
                 android:textColor="@color/black_overlay"/>
@@ -68,13 +87,15 @@
                 android:id="@+id/optionD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sa;kfdjh;kajsdghlijasdsafasdfjksadfhljk0"
-                android:textSize="24sp"
+                android:text="Option D"
+                android:textSize="16dp"
                 android:layout_margin="8dp"
 
                 android:textColor="@color/black_overlay"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
 
-    </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+
+</LinearLayout>

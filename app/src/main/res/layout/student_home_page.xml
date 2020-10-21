@@ -12,7 +12,9 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/student_toolbar"
         android:layout_width="match_parent"
+        android:background="@color/appbar"
         android:layout_height="60dp"
+        android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,47 +40,107 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/student_quiz"
+            android:layout_width="132dp"
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:layout_height="175dp"
+            android:layout_margin="16dp"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:theme="@style/ShapeAppearanceOverlay.App.Card.Media"
+            app:cardCornerRadius="@dimen/card_corner"
+            app:strokeColor="#000000"
+            app:strokeWidth="0.5dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/student_quiz"
-                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/ic_main_pass"
-                android:text="@string/quiz"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_pc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.507"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.18"
+                    android:contentDescription="@string/class_pic" />
 
-            <Button
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/quiz"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="16sp"
+                    android:textColor="#C66300"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.9" />
 
-                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/ic_main_empty"
-                android:text="@string/info"
-                android:textColor="#000000" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
 
-        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/shome_info"
+
+            android:layout_width="132dp"
+
+            android:layout_height="175dp"
+            android:layout_margin="16dp"
+            android:background="@color/white"
+            android:elevation="4dp"
+            android:theme="@style/ShapeAppearanceOverlay.App.Card.Media"
+            app:cardCornerRadius="@dimen/card_corner"
+            app:strokeColor="#000000"
+            app:strokeWidth="0.5dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_hat"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.507"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.18"
+                    android:contentDescription="@string/class_pic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/info"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="16sp"
+                    android:textColor="#C66300"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.9" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
 
 
     </LinearLayout>
@@ -88,14 +150,13 @@
         android:id="@+id/imageView3"
         android:layout_width="185dp"
         android:layout_height="145dp"
+        android:contentDescription="@string/we_lift_by_lifting_others"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_welift"
-        android:contentDescription="@string/we_lift_by_lifting_others"/>
-
+        app:layout_constraintVertical_bias="0.179"
+        app:srcCompat="@drawable/ic_welift" />
 
     <TextView
         android:id="@+id/textView"

@@ -57,13 +57,13 @@ public class VolunteerProfile extends AppCompatActivity {
     private Uri filePath;
 
 
-    FirebaseAuth firebaseAuth ;
-    FirebaseUser currentUser;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference collectionReference = db.collection("User");
-    DocumentReference documentReference = db.collection("User").document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
-    FirebaseStorage storage;
-    StorageReference storageReference;
+    private FirebaseAuth firebaseAuth ;
+    private FirebaseUser currentUser;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference collectionReference = db.collection("User");
+    private DocumentReference documentReference = db.collection("User").document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -344,8 +344,8 @@ public class VolunteerProfile extends AppCompatActivity {
         cancel = findViewById(R.id.vcancel);
         edit = findViewById(R.id.vedit);
         error = findViewById(R.id.verror);
-        student_upload_dp = findViewById(R.id.student_info_upload_dp);
-        student_dp = findViewById(R.id.student_dp);
+        student_upload_dp = findViewById(R.id.volunteer_info_upload_dp);
+        student_dp = findViewById(R.id.volunteer_dp);
 
     }
 
