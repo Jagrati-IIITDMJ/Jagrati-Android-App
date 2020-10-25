@@ -8,6 +8,7 @@ public class Question {
     private String option4;
     private String correctOption;
     private String questionId;
+    private String questionUri;
 
     public Question(String question, String option1, String option2, String option3, String option4, String correctOption,String questionId) {
         this.question = question;
@@ -17,6 +18,20 @@ public class Question {
         this.option4 = option4;
         this.correctOption = correctOption;
         this.questionId = questionId;
+    }
+
+    public Question(String correctOption, String questionId, String questionUri) {
+        this.correctOption = correctOption;
+        this.questionId = questionId;
+        this.questionUri = questionUri;
+    }
+
+    public String getQuestionUri() {
+        return questionUri;
+    }
+
+    public void setQuestionUri(String questionUri) {
+        this.questionUri = questionUri;
     }
 
     public Question(){}

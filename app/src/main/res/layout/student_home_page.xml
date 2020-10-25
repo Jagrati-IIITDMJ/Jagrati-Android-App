@@ -23,18 +23,21 @@
 
 
     </androidx.appcompat.widget.Toolbar>
+
+
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="134dp"
-        android:layout_height="98dp"
-        android:layout_marginBottom="12dp"
+        android:layout_width="168dp"
+        android:layout_height="131dp"
+        android:layout_marginTop="88dp"
+        android:contentDescription="@string/jagrati_logo"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/jagrati_logo"
-        android:contentDescription="@string/jagrati_logo"
-        />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/jagrati_logo" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -43,8 +46,10 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.454">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/student_quiz"
@@ -66,23 +71,23 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/class_pic"
                     android:src="@drawable/ic_pc"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.507"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.18"
-                    android:contentDescription="@string/class_pic" />
+                    app:layout_constraintVertical_bias="0.18" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
                     android:gravity="center"
                     android:text="@string/quiz"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textSize="16sp"
                     android:textColor="#C66300"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -114,23 +119,23 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/class_pic"
                     android:src="@drawable/ic_hat"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.507"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.18"
-                    android:contentDescription="@string/class_pic" />
+                    app:layout_constraintVertical_bias="0.18" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
                     android:gravity="center"
                     android:text="@string/info"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textSize="16sp"
                     android:textColor="#C66300"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -141,10 +146,7 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-
-
     </LinearLayout>
-
 
     <ImageView
         android:id="@+id/imageView3"

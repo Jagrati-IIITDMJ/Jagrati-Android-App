@@ -28,6 +28,7 @@
             android:padding="8dp"
             app:cardCornerRadius="8dp"
             android:layout_margin="8dp">
+
             <TextView
                 android:id="@+id/QuesIn_ques_card"
                 android:layout_width="match_parent"
@@ -37,6 +38,11 @@
                 android:textSize="16dp"
                 android:textColor="#000000"
                 />
+
+            <ImageView
+                android:id="@+id/question_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView

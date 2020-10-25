@@ -23,4 +23,5 @@
         android:fitsSystemWindows="true"
         app:itemIconTint="#F17E01"
         app:menu="@menu/student_menu" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

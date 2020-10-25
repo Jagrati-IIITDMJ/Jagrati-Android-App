@@ -50,8 +50,6 @@ public class StudentHomePage extends AppCompatActivity {
 // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.appbar));
 
-
-
         drawer = findViewById(R.id.student_drawer_layout);
         NavigationView navigationView = findViewById(R.id.student_nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
