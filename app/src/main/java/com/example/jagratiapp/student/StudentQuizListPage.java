@@ -61,6 +61,18 @@ public class StudentQuizListPage extends AppCompatActivity {
 
 
         decorView.setSystemUiVisibility(uiOptions);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 //        Toast.makeText(StudentQuizListPage.this,StudentAPI.Instance().getClassUid(),Toast.LENGTH_SHORT).show();
         collectionReference = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Quizzes");
         recyclerView = findViewById(R.id.student_quiz_list_recyclerview);

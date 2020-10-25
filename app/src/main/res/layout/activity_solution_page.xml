@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".student.SolutionPage">
+    tools:context=".student.SolutionPage"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/solutionPagetool"
@@ -14,9 +14,6 @@
         android:background="@color/appbar"
         android:layout_height="60dp"
         app:title="Solution"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="#A75700"
         android:theme="@style/ToolbarTheme"
         android:elevation="10dp"
@@ -25,12 +22,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/student_quiz_solution_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/solutionPagetool"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_height="match_parent"
+         />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -107,7 +107,7 @@ public class Classes_page extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    finish();
+                finish();
             }
         });
 

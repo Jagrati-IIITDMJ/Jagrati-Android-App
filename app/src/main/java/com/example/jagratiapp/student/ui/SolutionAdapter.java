@@ -52,12 +52,23 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
                 },
                 new int[]{
                         Color.DKGRAY
-                        , rgb(128, 0, 0),
+                        , rgb(255, 0, 0),
                 }
         );
 
-        String answer = "";
+        ColorStateList correctStateList = new ColorStateList(
+                new int[][]{
+                        new int[]{-android.R.attr.state_checked},
+                        new int[]{android.R.attr.state_checked}
+                },
+                new int[]{
+                        Color.DKGRAY
+                        , rgb(0, 128, 0),
+                }
+        );
+
         Question question = questonList.get(position);
+        String answer = question.getCorrectOption();
 //        Toast.makeText(context,question.getQuestionId(),Toast.LENGTH_SHORT).show();
         holder.question.setText((++position) +". " +(question.getQuestion()));
         holder.optionA.setText(question.getOption1());
@@ -71,20 +82,31 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
 
         String correctAnswer = question.getCorrectOption();
 
-        if (correctAnswer.equals(question.getOption1()))
+        if (correctAnswer.equals(question.getOption1())) {
             holder.optionA.setChecked(true);
-        else if (correctAnswer.equals(question.getOption2()))
+            holder.optionA.setButtonTintList(correctStateList);
+        }
+        else if (correctAnswer.equals(question.getOption2())){
             holder.optionB.setChecked(true);
-        else if (correctAnswer.equals(question.getOption3()))
+            holder.optionB.setButtonTintList(correctStateList);
+        }
+
+        else if (correctAnswer.equals(question.getOption3())) {
             holder.optionC.setChecked(true);
+            holder.optionC.setButtonTintList(correctStateList);
+        }
         else if (correctAnswer.equals(question.getOption4()))
+        {
             holder.optionD.setChecked(true);
+            holder.optionD.setButtonTintList(correctStateList);
+        }
+
 
         if (answerMap != null && answerMap.containsKey(question.getQuestionId())) {
             answer = answerMap.get(question.getQuestionId());
             if (!correctAnswer.equals(answer)) {
                 holder.result.setText("Incorrect Answer");
-                holder.result.setTextColor(rgb(128, 0, 0));
+                holder.result.setTextColor(rgb(200, 0, 0));
                 if (answer.equals(question.getOption1())) {
                     holder.optionA.setChecked(true);
                     holder.optionA.setButtonTintList(colorStateList);
@@ -109,7 +131,7 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
         }
         else {
             holder.result.setText("Not Given");
-            holder.result.setTextColor(rgb(128, 0, 0));
+            holder.result.setTextColor(rgb(255, 0, 0));
         }
     }
 

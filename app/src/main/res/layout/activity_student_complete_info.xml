@@ -14,6 +14,7 @@
         android:layout_height="60dp"
         android:background="@color/appbar"
         app:title="Student Info"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -50,7 +51,8 @@
                     android:background="@color/transparent"
                     android:src="@drawable/ic_baseline_edit_24"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="Edit" />
 
                 <ImageButton
                     android:id="@+id/student_info_save"
@@ -63,7 +65,8 @@
                     android:src="@drawable/ic_tick"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="Save" />
 
 
                 <androidx.cardview.widget.CardView

@@ -127,6 +127,12 @@ public class StudentCompleteInfo extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         toolbar.setTitle("Student Info");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         Bundle bundle = getIntent().getExtras();
