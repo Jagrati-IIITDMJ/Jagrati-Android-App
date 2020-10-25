@@ -19,8 +19,18 @@
             android:padding="16dp"
             android:orientation="vertical">
 
-            <EditText
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/question_imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
+
+            <EditText
                 android:id="@+id/QuesIn_ques_card_popup"
                 android:layout_width="match_parent"
                 android:padding="8dp"
@@ -38,6 +48,8 @@
                 android:textColorHint="@color/black_overlay"
                 android:textSize="25sp"
                 android:autofillHints="Enter Question Here" />
+
+        </LinearLayout>
 
             <RadioGroup
                 android:id="@+id/add_question_radio_group"
@@ -155,6 +167,7 @@
                 android:text="@string/addQues"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
 
 
 
