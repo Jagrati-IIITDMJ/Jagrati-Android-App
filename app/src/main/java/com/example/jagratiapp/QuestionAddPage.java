@@ -1,18 +1,24 @@
 package com.example.jagratiapp;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -31,12 +37,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionAddPage extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int PICK_IMAGE_REQUEST =69;
     private String classid;
+    private ImageButton questionImage;
+    private Uri filePath;
     private EditText question;
     private EditText option1;
     private EditText option2;
@@ -140,6 +150,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.popup_add_question,null);
 
+        questionImage = view.findViewById(R.id.question_imageButton);
         question = view.findViewById(R.id.QuesIn_ques_card_popup);
         option1 = view.findViewById(R.id.Opt1In_ques_card_popup);
         option2 = view.findViewById(R.id.Opt2In_ques_card_popup);
@@ -192,6 +203,56 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+
+        questionImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage();
+            }
+        });
+
+
+    }
+    private void selectImage()
+    {
+        // Defining Implicit Intent to mobile gallery
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(
+                        intent,
+                        "Select Image from here..."),
+                PICK_IMAGE_REQUEST);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST
+                && resultCode == RESULT_OK
+                && data != null
+                && data.getData() != null) {
+
+            // Get the Uri of data
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore
+                        .Images
+                        .Media
+                        .getBitmap(
+                                getContentResolver(),
+                                filePath);
+
+               // uploadImage();
+//                imageView.setImageBitmap(bitmap);
+            }
+
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void saveQuestion(Question ques) {

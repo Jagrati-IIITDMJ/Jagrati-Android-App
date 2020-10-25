@@ -290,7 +290,6 @@ public class StudentCompleteInfo extends AppCompatActivity {
 
     private void selectImage()
     {
-
         // Defining Implicit Intent to mobile gallery
         Intent intent = new Intent();
         intent.setType("image/*");
