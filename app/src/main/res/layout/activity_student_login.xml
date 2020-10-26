@@ -7,8 +7,10 @@
     tools:context=".student.StudentLogin">
 
     <include
-        android:id="@+id/include7"
-        layout="@layout/login_ui" />
+
+        android:id="@+id/login_ui_student"
+        layout="@layout/login_ui"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -55,7 +57,8 @@
         android:id="@+id/svolunteer_login"
         android:layout_width="332dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="32dp"
+        android:textColor="#800020"
+        android:layout_marginBottom="4dp"
         android:background="@color/transparent"
         android:text="Login as Volunteer"
         app:layout_constraintBottom_toBottomOf="parent"

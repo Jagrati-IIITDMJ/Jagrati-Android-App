@@ -9,8 +9,10 @@
 
 
     <include
-        android:id="@+id/include6"
-        layout="@layout/login_ui" />
+        android:id="@+id/login_ui"
+        layout="@layout/login_ui"
+
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root"
@@ -110,7 +112,8 @@
         android:id="@+id/vstudent_login"
         android:layout_width="332dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="32dp"
+        android:textColor="#800020"
+        android:layout_marginBottom="4dp"
         android:background="@color/transparent"
         android:text="Login as Student"
         app:layout_constraintBottom_toBottomOf="parent"

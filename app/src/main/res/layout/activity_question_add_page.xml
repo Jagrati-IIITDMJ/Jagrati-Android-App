@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuestionAddPage">
+
     <include layout="@layout/background_activity" />
 
 
@@ -14,26 +15,25 @@
         android:orientation="vertical">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:layout_width="match_parent"
-            android:background="@color/appbar"
-            android:layout_height="60dp"
             android:id="@+id/quiz_add_toolbar"
-            app:titleTextColor="#A75700"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/appbar"
+            android:elevation="10dp"
             android:theme="@style/ToolbarTheme"
-            android:elevation="10dp"/>
+            app:titleTextColor="#A75700" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
 
-        android:id="@+id/quesAdd_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/quesAdd_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
-
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

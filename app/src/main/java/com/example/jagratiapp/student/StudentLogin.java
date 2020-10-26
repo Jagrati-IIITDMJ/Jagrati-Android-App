@@ -2,8 +2,10 @@ package com.example.jagratiapp.student;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.transition.Fade;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,8 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.example.jagratiapp.R;
+import com.example.jagratiapp.login_page;
 import com.example.jagratiapp.model.Students;
 import com.example.jagratiapp.student.Util.StudentAPI;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,6 +32,7 @@ public class StudentLogin extends AppCompatActivity {
     private EditText usernameEditText;
     private Button loginButton;
     private boolean state;
+    private Button login_switch;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference collectionReference = db.collection("Students");
@@ -36,8 +41,25 @@ public class StudentLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
 
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Fade fade = new Fade();
+          //  fade.excludeTarget(R.id.appBar, true);
+            fade.excludeTarget(android.R.id.statusBarBackground, true);
+            fade.excludeTarget(android.R.id.navigationBarBackground, true);
+
+            getWindow().setEnterTransition(fade);
+            getWindow().setExitTransition(fade);
+        }
+
+
         usernameEditText = findViewById(R.id.username_student_login);
         loginButton = findViewById(R.id.login_button_student_login);
+        login_switch = findViewById(R.id.svolunteer_login);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +69,22 @@ public class StudentLogin extends AppCompatActivity {
                     login(username);
                 else {
                     Toast.makeText(StudentLogin.this,"Enter your roll number",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        login_switch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StudentLogin.this,login_page.class);
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(StudentLogin.this,
+                        findViewById(R.id.login_ui_student),"login_switch");
+                startActivity(intent,optionsCompat.toBundle());
+                if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
+                    if (!isActivityTransitionRunning())
+                    {
+                        finishAffinity();
+                    }
                 }
             }
         });

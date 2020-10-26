@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.transition.Fade;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
+import com.example.jagratiapp.student.StudentLogin;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -30,16 +33,33 @@ public class login_page extends AppCompatActivity{
     private EditText emailEditText;
     private EditText passwordEditText;
     private ProgressDialog progressDialog;
+    private Button loginSwitch;
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser currentUser;
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
         findViews();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Fade fade = new Fade();
+            //  fade.excludeTarget(R.id.appBar, true);
+            fade.excludeTarget(android.R.id.statusBarBackground, true);
+            fade.excludeTarget(android.R.id.navigationBarBackground, true);
+
+            getWindow().setEnterTransition(fade);
+            getWindow().setExitTransition(fade);
+        }
+
+
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN
+                      | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(uiOptions);
+
 
         Toast.makeText(login_page.this,"login Page",Toast.LENGTH_SHORT).show();
 
@@ -61,12 +81,12 @@ public class login_page extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 if(TextUtils.isEmpty(emailEditText.getText().toString())){
-                    emailEditText.setError("kripya kuch likhe");
+                    emailEditText.setError("Empty Field Not Allowed");
                     emailEditText.requestFocus();
 
                 }
                 else if(TextUtils.isEmpty(passwordEditText.getText().toString())){
-                        passwordEditText.setError("Password daalna na bhule");
+                        passwordEditText.setError("Enter Password");
                         passwordEditText.requestFocus();
                     }
                     else {
@@ -80,6 +100,23 @@ public class login_page extends AppCompatActivity{
             public void onClick(View view) {
                 startActivity(new Intent(login_page.this,signup_page.class));
                 finish();
+            }
+        });
+
+        loginSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(login_page.this, StudentLogin.class);
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(login_page.this,
+                        findViewById(R.id.login_ui),"login_switch");
+                startActivity(intent,optionsCompat.toBundle());
+                if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
+                    if (!isActivityTransitionRunning())
+                    {
+                        finishAffinity();
+                    }
+                }
+
             }
         });
 
@@ -143,15 +180,19 @@ public class login_page extends AppCompatActivity{
         forgetPasswordLogin = findViewById(R.id.forget_password_button_login);
         emailEditText = findViewById(R.id.login_email);
         passwordEditText = findViewById(R.id.login_password);
+        loginSwitch = findViewById(R.id.vstudent_login);
     }
 
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 
-    ////
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        firebaseAuth.addAuthStateListener(authStateListener);
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 
     public void hideProgressDialog() {
         if (progressDialog != null && progressDialog.isShowing()) {
