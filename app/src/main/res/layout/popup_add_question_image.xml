@@ -4,8 +4,7 @@
     android:id="@+id/layout_id_addQues"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/transparent">
+    android:orientation="vertical">
 
 
         <LinearLayout
@@ -18,9 +17,10 @@
             <ImageView
                 android:id="@+id/add_question_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="300dp"/>
 
                 <RadioGroup
+                    android:id="@+id/image_radio_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -29,35 +29,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="A"
-                        android:textSize="25dp"/>
+                        android:textSize="25dp" />
 
                     <RadioButton
                         android:id="@+id/B"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="B"
-                        android:textSize="25dp"/>
+                        android:textSize="25dp" />
 
                     <RadioButton
                         android:id="@+id/C"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="C"
-                        android:textSize="25dp"/>
+                        android:textSize="25dp" />
 
                     <RadioButton
                         android:id="@+id/D"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="D"
-                        android:textSize="25dp"/>
+                        android:textSize="25dp" />
 
 
                 </RadioGroup>
         </LinearLayout>
 
     <Button
-        android:id="@+id/saveques_popup"
+        android:id="@+id/image_saveques_popup"
         android:layout_width="match_parent"
         android:background="@drawable/rectangle"
         android:backgroundTint="#FFFFC585"
