@@ -81,7 +81,7 @@ public class QuizSolution extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()){
                             Map<String,String> answerList = (Map<String, String>) documentSnapshot.get("answerList");
-                            SolutionAdapter solutionAdapter = new SolutionAdapter(QuizSolution.this,questionList,answerList);
+                            SolutionAdapter solutionAdapter = new SolutionAdapter(QuizSolution.this,questionList,answerList,quizId);
                         }
                     }
                 })

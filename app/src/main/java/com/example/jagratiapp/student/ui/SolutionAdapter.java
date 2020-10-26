@@ -3,12 +3,16 @@ package com.example.jagratiapp.student.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatRadioButton;
@@ -16,21 +20,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Question;
+import com.example.jagratiapp.student.QuestionsPage;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 import java.util.Map;
 
 import static android.graphics.Color.rgb;
+import static android.graphics.Color.toArgb;
 
 public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHolder> {
     private List<Question> questonList;
     private Map<String,String> answerMap;
     private Context context;
+    private String quizId;
 
-    public SolutionAdapter(Context context,List<Question> questionList, Map<String, String> answerMap) {
+    public SolutionAdapter(Context context,List<Question> questionList, Map<String, String> answerMap,String quizId) {
         this.questonList = questionList;
         this.answerMap = answerMap;
         this.context = context;
+        this.quizId = quizId;
     }
 
     @NonNull
@@ -42,7 +54,7 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
 
     @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(@NonNull SolutionAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final SolutionAdapter.ViewHolder holder, int position) {
         AppCompatRadioButton rb;
         rb = new AppCompatRadioButton(context);
         ColorStateList colorStateList = new ColorStateList(
@@ -69,8 +81,31 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
 
         Question question = questonList.get(position);
         String answer = question.getCorrectOption();
-//        Toast.makeText(context,question.getQuestionId(),Toast.LENGTH_SHORT).show();
-        holder.question.setText((++position) +". " +(question.getQuestion()));
+
+        if (question.getQuestionUri() == null){
+            holder.question.setText((++position) +". " +(question.getQuestion()));
+            holder.questionImage.setVisibility(View.GONE);
+        }else {
+            holder.question.setVisibility(View.GONE);
+            final long FIVE_MEGABYTE = 5 * 1024 * 1024;
+            StorageReference storageReference  = FirebaseStorage.getInstance().getReference();
+            storageReference.child("quizzes/" + quizId + "/" + question.getQuestionUri())
+                    .getBytes(FIVE_MEGABYTE)
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            holder.questionImage.setImageBitmap(bm);
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+        }
         holder.optionA.setText(question.getOption1());
         holder.optionA.setClickable(false);
         holder.optionB.setText(question.getOption2());
@@ -142,6 +177,7 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView question;
+        private ImageView questionImage;
         private RadioButton optionA;
         private RadioButton optionB;
         private RadioButton optionC;
@@ -155,7 +191,7 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
             this.optionC = itemView.findViewById(R.id.optionC);
             this.optionD = itemView.findViewById(R.id.optionD);
             this.result = itemView.findViewById(R.id.correct_answer);
-
+            this.questionImage = itemView.findViewById(R.id.question_image_solution);
         }
     }
 }

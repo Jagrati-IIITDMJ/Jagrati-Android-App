@@ -122,7 +122,7 @@ public class SolutionPage extends AppCompatActivity {
                             }
                             //Toast.makeText(SolutionPage.this,answerMap.size() +" " + questionList.size() ,Toast.LENGTH_SHORT).show();
                         }
-                        solutionAdapter = new SolutionAdapter(SolutionPage.this,questionList,answerMap);
+                        solutionAdapter = new SolutionAdapter(SolutionPage.this,questionList,answerMap,quizId);
                         solutionRecyclerView.setAdapter(solutionAdapter);
                         solutionAdapter.notifyDataSetChanged();
                     }

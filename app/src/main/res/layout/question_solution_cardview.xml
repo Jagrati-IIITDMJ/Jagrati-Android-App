@@ -15,7 +15,7 @@
             android:padding="8dp"
             app:cardCornerRadius="8dp">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -31,13 +31,20 @@
 
             <TextView
                 android:id="@+id/question"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="Question"
                 android:textSize="16sp"
                 android:textColor="#000000"
                 />
+
+                <ImageView
+                    android:id="@+id/question_image_solution"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"/>
+
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
