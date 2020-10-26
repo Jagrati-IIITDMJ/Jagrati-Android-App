@@ -1,5 +1,6 @@
 package com.example.jagratiapp;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -75,6 +76,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_add_page);
 
+
         Window window = getWindow();
         // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -147,8 +149,8 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
 }
 
     private void addQuestionPopup() {
-        builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.popup_add_question,null);
+       builder = new AlertDialog.Builder(this,android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
+       View view = getLayoutInflater().inflate(R.layout.popup_add_question,null);
 
         questionImage = view.findViewById(R.id.question_imageButton);
         question = view.findViewById(R.id.QuesIn_ques_card_popup);
@@ -201,7 +203,8 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
 
         builder.setView(view);
         dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setTitle("Add Question");
+       dialog.getWindow();
         dialog.show();
 
         questionImage.setOnClickListener(new View.OnClickListener() {
