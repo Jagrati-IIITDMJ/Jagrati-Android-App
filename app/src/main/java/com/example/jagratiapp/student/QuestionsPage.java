@@ -1,6 +1,8 @@
 package com.example.jagratiapp.student;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.jagratiapp.QuestionAddPage;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.model.Quiz;
@@ -32,6 +36,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -70,6 +76,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private String q;
     private QuizReport quizReport;
     private long mTimeLeftInMillis;
+    private ImageView questionImage;
 
 
 
@@ -103,6 +110,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
         timeReference = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Quizzes").document(quizId);
 
+        questionImage = findViewById(R.id.question_image_student);
         mTextField = findViewById(R.id.text_view_countdown);
         question = findViewById(R.id.ques);
         optionA = findViewById(R.id.optionA_radio);
@@ -199,7 +207,32 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
     private void setQuestion(Question question2){
         radioGroup.clearCheck();
-        question.setText(question2.getQuestion());
+        if(question2.getQuestionUri()==null) {
+            questionImage.setVisibility(View.GONE);
+            question.setText(question2.getQuestion());
+        } else{
+            question.setVisibility(View.GONE);
+            final long FIVE_MEGABYTE = 5 * 1024 * 1024;
+            StorageReference storageReference  = FirebaseStorage.getInstance().getReference();
+            storageReference.child("quizzes/" + quizId + "/" + question2.getQuestionUri())
+                        .getBytes(FIVE_MEGABYTE)
+                        .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            @Override
+                            public void onSuccess(byte[] bytes) {
+                                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                questionImage.setImageBitmap(bm);
+                                Toast.makeText(QuestionsPage.this,"hai",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(QuestionsPage.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+        }
+
         optionA.setText(question2.getOption1());
         optionB.setText(question2.getOption2());
         optionC.setText(question2.getOption3());
