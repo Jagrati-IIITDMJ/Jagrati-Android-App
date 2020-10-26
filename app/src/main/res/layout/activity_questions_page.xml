@@ -6,30 +6,86 @@
     android:layout_height="match_parent"
     tools:context=".student.QuestionsPage">
 
-    <Button
-        android:id="@+id/next"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/include10"
+        layout="@layout/background_activity" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/quizToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/appbar"
+        android:elevation="10dp"
+        app:title="Quiz"
+        app:titleTextColor="#A75700"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rectangle"
+            android:backgroundTint="#B3F5AB"
+            android:text="SUBMIT"
+            android:textSize="12sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="56dp"
-        android:background="@drawable/rectangle"
-        android:backgroundTint="#F0A807"
-        android:text="next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="88dp"
+            android:id="@+id/text_view_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="00:00"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:elevation="8dp"
+            android:padding="20dp"
+            app:cardCornerRadius="24dp"
+         >
+
+            <TextView
+                android:id="@+id/ques"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="ques"
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
 
-    <Button
-        android:id="@+id/previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginBottom="56dp"
-        android:background="@drawable/rectangle"
-        android:backgroundTint="#F0A807"
-        android:text="previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <ImageView
+                android:id="@+id/question_image_student"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
+        </androidx.cardview.widget.CardView>
+
+
 
 
 
@@ -57,12 +113,7 @@
             android:onClick="checkButton"
             android:padding="16dp"
             android:text="Option A"
-            app:layout_constraintBottom_toTopOf="@+id/cardView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.073"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.317" />
+            />
 
 
         <RadioButton
@@ -75,12 +126,7 @@
             android:onClick="checkButton"
             android:padding="16dp"
             android:text="Option B"
-            app:layout_constraintBottom_toTopOf="@+id/cardView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.073"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.317" />
+           />
 
         <RadioButton
             android:id="@+id/optionC_radio"
@@ -92,12 +138,8 @@
             android:onClick="checkButton"
             android:padding="16dp"
             android:text="Option C"
-            app:layout_constraintBottom_toTopOf="@+id/cardView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.073"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.317" />
+            />
+
 
 
         <RadioButton
@@ -105,106 +147,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="88dp"
             android:background="@drawable/rectangle"
             android:buttonTint="#F17E01"
             android:onClick="checkButton"
             android:padding="16dp"
             android:text="Option D"
-            app:layout_constraintBottom_toTopOf="@+id/cardView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.073"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.317" />
-
-        <include
-            android:id="@+id/include10"
-            layout="@layout/background_activity" />
+        />
 
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/text_view_countdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="32dp"
-        android:text="00:00"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quizToolbar"
-        tools:ignore="MissingConstraints" />
+    </LinearLayout>
+    </ScrollView>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/quizToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/appbar"
-        android:elevation="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Quiz"
-        app:titleTextColor="#A75700">
-
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="end"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/rectangle"
-            android:backgroundTint="#B3F5AB"
-            android:text="SUBMIT"
-            android:textSize="12sp" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:elevation="8dp"
-        android:padding="20dp"
-        app:cardCornerRadius="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.213">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/ques"
+        <Button
+            android:id="@+id/previous"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="ques"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:layout_marginRight="30dp"
+            android:background="@drawable/rectangle"
+            android:backgroundTint="#F0A807"
+            android:text="previous" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/rectangle"
+            android:backgroundTint="#F0A807"
+            android:text="next" />
 
 
-        <ImageView
-            android:id="@+id/question_image_student"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:layout_constraintBottom_toTopOf="@+id/radio_group"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quizToolbar"
-            app:layout_constraintVertical_bias="0.363"
-            />
-
-
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

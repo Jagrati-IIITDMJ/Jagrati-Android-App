@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.example.jagratiapp.QuestionAddPage;
@@ -30,6 +31,7 @@ import com.example.jagratiapp.model.QuizReport;
 import com.example.jagratiapp.student.Util.StudentAPI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -100,10 +102,18 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.appbar));
 
+        Toolbar toolbar = findViewById(R.id.quizToolbar);
+
+
+
         quizId = getIntent().getStringExtra("quizId");
         collectionReference = db.collection("Classes").document(StudentAPI.Instance().getClassUid())
                                 .collection("Quizzes").document(quizId)
                                 .collection("Question");
+
+        String s = db.collection("Classes").document(StudentAPI.Instance().getClassUid())
+                .collection("Quizzes").document(quizId).get().toString();
+        toolbar.setTitle(s);
 
         collectionToSaveReport = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Groups")
                 .document(StudentAPI.Instance().getGroupUid()).collection("Students").document(StudentAPI.Instance().getRollno()).collection("Quizzes");
