@@ -1,6 +1,7 @@
 package com.example.jagratiapp;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -15,7 +16,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,15 +35,21 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.common.net.InternetDomainName;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class QuestionAddPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -70,6 +79,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     private QuestionAddAdapter questionAddAdapter;
     private String correctOption;
     private String quizName;
+    private RadioGroup imageRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -247,9 +257,8 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         .getBitmap(
                                 getContentResolver(),
                                 filePath);
-
-               // uploadImage();
-//                imageView.setImageBitmap(bitmap);
+                dialog.dismiss();
+                imagePopup(bitmap);
             }
 
             catch (IOException e) {
@@ -257,6 +266,87 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
             }
         }
     }
+
+    private void imagePopup(Bitmap bitmap){
+        ImageView questionImage;
+        Button saveQuestion;
+
+        final View view1 = getLayoutInflater().inflate(R.layout.popup_add_question_image,null);
+        builder.setView(view1);
+        dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        questionImage = view1.findViewById(R.id.add_question_image);
+        saveQuestion = view1.findViewById(R.id.image_saveques_popup);
+        imageRadioGroup = view1.findViewById(R.id.image_radio_group);
+        questionImage.setImageBitmap(bitmap);
+        saveQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveImageQuestion(view1);
+            }
+        });
+
+    }
+
+    private void saveImageQuestion(final View view1){
+        Question question = new Question();
+        int radioId = imageRadioGroup.getCheckedRadioButtonId();
+        RadioButton radioButton = view1.findViewById(radioId);
+        if (radioButton != null) {
+            Toast.makeText(QuestionAddPage.this, radioId + " " + radioButton.getText(), Toast.LENGTH_SHORT).show();
+            question.setCorrectOption(radioButton.getText().toString());
+            uploadImage(question);
+        }
+    }
+
+    private void uploadImage(final Question question)
+    {
+        if (filePath != null) {
+
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference();;
+            StorageReference ref = storageReference.child("quizzes/" + quizid + "/" + UUID.randomUUID().toString());
+
+            ref.putFile(filePath)
+                    .addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    String uri = String.valueOf(taskSnapshot.getUploadSessionUri());
+                                    Toast.makeText(QuestionAddPage.this,uri+"",Toast.LENGTH_SHORT).show();
+                                    progressDialog.setTitle("Profile Uploaded");
+                                    progressDialog.dismiss();
+                                    question.setQuestionUri(uri);
+                                    saveQuestion(question);
+                                }
+                            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+                            progressDialog.dismiss();
+//                            Toast.makeText(StudentCompleteInfo.this,"Failed " + e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
+                                }
+                            });
+        }
+    }
+
 
     private void saveQuestion(Question ques) {
         final Question q = ques;
@@ -268,7 +358,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         List<Question> newQuestionList = questionList;
                         q.setQuestionId(documentReference.getId());
                         newQuestionList.add(q);
-                        questionAddAdapter.notifyDataSetChanged();
+//                        questionAddAdapter.notifyDataSetChanged();
                         documentToAddNumOfQues.update("numberOfQues",newQuestionList.size());
 
             }
