@@ -42,7 +42,7 @@
             <ImageView
                 android:id="@+id/question_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="300dp"/>
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView

@@ -38,10 +38,11 @@
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
 
-<!--                <ImageButton-->
-<!--                    android:id="@+id/add_ques_cancel_button"-->
-<!--                    android:padding="8dp"-->
-<!--                    />-->
+                <ImageButton
+                    android:id="@+id/cancel_popup"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_cancel" />
 
             </LinearLayout>
 

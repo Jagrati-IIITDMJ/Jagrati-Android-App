@@ -296,6 +296,10 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         if (radioButton != null) {
             Toast.makeText(QuestionAddPage.this, radioId + " " + radioButton.getText(), Toast.LENGTH_SHORT).show();
             question.setCorrectOption(radioButton.getText().toString());
+            question.setOption1("A");
+            question.setOption2("B");
+            question.setOption3("C");
+            question.setOption4("D");
             uploadImage(question);
         }
     }
@@ -308,8 +312,9 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference();;
-            StorageReference ref = storageReference.child("quizzes/" + quizid + "/" + UUID.randomUUID().toString());
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            final String randomUri = UUID.randomUUID().toString();
+            StorageReference ref = storageReference.child("quizzes/" + quizid + "/" + randomUri );
 
             ref.putFile(filePath)
                     .addOnSuccessListener(
@@ -317,7 +322,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
                                 {
-                                    String uri = String.valueOf(taskSnapshot.getUploadSessionUri());
+                                    String uri = randomUri;
                                     Toast.makeText(QuestionAddPage.this,uri+"",Toast.LENGTH_SHORT).show();
                                     progressDialog.setTitle("Question Uploaded");
                                     progressDialog.dismiss();
@@ -359,7 +364,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         newQuestionList.add(q);
                         questionAddAdapter.notifyDataSetChanged();
                         documentToAddNumOfQues.update("numberOfQues",newQuestionList.size());
-
+                        dialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

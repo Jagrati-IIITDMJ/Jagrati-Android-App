@@ -3,6 +3,8 @@ package com.example.jagratiapp.ui;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +23,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.QuestionAddPage;
 import com.example.jagratiapp.R;
+import com.example.jagratiapp.StudentCompleteInfo;
 import com.example.jagratiapp.model.Question;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -61,9 +67,34 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull QuestionAddAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final QuestionAddAdapter.ViewHolder holder, int position) {
         Question ques = questionList.get(position);
-        holder.question.setText((++position) + ") " + ques.getQuestion());
+        if (ques.getQuestionUri() != null){
+
+            holder.question.setVisibility(View.GONE);
+            final long FIVE_MEGABYTE = 5 * 1024 * 1024;
+            Bitmap bitmap = null;
+            StorageReference storageReference  = FirebaseStorage.getInstance().getReference();
+            storageReference.child("quizzes/" + quizid + "/" + ques.getQuestionUri())
+                    .getBytes(FIVE_MEGABYTE)
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            holder.questionImage.setImageBitmap(bm);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                        }
+                    });
+        }
+        else {
+            holder.questionImage.setVisibility(View.GONE);
+            holder.question.setText((++position) + ") " + ques.getQuestion());
+        }
+
         holder.option1.setText("(a) " + ques.getOption1());
         holder.option2.setText("(b) " + ques.getOption2());
         holder.option3.setText("(c) " + ques.getOption3());
@@ -78,9 +109,6 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             holder.option3.setTextColor(rgb(0, 128, 0));
         else if (ques.getCorrectOption().equals(ques.getOption4()))
             holder.option4.setTextColor(rgb(0, 128, 0));
-
-
-
 
     }
 
@@ -109,6 +137,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
         private RadioButton option4RadioButton;
         private Button savequesButton;
         private String quesId;
+        private ImageView questionImage;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -119,6 +148,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             option2 = itemView.findViewById(R.id.Opt2In_ques_card);
             option3 = itemView.findViewById(R.id.Opt3In_ques_card);
             option4 = itemView.findViewById(R.id.Opt4In_ques_card);
+            questionImage = itemView.findViewById(R.id.question_image);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -134,18 +164,21 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             inflator = LayoutInflater.from(context);
             final View view = inflator.inflate(R.layout.onlongpress_popup, null);
 
-            builder.setView(view);
-            dialog = builder.create();
-            dialog.show();
-
             editLongPress = view.findViewById(R.id.edit_longpress);
             deleteLongPress = view.findViewById(R.id.delete_longpress);
             editLongPress.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dialog.dismiss();
-                    Question ques = questionList.get(getAdapterPosition());
-                    editques(ques);
+                    if (questionList.get(getAdapterPosition()).getQuestionUri() != null){
+                        dialog.dismiss();
+                        Toast.makeText(context,"Edit is not available",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        dialog.dismiss();
+                        Question ques = questionList.get(getAdapterPosition());
+                        editques(ques);
+                    }
+
                 }
             });
 
@@ -156,6 +189,10 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
                     createWarningPopup(getAdapterPosition());
                 }
             });
+
+            builder.setView(view);
+            dialog = builder.create();
+            dialog.show();
         }
 
         private void editques(Question ques) {
