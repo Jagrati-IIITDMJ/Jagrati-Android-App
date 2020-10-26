@@ -28,20 +28,20 @@
                 android:layout_marginTop="10dp">
 
                 <TextView
+                    android:textAppearance="@style/Widget.MaterialComponents.Badge"
                     android:id="@+id/add_ques_title"
                     android:text="Add Question"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="23dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
 
-                <ImageButton
-                    android:id="@+id/add_ques_cancel_button"
-                    android:layout_width="wrap_content"
-                    android:padding="8dp"
-                    android:layout_height="wrap_content"
-                    android:src=""
-
-                 />
+<!--                <ImageButton-->
+<!--                    android:id="@+id/add_ques_cancel_button"-->
+<!--                    android:padding="8dp"-->
+<!--                    />-->
 
             </LinearLayout>
 
@@ -73,7 +73,7 @@
                     android:minLines="1"
                     android:textColor="#000000"
                     android:textColorHint="@color/black_overlay"
-                    android:textSize="25sp"
+                    android:textSize="18sp"
                     android:autofillHints="Enter Question Here" />
 
             </LinearLayout>
@@ -103,7 +103,7 @@
                         android:inputType="textAutoCorrect"
                         android:maxLines="2"
                         android:minLines="1"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         />
 
                 </LinearLayout>
@@ -128,7 +128,7 @@
                         android:inputType="textAutoCorrect"
                         android:maxLines="2"
                         android:minLines="1"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         />
 
                 </LinearLayout>
@@ -153,7 +153,7 @@
                         android:inputType="textAutoCorrect"
                         android:maxLines="2"
                         android:minLines="1"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         />
 
                 </LinearLayout>
@@ -178,7 +178,7 @@
                         android:inputType="textAutoCorrect"
                         android:maxLines="2"
                         android:minLines="1"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         />
 
                 </LinearLayout>
@@ -195,8 +195,6 @@
                 android:text="@string/addQues"
                 android:textSize="14sp"
                 android:textStyle="bold" />
-
-
 
 
         </LinearLayout>

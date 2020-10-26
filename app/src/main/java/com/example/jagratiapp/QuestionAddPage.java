@@ -213,7 +213,6 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
 
         builder.setView(view);
         dialog = builder.create();
-        dialog.setTitle("Add Question");
        dialog.getWindow();
         dialog.show();
 
@@ -320,7 +319,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                                 {
                                     String uri = String.valueOf(taskSnapshot.getUploadSessionUri());
                                     Toast.makeText(QuestionAddPage.this,uri+"",Toast.LENGTH_SHORT).show();
-                                    progressDialog.setTitle("Profile Uploaded");
+                                    progressDialog.setTitle("Question Uploaded");
                                     progressDialog.dismiss();
                                     question.setQuestionUri(uri);
                                     saveQuestion(question);
@@ -358,7 +357,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                         List<Question> newQuestionList = questionList;
                         q.setQuestionId(documentReference.getId());
                         newQuestionList.add(q);
-//                        questionAddAdapter.notifyDataSetChanged();
+                        questionAddAdapter.notifyDataSetChanged();
                         documentToAddNumOfQues.update("numberOfQues",newQuestionList.size());
 
             }
