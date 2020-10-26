@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -37,8 +39,6 @@ public class StudentHomePage extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.student_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         Window window = getWindow();
         // clear FLAG_TRANSLUCENT_STATUS flag:
@@ -50,36 +50,32 @@ public class StudentHomePage extends AppCompatActivity {
 // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.appbar));
 
-        drawer = findViewById(R.id.student_drawer_layout);
-        NavigationView navigationView = findViewById(R.id.student_nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        drawer = findViewById(R.id.student_drawer_layout);
+//        NavigationView navigationView = findViewById(R.id.student_nav_view);
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//                switch (item.getItemId())
+//                {
+//                    case R.id.student_sign_out_nav:
+//                        SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = prefs.edit();
+//                        editor.putBoolean("state", false);
+//                        editor.apply();
+//
+//                        startActivity(new Intent(StudentHomePage.this, StartPage.class));
+//                        finish();
+//                        break;
+//
+//                }
+//                return false;
+//            }
+//        });
 
-                switch (item.getItemId())
-                {
-                    case R.id.student_sign_out_nav:
-                        SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("state", false);
-                        editor.apply();
-
-                        startActivity(new Intent(StudentHomePage.this, StartPage.class));
-                        finish();
-                        break;
-
-                }
-                return false;
-            }
-        });
 
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
-                R.string.draweropen,R.string.drawerclosed);
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.jag1));
 
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
 
         quiz = findViewById(R.id.student_quiz);
@@ -99,5 +95,29 @@ public class StudentHomePage extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout_menu,menu);
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        if (item.getItemId() == R.id.logout_student) {
+            SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("state", false);
+            editor.apply();
+
+            startActivity(new Intent(StudentHomePage.this, StartPage.class));
+            finish();
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+        return false;
     }
 }
