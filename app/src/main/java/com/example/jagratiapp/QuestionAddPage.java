@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -80,6 +81,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     private String correctOption;
     private String quizName;
     private RadioGroup imageRadioGroup;
+    private int radioId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +162,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
 
     private void addQuestionPopup() {
        builder = new AlertDialog.Builder(this,android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
-       View view = getLayoutInflater().inflate(R.layout.popup_add_question,null);
+       final View view = getLayoutInflater().inflate(R.layout.popup_add_question,null);
 
         questionImage = view.findViewById(R.id.question_imageButton);
         question = view.findViewById(R.id.QuesIn_ques_card_popup);
@@ -173,6 +175,48 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         option3RadioButton = view.findViewById(R.id.optionC_question_card_popup);
         option4RadioButton = view.findViewById(R.id.optionD_question_card_popup);
         savequesButton = view.findViewById(R.id.saveques_popup);
+        ImageView cancelPopup = view.findViewById(R.id.cancel_popup);
+        cancelPopup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        option1RadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                int id = R.id.optionA_question_card_popup;
+                checkButton(view,id);
+            }
+        });
+
+        option2RadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                int id = R.id.optionB_question_card_popup;
+                checkButton(view,id);
+            }
+        });
+
+        option3RadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                int id = R.id.optionC_question_card_popup;
+                checkButton(view,id);
+            }
+        });
+
+        option4RadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                int id = R.id.optionD_question_card_popup;
+                checkButton(view,id);
+            }
+        });
+
+
+
 
         savequesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,6 +323,14 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
         questionImage = view1.findViewById(R.id.add_question_image);
         saveQuestion = view1.findViewById(R.id.image_saveques_popup);
         imageRadioGroup = view1.findViewById(R.id.image_radio_group);
+        ImageView cancelPopup = view1.findViewById(R.id.cancel_image_popup);
+
+        cancelPopup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         questionImage.setImageBitmap(bitmap);
         saveQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,5 +426,16 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
             }
         });
 
+    }
+
+    private void checkButton(View view,int id){
+
+        RadioButton clickedRadioButton = view.findViewById(id);
+        clickedRadioButton.setChecked(true);
+        RadioButton checkedRadioButton = view.findViewById(radioId);
+        if (checkedRadioButton != null){
+            checkedRadioButton.setChecked(false);
+        }
+        radioId = id;
     }
 }

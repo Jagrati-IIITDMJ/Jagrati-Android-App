@@ -47,6 +47,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String classid;
     private String quizid;
+    private int radioId = 0;
 
     public QuestionAddAdapter(Context context, List<Question> questionList, String classid, String quizid) {
         this.context = context;
@@ -212,6 +213,38 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             option4RadioButton = view.findViewById(R.id.optionD_question_card_popup);
             savequesButton = view.findViewById(R.id.saveques_popup);
 
+            option1RadioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view1) {
+                    int id = R.id.optionA_question_card_popup;
+                    checkButton(view,id);
+                }
+            });
+
+            option2RadioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view1) {
+                    int id = R.id.optionB_question_card_popup;
+                    checkButton(view,id);
+                }
+            });
+
+            option3RadioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view1) {
+                    int id = R.id.optionC_question_card_popup;
+                    checkButton(view,id);
+                }
+            });
+
+            option4RadioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view1) {
+                    int id = R.id.optionD_question_card_popup;
+                    checkButton(view,id);
+                }
+            });
+
             questionPopup.setText(ques.getQuestion());
             option1Popup.setText(ques.getOption1());
             option2Popup.setText(ques.getOption2());
@@ -221,12 +254,16 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
 
             if (correctOption.equals(ques.getOption1())) {
                 option1RadioButton.setChecked(true);
+                radioId = R.id.optionA_question_card_popup;
             } else if (correctOption.equals(ques.getOption2())) {
                 option2RadioButton.setChecked(true);
+                radioId = R.id.optionB_question_card_popup;
             } else if (correctOption.equals(ques.getOption3())) {
                 option3RadioButton.setChecked(true);
+                radioId = R.id.optionC_question_card_popup;
             } else {
                 option4RadioButton.setChecked(true);
+                radioId = R.id.optionD_question_card_popup;
             }
 
             builder.setView(view);
@@ -268,18 +305,19 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             });
         }
 
-        private void updateQuestion(Question ques) {
+        private void updateQuestion(final Question ques) {
             final Question q = ques;
 
             db.collection("Classes").document(classid).collection("Quizzes").document(quizid).collection("Question").document(quesId)
                     .set(q).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    questionList.get(getAdapterPosition()).setQuestion(questionPopup.getText().toString().trim());
-                    questionList.get(getAdapterPosition()).setOption1(option1Popup.getText().toString());
-                    questionList.get(getAdapterPosition()).setOption2(option2Popup.getText().toString());
-                    questionList.get(getAdapterPosition()).setOption3(option3Popup.getText().toString());
-                    questionList.get(getAdapterPosition()).setOption4(option4Popup.getText().toString());
+                    questionList.get(getAdapterPosition()).setQuestion(q.getQuestion());
+                    questionList.get(getAdapterPosition()).setOption1(q.getOption1());
+                    questionList.get(getAdapterPosition()).setOption2(q.getOption2());
+                    questionList.get(getAdapterPosition()).setOption3(q.getOption3());
+                    questionList.get(getAdapterPosition()).setOption4(q.getOption4());
+                    questionList.get(getAdapterPosition()).setCorrectOption(q.getCorrectOption());
                     notifyItemChanged(getAdapterPosition());
                     dialog.dismiss();
                 }
@@ -344,5 +382,15 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
 
     }
 
+    private void checkButton(View view,int id){
+
+        RadioButton clickedRadioButton = view.findViewById(id);
+        clickedRadioButton.setChecked(true);
+        RadioButton checkedRadioButton = view.findViewById(radioId);
+        if (checkedRadioButton != null){
+            checkedRadioButton.setChecked(false);
+        }
+        radioId = id;
+    }
 
 }
