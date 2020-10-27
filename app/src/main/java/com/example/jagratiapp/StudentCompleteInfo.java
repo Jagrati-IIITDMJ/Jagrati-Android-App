@@ -141,16 +141,6 @@ public class StudentCompleteInfo extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
-
-
-
         MaterialToolbar toolbar = findViewById(R.id.student_info_complete_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -221,15 +211,11 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 phone.setEnabled(false);
                 upload.setVisibility(View.GONE);
                 call.setVisibility(View.VISIBLE);
-
                 save.setVisibility(View.GONE);
                 edit.setVisibility(View.VISIBLE);
 
             }
         });
-
-
-
 
     }
 
@@ -311,9 +297,12 @@ public class StudentCompleteInfo extends AppCompatActivity {
                                     quizlist.add(quiz);
                                 }
                             }
-                            studentQuizInfoAdapter = new StudentQuizInfoAdapter(StudentCompleteInfo.this, quizlist,student);
+                            studentQuizInfoAdapter = new StudentQuizInfoAdapter(StudentCompleteInfo.this, quizlist,student,classID,groupID);
                             recyclerView.setAdapter(studentQuizInfoAdapter);
 
+                        }
+                        else {
+                            Toast.makeText(StudentCompleteInfo.this,"No quiz given",Toast.LENGTH_SHORT).show();
                         }
 
                     }
