@@ -9,6 +9,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -65,7 +66,14 @@ public class SplashScreen extends AppCompatActivity {
                                 flag1 = true;
                                 ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(SplashScreen.this, splash_logo, "splash_logo");
                                 startActivity(new Intent(SplashScreen.this,HomePage.class),optionsCompat.toBundle());
-                                supportFinishAfterTransition();
+                                if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
+                                    if (!isActivityTransitionRunning())
+                                    {
+                                        finishAffinity();
+                                    }
+                                }
+
+
                             }
                         },1000);
                     }

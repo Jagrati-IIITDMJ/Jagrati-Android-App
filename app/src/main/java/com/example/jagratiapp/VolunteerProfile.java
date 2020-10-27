@@ -185,6 +185,24 @@ public class VolunteerProfile extends AppCompatActivity {
 
                     }
                 });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        name.setEnabled(false);
+                        email.setEnabled(false);
+                        batch.setEnabled(false);
+                        phone.setEnabled(false);
+                        days.setEnabled(false);
+                        subject.setEnabled(false);
+                        save.setVisibility(View.GONE);
+                        cancel.setVisibility(View.GONE);
+                        error.setVisibility(View.GONE);
+                        edit.setVisibility(View.VISIBLE);
+                        student_upload_dp.setVisibility(View.GONE);
+
+                    }
+                });
 
 
             }

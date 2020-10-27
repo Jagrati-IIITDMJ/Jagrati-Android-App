@@ -70,6 +70,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
     private ImageButton upload;
     private ImageView student_dp;
     private ImageView save;
+    private ImageButton call;
 
     private int present = 0;
     private int totalDays = 0;
@@ -107,6 +108,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
         edit = findViewById(R.id.student_info_edit);
         upload = findViewById(R.id.student_upload_photo_1);
         save = findViewById(R.id.student_info_save);
+        call= findViewById(R.id.student_call);
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -116,6 +118,22 @@ public class StudentCompleteInfo extends AppCompatActivity {
         className.setEnabled(false);
         guardianName.setEnabled(false);
         phone.setEnabled(false);
+
+
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone.getText().toString().trim()));
+                startActivity(intent);
+            }
+        });
+
+
+
+
+
+
+
 
 
 
@@ -158,6 +176,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 className.setEnabled(true);
                 guardianName.setEnabled(true);
                 phone.setEnabled(true);
+                call.setVisibility(View.GONE);
                 upload.setVisibility(View.VISIBLE);
                 upload.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -188,6 +207,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 guardianName.setEnabled(false);
                 phone.setEnabled(false);
                 upload.setVisibility(View.GONE);
+                call.setVisibility(View.VISIBLE);
 
                 save.setVisibility(View.GONE);
                 edit.setVisibility(View.VISIBLE);

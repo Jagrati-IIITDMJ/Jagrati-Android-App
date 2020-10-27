@@ -111,10 +111,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                                 .collection("Quizzes").document(quizId)
                                 .collection("Question");
 
-        String s = db.collection("Classes").document(StudentAPI.Instance().getClassUid())
-                .collection("Quizzes").document(quizId).get().toString();
-        toolbar.setTitle(s);
-
         collectionToSaveReport = db.collection("Classes").document(StudentAPI.Instance().getClassUid()).collection("Groups")
                 .document(StudentAPI.Instance().getGroupUid()).collection("Students").document(StudentAPI.Instance().getRollno()).collection("Quizzes");
 
@@ -325,7 +321,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         final String classId = StudentAPI.Instance().getClassUid();
         final String groupId = StudentAPI.Instance().getGroupUid();
 
-       // Toast.makeText(QuestionsPage.this,classId + " " + groupId,Toast.LENGTH_SHORT).show();
+
         solutionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -12,6 +12,11 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:statusBarColor">@color/appbar</item>
         <item name="android:windowLightStatusBar">true</item>
+
+    </style>
+
+    <style name="AppThemex" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/colorAccent</item>
     </style>
 
 <!--    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">-->

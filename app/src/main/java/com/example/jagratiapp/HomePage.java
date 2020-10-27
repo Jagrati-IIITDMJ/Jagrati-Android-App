@@ -211,8 +211,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             {
 
                 if (doubleBackToExitPressedOnce) {
-                    super.onBackPressed();
-                    return;
+                    finishAffinity();
+
                 }
 
                 this.doubleBackToExitPressedOnce = true;

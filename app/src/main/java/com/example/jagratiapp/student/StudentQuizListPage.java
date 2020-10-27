@@ -53,14 +53,7 @@ public class StudentQuizListPage extends AppCompatActivity {
 
         MaterialToolbar toolbar = findViewById(R.id.student_list_toolbar);
         setSupportActionBar(toolbar);
-        View decorView = getWindow().getDecorView();
-        int uiOptions =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                |View.SYSTEM_UI_FLAG_VISIBLE;
 
-
-        decorView.setSystemUiVisibility(uiOptions);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);

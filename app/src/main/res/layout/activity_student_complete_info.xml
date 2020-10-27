@@ -8,284 +8,323 @@
     tools:context=".StudentCompleteInfo"
     android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/student_info_complete_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/appbar"
-        app:title="Student Info"
-        android:theme="@style/ToolbarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="#A75700"
-        android:elevation="10dp"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/include11"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/student_info_complete_toolbar"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/student_info_complete_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/appbar"
+            android:elevation="10dp"
+            android:theme="@style/ToolbarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Student Info"
+            app:titleTextColor="#A75700" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/student_info_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@color/transparent"
-                    android:src="@drawable/ic_baseline_edit_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="Edit" />
-
-                <ImageButton
-                    android:id="@+id/student_info_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-
-                    android:background="@color/transparent"
-                    android:src="@drawable/ic_tick"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="Save" />
-
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/include11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/student_info_complete_toolbar"
+                app:layout_constraintVertical_bias="0.0">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:cardCornerRadius="50dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.053"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:elevation="8dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp">
 
-                    <ImageView
-                        android:id="@+id/student_dp_1"
-                        android:layout_width="160dp"
-                        android:layout_height="160dp"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/profile_dp"
-                        android:src="@drawable/ic_default_dp" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <ImageButton
-                        android:id="@+id/student_upload_photo_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@color/transparent"
-                        android:contentDescription="Upload Photo"
-                        android:src="@drawable/ic_baseline_camera_alt_24" />
+                        <ImageButton
+                            android:id="@+id/student_info_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@color/transparent"
+                            android:contentDescription="Edit"
+                            android:src="@drawable/ic_baseline_edit_24"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/student_info_save"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+
+                            android:background="@color/transparent"
+                            android:contentDescription="Save"
+                            android:src="@drawable/ic_tick"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:elevation="8dp"
+                            app:cardCornerRadius="50dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.053"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/student_dp_1"
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/profile_dp"
+                                android:src="@drawable/ic_default_dp" />
+
+                            <ImageButton
+                                android:id="@+id/student_upload_photo_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@color/transparent"
+                                android:contentDescription="Upload Photo"
+                                android:src="@drawable/ic_baseline_camera_alt_24" />
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <TextView
+                            android:id="@+id/roll_no_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="TextView"
+
+                            android:textSize="20sp"
+
+                            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.103"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="1.0" />
+
+                        <TextView
+                            android:id="@+id/attendance_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.045"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                            app:layout_constraintVertical_bias="0.293" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.91"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.501">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+
+                                android:hint="Name"
+                                android:textColorHint="@color/colorAccent"
+                                app:boxStrokeWidth="0dp"
+                                app:hintTextColor="#ff0000"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.868"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/student_name_info"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLength="20"
+                                    android:maxLines="1"
+                                    android:textColor="#000000"
+
+                                    tools:layout_editor_absoluteX="0dp"
+                                    tools:layout_editor_absoluteY="298dp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+
+                                android:layout_width="198dp"
+                                android:layout_height="wrap_content"
+                                android:hint="Village"
+                                android:maxLines="1"
+                                android:textColorHint="@color/colorAccent"
+                                app:hintTextColor="#ff0000"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.868"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/village_name_info"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="#000000"
+                                    tools:layout_editor_absoluteX="0dp"
+                                    tools:layout_editor_absoluteY="298dp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+
+                                android:layout_width="198dp"
+                                android:layout_height="wrap_content"
+
+                                android:hint="Guardian Name"
+                                android:textColorHint="@color/colorAccent"
+                                app:hintTextColor="#ff0000"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.868"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/guardian_name_info"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLength="20"
+                                    android:maxLines="1"
+                                    android:textColor="#000000"
+                                    tools:layout_editor_absoluteX="0dp"
+                                    tools:layout_editor_absoluteY="298dp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+
+                                android:layout_width="198dp"
+                                android:layout_height="wrap_content"
+
+
+                                android:hint="Class Name"
+                                app:hintTextColor="#ff0000"
+                                android:textColorHint="@color/colorAccent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.868"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/class_name_info"
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLength="10"
+                                    android:maxLines="1"
+                                    android:textColor="#000000"
+
+                                    tools:layout_editor_absoluteX="0dp"
+                                    tools:layout_editor_absoluteY="298dp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="198dp"
+                                android:layout_height="wrap_content"
+
+                                android:hint="Phone"
+                                android:maxLines="1"
+                                app:boxStrokeColor="@color/appbar"
+                                app:counterEnabled="true"
+                                app:counterMaxLength="10"
+                                android:orientation="horizontal"
+
+                                app:hintTextColor="#ff0000"
+                                android:textColorHint="@color/colorAccent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.868"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/student_phone_info"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="phone"
+                                    android:maxLength="10"
+                                    android:textColor="#000000"
+                                    tools:layout_editor_absoluteX="0dp"
+                                    tools:layout_editor_absoluteY="298dp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <ImageButton
+                                android:id="@+id/student_call"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_baseline_call_24"
+                                android:layout_gravity="end"
+                                android:contentDescription="Call now"/>
+
+
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 </androidx.cardview.widget.CardView>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/student_info_quiz_recycler_view"
 
-                <TextView
-                    android:id="@+id/roll_no_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="TextView"
-
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.103"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
-
-                <TextView
-                    android:id="@+id/attendance_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text=""
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.045"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                    app:layout_constraintVertical_bias="0.293" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.91"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.501">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
 
-                        android:hint="Name"
-                        app:boxStrokeWidth="0dp"
-                        app:hintTextColor="#ff0000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.868"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/student_name_info"
-                            android:textColor="#000000"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:maxLength="20"
-                            android:maxLines="1"
-
-                            tools:layout_editor_absoluteX="0dp"
-                            tools:layout_editor_absoluteY="298dp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-
-                        android:layout_width="198dp"
-                        android:layout_height="wrap_content"
-                        android:hint="Village"
-                        android:maxLines="1"
-                        app:hintTextColor="#ff0000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.868"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/village_name_info"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="#000000"
-                            tools:layout_editor_absoluteX="0dp"
-                            tools:layout_editor_absoluteY="298dp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-
-                        android:layout_width="198dp"
-                        android:layout_height="wrap_content"
-
-                        android:hint="Guardian Name"
-                        app:hintTextColor="#ff0000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.868"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/guardian_name_info"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:maxLength="20"
-                            android:maxLines="1"
-                            android:textColor="#000000"
-                            tools:layout_editor_absoluteX="0dp"
-                            tools:layout_editor_absoluteY="298dp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-
-                        android:layout_width="198dp"
-                        android:layout_height="wrap_content"
-
-
-                        android:hint="Class Name"
-                        app:hintTextColor="#ff0000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.868"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/class_name_info"
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="#000000"
-                            android:maxLength="10"
-                            android:maxLines="1"
-
-                            tools:layout_editor_absoluteX="0dp"
-                            tools:layout_editor_absoluteY="298dp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="198dp"
-                        android:layout_height="wrap_content"
-
-                        android:hint="Phone"
-                        android:maxLines="1"
-                        app:boxStrokeColor="@color/appbar"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="10"
-                        app:hintTextColor="#ff0000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.868"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/student_phone_info"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="phone"
-                            android:maxLength="10"
-                            android:textColor="#000000"
-
-                            tools:layout_editor_absoluteX="0dp"
-                            tools:layout_editor_absoluteY="298dp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                </LinearLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/student_info_quiz_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="320dp" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 
     <include
         android:id="@+id/include11"
-        layout="@layout/studentinfonest" />
+        layout="@layout/studentinfonest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
