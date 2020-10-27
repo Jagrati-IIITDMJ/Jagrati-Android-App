@@ -33,19 +33,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.model.Classes;
 import com.example.jagratiapp.ui.ClassRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Classes_page extends AppCompatActivity {
@@ -129,7 +133,7 @@ public class Classes_page extends AppCompatActivity {
                 }
                 else {classRecyclerAdapter.notifyDataSetChanged();
                     Toast.makeText(Classes_page.this,"Edit",Toast.LENGTH_SHORT).show();
-            }
+                }
             }
 
             @Override
@@ -226,34 +230,48 @@ public class Classes_page extends AppCompatActivity {
     private void createWarningPopup(String name, final RecyclerView.ViewHolder viewHolder) {
         Button yes,no;
         TextView warningMessage;
-            builder = new AlertDialog.Builder(this);
-            View view = getLayoutInflater().inflate(R.layout.delete_popup,null);
+        builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.delete_popup,null);
 
-            yes = view.findViewById(R.id.confirm_delete);
-            no= view.findViewById(R.id.cancel_delete);
-            warningMessage = view.findViewById(R.id.warning_delete);
-            warningMessage.setText("You want to delete " + name +" ?");
-            builder.setView(view);
-            dialog = builder.create();
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.show();
-            yes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                    Toast.makeText(Classes_page.this,"Deleted",Toast.LENGTH_SHORT).show();
-                    collectionReference.document(String.valueOf(classesList.get(viewHolder.getAdapterPosition()).getuId())).delete() ;
-                    classRecyclerAdapter.removeItem(viewHolder);
-                }
-            });
+        yes = view.findViewById(R.id.confirm_delete);
+        no= view.findViewById(R.id.cancel_delete);
+        warningMessage = view.findViewById(R.id.warning_delete);
+        warningMessage.setText("You want to delete " + name +" ?");
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
 
-            no.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    classRecyclerAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
-                    dialog.dismiss();
-                }
-            });
+                db.collection("Students").whereEqualTo("classUid",classesList.get(viewHolder.getAdapterPosition()).getuId())
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+                                    snapshot.getReference().delete();
+                                }
+                            }
+                        });
+                collectionReference.document(String.valueOf(classesList.get(viewHolder.getAdapterPosition()).getuId())).delete() ;
+                classRecyclerAdapter.removeItem(viewHolder);
+
+                Toast.makeText(Classes_page.this,"Deleted",Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                classRecyclerAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                dialog.dismiss();
+            }
+        });
     }
 
     private void createPopup() {
@@ -303,12 +321,9 @@ public class Classes_page extends AppCompatActivity {
                         classes.setuId(documentReference.getId());
                         newClassList.add(classes);
 
-//                        ClassDiffUtil diffUtil = new ClassDiffUtil(classesList,newClassList);
-//                        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtil);
-//                        diffResult.dispatchUpdatesTo(classRecyclerAdapter);
                         classRecyclerAdapter.notifyDataSetChanged();
 
-                  dialog.dismiss();
+                        dialog.dismiss();
 
                     }
                 },1);

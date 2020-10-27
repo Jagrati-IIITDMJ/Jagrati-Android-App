@@ -221,7 +221,7 @@ public class StudentsFragment extends Fragment {
                                                                     student.setUid(documentReference.getId());
                                                                     newStudentList.add(student);
 
-                                                                    studentAdapter.notifyDataSetChanged();
+                                                                    //studentAdapter.notifyDataSetChanged();
                                                                     dialog.dismiss();
                                                                 }
                                                             }, 600);
@@ -236,7 +236,7 @@ public class StudentsFragment extends Fragment {
                                         }
                                     });
                         } else {
-                            Toast.makeText(getContext(), "Roll no Exists", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), "Roll no Exists", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
