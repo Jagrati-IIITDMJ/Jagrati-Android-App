@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view"
     >
+
+
+
     <group android:checkableBehavior="single">
 
         <item
@@ -13,19 +16,18 @@
             android:iconTint="#F17E01"
             />
         <item
+            android:id="@+id/developer_info"
+            android:icon="@drawable/ic_baseline_developer_mode_24"
+            android:title="@string/developer"
+            android:iconTint="#F17E01"
+            />
+        <item
             android:id="@+id/sign_out_nav"
             android:icon="@drawable/ic_log_out"
             android:title="@string/log_out" />
 
     </group>
-    <group android:checkableBehavior="single">
-        <item
-        android:id="@+id/developer_info"
-        android:icon="@drawable/ic_baseline_developer_mode_24"
-        android:title="@string/developer"
-        android:iconTint="#F17E01"
-        />
-    </group>
+
 
 
 </menu>
