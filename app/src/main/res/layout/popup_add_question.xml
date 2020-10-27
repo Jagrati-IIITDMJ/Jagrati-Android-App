@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="utf-8"
-    ?>
+<?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:id="@+id/layout_id_addQues"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/transparent">
+
+    <LinearLayout
+        android:id="@+id/layout_id_addQues"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
 
     <androidx.cardview.widget.CardView
 
@@ -69,8 +73,8 @@
                     android:elevation="4dp"
                     android:hint="Enter Question Here"
                     android:inputType="textMultiLine"
-                    android:lines="3"
-                    android:maxLines="6"
+                    android:lines="20"
+                    android:maxLines="20"
                     android:minLines="1"
                     android:textColor="#000000"
                     android:textColorHint="@color/black_overlay"
@@ -98,11 +102,11 @@
                         android:id="@+id/Opt1In_ques_card_popup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:autofillHints="Enter Option Here"
                         android:hint="Enter First Option Here"
-                        android:inputType="textAutoCorrect"
-                        android:maxLines="2"
+                        android:inputType="textMultiLine"
+                        android:lines="20"
+                        android:maxLines="20"
                         android:minLines="1"
                         android:textSize="18sp"
                         />
@@ -126,8 +130,9 @@
 
                         android:autofillHints="Enter Option Here"
                         android:hint="Enter Second Option Here"
-                        android:inputType="textAutoCorrect"
-                        android:maxLines="2"
+                        android:inputType="textMultiLine"
+                        android:lines="20"
+                        android:maxLines="20"
                         android:minLines="1"
                         android:textSize="18sp"
                         />
@@ -151,8 +156,9 @@
 
                         android:autofillHints="EnterOption Here"
                         android:hint="Enter Third Option Here"
-                        android:inputType="textAutoCorrect"
-                        android:maxLines="2"
+                        android:inputType="textMultiLine"
+                        android:lines="20"
+                        android:maxLines="20"
                         android:minLines="1"
                         android:textSize="18sp"
                         />
@@ -176,8 +182,9 @@
 
                         android:autofillHints="Enter Option Here"
                         android:hint="Enter Fouth Option Here"
-                        android:inputType="textAutoCorrect"
-                        android:maxLines="2"
+                        android:inputType="textMultiLine"
+                        android:lines="20"
+                        android:maxLines="20"
                         android:minLines="1"
                         android:textSize="18sp"
                         />
@@ -201,4 +208,6 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
