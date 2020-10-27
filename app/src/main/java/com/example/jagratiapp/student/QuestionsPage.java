@@ -214,9 +214,11 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private void setQuestion(Question question2){
         radioGroup.clearCheck();
         if(question2.getQuestionUri()==null) {
+            question.setVisibility(View.VISIBLE);
             questionImage.setVisibility(View.GONE);
             question.setText(question2.getQuestion());
         } else{
+            questionImage.setVisibility(View.VISIBLE);
             question.setVisibility(View.GONE);
             final long FIVE_MEGABYTE = 5 * 1024 * 1024;
             StorageReference storageReference  = FirebaseStorage.getInstance().getReference();
