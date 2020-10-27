@@ -42,7 +42,7 @@
                 <ImageView
                     android:id="@+id/question_image_solution"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"/>
+                    android:layout_height="wrap_content"/>
 
 
             </LinearLayout>

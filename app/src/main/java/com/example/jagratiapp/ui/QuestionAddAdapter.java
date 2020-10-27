@@ -70,7 +70,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
     public void onBindViewHolder(@NonNull final QuestionAddAdapter.ViewHolder holder, int position) {
         Question ques = questionList.get(position);
         if (ques.getQuestionUri() != null){
-
+            holder.questionImage.setVisibility(View.VISIBLE);
             holder.question.setVisibility(View.GONE);
             final long FIVE_MEGABYTE = 5 * 1024 * 1024;
             Bitmap bitmap = null;
@@ -91,6 +91,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
                     });
         }
         else {
+            holder.question.setVisibility(View.VISIBLE);
             holder.questionImage.setVisibility(View.GONE);
             holder.question.setText((++position) + ") " + ques.getQuestion());
         }

@@ -83,9 +83,11 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
         String answer = question.getCorrectOption();
 
         if (question.getQuestionUri() == null){
+            holder.question.setVisibility(View.VISIBLE);
             holder.question.setText((++position) +". " +(question.getQuestion()));
             holder.questionImage.setVisibility(View.GONE);
         }else {
+            holder.questionImage.setVisibility(View.VISIBLE);
             holder.question.setVisibility(View.GONE);
             final long FIVE_MEGABYTE = 5 * 1024 * 1024;
             StorageReference storageReference  = FirebaseStorage.getInstance().getReference();

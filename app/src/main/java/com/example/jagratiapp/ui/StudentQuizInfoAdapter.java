@@ -103,14 +103,14 @@ public class StudentQuizInfoAdapter extends RecyclerView.Adapter<StudentQuizInfo
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    deletePopup(quizid);
+                    deletePopup(quizid,getAdapterPosition());
                     return false;
                 }
             });
         }
     }
 
-    private void deletePopup(final String quizid){
+    private void deletePopup(final String quizid, final int adapterPosition){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.delete_popup,null);
 
@@ -134,7 +134,8 @@ public class StudentQuizInfoAdapter extends RecyclerView.Adapter<StudentQuizInfo
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(context,"Quiz Deleted",Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
-                                notifyDataSetChanged();
+                                quizList.remove(adapterPosition);
+                                notifyItemRemoved(adapterPosition);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

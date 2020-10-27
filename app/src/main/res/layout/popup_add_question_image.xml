@@ -7,7 +7,9 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -18,7 +20,7 @@
             <ImageView
                 android:id="@+id/add_question_image"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"/>
+                android:layout_height="wrap_content"/>
 
                 <RadioGroup
                     android:id="@+id/image_radio_group"
@@ -55,7 +57,6 @@
 
 
                 </RadioGroup>
-        </LinearLayout>
 
     <Button
         android:id="@+id/image_saveques_popup"
@@ -66,5 +67,10 @@
         android:text="@string/addQues"
         android:textSize="14sp"
         android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </LinearLayout>
