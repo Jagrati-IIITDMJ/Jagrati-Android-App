@@ -80,8 +80,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private long mTimeLeftInMillis;
     private ImageView questionImage;
 
-
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;
     private CollectionReference collectionToSaveReport;
@@ -133,6 +131,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         answerList = new HashMap<>();
         questionList = new HashMap<>();
 
+
         collectionReference.get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -172,8 +171,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                 setTimer();
             }
         });
-
-
 
     }
 
@@ -248,6 +245,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     }
 
     public void checkButton(View v){
+
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
         //Toast.makeText(QuestionsPage.this,radioButton.getText().toString()+" "+answerList.size(),Toast.LENGTH_SHORT).show();
@@ -345,6 +343,4 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
 
     }
-
-
 }

@@ -110,7 +110,8 @@
                     <RadioButton
                         android:id="@+id/optionA_question_card_popup"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="A"/>
 
                     <EditText
                         android:layout_margin="4dp"
@@ -135,7 +136,8 @@
                     <RadioButton
                         android:id="@+id/optionB_question_card_popup"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="B"/>
 
                     <EditText
                         android:id="@+id/Opt2In_ques_card_popup"
@@ -161,7 +163,8 @@
                     <RadioButton
                         android:id="@+id/optionC_question_card_popup"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="C"/>
 
                     <EditText
                         android:id="@+id/Opt3In_ques_card_popup"
@@ -187,7 +190,8 @@
                     <RadioButton
                         android:id="@+id/optionD_question_card_popup"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="D"/>
 
                     <EditText
                         android:id="@+id/Opt4In_ques_card_popup"
