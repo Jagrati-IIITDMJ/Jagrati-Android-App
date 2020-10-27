@@ -126,6 +126,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
         phone.setEnabled(false);
 
 
+
+
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,8 +170,6 @@ public class StudentCompleteInfo extends AppCompatActivity {
         studentReference = db.collection("Classes").document(classID)
                 .collection("Groups").document(groupID).collection("Students").document(studID);
 
-        attendanceReference = db.collection("Classes").document(classID)
-                .collection("Groups").document(groupID).collection("Attendance");
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,11 +217,6 @@ public class StudentCompleteInfo extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         studentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -233,7 +228,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 rollNo.setText(student.getRollno());
                 guardianName.setText(student.getGuardianName());
                 if (documentSnapshot.getString("student_dp") != null) {
-                   // Toast.makeText(StudentCompleteInfo.this,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(StudentCompleteInfo.this,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
                     final long FIVE_MEGABYTE = 5 * 1024 * 1024;
                     Bitmap bitmap = null;
                     storageReference.child("students/" + student.getRollno() + ".jpg")
@@ -253,24 +248,8 @@ public class StudentCompleteInfo extends AppCompatActivity {
                                 }
                             });
                 }
-               // else
-                  //  Toast.makeText(StudentCompleteInfo.this,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        attendanceReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots){
-                    if (groupDocumentSnapshot.getBoolean(studID) != null){
-                        totalDays++;
-                        if(groupDocumentSnapshot.getBoolean(studID)){
-                            present++;
-                        }
-                    }
-                }
-                attendance.setText(MessageFormat.format("Attendance: {0} Out of {1} days", present, totalDays));
+                // else
+                //  Toast.makeText(StudentCompleteInfo.this,"Kuch to gadabasdfsdfdsfd h",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -308,10 +287,30 @@ public class StudentCompleteInfo extends AppCompatActivity {
                     }
                 });
 
+        attendanceReference = db.collection("Classes").document(classID)
+                .collection("Groups").document(groupID).collection("Attendance");
+
+
+        attendanceReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot groupDocumentSnapshot : queryDocumentSnapshots){
+                    if (groupDocumentSnapshot.getBoolean(studID) != null){
+                        totalDays++;
+                        if(groupDocumentSnapshot.getBoolean(studID)){
+                            present++;
+                        }
+                    }
+                }
+                attendance.setText(MessageFormat.format("Attendance: {0} Out of {1} days", present, totalDays));
+            }
+        });
+
+
     }
 
-    private void selectImage()
-    {
+
+    private void selectImage() {
         // Defining Implicit Intent to mobile gallery
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -330,7 +329,6 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 && resultCode == RESULT_OK
                 && data != null
                 && data.getData() != null) {
-
             // Get the Uri of data
             filePath = data.getData();
             try {

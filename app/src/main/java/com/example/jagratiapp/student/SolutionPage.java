@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Question;
+import com.example.jagratiapp.model.QuizReport;
 import com.example.jagratiapp.student.ui.SolutionAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,6 +35,7 @@ public class SolutionPage extends AppCompatActivity {
     private String quizId;
     private String studentRollNo;
     private List<Question> questionList ;
+    private Map<String,Object> map;
     private Map<String,String> answerMap;
     private SolutionAdapter solutionAdapter;
     private RecyclerView solutionRecyclerView;
@@ -60,7 +63,7 @@ public class SolutionPage extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle("Hello");
+        getSupportActionBar().setTitle("Submissions");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,19 +93,21 @@ public class SolutionPage extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        answerMap = (Map<String, String>) documentSnapshot.get("answerList");
+                        QuizReport answers = documentSnapshot.toObject(QuizReport.class);
+                        answerMap = answers.getAnswerList();
+                        //Toast.makeText(SolutionPage.this,answerMap+"",Toast.LENGTH_SHORT).show();
 
 //                        Iterator it = answerMap.entrySet().iterator();
 //                        while (it.hasNext()){
 //                            Map.Entry obj = (Map.Entry)it.next();
-//                            Toast.makeText(SolutionPage.this,obj.getValue() +"",Toast.LENGTH_SHORT).show();
+//
 //                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
+                        Toast.makeText(SolutionPage.this,"not", Toast.LENGTH_SHORT).show();
                     }
                 });
 
