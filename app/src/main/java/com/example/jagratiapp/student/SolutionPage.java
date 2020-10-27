@@ -102,6 +102,33 @@ public class SolutionPage extends AppCompatActivity {
 //                            Map.Entry obj = (Map.Entry)it.next();
 //
 //                        }
+                        db.collection("Classes").document(classId)
+                                .collection("Quizzes").document(quizId)
+                                .collection("Question")
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        if (!queryDocumentSnapshots.isEmpty()){
+                                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                                Question question = documentSnapshot.toObject(Question.class);
+                                                question.setQuestionId(documentSnapshot.getId());
+                                                //Toast.makeText(SolutionPage.this,question.getQuestionId(),Toast.LENGTH_SHORT).show();
+                                                questionList.add(question);
+                                            }
+                                            //Toast.makeText(SolutionPage.this,answerMap.size() +" " + questionList.size() ,Toast.LENGTH_SHORT).show();
+                                        }
+                                        solutionAdapter = new SolutionAdapter(SolutionPage.this,questionList,answerMap,quizId);
+                                        solutionRecyclerView.setAdapter(solutionAdapter);
+                                        solutionAdapter.notifyDataSetChanged();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -111,33 +138,7 @@ public class SolutionPage extends AppCompatActivity {
                     }
                 });
 
-        db.collection("Classes").document(classId)
-                .collection("Quizzes").document(quizId)
-                .collection("Question")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()){
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                Question question = documentSnapshot.toObject(Question.class);
-                                question.setQuestionId(documentSnapshot.getId());
-                                //Toast.makeText(SolutionPage.this,question.getQuestionId(),Toast.LENGTH_SHORT).show();
-                                questionList.add(question);
-                            }
-                            //Toast.makeText(SolutionPage.this,answerMap.size() +" " + questionList.size() ,Toast.LENGTH_SHORT).show();
-                        }
-                        solutionAdapter = new SolutionAdapter(SolutionPage.this,questionList,answerMap,quizId);
-                        solutionRecyclerView.setAdapter(solutionAdapter);
-                        solutionAdapter.notifyDataSetChanged();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
 
-                    }
-                });
 
     }
 }

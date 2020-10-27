@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -198,7 +199,7 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
         }
 
         private void editques(Question ques) {
-            builder = new AlertDialog.Builder(context);
+            builder = new AlertDialog.Builder(context,android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
             inflator = LayoutInflater.from(context);
             final View view = inflator.inflate(R.layout.popup_add_question, null);
 
@@ -212,6 +213,14 @@ public class QuestionAddAdapter extends RecyclerView.Adapter<QuestionAddAdapter.
             option3RadioButton = view.findViewById(R.id.optionC_question_card_popup);
             option4RadioButton = view.findViewById(R.id.optionD_question_card_popup);
             savequesButton = view.findViewById(R.id.saveques_popup);
+
+            ImageButton cancel = view.findViewById(R.id.cancel_popup);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
 
             option1RadioButton.setOnClickListener(new View.OnClickListener() {
                 @Override

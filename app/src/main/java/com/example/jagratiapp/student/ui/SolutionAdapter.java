@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jagratiapp.R;
 import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.student.QuestionsPage;
+import com.example.jagratiapp.student.SolutionPage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -80,7 +81,7 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
         );
 
         Question question = questonList.get(position);
-        String answer = question.getCorrectOption();
+        String answer;
 
         if (question.getQuestionUri() == null){
             holder.question.setVisibility(View.VISIBLE);
@@ -139,11 +140,14 @@ public class SolutionAdapter extends RecyclerView.Adapter<SolutionAdapter.ViewHo
         }
 
 
+        if(answerMap==null)
+            Toast.makeText(context,question.getQuestionId(),Toast.LENGTH_SHORT).show();
         if (answerMap != null && answerMap.containsKey(question.getQuestionId())) {
             answer = answerMap.get(question.getQuestionId());
             if (!correctAnswer.equals(answer)) {
                 holder.result.setText("Incorrect Answer");
                 holder.result.setTextColor(rgb(200, 0, 0));
+
                 if (answer.equals(question.getOption1())) {
                     holder.optionA.setChecked(true);
                     holder.optionA.setButtonTintList(colorStateList);
