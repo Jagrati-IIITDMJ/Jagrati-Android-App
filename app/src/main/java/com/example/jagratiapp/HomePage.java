@@ -164,6 +164,11 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 createSignOutPop();
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+
+            case R.id.developer_info:
+                startActivity(new Intent(HomePage.this,DeveloperInfo.class));
+                drawer.closeDrawer(GravityCompat.START);
+                break;
         }
 
         return false;

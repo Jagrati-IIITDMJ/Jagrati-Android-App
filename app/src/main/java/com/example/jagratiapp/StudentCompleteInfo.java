@@ -1,7 +1,10 @@
 package com.example.jagratiapp;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +51,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static android.content.pm.PackageManager.PERMISSION_DENIED;
 
 public class StudentCompleteInfo extends AppCompatActivity {
     private static final String TAG = "StudentCompleteInfo";
@@ -123,8 +129,15 @@ public class StudentCompleteInfo extends AppCompatActivity {
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int check = ContextCompat.checkSelfPermission(StudentCompleteInfo.this, Manifest.permission.CALL_PHONE);
+                if(check == PackageManager.PERMISSION_GRANTED){
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone.getText().toString().trim()));
-                startActivity(intent);
+                startActivity(intent);}
+                else
+                {
+                    ActivityCompat.requestPermissions(
+                            StudentCompleteInfo.this, new String[]{Manifest.permission.CALL_PHONE},1);                    ;
+                }
             }
         });
 

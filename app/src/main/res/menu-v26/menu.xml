@@ -18,6 +18,14 @@
             android:title="@string/log_out" />
 
     </group>
+    <group android:checkableBehavior="single">
+        <item
+        android:id="@+id/developer_info"
+        android:icon="@drawable/ic_baseline_developer_mode_24"
+        android:title="@string/developer"
+        android:iconTint="#F17E01"
+        />
+    </group>
 
 
 </menu>
