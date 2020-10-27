@@ -240,6 +240,20 @@ public class Group_page extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+
+
+                db.collection("Students").whereEqualTo("groupUid",groupList.get(viewHolder.getAdapterPosition()).getUid())
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+                                    snapshot.getReference().delete();
+                                }
+                            }
+                        });
+
+
                 Toast.makeText(Group_page.this,"Deleted",Toast.LENGTH_SHORT).show();
                 collectionReference.document(String.valueOf(groupList.get(viewHolder.getAdapterPosition()).getUid())).delete() ;
                 groupRecyclerAdapter.removeItem(viewHolder);

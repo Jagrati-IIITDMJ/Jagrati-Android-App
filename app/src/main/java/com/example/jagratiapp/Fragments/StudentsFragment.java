@@ -152,7 +152,39 @@ public class StudentsFragment extends Fragment {
         addStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addStudentPopup();
+
+                    builder = new AlertDialog.Builder(getContext());
+                    View view1 = getLayoutInflater().inflate(R.layout.add_student_popup, null);
+
+                    saveButton = view1.findViewById(R.id.save_student);
+                    studentNameEditText = view1.findViewById(R.id.student_name_popup);
+                    guardianNameEditText = view1.findViewById(R.id.guardian_name_popup);
+                    mobileNoEditText = view1.findViewById(R.id.mobile_no_popup);
+                    villageNameEditText = view1.findViewById(R.id.village_name_popup);
+                    rollnoEditText = view1.findViewById(R.id.roll_no_popup);
+
+                    builder.setView(view1);
+                    dialog = builder.create();
+                    dialog.show();
+
+                    saveButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String studentName = studentNameEditText.getText().toString().trim();
+                            String guardianName = guardianNameEditText.getText().toString().trim();
+                            String mobileNo = mobileNoEditText.getText().toString().trim();
+                            String villageName = villageNameEditText.getText().toString().trim();
+                            String rollno = rollnoEditText.getText().toString().trim();
+                            if (!TextUtils.isEmpty(studentName)
+                                    && !TextUtils.isEmpty(guardianName)
+                                    && !TextUtils.isEmpty(mobileNo)
+                                    && !TextUtils.isEmpty(villageName)
+                                    && !TextUtils.isEmpty(rollno)) {
+                                Students student = new Students(classid, groupid, studentName, className, groupName, guardianName, mobileNo, villageName,rollno);
+                                saveStudent(student);
+                            }
+                        }
+                    });
             }
         });
 
@@ -160,86 +192,54 @@ public class StudentsFragment extends Fragment {
     }
 
 
-    private void addStudentPopup() {
-        builder = new AlertDialog.Builder(getContext());
-        View view = getLayoutInflater().inflate(R.layout.add_student_popup, null);
 
-        saveButton = view.findViewById(R.id.save_student);
-        studentNameEditText = view.findViewById(R.id.student_name_popup);
-        guardianNameEditText = view.findViewById(R.id.guardian_name_popup);
-        mobileNoEditText = view.findViewById(R.id.mobile_no_popup);
-        villageNameEditText = view.findViewById(R.id.village_name_popup);
-        rollnoEditText = view.findViewById(R.id.roll_no_popup);
-
-        builder.setView(view);
-        dialog = builder.create();
-        dialog.show();
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String studentName = studentNameEditText.getText().toString().trim();
-                String guardianName = guardianNameEditText.getText().toString().trim();
-                String mobileNo = mobileNoEditText.getText().toString().trim();
-                String villageName = villageNameEditText.getText().toString().trim();
-                String rollno = rollnoEditText.getText().toString().trim();
-                if (!TextUtils.isEmpty(studentName)
-                        && !TextUtils.isEmpty(guardianName)
-                        && !TextUtils.isEmpty(mobileNo)
-                        && !TextUtils.isEmpty(villageName)
-                        && !TextUtils.isEmpty(rollno)) {
-                    Students student = new Students(classid, groupid, studentName, className, groupName, guardianName, mobileNo, villageName,rollno);
-                    saveStudent(student);
-                }
-            }
-        });
-    }
 
     private void saveStudent(final Students student) {
-        db.collection("Students").document(student.getRollno())
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (!value.exists()) {
-                            documentReference.collection("Students").document(student.getRollno()).set(student)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Map<String, String> outsideStudent = new HashMap<>();
-                                            outsideStudent.put("classUid", classid);
-                                            outsideStudent.put("groupUid", groupid);
-                                            db.collection("Students").document(student.getRollno()).set(outsideStudent)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("Students").document(student.getRollno()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(!documentSnapshot.exists())
+                {
+                    documentReference.collection("Students").document(student.getRollno()).set(student)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Map<String, String> outsideStudent = new HashMap<>();
+                                    outsideStudent.put("classUid", classid);
+                                    outsideStudent.put("groupUid", groupid);
+                                    db.collection("Students").document(student.getRollno()).set(outsideStudent)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(getContext(), "Student Saved", Toast.LENGTH_SHORT).show();
+                                                    Handler handler = new Handler();
+                                                    handler.postDelayed(new Runnable() {
                                                         @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            Toast.makeText(getContext(), "Student Saved", Toast.LENGTH_SHORT).show();
-                                                            Handler handler = new Handler();
-                                                            handler.postDelayed(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    List<Students> newStudentList = studentsList;
-                                                                    student.setUid(documentReference.getId());
-                                                                    newStudentList.add(student);
-
-                                                                    //studentAdapter.notifyDataSetChanged();
-                                                                    dialog.dismiss();
-                                                                }
-                                                            }, 600);
+                                                        public void run() {
+                                                            List<Students> newStudentList = studentsList;
+                                                            student.setUid(documentReference.getId());
+                                                            newStudentList.add(student);
+                                                            studentAdapter.notifyDataSetChanged();
+                                                            dialog.dismiss();
                                                         }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
+                                                    }, 600);
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
 
-                                                        }
-                                                    });
-                                        }
-                                    });
-                        } else {
-                            //Toast.makeText(getContext(), "Roll no Exists", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                                                }
+                                            });
+                                }
+                            });
+                } else {
+                    Toast.makeText(getContext(), "Roll no Exists", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 
     private void names() {
