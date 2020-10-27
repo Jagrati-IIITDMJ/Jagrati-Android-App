@@ -25,30 +25,41 @@
             android:layout_height="match_parent"
             android:padding="16dp"
             android:orientation="vertical">
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
 
                 <TextView
-                    android:textAppearance="@style/Widget.MaterialComponents.Badge"
                     android:id="@+id/add_ques_title"
-                    android:text="Add Question"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="23dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="Add Question"
+                    android:textAppearance="@style/Widget.MaterialComponents.Badge"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
 
                 <ImageButton
                     android:id="@+id/cancel_popup"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_cancel" />
+                    android:layout_gravity="end"
 
-            </LinearLayout>
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_baseline_close_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.98"
+                    app:layout_constraintStart_toEndOf="@+id/add_ques_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,7 +71,12 @@
                     android:id="@+id/question_imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
+                    android:layout_gravity="center_vertical"
+                    android:elevation="20dp"
+                    android:layout_margin="8dp"
+                    app:srcCompat="@drawable/ic_baseline_camera_alt_24"
+                    android:background="@color/transparent"
+                    android:contentDescription="Upload Question" />
 
                 <EditText
                     android:id="@+id/QuesIn_ques_card_popup"
@@ -68,7 +84,6 @@
                     android:padding="8dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-
                     android:background="@drawable/rectangle"
                     android:elevation="4dp"
                     android:hint="Enter Question Here"
