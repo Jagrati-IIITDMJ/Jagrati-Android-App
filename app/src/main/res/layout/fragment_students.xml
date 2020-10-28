@@ -24,7 +24,6 @@
         android:layout_height="56dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-
         android:backgroundTint="@color/jag1"
         android:contentDescription="Add"
         android:src="@drawable/ic_baseline_add_24"

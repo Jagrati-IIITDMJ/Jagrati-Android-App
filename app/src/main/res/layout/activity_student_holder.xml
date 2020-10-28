@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".StudentHolderActivity"
     android:theme="@style/AppTheme"
-      >
+    >
 
     <include
         android:id="@+id/include9"
@@ -17,40 +17,30 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-
-
-
-    <com.google.android.material.appbar.MaterialToolbar
-
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/student_holder_toolbar"
             android:layout_width="match_parent"
             android:background="@color/appbar"
             android:layout_height="60dp"
-        app:titleTextColor="#A75700"
-        android:theme="@style/ToolbarTheme"
-        android:elevation="10dp"/>
+            app:titleTextColor="#A75700"
+            android:theme="@style/ToolbarTheme"
+            />
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:elevation="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/appbar"
 
-
-
-
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        android:elevation="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/appbar"
-
-        />
-    </androidx.viewpager.widget.ViewPager>
+                />
+        </androidx.viewpager.widget.ViewPager>
     </LinearLayout>
 
 

@@ -22,7 +22,6 @@ public class ReportBugAdapter extends RecyclerView.Adapter<ReportBugAdapter.View
 
     public ReportBugAdapter(Context context, List<BugReport> bugReports) {
         this.context = context;
-        bugReports.clear();
         this.bugReports = bugReports;
     }
 
@@ -30,7 +29,6 @@ public class ReportBugAdapter extends RecyclerView.Adapter<ReportBugAdapter.View
     @Override
     public ReportBugAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.bug_report_cardview,parent,false);
-
         return new ViewHolder(view);
     }
 

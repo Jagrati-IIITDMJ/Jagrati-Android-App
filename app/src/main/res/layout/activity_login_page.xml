@@ -34,7 +34,7 @@
             android:autofillHints=""
             android:background="@drawable/rectangle_input"
             android:gravity="center"
-            android:hint="@string/enter_username"
+            android:hint="@string/enter_email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textColorHint="@color/black_overlay"

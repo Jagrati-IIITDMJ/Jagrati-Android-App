@@ -225,7 +225,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
                 className.setText(student.getClassName());
                 studentName.setText(student.getStudentName());
                 phone.setText(student.getMobileNo());
-                rollNo.setText(student.getRollno());
+                rollNo.setText("Roll No. - " + student.getRollno());
                 guardianName.setText(student.getGuardianName());
                 if (documentSnapshot.getString("student_dp") != null) {
                     // Toast.makeText(StudentCompleteInfo.this,"hhhhhhhhhh",Toast.LENGTH_SHORT).show();
@@ -302,7 +302,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
                         }
                     }
                 }
-                attendance.setText(MessageFormat.format("Attendance: {0} Out of {1} days", present, totalDays));
+                attendance.setText(MessageFormat.format("Attendance: {0}/{1}", present, totalDays));
             }
         });
 

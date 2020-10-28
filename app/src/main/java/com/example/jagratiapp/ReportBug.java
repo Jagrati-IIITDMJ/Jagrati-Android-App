@@ -106,8 +106,8 @@ public class ReportBug extends AppCompatActivity {
             }
         });
 
-
-        db.collection("Bugs").orderBy("timeStamp").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("Bugs").orderBy("timeStamp").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots.isEmpty()) {
@@ -116,11 +116,12 @@ public class ReportBug extends AppCompatActivity {
                     for (QueryDocumentSnapshot bugDocumentSnapshot : queryDocumentSnapshots) {
                         BugReport bugReport = bugDocumentSnapshot.toObject(BugReport.class);
                         bugList.add(bugReport);
-
+                    }
+                    if (!bugList.isEmpty()) {
+                        Toast.makeText(ReportBug.this, "sdfsd", Toast.LENGTH_LONG).show();
                     }
                     reportBugAdapter = new ReportBugAdapter(ReportBug.this,bugList);
                     recyclerView.setAdapter(reportBugAdapter);
-                    reportBugAdapter.notifyDataSetChanged();
                 }
 
             }

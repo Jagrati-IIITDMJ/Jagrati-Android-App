@@ -21,7 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Developer Info"
-        app:titleTextColor="#A75700" />
+        app:titleTextColor="#A75700"
+        android:theme="@style/ToolbarTheme"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
