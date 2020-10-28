@@ -55,7 +55,12 @@ public class ReportBug extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference collectionReference2 = db.collection("User");
+    private CollectionReference collectionReference2;
+
+
+
+
+
     private ReportBugAdapter reportBugAdapter;
     private RecyclerView recyclerView;
     private List<BugReport> bugList;
@@ -65,6 +70,7 @@ public class ReportBug extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_bug);
         user  = FirebaseAuth.getInstance().getCurrentUser();
+        collectionReference2 = db.collection("User");
 
         bugList = new ArrayList<>();
         bugList.clear();
@@ -93,7 +99,6 @@ public class ReportBug extends AppCompatActivity {
             }
         });
 
-
         recyclerView = findViewById(R.id.recyclerview_report_Bug);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -118,10 +123,10 @@ public class ReportBug extends AppCompatActivity {
                         bugList.add(bugReport);
 
                     }
-                    reportBugAdapter = new ReportBugAdapter(ReportBug.this,bugList);
-                    recyclerView.setAdapter(reportBugAdapter);
-                    reportBugAdapter.notifyDataSetChanged();
                 }
+                reportBugAdapter = new ReportBugAdapter(ReportBug.this,bugList);
+                recyclerView.setAdapter(reportBugAdapter);
+
 
             }
         });
@@ -140,8 +145,7 @@ public class ReportBug extends AppCompatActivity {
             public void onClick(View view) {
                 if(!bugDescription.getText().toString().isEmpty()){
                     saveReport();
-                }else
-                {
+                }else {
                     Snackbar.make(view,"Empty Not Allowed",Snackbar.LENGTH_SHORT).show();
                 }
             }
