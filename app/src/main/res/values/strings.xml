@@ -5,7 +5,7 @@
     <string name="iiitdmj_logo">IIITDMJ Logo</string>
     <string name="welcome_to">Welcome to</string>
     <string name="family">Family</string>
-    <string name="enter_username">Enter Name</string>
+    <string name="enter_email">Enter Email</string>
     <string name="enter_password">Enter password</string>
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
@@ -174,4 +174,5 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="report_bug">Report Bug</string>
+    <string name="enter_username">Enter Username</string>
 </resources>

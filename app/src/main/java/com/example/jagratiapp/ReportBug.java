@@ -55,12 +55,7 @@ public class ReportBug extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference collectionReference2;
-
-
-
-
-
+    private CollectionReference collectionReference2 = db.collection("User");
     private ReportBugAdapter reportBugAdapter;
     private RecyclerView recyclerView;
     private List<BugReport> bugList;
@@ -70,7 +65,6 @@ public class ReportBug extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_bug);
         user  = FirebaseAuth.getInstance().getCurrentUser();
-        collectionReference2 = db.collection("User");
 
         bugList = new ArrayList<>();
         bugList.clear();
@@ -99,6 +93,7 @@ public class ReportBug extends AppCompatActivity {
             }
         });
 
+
         recyclerView = findViewById(R.id.recyclerview_report_Bug);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -111,8 +106,8 @@ public class ReportBug extends AppCompatActivity {
             }
         });
 
-
-        db.collection("Bugs").orderBy("timeStamp").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("Bugs").orderBy("timeStamp").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots.isEmpty()) {
@@ -121,12 +116,13 @@ public class ReportBug extends AppCompatActivity {
                     for (QueryDocumentSnapshot bugDocumentSnapshot : queryDocumentSnapshots) {
                         BugReport bugReport = bugDocumentSnapshot.toObject(BugReport.class);
                         bugList.add(bugReport);
-
                     }
+                    if (!bugList.isEmpty()) {
+                        Toast.makeText(ReportBug.this, "sdfsd", Toast.LENGTH_LONG).show();
+                    }
+                    reportBugAdapter = new ReportBugAdapter(ReportBug.this,bugList);
+                    recyclerView.setAdapter(reportBugAdapter);
                 }
-                reportBugAdapter = new ReportBugAdapter(ReportBug.this,bugList);
-                recyclerView.setAdapter(reportBugAdapter);
-
 
             }
         });
@@ -145,7 +141,8 @@ public class ReportBug extends AppCompatActivity {
             public void onClick(View view) {
                 if(!bugDescription.getText().toString().isEmpty()){
                     saveReport();
-                }else {
+                }else
+                {
                     Snackbar.make(view,"Empty Not Allowed",Snackbar.LENGTH_SHORT).show();
                 }
             }

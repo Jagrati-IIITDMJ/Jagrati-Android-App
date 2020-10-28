@@ -6,12 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ReportBug">
 
+    <include
+        android:id="@+id/include4"
+        layout="@layout/background_activity" />
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/report_bug_toolbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/appbar"
         android:elevation="10dp"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

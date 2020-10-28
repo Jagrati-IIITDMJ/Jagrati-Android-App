@@ -23,18 +23,18 @@
 
         />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <Button
             android:id="@+id/submitAttendance"
-            android:layout_width="56dp"
+            android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/rectangle"
             android:backgroundTint="@color/jag1"
             android:contentDescription="Add"
-            android:src="@drawable/ic_baseline_check_24"
+            android:text="SUBMIT"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

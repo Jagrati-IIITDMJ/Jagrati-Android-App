@@ -20,7 +20,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +41,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.net.InternetDomainName;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -82,6 +85,7 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
     private String quizName;
     private RadioGroup imageRadioGroup;
     private int radioId = 0;
+    private Switch quizState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,14 +124,56 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
 
         addQuestion = findViewById(R.id.fab_ques_add);
         recyclerView = findViewById(R.id.quesAdd_recyclerview);
+        quizState = findViewById(R.id.quizState);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         questionList = new ArrayList<>();
 
-
-
         collectionReference = db.collection("Classes").document(classid).collection("Quizzes").document(quizid).collection("Question");
         documentToAddNumOfQues = db.collection("Classes").document(classid).collection("Quizzes").document(quizid);
+
+        documentToAddNumOfQues.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.getBoolean("quizState") != null){
+                            if (documentSnapshot.getBoolean("quizState")){
+                                quizState.setChecked(true);
+                            }
+                            else {
+                                quizState.setChecked(false);
+                            }
+                        }
+                        else {
+                            quizState.setChecked(false);
+                        }
+                    }
+                });
+        quizState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked){
+                    documentToAddNumOfQues.update("quizState",true);
+//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Toast.makeText(QuestionAddPage.this,"true",Toast.LENGTH_LONG).show();
+//                        }
+//                    })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Toast.makeText(QuestionAddPage.this,"true sd",Toast.LENGTH_LONG).show();
+//                                }
+//                            });
+
+                }
+                else {
+                    documentToAddNumOfQues.update("quizState",false);
+                    Toast.makeText(QuestionAddPage.this,"false",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         addQuestion.setOnClickListener(this);
 
@@ -214,9 +260,6 @@ public class QuestionAddPage extends AppCompatActivity implements View.OnClickLi
                 checkButton(view,id);
             }
         });
-
-
-
 
         savequesButton.setOnClickListener(new View.OnClickListener() {
             @Override

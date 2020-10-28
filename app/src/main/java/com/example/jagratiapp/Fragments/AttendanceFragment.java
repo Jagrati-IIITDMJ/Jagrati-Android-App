@@ -42,7 +42,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 public class AttendanceFragment extends Fragment implements AttendenceRecyclerAdapter.OnStudentListener {
 
-    private FloatingActionButton submitButton;
+    private Button submitButton;
     private String classid;
     private String groupid;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
