@@ -22,6 +22,12 @@
             android:iconTint="#F17E01"
             />
         <item
+            android:id="@+id/report_Bug"
+            android:icon="@drawable/ic_baseline_bug_report_24"
+            android:title="@string/report_bug"
+            android:iconTint="#F17E01"/>
+
+        <item
             android:id="@+id/sign_out_nav"
             android:icon="@drawable/ic_log_out"
             android:title="@string/log_out" />

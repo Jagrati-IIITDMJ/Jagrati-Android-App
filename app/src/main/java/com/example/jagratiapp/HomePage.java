@@ -43,6 +43,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     private MaterialCardView classes;
     private MaterialCardView quizzes;
+    private MaterialCardView scheduling;
+    private MaterialCardView StudyMaterial;
     private FirebaseAuth.AuthStateListener authStateListener;
     private DrawerLayout drawer;
     private AlertDialog dialog;
@@ -67,6 +69,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
         classes = findViewById(R.id.classes);
         quizzes = findViewById(R.id.quiz);
+        scheduling = findViewById(R.id.volunteer_scheduling);
+        StudyMaterial = findViewById(R.id.study_material);
         MaterialToolbar toolbar = findViewById(R.id.attendance_toolbar);
         setSupportActionBar(toolbar);
 
@@ -122,6 +126,21 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         };
 
 
+        scheduling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomePage.this,ComingSoon.class));
+            }
+        });
+
+        StudyMaterial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomePage.this,ComingSoon.class));
+            }
+        });
+
+
         classes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,6 +188,11 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(HomePage.this,DeveloperInfo.class));
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.report_Bug:
+                startActivity(new Intent(HomePage.this,ReportBug.class));
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+
         }
 
         return false;

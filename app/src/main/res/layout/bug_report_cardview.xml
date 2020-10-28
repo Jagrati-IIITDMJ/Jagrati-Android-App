@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    app:strokeWidth="2dp"
+    app:strokeColor="@color/black_overlay"
+    android:elevation="4dp"
+    android:layout_margin="4dp"
+    >
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:strokeColor="@color/black_overlay"
+        android:elevation="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+         <androidx.constraintlayout.widget.ConstraintLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+             <TextView
+                 android:id="@+id/date_added"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:padding="15dp"
+                 android:text="Time"
+                 android:textColor="#000000"
+                 android:textSize="20dp"
+                 android:textStyle="bold"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintHorizontal_bias="0.018"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="parent" />
+
+             <TextView
+                 android:id="@+id/username_bug_card"
+                 android:layout_width="166dp"
+                 android:layout_height="42dp"
+                 android:layout_alignParentEnd="true"
+                 android:layout_alignParentRight="true"
+                 android:layout_margin="8dp"
+                 android:text="username_bug_card"
+                 android:textAlignment="viewEnd"
+                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                 android:textSize="18dp"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintHorizontal_bias="0.965"
+                 app:layout_constraintStart_toEndOf="@+id/date_added"
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintVertical_bias="1.0" />
+         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                    android:id="@+id/bug_description_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="bug_description_card"
+                    android:textSize="16dp"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    />
+
+            </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</LinearLayout>
+
+
