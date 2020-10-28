@@ -50,7 +50,8 @@
                 android:layout_width="266dp"
                 android:layout_height="223dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/harsh" />
+                android:src="@drawable/harsh"
+                />
 
 
         </androidx.cardview.widget.CardView>

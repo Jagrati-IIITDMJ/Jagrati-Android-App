@@ -1,5 +1,6 @@
 package com.example.jagratiapp.student;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -52,8 +53,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
     private CountDownTimer mCountDownTimer;
     private String quizId;
-    private String classId;
-    private long quizTime;
     private AlertDialog dialog;
     private AlertDialog.Builder builder;
     private Button backToListButton;
@@ -84,6 +83,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private CollectionReference collectionReference;
     private CollectionReference collectionToSaveReport;
     private DocumentReference timeReference;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -253,6 +253,15 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     }
 
     private void checkAnswer(){
+
+        if (progressDialog == null){
+            progressDialog = new ProgressDialog(this,R.style.MyAlertDialogStyle);
+            progressDialog.setMessage("Quiz Submit...");
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.show();
+
        mCountDownTimer.cancel();
         int result= 0;
         if(!answerList.isEmpty()) {
@@ -272,14 +281,15 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
         quizReport = new QuizReport(answerList,result);
         final int finalResult = result;
-        collectionToSaveReport.document(quizId).set(quizReport)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                setPopup(finalResult);
-                                            }
-                                        });
-
+        collectionToSaveReport.document(quizId)
+                .set(quizReport)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        hideProgressDialog();
+                        setPopup(finalResult);
+                    }
+                });
     }
 
     private void setTimer() {
@@ -343,4 +353,18 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
 
     }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        submitchecker = true;
+        checkAnswer();
+        super.onPause();
+    }
+
 }

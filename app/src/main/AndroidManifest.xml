@@ -8,7 +8,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Faltu"></activity>
         <activity android:name=".DeveloperInfo" />
         <activity android:name=".student.StudentProfile" />
         <activity android:name=".StudentHolderActivity" />

@@ -21,8 +21,21 @@
             android:background="@color/appbar"
             android:elevation="10dp"
             android:theme="@style/ToolbarTheme"
-            app:titleTextColor="#A75700" />
+            app:titleTextColor="#A75700">
 
+        <Switch
+            android:id="@+id/quizState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="OFF"
+            android:textOn="ON"
+            android:textSize="20dp"
+            android:layout_gravity="end"
+            android:text="POST"
+            android:textColor="@color/black_overlay"
+            android:layout_marginRight="10dp"/>
+
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.recyclerview.widget.RecyclerView
 

@@ -1,12 +1,13 @@
 package com.example.jagratiapp.model;
 
 public class Quiz {
-    String quizName;
-    String quizDescription;
-    String quizID;
-    int numberOfQues;
-    int quesTime;
-    long marks;
+    private String quizName;
+    private String quizDescription;
+    private String quizID;
+    private int numberOfQues;
+    private int quesTime;
+    private long marks;
+    private boolean quizState = false;
 
     public long getMarks() {
         return marks;
@@ -63,5 +64,13 @@ public class Quiz {
 
     public void setQuizID(String quizID) {
         this.quizID = quizID;
+    }
+
+    public boolean isQuizState() {
+        return quizState;
+    }
+
+    public void setQuizState(boolean quizState) {
+        this.quizState = quizState;
     }
 }
