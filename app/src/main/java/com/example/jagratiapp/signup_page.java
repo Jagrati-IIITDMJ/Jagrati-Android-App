@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -13,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,16 +48,6 @@ public class signup_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
 
-        Window window = getWindow();
-        // clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-// finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this,R.color.appbar));
-
         firebaseAuth = FirebaseAuth.getInstance();
 
         email_edit_signup = findViewById(R.id.signup_email);
@@ -70,20 +57,25 @@ public class signup_page extends AppCompatActivity {
         signup_button_signup = findViewById(R.id.signup_button);
         progressBar_signup = findViewById(R.id.signup_progress);
 
-        final String email = email_edit_signup.getText().toString().trim();
-        final String password = password_edit_signup.getText().toString().trim();
-        final String name = name_edit_signup.getText().toString().trim();
-        final String cpassword = cpassword_edit_signup.getText().toString().trim();
-
         signup_button_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!email.isEmpty() && !password.isEmpty() && !name.isEmpty() && !cpassword.isEmpty()){
-                    if (password != cpassword){
+                if(!TextUtils.isEmpty(email_edit_signup.getText().toString())
+                        && !TextUtils.isEmpty(password_edit_signup.getText().toString())
+                        && !TextUtils.isEmpty(name_edit_signup.getText().toString())
+                        && !TextUtils.isEmpty(cpassword_edit_signup.getText().toString())){
+                    String email = email_edit_signup.getText().toString().trim();
+                    String password = password_edit_signup.getText().toString().trim();
+                    String name = name_edit_signup.getText().toString().trim();
+                    String cpassword = cpassword_edit_signup.getText().toString().trim();
+
+                    if (!password.equals(cpassword)){
                         cpassword_edit_signup.setError("password doesn't match");
                     }
                     else
                         createAccount(email,password,name);
+
+
                 }else{
                     Toast.makeText(signup_page.this,"Empty fields are not allowed", Toast.LENGTH_LONG).show();
                 }
@@ -99,9 +91,12 @@ public class signup_page extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
+
                         currentUser = firebaseAuth.getCurrentUser();
                         String currentUser_id = currentUser.getUid().toString();
                         addUserInDatabase(currentUser_id,email,name);
+
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -152,4 +147,14 @@ public class signup_page extends AppCompatActivity {
         });
     }
 
+
+
+
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//            currentUser = firebaseAuth.getCurrentUser();
+//        firebaseAuth.addAuthStateListener(authStateListener);
+//    }
 }

@@ -98,22 +98,25 @@ public class StudentQuizListAdapter extends RecyclerView.Adapter<StudentQuizList
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (quizList.get(getAdapterPosition()).isQuizState()){
+
+                    if(checkIfGiven) {
+                        context.startActivity(new Intent(context, SolutionPage.class).putExtra("classId", StudentAPI.Instance().getClassUid())
+                                .putExtra("groupId", StudentAPI.Instance().getGroupUid())
+                                .putExtra("quizId", quizid)
+                                .putExtra("studentRollNo", StudentAPI.Instance().getRollno()));
+                    }
+                    else if (quizList.get(getAdapterPosition()).isQuizState()){
                         if(noOfQues>0 && !checkIfGiven) {
                             context.startActivity(new Intent(context, QuestionsPage.class).putExtra("quizId", quizid));
                         }
-                        else if(checkIfGiven){
-                            context.startActivity(new Intent(context, SolutionPage.class).putExtra("classId",StudentAPI.Instance().getClassUid())
-                                    .putExtra("groupId",StudentAPI.Instance().getGroupUid())
-                                    .putExtra("quizId",quizid)
-                                    .putExtra("studentRollNo",StudentAPI.Instance().getRollno()));
-                        }else{
+                        else{
                             Toast.makeText(context, "Quiz Not ready yet", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else {
                         Toast.makeText(context, "Quiz Not ready yet", Toast.LENGTH_SHORT).show();
                     }
+
                 }
             });
         }

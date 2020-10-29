@@ -226,7 +226,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                             public void onSuccess(byte[] bytes) {
                                 Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 questionImage.setImageBitmap(bm);
-                                Toast.makeText(QuestionsPage.this,"hai",Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -358,13 +357,6 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
-    }
-
-    @Override
-    protected void onPause() {
-        submitchecker = true;
-        checkAnswer();
-        super.onPause();
     }
 
 }

@@ -2,33 +2,40 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/classpaget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReportBug">
+    tools:context=".Group_page"
+    android:transitionName="classt">
 
     <include
         android:id="@+id/include4"
         layout="@layout/background_activity" />
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/report_bug_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/appbar"
-        android:elevation="10dp"
-        android:theme="@style/ToolbarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Suggestions and Bugs"
-        app:titleTextColor="#A75700" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_report_Bug"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="206dp"
-        tools:layout_editor_absoluteY="392dp" />
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/report_bug_toolbar"
+            android:layout_width="match_parent"
+            android:background="@color/appbar"
+            android:layout_height="60dp"
+            app:titleTextColor="#A75700"
+            app:title="Suggestions and Bugs"
+            android:theme="@style/ToolbarTheme"
+            android:elevation="10dp"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_report_Bug"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutAnimation="@anim/layout_animation_fall_down"
+            />
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_report_bug"
@@ -40,8 +47,9 @@
         android:contentDescription="Add"
         android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

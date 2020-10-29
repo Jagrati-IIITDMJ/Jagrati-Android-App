@@ -106,6 +106,13 @@ public class ReportBug extends AppCompatActivity {
             }
         });
 
+        collectionReference2.document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                username = value.get("username").toString();
+            }
+        });
+
         db.collection("Bugs").orderBy("timeStamp").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -116,9 +123,6 @@ public class ReportBug extends AppCompatActivity {
                     for (QueryDocumentSnapshot bugDocumentSnapshot : queryDocumentSnapshots) {
                         BugReport bugReport = bugDocumentSnapshot.toObject(BugReport.class);
                         bugList.add(bugReport);
-                    }
-                    if (!bugList.isEmpty()) {
-                        Toast.makeText(ReportBug.this, "sdfsd", Toast.LENGTH_LONG).show();
                     }
                     reportBugAdapter = new ReportBugAdapter(ReportBug.this,bugList);
                     recyclerView.setAdapter(reportBugAdapter);
@@ -166,12 +170,6 @@ public class ReportBug extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         formattedDate = df.format(c);
 
-       collectionReference2.document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-           @Override
-           public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-               username = value.get("username").toString();
-           }
-       });
 
         final BugReport bugReport = new BugReport();
         bugReport.setDescription(bugDescription.getText().toString());
