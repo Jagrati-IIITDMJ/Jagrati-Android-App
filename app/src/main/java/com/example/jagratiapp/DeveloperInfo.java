@@ -13,10 +13,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 
-public class DeveloperInfo extends AppCompatActivity implements View.OnClickListener {
+public class DeveloperInfo extends AppCompatActivity  {
 
 
 
@@ -51,7 +52,82 @@ public class DeveloperInfo extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        ImageButton harshInsta = findViewById(R.id.harsh_insta);
+        ImageView harshgithub = findViewById(R.id.harsh_image);
+        harshgithub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://github.com/harsh-hash");
+                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                likeIng.setPackage("com.github.android");
+
+                try {
+                    startActivity(likeIng);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/harsh-hash")));
+                }
+
+            }
+        });
+
+        ImageView khushalGithub = findViewById(R.id.khushal_image);
+        khushalGithub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://github.com/khushal1707");
+                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                likeIng.setPackage("com.github.android");
+
+                try {
+                    startActivity(likeIng);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/khushal1707")));
+                }
+
+            }
+        });
+
+        ImageView akshayGithub = findViewById(R.id.akshay_image);
+        akshayGithub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://github.com/AkshaySh007");
+                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                likeIng.setPackage("com.github.android");
+
+                try {
+                    startActivity(likeIng);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/AkshaySh007")));
+                }
+
+            }
+        });
+
+        ImageView repo = findViewById(R.id.contribute);
+        repo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://github.com/Jagrati-IIITDMJ/Jagrati-Android-App");
+                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                likeIng.setPackage("com.github.android");
+
+                try {
+                    startActivity(likeIng);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/Jagrati-IIITDMJ/Jagrati-Android-App")));
+                }
+            }
+        });
+
+       /* ImageButton harshInsta = findViewById(R.id.harsh_insta);
         ImageButton khushalInsta = findViewById(R.id.khushal_insta);
         ImageButton akshayInsta = findViewById(R.id.akshay_insta);
 
@@ -65,11 +141,11 @@ public class DeveloperInfo extends AppCompatActivity implements View.OnClickList
         akshayInsta.setOnClickListener(this);
         harshLink.setOnClickListener(this);
         khushalLink.setOnClickListener(this);
-        akshayLink.setOnClickListener(this);
+        akshayLink.setOnClickListener(this);*/
 
     }
 
-    @Override
+ /*  @Override
     public void onClick(View view) {
         switch (view.getId())
         {
@@ -158,5 +234,5 @@ public class DeveloperInfo extends AppCompatActivity implements View.OnClickList
                 }
                 break;
         }
-    }
+    }*/
 }
