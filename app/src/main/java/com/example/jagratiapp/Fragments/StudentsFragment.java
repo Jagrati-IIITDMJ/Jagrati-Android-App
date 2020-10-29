@@ -54,7 +54,6 @@ public class StudentsFragment extends Fragment {
     private FloatingActionButton addStudent;
     private String className;
     private String groupName;
-    private Button takeAttendence;
     private AlertDialog dialog;
     private AlertDialog.Builder builder;
     private Button saveButton;
