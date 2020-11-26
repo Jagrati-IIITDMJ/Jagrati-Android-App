@@ -76,7 +76,7 @@
                 android:textSize="20sp" />
 
 
-            <ImageView
+            <com.github.chrisbanes.photoview.PhotoView
                 android:id="@+id/question_image_student"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

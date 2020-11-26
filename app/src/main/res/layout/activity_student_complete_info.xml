@@ -119,15 +119,15 @@
                             android:id="@+id/roll_no_info"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="15dp"
                             android:text="TextView"
                             android:textSize="20sp"
                             app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
                             app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-                            app:layout_constraintHorizontal_bias="0.108"
+                            app:layout_constraintHorizontal_bias="0.303"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
+                            app:layout_constraintVertical_bias="1.0" />
 
                         <TextView
                             android:id="@+id/attendance_info"
@@ -145,17 +145,17 @@
 
                         <ImageButton
                             android:id="@+id/student_call"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="28dp"
+                            android:layout_height="29dp"
                             android:layout_gravity="end"
                             android:background="@drawable/ic_baseline_call_24"
                             android:contentDescription="Call now"
                             app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
                             app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-                            app:layout_constraintHorizontal_bias="0.952"
+                            app:layout_constraintHorizontal_bias="0.969"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/attendance_info"
-                            app:layout_constraintVertical_bias="0.527" />
+                            app:layout_constraintVertical_bias="0.459" />
 
                         <LinearLayout
                             android:id="@+id/linearLayout3"

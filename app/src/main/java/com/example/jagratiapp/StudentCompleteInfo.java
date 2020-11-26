@@ -236,7 +236,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] bytes) {
-                                    Toast.makeText(StudentCompleteInfo.this,"sb mst h",Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(StudentCompleteInfo.this,"sb mst h",Toast.LENGTH_SHORT).show();
                                     Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                     student_dp.setImageBitmap(bm);
                                 }
@@ -244,7 +244,7 @@ public class StudentCompleteInfo extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(StudentCompleteInfo.this,"Kuch to gadabad h",Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(StudentCompleteInfo.this,"Kuch to gadabad h",Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }

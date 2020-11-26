@@ -1,5 +1,6 @@
 package com.example.jagratiapp.student;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,6 +31,8 @@ import com.example.jagratiapp.model.Question;
 import com.example.jagratiapp.model.Quiz;
 import com.example.jagratiapp.model.QuizReport;
 import com.example.jagratiapp.student.Util.StudentAPI;
+import com.github.chrisbanes.photoview.PhotoView;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -51,6 +54,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
 
     private static final String TAG = "QuestionsPage";
 
+    PhotoViewAttacher mAttacher;
     private CountDownTimer mCountDownTimer;
     private String quizId;
     private AlertDialog dialog;
@@ -77,7 +81,8 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private String q;
     private QuizReport quizReport;
     private long mTimeLeftInMillis;
-    private ImageView questionImage;
+    private PhotoView questionImage;
+
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference;
@@ -85,6 +90,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
     private DocumentReference timeReference;
     private ProgressDialog progressDialog;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -226,6 +232,7 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                             public void onSuccess(byte[] bytes) {
                                 Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 questionImage.setImageBitmap(bm);
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -234,6 +241,8 @@ public class QuestionsPage extends AppCompatActivity implements View.OnClickList
                                 Toast.makeText(QuestionsPage.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         });
+
+
 
         }
 
