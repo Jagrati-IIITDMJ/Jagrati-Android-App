@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomePage" />
-        <activity android:name=".login_page" />
+        <activity android:name=".login_page"/>
         <activity android:name=".signup_page" />
         <activity android:name=".VolunteerProfile" />
         <activity android:name=".student.SolutionPage" />

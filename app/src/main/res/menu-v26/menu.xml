@@ -4,17 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view"
     >
+    
 
 
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
 
-        <item
-            android:id="@+id/profile_nav"
-            android:icon="@drawable/ic_baseline_person_24"
-            android:title="@string/your_profile"
-            android:iconTint="#F17E01"
-            />
+
         <item
             android:id="@+id/developer_info"
             android:icon="@drawable/ic_baseline_developer_mode_24"
@@ -26,6 +23,18 @@
             android:icon="@drawable/ic_baseline_bug_report_24"
             android:title="@string/report_bug"
             android:iconTint="#F17E01"/>
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/group2">
+
+        <item
+            android:id="@+id/profile_nav"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="@string/your_profile"
+            android:iconTint="#F17E01"
+            />
+
+
 
         <item
             android:id="@+id/sign_out_nav"

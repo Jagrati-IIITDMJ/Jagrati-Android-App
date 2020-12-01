@@ -6,7 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.Fade;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,13 +29,14 @@ import com.google.firebase.auth.FirebaseUser;
 //hi this an artificial comment!
 
 public class login_page extends AppCompatActivity{
-    private TextView forgetPasswordLogin;
+
     private Button signUpButtonLogin;
     private Button loginButtonLogin;
     private EditText emailEditText;
     private EditText passwordEditText;
     private ProgressDialog progressDialog;
     private Button loginSwitch;
+    private Button forgotPassword;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
@@ -76,6 +79,28 @@ public class login_page extends AppCompatActivity{
 //            }
 //        };
 
+        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if(TextUtils.isEmpty(emailEditText.getText().toString())){
+                        emailEditText.setError("Empty Field Not Allowed");
+                        emailEditText.requestFocus();
+
+                    }
+                    else if(TextUtils.isEmpty(passwordEditText.getText().toString())){
+                        passwordEditText.setError("Enter Password");
+                        passwordEditText.requestFocus();
+                    }
+                    else {
+                        checkLogin();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
         loginButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +125,33 @@ public class login_page extends AppCompatActivity{
             public void onClick(View view) {
                 startActivity(new Intent(login_page.this,signup_page.class));
                 finish();
+            }
+        });
+
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!TextUtils.isEmpty(emailEditText.getText().toString().trim()))
+                {
+                firebaseAuth.sendPasswordResetEmail(emailEditText.getText().toString().trim())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(login_page.this,"Check Email for password reset",Toast.LENGTH_SHORT).show();
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(login_page.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });}
+                else{
+                    emailEditText.setError("Empty Field Not Allowed");
+                    emailEditText.requestFocus();
+                }
+
             }
         });
 
@@ -174,13 +226,15 @@ public class login_page extends AppCompatActivity{
 
 
 
+
+
     public void findViews(){
         loginButtonLogin = findViewById(R.id.login_button_login);
         signUpButtonLogin = findViewById(R.id.signUp_button_login);
-        forgetPasswordLogin = findViewById(R.id.forget_password_button_login);
         emailEditText = findViewById(R.id.login_email);
         passwordEditText = findViewById(R.id.login_password);
         loginSwitch = findViewById(R.id.vstudent_login);
+        forgotPassword = findViewById(R.id.forget_password_button_login);
     }
 
     @Override
